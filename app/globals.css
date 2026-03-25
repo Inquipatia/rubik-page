@@ -1,27 +1,101 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  min-height: 100%;
 }
 
 body {
   background: #0a0a14;
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-  min-height: 100%;
+  color: white;
+}
+
+/* ========= HERO CUBE ========= */
+
+.cube-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 420px;
+  height: 580px;
+}
+
+.cube-hero-reveal {
+  width: 100%;
+  height: 100%;
+  animation: cubeHeroReveal 1.15s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: center center;
+  will-change: transform, opacity, filter;
+}
+
+.cube-hero-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 36px;
+  background: transparent;
+  animation: cubeHeroFloat 7s ease-in-out 1.2s infinite;
+  will-change: transform;
+}
+
+.cube-scene {
+  width: 100%;
+  height: 100%;
+  border-radius: 36px;
+  display: block;
+  animation: cubeSceneSettle 1.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* entrada tipo "cellphone" */
+@keyframes cubeHeroReveal {
+  0% {
+    opacity: 0;
+    transform: translate3d(140px, 34px, 0) rotate(18deg) scale(0.84);
+    filter: blur(8px);
+  }
+
+  55% {
+    opacity: 1;
+    transform: translate3d(-8px, -4px, 0) rotate(-2deg) scale(1.02);
+    filter: blur(0);
+  }
+
+  75% {
+    opacity: 1;
+    transform: translate3d(4px, 0, 0) rotate(1deg) scale(0.995);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* pequeño acomodo interno */
+@keyframes cubeSceneSettle {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* flotación suave después de entrar */
+@keyframes cubeHeroFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
