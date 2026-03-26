@@ -67,44 +67,39 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                 type="button"
                 onMouseEnter={() => handleHoverChange(index)}
                 onFocus={() => handleHoverChange(index)}
-                className={`group flex w-full items-center justify-between rounded-[20px] border px-5 py-4 text-left transition-all duration-300 ${
-                  isActive
-                    ? "border-white/25 bg-white/10 shadow-[0_14px_34px_rgba(0,0,0,0.28)]"
-                    : "border-white/8 bg-white/[0.03] hover:border-white/14 hover:bg-white/[0.06]"
-                }`}
+                className={`group flex w-full items-center justify-between rounded-[20px] border px-5 py-4 text-left transition-all duration-300 ${isActive
+                  ? "border-white/25 bg-white/10 shadow-[0_14px_34px_rgba(0,0,0,0.28)]"
+                  : "border-white/8 bg-white/[0.03] hover:border-white/14 hover:bg-white/[0.06]"
+                  }`}
               >
                 <div>
                   <div
-                    className={`text-[11px] uppercase tracking-[0.16em] transition ${
-                      isActive ? "text-white/55" : "text-white/35"
-                    }`}
+                    className={`text-[11px] uppercase tracking-[0.16em] transition ${isActive ? "text-white/55" : "text-white/35"
+                      }`}
                   >
                     {project.tag}
                   </div>
 
                   <div
-                    className={`mt-2 text-[2rem] font-semibold leading-none tracking-[-0.03em] transition ${
-                      isActive ? "text-white" : "text-white/72"
-                    }`}
+                    className={`mt-2 text-[2rem] font-semibold leading-none tracking-[-0.03em] transition ${isActive ? "text-white" : "text-white/72"
+                      }`}
                   >
                     {project.title}
                   </div>
 
                   <div
-                    className={`mt-2 text-sm transition ${
-                      isActive ? "text-white/65" : "text-white/45"
-                    }`}
+                    className={`mt-2 text-sm transition ${isActive ? "text-white/65" : "text-white/45"
+                      }`}
                   >
                     {project.subtitle}
                   </div>
                 </div>
 
                 <div
-                  className={`ml-4 text-sm transition ${
-                    isActive
-                      ? "translate-x-0 text-white/70"
-                      : "-translate-x-1 text-white/25"
-                  }`}
+                  className={`ml-4 text-sm transition ${isActive
+                    ? "translate-x-0 text-white/70"
+                    : "-translate-x-1 text-white/25"
+                    }`}
                 >
                   ↗
                 </div>
@@ -115,7 +110,10 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
       </div>
 
       {/* DERECHA */}
-      <div className="relative w-full max-w-[660px] justify-self-center pr-16 pt-6">
+      <div
+        className="relative w-full max-w-[660px] justify-self-center pr-16 pt-6"
+        style={{ perspective: "1600px" }}
+      >
         {/* ABANICO DE FOTOS DETRÁS */}
         {stackedProjects.map((project, i) => {
           const depth = stackedProjects.length - i;
@@ -131,19 +129,28 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
               key={`fan-${project.slug}-${hoveredIndex}`}
               initial={{
                 opacity: 0,
-                x: fanX + 24,
-                y: fanY - 8,
-                rotate: fanRotate + 2,
-                scale: fanScale - 0.03,
+                x: fanX + 90,
+                y: fanY - 26,
+                rotate: fanRotate + 6,
+                rotateX: 18,
+                rotateY: -10,
+                scale: fanScale - 0.14,
+                filter: "blur(12px)",
               }}
               animate={{
                 opacity: fanOpacity,
                 x: fanX,
                 y: fanY,
                 rotate: fanRotate,
+                rotateX: 0,
+                rotateY: 0,
                 scale: fanScale,
+                filter: "blur(0px)",
               }}
-              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              transition={{
+                duration: 0.72,
+                ease: [0.16, 1, 0.3, 1],
+              }}
               className="absolute inset-0 origin-bottom-left"
               style={{ zIndex: i + 1 }}
             >
@@ -179,7 +186,10 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
             initial="enter"
             animate="center"
             exit="exit"
-            transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
+            transition={{
+              duration: 0.82,
+              ease: [0.16, 1, 0.3, 1],
+            }}
             className="relative"
             style={{ zIndex: 20 }}
           >
