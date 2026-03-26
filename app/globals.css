@@ -10,6 +10,71 @@ body {
   color: white;
 }
 
+/* ========= FLOATING MENU ========= */
+
+.menu-shell {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 999px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.24);
+}
+
+.menu-pill {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.78);
+  padding: 0.7rem 1.15rem;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.menu-pill:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.menu-pill.is-active {
+  background: white;
+  color: #180d37;
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.18);
+}
+
+/* ========= HERO COPY ========= */
+
+.hero-copy {
+  animation: heroCopySwap 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity, filter;
+}
+
+@keyframes heroCopySwap {
+  0% {
+    opacity: 0;
+    transform: translateY(22px) scale(0.985);
+    filter: blur(6px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
 /* ========= HERO CUBE ========= */
 
 .cube-stage {
@@ -18,8 +83,8 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 420px;
-  height: 580px;
+  max-width: 460px;
+  height: 430px;
 }
 
 .cube-hero-reveal {
@@ -36,9 +101,28 @@ body {
   height: 100%;
   overflow: hidden;
   border-radius: 36px;
-  background: transparent;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.02)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 30px 80px rgba(0, 0, 0, 0.35);
   animation: cubeHeroFloat 7s ease-in-out 1.2s infinite;
   will-change: transform;
+}
+
+.cube-hero-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.14), transparent 34%),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04), transparent 30%);
+  z-index: 2;
 }
 
 .cube-scene {
@@ -47,9 +131,10 @@ body {
   border-radius: 36px;
   display: block;
   animation: cubeSceneSettle 1.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  background: transparent;
 }
 
-/* entrada tipo "cellphone" */
+/* entrada tipo cellphone */
 @keyframes cubeHeroReveal {
   0% {
     opacity: 0;
@@ -88,7 +173,7 @@ body {
   }
 }
 
-/* flotación suave después de entrar */
+/* flotación suave */
 @keyframes cubeHeroFloat {
   0%,
   100% {
@@ -98,4 +183,78 @@ body {
   50% {
     transform: translateY(-10px);
   }
+}
+
+/* ========= RESPONSIVE ========= */
+
+@media (max-width: 1024px) {
+  .cube-stage {
+    max-width: 420px;
+    height: 540px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cube-stage {
+    max-width: 360px;
+    height: 460px;
+  }
+
+  .cube-hero-frame,
+  .cube-scene {
+    border-radius: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cube-stage {
+    max-width: 320px;
+    height: 410px;
+  }
+
+  .menu-pill {
+    padding: 0.72rem 0.95rem;
+    font-size: 0.86rem;
+  }
+}
+
+
+
+
+/* ========= BOTTOM SCROLL PROGRESS ========= */
+
+.scroll-progress-wrap {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  width: min(720px, calc(100% - 32px));
+  z-index: 60;
+  pointer-events: none;
+}
+
+.scroll-progress-track {
+  position: relative;
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.scroll-progress-fill {
+  width: 100%;
+  height: 100%;
+  transform-origin: left center;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.95),
+    rgba(173, 117, 255, 0.95),
+    rgba(109, 60, 255, 0.95)
+  );
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
