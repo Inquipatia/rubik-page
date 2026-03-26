@@ -1,9 +1,12 @@
+"use client";
+
 type IntroSceneProps = {
   titleTop: string;
   titleBottom: string;
   description: string;
   primary: string;
   secondary: string;
+  onCubeHoverChange: (isHovered: boolean) => void;
 };
 
 export default function IntroScene({
@@ -12,20 +15,22 @@ export default function IntroScene({
   description,
   primary,
   secondary,
+  onCubeHoverChange,
 }: IntroSceneProps) {
   return (
-    <section className="grid min-h-[78vh] grid-cols-1 items-center gap-10 lg:grid-cols-2">
-      <div className="max-w-2xl">
-        <span className="mb-4 inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-1 text-sm text-white/75 backdrop-blur">
+    <section className="grid h-[calc(100vh-110px)] grid-cols-1 items-center gap-4 overflow-hidden lg:grid-cols-[0.95fr_1.05fr]">
+      {/* IZQUIERDA */}
+      <div className="max-w-[620px]">
+        <span className="mb-3 inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-1 text-sm text-white/75 backdrop-blur">
           Rubik Creaciones
         </span>
 
-        <h1 className="mt-5 text-5xl font-semibold leading-[0.92] tracking-[-0.04em] sm:text-6xl lg:text-7xl">
+        <h1 className="mt-3 text-5xl font-semibold leading-[0.9] tracking-[-0.055em] sm:text-6xl lg:text-[5.6rem]">
           {titleTop}
           <span className="block text-white/75">{titleBottom}</span>
         </h1>
 
-        <p className="mt-6 max-w-xl text-base leading-7 text-white/70 sm:text-lg">
+        <p className="mt-5 max-w-[520px] text-base leading-7 text-white/70 sm:text-lg">
           {description}
         </p>
 
@@ -46,23 +51,26 @@ export default function IntroScene({
         </div>
       </div>
 
-      <div className="relative flex items-center justify-center">
-        <div className="absolute h-64 w-64 rounded-full bg-fuchsia-500/25 blur-3xl" />
-        <div className="absolute -left-6 top-10 h-56 w-56 rounded-full bg-blue-500/20 blur-3xl" />
-        <div className="absolute bottom-4 h-20 w-56 rounded-full bg-black/20 blur-2xl" />
+      {/* DERECHA */}
+      <div className="relative flex items-center justify-center lg:-translate-y-8">
+        <div className="pointer-events-none absolute h-64 w-64 rounded-full bg-fuchsia-500/25 blur-3xl" />
+        <div className="pointer-events-none absolute -left-4 top-8 h-52 w-52 rounded-full bg-blue-500/20 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-3 h-20 w-56 rounded-full bg-black/20 blur-2xl" />
 
-        <div className="cube-stage">
-          <div className="cube-hero-reveal">
-            <div className="cube-hero-frame">
-              <iframe
-                src="https://my.spline.design/cube10-x9gcSdkBA1oo2VIAENSUDbZE/"
-                frameBorder="0"
-                width="100%"
-                height="100%"
-                className="cube-scene"
-                allowFullScreen
-              />
-            </div>
+        <div
+          className="relative z-20 h-[330px] w-[330px] overflow-visible sm:h-[400px] sm:w-[400px] lg:h-[500px] lg:w-[500px]"
+          onMouseEnter={() => onCubeHoverChange(true)}
+          onMouseLeave={() => onCubeHoverChange(false)}
+        >
+          <div className="h-full w-full overflow-visible rounded-[28px]">
+            <iframe
+              src="https://my.spline.design/cube10-x9gcSdkBA1oo2VIAENSUDbZE/"
+              frameBorder="0"
+              width="100%"
+              height="100%"
+              className="h-full w-full"
+              allowFullScreen
+            />
           </div>
         </div>
       </div>

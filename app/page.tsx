@@ -9,15 +9,17 @@ export default function Home() {
   const [activeScene, setActiveScene] = useState(0);
   const [activeWorkCard] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isCubeHovered, setIsCubeHovered] = useState(false);
 
   const wheelLockRef = useRef(false);
-  const totalMainScenes = 4;
+  const totalMainScenes = 5;
 
   const progress = useMemo(() => {
-    if (activeScene === 0) return 0.12;
-    if (activeScene === 1) return 0.42;
-    if (activeScene === 2) return 0.72;
-    if (activeScene === 3) return 1;
+    if (activeScene === 0) return 0.08;
+    if (activeScene === 1) return 0.28;
+    if (activeScene === 2) return 0.52;
+    if (activeScene === 3) return 0.76;
+    if (activeScene === 4) return 1;
     return 0;
   }, [activeScene]);
 
@@ -42,6 +44,7 @@ export default function Home() {
 
   useEffect(() => {
     const onWheel = (event: WheelEvent) => {
+      if (isCubeHovered) return;
       if (wheelLockRef.current || isAnimating) return;
 
       const threshold = 45;
@@ -64,7 +67,7 @@ export default function Home() {
     return () => {
       window.removeEventListener("wheel", onWheel);
     };
-  }, [goNext, goPrev, isAnimating, unlockAfterDelay]);
+  }, [goNext, goPrev, isAnimating, unlockAfterDelay, isCubeHovered]);
 
   return (
     <main className="min-h-screen overflow-hidden bg-[radial-gradient(circle_at_20%_0%,#6d3cff_0%,#4416a8_22%,#1c103a_58%,#0a0a14_100%)] text-white">
@@ -84,11 +87,12 @@ export default function Home() {
       <SceneStage
         activeScene={activeScene}
         activeWorkCard={activeWorkCard}
+        onCubeHoverChange={setIsCubeHovered}
       />
 
       <ScrollProgress progress={progress} />
 
-      <div className="pointer-events-none fixed bottom-14 left-1/2 z-40 -translate-x-1/2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/60 backdrop-blur">
+      <div className="pointer-events-none fixed bottom-10 left-1/2 z-40 -translate-x-1/2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/60 backdrop-blur">
         Gira arriba / abajo
       </div>
     </main>
