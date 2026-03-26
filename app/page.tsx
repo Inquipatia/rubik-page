@@ -89,7 +89,7 @@ export default function Home() {
       <ScrollProgress progress={progress} />
 
       <div className="pointer-events-none fixed bottom-14 left-1/2 z-40 -translate-x-1/2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/60 backdrop-blur">
-        Scroll up / down
+        Gira arriba / abajo
       </div>
     </main>
   );
