@@ -86,11 +86,10 @@ export default function BrandShowcase() {
 
                   <div className="pointer-events-none absolute inset-x-4 bottom-2 h-5 rounded-full bg-black/20 blur-md opacity-70" />
 
-                  {/* sweep de luz */}
+                   {/* sweep de luz */}
                   <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[19px]">
-                    <div className="absolute -left-[42%] top-0 h-full w-[26%] rotate-[16deg] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.16),transparent)] opacity-0 transition-all duration-700 ease-out group-hover:left-[118%] group-hover:opacity-100" />
+                    <div className="absolute left-[-42%] top-0 h-full w-[26%] rotate-[16deg] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.16),transparent)] opacity-0 [transform:translateX(0)] transition-transform duration-700 ease-out group-hover:translate-x-[620%] group-hover:opacity-100" />
                   </div>
-
                   <div className="relative z-10 h-[28px] w-full transition duration-300 group-hover:scale-[1.03]">
                     <Image
                       src={brand.logo}

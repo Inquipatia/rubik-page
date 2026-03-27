@@ -347,3 +347,28 @@ h6 {
       rgba(109, 60, 255, 0.95));
   transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+
+
+@keyframes brandSweep {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(620%);
+    opacity: 0;
+  }
+}
+
+.brand-sweep {
+  transform: translateX(0);
+  opacity: 0;
+}
+
+.group:hover .brand-sweep {
+  animation: brandSweep 0.75s ease-out forwards;
+}
