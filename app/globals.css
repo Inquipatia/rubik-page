@@ -1,15 +1,107 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Omnes";
+  src: url("/fonts/omnes/Omnes Hairline.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Omnes";
+  src: url("/fonts/omnes/Omnes Thin.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Omnes";
+  src: url("/fonts/omnes/Omnes Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Omnes";
+  src: url("/fonts/omnes/Omnes Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Omnes";
+  src: url("/fonts/omnes/Omnes Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Omnes";
+  src: url("/fonts/omnes/Omnes SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Omnes";
+  src: url("/fonts/omnes/Omnes Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Omnes";
+  src: url("/fonts/omnes/Omnes Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 html,
 body {
   min-height: 100%;
 }
 
 body {
+  font-family: "Omnes", sans-serif;
+  font-weight: 100;
+  /* Hairline for general text */
   background: #0a0a14;
   color: white;
 }
 
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Omnes", sans-serif;
+  font-weight: 300; /* Light */
+}
+/* PUT THIS HERE */
+.omnes-title {
+  font-family: "Omnes", sans-serif;
+  font-weight: 300;
+}
+
+.omnes-text {
+  font-family: "Omnes", sans-serif;
+  font-weight: 400;
+}
+
+.omnes-hairline {
+  font-family: "Omnes", sans-serif;
+  font-weight: 100;
+}
 /* ========= FLOATING MENU ========= */
 
 .menu-shell {
@@ -33,7 +125,7 @@ body {
   padding: 0.7rem 1.15rem;
   border-radius: 999px;
   font-size: 0.92rem;
-  font-weight: 600;
+  font-weight: 300;
   line-height: 1;
   cursor: pointer;
   transition:
@@ -101,11 +193,9 @@ body {
   height: 100%;
   overflow: hidden;
   border-radius: 36px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.08),
-    rgba(255, 255, 255, 0.02)
-  );
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.08),
+      rgba(255, 255, 255, 0.02));
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
@@ -175,6 +265,7 @@ body {
 
 /* flotación suave */
 @keyframes cubeHeroFloat {
+
   0%,
   100% {
     transform: translateY(0px);
@@ -250,11 +341,9 @@ body {
   height: 100%;
   transform-origin: left center;
   border-radius: 999px;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.95),
-    rgba(173, 117, 255, 0.95),
-    rgba(109, 60, 255, 0.95)
-  );
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0.95),
+      rgba(173, 117, 255, 0.95),
+      rgba(109, 60, 255, 0.95));
   transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }

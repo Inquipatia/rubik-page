@@ -53,7 +53,7 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
     <section className="grid min-h-[66vh] grid-cols-1 items-start gap-6 lg:grid-cols-[0.82fr_1.18fr]">
       {/* IZQUIERDA */}
       <div className="max-w-xl">
-        <span className="mb-3 inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-1 text-sm text-white/75 backdrop-blur">
+        <span className="omnes-text mb-3 inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-1 text-sm text-white/75 backdrop-blur">
           Selected Work
         </span>
 
@@ -74,21 +74,21 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
               >
                 <div>
                   <div
-                    className={`text-[11px] uppercase tracking-[0.16em] transition ${isActive ? "text-white/55" : "text-white/35"
+                    className={`omnes-text text-[11px] uppercase tracking-[0.16em] transition ${isActive ? "text-white/55" : "text-white/35"
                       }`}
                   >
                     {project.tag}
                   </div>
 
                   <div
-                    className={`mt-2 text-[2rem] font-semibold leading-none tracking-[-0.03em] transition ${isActive ? "text-white" : "text-white/72"
+                    className={`omnes-title mt-2 text-[2rem] leading-none tracking-[-0.03em] transition ${isActive ? "text-white" : "text-white/72"
                       }`}
                   >
                     {project.title}
                   </div>
 
                   <div
-                    className={`mt-2 text-sm transition ${isActive ? "text-white/65" : "text-white/45"
+                    className={`omnes-text mt-2 text-sm transition ${isActive ? "text-white/65" : "text-white/45"
                       }`}
                   >
                     {project.subtitle}
@@ -96,7 +96,7 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                 </div>
 
                 <div
-                  className={`ml-4 text-sm transition ${isActive
+                  className={`omnes-text ml-4 text-sm transition ${isActive
                     ? "translate-x-0 text-white/70"
                     : "-translate-x-1 text-white/25"
                     }`}
@@ -166,7 +166,7 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                     <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.08),rgba(0,0,0,0.38))]" />
 
                     <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <div className="text-xl font-semibold tracking-[-0.03em] text-white/88">
+                      <div className="omnes-title text-xl tracking-[-0.03em] text-white/88">
                         {project.title}
                       </div>
                     </div>
@@ -197,49 +197,49 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
               <div className="rounded-[27px] bg-[#2c1760] p-4">
                 {/* CAJA SUPERIOR */}
                 <div className="mb-4 rounded-[22px] border border-white/10 bg-[#3a1f7b] p-4 shadow-[0_16px_30px_rgba(0,0,0,0.18)]">
-                  <div className="text-[11px] uppercase tracking-[0.16em] text-white/45">
+                  <div className="omnes-text text-[11px] uppercase tracking-[0.16em] text-white/45">
                     {activeProject.tag}
                   </div>
 
-                  <p className="mt-3 text-[15px] leading-7 text-white/78">
+                  <p className="omnes-text mt-3 text-[15px] leading-7 text-white/78">
                     {activeProject.description}
                   </p>
 
-                  <div className="mt-3 text-sm text-white/52">
+                  <div className="omnes-text mt-3 text-sm text-white/52">
                     Hover sobre cada servicio para cambiar la visual.
                   </div>
-                </div>
 
-                {/* FOTO PRINCIPAL */}
-                <div className="relative overflow-hidden rounded-[26px] border border-white/12 bg-black shadow-[0_18px_50px_rgba(0,0,0,0.25)]">
-                  <div className="relative aspect-[16/9] w-full">
-                    <Image
-                      src={activeProject.image}
-                      alt={activeProject.title}
-                      fill
-                      className="object-cover"
-                      priority
-                    />
+                  {/* FOTO PRINCIPAL */}
+                  <div className="relative overflow-hidden rounded-[26px] border border-white/12 bg-black shadow-[0_18px_50px_rgba(0,0,0,0.25)]">
+                    <div className="relative aspect-[16/9] w-full">
+                      <Image
+                        src={activeProject.image}
+                        alt={activeProject.title}
+                        fill
+                        className="object-cover"
+                        priority
+                      />
 
-                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.08),rgba(0,0,0,0.46))]" />
+                      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.08),rgba(0,0,0,0.46))]" />
 
-                    <div className="absolute left-0 right-0 top-0 flex items-center justify-between p-4">
-                      <div className="rounded-full border border-white/15 bg-black/35 px-4 py-2 text-[11px] uppercase tracking-[0.16em] text-white/88">
-                        Rubik Creaciones
+                      <div className="absolute left-0 right-0 top-0 flex items-center justify-between p-4">
+                        <div className="omnes-text rounded-full border border-white/15 bg-black/35 px-4 py-2 text-[11px] uppercase tracking-[0.16em] text-white/88">
+                          Rubik Creaciones
+                        </div>
+
+                        <div className="omnes-text rounded-full border border-white/15 bg-black/35 px-4 py-2 text-[11px] uppercase tracking-[0.16em] text-white/88">
+                          {activeProject.tag}
+                        </div>
                       </div>
 
-                      <div className="rounded-full border border-white/15 bg-black/35 px-4 py-2 text-[11px] uppercase tracking-[0.16em] text-white/88">
-                        {activeProject.tag}
-                      </div>
-                    </div>
+                      <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6">
+                        <div className="omnes-title text-3xl tracking-[-0.03em] text-white sm:text-[3rem]">
+                          {activeProject.title}
+                        </div>
 
-                    <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6">
-                      <div className="text-3xl font-semibold tracking-[-0.03em] text-white sm:text-[3rem]">
-                        {activeProject.title}
-                      </div>
-
-                      <div className="mt-2 text-base text-white/80">
-                        {activeProject.subtitle}
+                        <div className="omnes-text mt-2 text-base text-white/80">
+                          {activeProject.subtitle}
+                        </div>
                       </div>
                     </div>
                   </div>
