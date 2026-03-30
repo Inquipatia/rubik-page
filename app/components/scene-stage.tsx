@@ -44,9 +44,9 @@ export default function SceneStage({
 
           {activeScene === 2 && <WorkScene activeWorkCard={activeWorkCard} />}
 
-          {activeScene === 3 && <FaqScene />}
+          {activeScene === 3 && <ContactScene />}
 
-          {activeScene === 4 && <ContactScene />}
+          {activeScene === 4 && <FaqScene />}
         </motion.div>
       </AnimatePresence>
     </section>

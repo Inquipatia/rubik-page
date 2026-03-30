@@ -9,8 +9,8 @@ const navItems = [
   { label: "Inicio", index: 0 },
   { label: "Marcas", index: 1 },
   { label: "Servicios", index: 2 },
-  { label: "FAQ", index: 3 },
-  { label: "Contacto", index: 4 },
+  { label: "Contacto", index: 3 },
+  { label: "FAQ", index: 4 },
 ];
 
 export default function FixedHeader({

@@ -37,28 +37,25 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
 
   const previewVariants = {
     enter: (dir: number) => ({
-      x: dir > 0 ? 72 : -72,
-      y: 18,
+      x: dir > 0 ? 44 : -44,
+      y: 8,
       opacity: 0,
-      scale: 0.975,
-      rotate: dir > 0 ? 5 : -5,
-      rotateY: dir > 0 ? -8 : 8,
+      scale: 0.992,
+      rotate: dir > 0 ? 1.5 : -1.5,
     }),
     center: {
       x: 0,
       y: 0,
       opacity: 1,
       scale: 1,
-      rotate: -3,
-      rotateY: -6,
+      rotate: 0,
     },
     exit: (dir: number) => ({
-      x: dir > 0 ? -42 : 42,
-      y: -8,
+      x: dir > 0 ? -30 : 30,
+      y: -4,
       opacity: 0,
-      scale: 0.986,
-      rotate: dir > 0 ? -4 : 4,
-      rotateY: dir > 0 ? 6 : -6,
+      scale: 0.994,
+      rotate: dir > 0 ? -1 : 1,
     }),
   };
 
@@ -122,7 +119,7 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
             {/* IZQUIERDA */}
             <div className="max-w-xl">
               <span className="omnes-text mb-3 inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-1 text-sm text-white/75 backdrop-blur">
-                Selected Work
+                Seleccione un servicio para ver detalles
               </span>
 
               <div className="mt-4 space-y-2.5">
