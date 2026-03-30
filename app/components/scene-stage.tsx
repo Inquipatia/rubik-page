@@ -31,11 +31,11 @@ export default function SceneStage({
         >
           {activeScene === 0 && (
             <IntroScene
-              titleTop="Turn bold ideas"
-              titleBottom="into visual impact."
-              description="Signage, structures, branding and production with a premium digital experience centered on our animated cube."
+              titleTop="EL EQUIPO QUE"
+              titleBottom="CONCRETA TUS IDEAS"
+              description="CON MÁS DE 100 TRABAJOS REALIZADOS, RUBIK CREACIONES CRECE CONTIGO, ¿QUÉ ESPERAS PARA TRABAJAR JUNTOS?"
               primary="Get started"
-              secondary="See our work"
+              secondary="Ver nuestros trabajos"
               onCubeHoverChange={onCubeHoverChange}
             />
           )}
