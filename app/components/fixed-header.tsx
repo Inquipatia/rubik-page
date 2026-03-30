@@ -52,7 +52,7 @@ export default function FixedHeader({
         type="button"
         className="rounded-full bg-white px-7 py-3.5 text-base font-semibold text-[#23124a] shadow-[0_14px_30px_rgba(255,255,255,0.14)] transition hover:scale-[1.02]"
       >
-        Start
+        COTIZA
       </button>
     </header>
   );

@@ -14,8 +14,8 @@ const containerVariants = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.04,
+      staggerChildren: 0.06,
+      delayChildren: 0.02,
     },
   },
 };
@@ -23,21 +23,15 @@ const containerVariants = {
 const cardVariants = {
   hidden: (direction: "left" | "center" | "right") => ({
     opacity: 0,
-    x: direction === "left" ? -42 : direction === "right" ? 42 : 0,
-    y: direction === "center" ? 24 : -18,
-    scale: 0.985,
-    rotate: direction === "left" ? -3 : direction === "right" ? 3 : 0,
-    filter: "blur(10px)",
+    x: direction === "left" ? -28 : direction === "right" ? 28 : 0,
+    y: direction === "center" ? 12 : -8,
   }),
   show: {
     opacity: 1,
     x: 0,
     y: 0,
-    scale: 1,
-    rotate: 0,
-    filter: "blur(0px)",
     transition: {
-      duration: 0.72,
+      duration: 0.42,
       ease: [0.22, 1, 0.36, 1] as const,
     },
   },
@@ -47,8 +41,8 @@ const innerVariants = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.06,
-      delayChildren: 0.08,
+      staggerChildren: 0.03,
+      delayChildren: 0.02,
     },
   },
 };
@@ -56,15 +50,13 @@ const innerVariants = {
 const itemVariants = {
   hidden: {
     opacity: 0,
-    y: 10,
-    filter: "blur(6px)",
+    y: 8,
   },
   show: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
     transition: {
-      duration: 0.45,
+      duration: 0.32,
       ease: [0.22, 1, 0.36, 1] as const,
     },
   },
@@ -258,11 +250,11 @@ export default function ContactScene() {
             initial="hidden"
             animate="show"
             whileHover={{
-              y: -5,
-              scale: 1.006,
-              transition: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
+              y: -3,
+              scale: 1.002,
+              transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] },
             }}
-            className="group"
+            className="group [transform:translateZ(0)] will-change-transform"
           >
             <NeonCard accent="violet">
               <motion.div
@@ -280,8 +272,8 @@ export default function ContactScene() {
                   </div>
 
                   <motion.div
-                    whileHover={{ scale: 1.08, rotate: 4 }}
-                    transition={{ duration: 0.22 }}
+                    whileHover={{ scale: 1.05, rotate: 3 }}
+                    transition={{ duration: 0.2 }}
                     className="flex h-9 w-9 items-center justify-center rounded-full border border-violet-200/28 bg-violet-400/20 text-violet-100"
                     style={{
                       boxShadow:
@@ -342,8 +334,8 @@ export default function ContactScene() {
 
                     <div className="mt-3 space-y-2.5">
                       <motion.div
-                        whileHover={{ x: 4 }}
-                        transition={{ duration: 0.22 }}
+                        whileHover={{ x: 3 }}
+                        transition={{ duration: 0.2 }}
                         className="rounded-[16px] border border-violet-200/24 bg-[linear-gradient(180deg,rgba(139,92,246,0.22),rgba(255,255,255,0.08))] px-3.5 py-3.5"
                         style={{
                           boxShadow:
@@ -359,8 +351,8 @@ export default function ContactScene() {
                       </motion.div>
 
                       <motion.div
-                        whileHover={{ x: 4 }}
-                        transition={{ duration: 0.22 }}
+                        whileHover={{ x: 3 }}
+                        transition={{ duration: 0.2 }}
                         className="rounded-[16px] border border-violet-200/24 bg-[linear-gradient(180deg,rgba(139,92,246,0.22),rgba(255,255,255,0.08))] px-3.5 py-3.5"
                         style={{
                           boxShadow:
@@ -388,11 +380,11 @@ export default function ContactScene() {
             initial="hidden"
             animate="show"
             whileHover={{
-              y: -5,
-              scale: 1.006,
-              transition: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
+              y: -3,
+              scale: 1.002,
+              transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] },
             }}
-            className="group"
+            className="group [transform:translateZ(0)] will-change-transform"
           >
             <NeonCard accent="white">
               <motion.div
@@ -410,8 +402,8 @@ export default function ContactScene() {
                   </div>
 
                   <motion.div
-                    whileHover={{ scale: 1.08, rotate: 4 }}
-                    transition={{ duration: 0.22 }}
+                    whileHover={{ scale: 1.05, rotate: 3 }}
+                    transition={{ duration: 0.2 }}
                     className="flex h-9 w-9 items-center justify-center rounded-full border border-white/24 bg-white/[0.10] text-white/90"
                     style={{
                       boxShadow:
@@ -487,30 +479,22 @@ export default function ContactScene() {
             initial="hidden"
             animate="show"
             whileHover={{
-              y: -5,
-              scale: 1.006,
-              transition: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
+              y: -3,
+              scale: 1.002,
+              transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] },
             }}
-            className="group"
+            className="group [transform:translateZ(0)] will-change-transform"
           >
             <NeonCard accent="fuchsia">
-              <motion.div
-                variants={innerVariants}
-                initial="hidden"
-                animate="show"
-                className="relative"
-              >
-                <motion.div
-                  variants={itemVariants}
-                  className="flex items-start justify-between gap-3"
-                >
+              <div className="relative">
+                <div className="flex items-start justify-between gap-3">
                   <div className="omnes-text text-[10px] uppercase tracking-[0.16em] text-white/58">
                     CANALES
                   </div>
 
                   <motion.div
-                    whileHover={{ scale: 1.08, rotate: 4 }}
-                    transition={{ duration: 0.22 }}
+                    whileHover={{ scale: 1.05, rotate: 3 }}
+                    transition={{ duration: 0.2 }}
                     className="flex h-9 w-9 items-center justify-center rounded-full border border-fuchsia-200/28 bg-fuchsia-400/20 text-fuchsia-100"
                     style={{
                       boxShadow:
@@ -519,15 +503,12 @@ export default function ContactScene() {
                   >
                     <FaInstagram size={15} />
                   </motion.div>
-                </motion.div>
+                </div>
 
                 <div className="mt-5">
-                  <motion.div
-                    variants={itemVariants}
-                    className="omnes-title text-[1.72rem] leading-none text-white"
-                  >
+                  <div className="omnes-title text-[1.72rem] leading-none text-white">
                     Redes Sociales
-                  </motion.div>
+                  </div>
 
                   <div className="mt-4 grid grid-cols-1 gap-2.5">
                     {[
@@ -559,10 +540,9 @@ export default function ContactScene() {
                     ].map((item) => (
                       <motion.a
                         key={item.label}
-                        variants={itemVariants}
-                        whileHover={{ x: 6, scale: 1.01 }}
+                        whileHover={{ x: 4, scale: 1.005 }}
                         transition={{
-                          duration: 0.22,
+                          duration: 0.2,
                           ease: [0.22, 1, 0.36, 1],
                         }}
                         href={item.href}
@@ -583,6 +563,7 @@ export default function ContactScene() {
                         >
                           {item.icon}
                         </div>
+
                         <span className="omnes-text text-[13px] text-white/88">
                           {item.label}
                         </span>
@@ -590,7 +571,7 @@ export default function ContactScene() {
                     ))}
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </NeonCard>
           </motion.div>
         </motion.div>
