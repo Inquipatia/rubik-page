@@ -19,7 +19,7 @@ body {
   justify-content: center;
   width: 100%;
   max-width: 420px;
-  height: 580px;
+  height: min(580px, 78vh);
 }
 
 .cube-hero-reveal {
@@ -47,6 +47,37 @@ body {
   border-radius: 36px;
   display: block;
   animation: cubeSceneSettle 1.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (max-width: 1024px) {
+  .cube-stage {
+    max-width: min(420px, 90vw);
+    height: min(560px, 70vh);
+  }
+}
+
+@media (max-width: 768px) {
+  .cube-stage {
+    max-width: min(380px, 92vw);
+    height: min(500px, 64vh);
+  }
+
+  .cube-hero-frame,
+  .cube-scene {
+    border-radius: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cube-stage {
+    max-width: min(340px, 94vw);
+    height: min(420px, 56vh);
+  }
+
+  .cube-hero-frame,
+  .cube-scene {
+    border-radius: 22px;
+  }
 }
 
 /* entrada tipo "cellphone" */
