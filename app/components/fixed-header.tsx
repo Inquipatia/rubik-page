@@ -3,6 +3,8 @@
 type FixedHeaderProps = {
   activeScene: number;
   onJump: (index: number) => void;
+  onOpenCotiza: () => void;
+  isCotizaOpen: boolean;
 };
 
 const navItems = [
@@ -16,6 +18,8 @@ const navItems = [
 export default function FixedHeader({
   activeScene,
   onJump,
+  onOpenCotiza,
+  isCotizaOpen,
 }: FixedHeaderProps) {
   return (
     <header className="relative z-50 mx-auto flex w-full max-w-7xl items-center justify-between px-6 pt-5 lg:px-10">
@@ -29,7 +33,7 @@ export default function FixedHeader({
 
       <nav className="menu-shell hidden md:flex">
         {navItems.map((item) => {
-          const isActive = activeScene === item.index;
+          const isActive = !isCotizaOpen && activeScene === item.index;
 
           return (
             <button
@@ -47,7 +51,8 @@ export default function FixedHeader({
       <div className="menu-shell hidden md:flex">
         <button
           type="button"
-          className="menu-pill is-active cotiza-pill"
+          onClick={onOpenCotiza}
+          className={`menu-pill cotiza-pill ${isCotizaOpen ? "is-active" : ""}`}
         >
           COTIZA
         </button>

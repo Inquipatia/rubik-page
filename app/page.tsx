@@ -10,6 +10,7 @@ export default function Home() {
   const [activeWorkCard] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isCubeHovered, setIsCubeHovered] = useState(false);
+  const [isCotizaOpen, setIsCotizaOpen] = useState(false);
 
   const wheelLockRef = useRef(false);
   const totalMainScenes = 5;
@@ -31,19 +32,41 @@ export default function Home() {
   }, []);
 
   const goNext = useCallback(() => {
+    if (isCotizaOpen) return;
+
     if (activeScene < totalMainScenes - 1) {
       setActiveScene((prev) => prev + 1);
     }
-  }, [activeScene, totalMainScenes]);
+  }, [activeScene, totalMainScenes, isCotizaOpen]);
 
   const goPrev = useCallback(() => {
+    if (isCotizaOpen) return;
+
     if (activeScene > 0) {
       setActiveScene((prev) => prev - 1);
     }
-  }, [activeScene]);
+  }, [activeScene, isCotizaOpen]);
+
+  const handleJump = useCallback((index: number) => {
+    if (wheelLockRef.current) return;
+
+    setIsCotizaOpen(false);
+    setActiveScene(index);
+  }, []);
+
+  const handleOpenCotiza = useCallback(() => {
+    if (wheelLockRef.current) return;
+
+    setIsCotizaOpen(true);
+  }, []);
+
+  const handleCloseCotiza = useCallback(() => {
+    setIsCotizaOpen(false);
+  }, []);
 
   useEffect(() => {
     const onWheel = (event: WheelEvent) => {
+      if (isCotizaOpen) return;
       if (isCubeHovered) return;
       if (wheelLockRef.current || isAnimating) return;
 
@@ -67,7 +90,14 @@ export default function Home() {
     return () => {
       window.removeEventListener("wheel", onWheel);
     };
-  }, [goNext, goPrev, isAnimating, unlockAfterDelay, isCubeHovered]);
+  }, [
+    goNext,
+    goPrev,
+    isAnimating,
+    unlockAfterDelay,
+    isCubeHovered,
+    isCotizaOpen,
+  ]);
 
   return (
     <main className="min-h-screen overflow-hidden bg-[radial-gradient(circle_at_20%_0%,#6d3cff_0%,#4416a8_22%,#1c103a_58%,#0a0a14_100%)] text-white">
@@ -78,23 +108,26 @@ export default function Home() {
 
       <FixedHeader
         activeScene={activeScene}
-        onJump={(index) => {
-          if (wheelLockRef.current) return;
-          setActiveScene(index);
-        }}
+        onJump={handleJump}
+        onOpenCotiza={handleOpenCotiza}
+        isCotizaOpen={isCotizaOpen}
       />
 
       <SceneStage
         activeScene={activeScene}
         activeWorkCard={activeWorkCard}
         onCubeHoverChange={setIsCubeHovered}
+        isCotizaOpen={isCotizaOpen}
+        onCloseCotiza={handleCloseCotiza}
       />
 
-      <ScrollProgress progress={progress} />
+      {!isCotizaOpen && <ScrollProgress progress={progress} />}
 
-      <div className="pointer-events-none fixed bottom-10 left-1/2 z-40 -translate-x-1/2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/60 backdrop-blur">
-        Gira arriba / abajo
-      </div>
+      {!isCotizaOpen && (
+        <div className="pointer-events-none fixed bottom-10 left-1/2 z-40 -translate-x-1/2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/60 backdrop-blur">
+          Gira arriba / abajo
+        </div>
+      )}
     </main>
   );
 }

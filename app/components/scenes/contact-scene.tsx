@@ -349,6 +349,22 @@ export default function ContactScene() {
                           09:00 — 19:00
                         </div>
                       </motion.div>
+                      <motion.div
+                        whileHover={{ x: 3 }}
+                        transition={{ duration: 0.2 }}
+                        className="rounded-[16px] border border-violet-200/24 bg-[linear-gradient(180deg,rgba(139,92,246,0.22),rgba(255,255,255,0.08))] px-3.5 py-3.5"
+                        style={{
+                          boxShadow:
+                            "inset 0 0 22px rgba(139,92,246,0.12), 0 0 14px rgba(196,181,253,0.08), 0 0 28px rgba(59,130,246,0.09)",
+                        }}
+                      >
+                        <div className="omnes-text text-[13px] text-white/92">
+                          Viernes
+                        </div>
+                        <div className="omnes-text mt-1 text-[13px] text-white/72">
+                          09:00 — 18:00
+                        </div>
+                      </motion.div>
 
                       <motion.div
                         whileHover={{ x: 3 }}
