@@ -65,7 +65,7 @@ export default function SceneStage({
                   titleTop="EL EQUIPO QUE"
                   titleBottom="CONCRETA TUS IDEAS"
                   description="CON MÁS DE 100 TRABAJOS REALIZADOS, RUBIK CREACIONES CRECE CONTIGO, ¿QUÉ ESPERAS PARA TRABAJAR JUNTOS?"
-                  primary="Get started"
+                  primary="Cotiza con nosotros"
                   secondary="Ver nuestros trabajos"
                   onCubeHoverChange={onCubeHoverChange}
                 />
