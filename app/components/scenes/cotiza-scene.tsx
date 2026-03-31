@@ -98,7 +98,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                   </button>
 
                   <button type="button" onClick={onClose} className="menu-shell">
-                    <span className="menu-pill">Back</span>
+                    <span className="menu-pill">Regresar</span>
                   </button>
                 </div>
               </form>
