@@ -9,8 +9,8 @@ type CotizaSceneProps = {
 const serviceOptions = ["Neón", "Stands", "Impresión", "Volumétricas"];
 
 const shellTransition = {
-  duration: 0.36,
-  ease: [0.22, 1, 0.36, 1] as const,
+  duration: 0.62,
+  ease: [0.16, 1, 0.3, 1] as const,
 };
 
 const cardTransition = {
@@ -22,9 +22,9 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
   return (
     <section className="relative flex min-h-[calc(100vh-118px)] w-full items-center justify-center overflow-hidden">
       <motion.div
-        initial={{ opacity: 0, y: 18, scale: 0.985 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: -10, scale: 0.992 }}
+        initial={{ opacity: 0, y: 44, scale: 0.965, filter: "blur(10px)" }}
+        animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+        exit={{ opacity: 0, y: -18, scale: 0.985, filter: "blur(8px)" }}
         transition={shellTransition}
         className="relative mx-auto w-full max-w-[1180px] px-4 will-change-transform transform-gpu lg:px-6"
       >

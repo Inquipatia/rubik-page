@@ -10,12 +10,12 @@ type BrandShowcaseProps = {
 const brands: SelectedBrand[] = [
   {
     brandName: "Santander",
-    brandLogo: "/img/works/3.png",
+    brandLogo: "/img/works/santa.png",
     description:
       "Desarrollo de soportes gráficos, implementación visual y piezas de alto impacto para espacios de atención y campañas de marca.",
     works: [
       {
-        image: "/img/works/3.png",
+        image: "/img/works/santa.png",
         title: "Implementación sucursal",
         description: "Aplicación gráfica en espacio comercial y comunicación visual.",
       },
@@ -37,8 +37,8 @@ const brands: SelectedBrand[] = [
     ],
   },
   {
-    brandName: "Coca-Cola",
-    brandLogo: "/img/works/3.png",
+    brandName: "Chevrolet",
+    brandLogo: "/img/works/chevrolet.png",
     description:
       "Producción de piezas visuales para acciones promocionales, exhibición de marca y activaciones en espacios comerciales.",
     works: [
@@ -55,8 +55,8 @@ const brands: SelectedBrand[] = [
     ],
   },
   {
-    brandName: "Mallplaza",
-    brandLogo: "/img/works/3.png",
+    brandName: "Complot",
+    brandLogo: "/img/works/complot.png",
     description:
       "Aplicaciones de gran formato, piezas promocionales y soluciones visuales orientadas a espacios de alto tráfico.",
     works: [
@@ -73,8 +73,8 @@ const brands: SelectedBrand[] = [
     ],
   },
   {
-    brandName: "Entel",
-    brandLogo: "/img/works/3.png",
+    brandName: "Latam Airlines",
+    brandLogo: "/img/works/latam.png",
     description:
       "Implementaciones gráficas y materiales visuales para reforzar comunicación de marca y presencia comercial.",
     works: [
@@ -91,8 +91,8 @@ const brands: SelectedBrand[] = [
     ],
   },
   {
-    brandName: "Falabella",
-    brandLogo: "/img/works/3.png",
+    brandName: "Copec",
+    brandLogo: "/img/works/copec.png",
     description:
       "Desarrollo de recursos gráficos para exhibición, comunicación comercial y montaje de campañas en tienda.",
     works: [
@@ -109,8 +109,8 @@ const brands: SelectedBrand[] = [
     ],
   },
   {
-    brandName: "Samsung",
-    brandLogo: "/img/works/3.png",
+    brandName: "Glam & Co",
+    brandLogo: "/img/works/glam.png",
     description:
       "Soportes gráficos y visuales para exhibición de productos, lanzamientos y comunicación tecnológica en espacios físicos.",
     works: [
@@ -127,8 +127,8 @@ const brands: SelectedBrand[] = [
     ],
   },
   {
-    brandName: "Nike",
-    brandLogo: "/img/works/3.png",
+    brandName: "Kaufmann",
+    brandLogo: "/img/works/kauf.png",
     description:
       "Aplicaciones de marca, ambientación y piezas promocionales para campañas visuales de alto impacto.",
     works: [
@@ -145,8 +145,8 @@ const brands: SelectedBrand[] = [
     ],
   },
   {
-    brandName: "Adidas",
-    brandLogo: "/img/works/3.png",
+    brandName: "Mistral",
+    brandLogo: "/img/works/mistral.png",
     description:
       "Montajes visuales, piezas gráficas y aplicaciones comerciales pensadas para destacar producto y marca.",
     works: [
@@ -164,7 +164,7 @@ const brands: SelectedBrand[] = [
   },
   {
     brandName: "Pepsi",
-    brandLogo: "/img/works/3.png",
+    brandLogo: "/img/works/pepsi.png",
     description:
       "Producción e instalación de piezas promocionales y soportes de comunicación para campañas de consumo masivo.",
     works: [
@@ -181,8 +181,8 @@ const brands: SelectedBrand[] = [
     ],
   },
   {
-    brandName: "Banco de Chile",
-    brandLogo: "/img/works/3.png",
+    brandName: "Canada Dry",
+    brandLogo: "/img/works/canada.png",
     description:
       "Soluciones gráficas corporativas para espacios de atención, campañas y refuerzo de identidad visual.",
     works: [

@@ -7,6 +7,8 @@ type IntroSceneProps = {
   primary: string;
   secondary: string;
   onCubeHoverChange: (isHovered: boolean) => void;
+  onOpenCotiza: () => void;
+  onGoToServicios: () => void;
 };
 
 export default function IntroScene({
@@ -16,6 +18,8 @@ export default function IntroScene({
   primary,
   secondary,
   onCubeHoverChange,
+  onOpenCotiza,
+  onGoToServicios,
 }: IntroSceneProps) {
   return (
     <section className="grid h-[calc(100vh-110px)] grid-cols-1 items-center gap-4 overflow-hidden lg:grid-cols-[0.95fr_1.05fr]">
@@ -35,19 +39,21 @@ export default function IntroScene({
         </p>
 
         <div className="mt-8 flex flex-wrap gap-4">
-          <a
-            href="#"
+          <button
+            type="button"
+            onClick={onOpenCotiza}
             className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#180d37] transition hover:scale-[1.02]"
           >
             {primary}
-          </a>
+          </button>
 
-          <a
-            href="#"
+          <button
+            type="button"
+            onClick={onGoToServicios}
             className="rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10"
           >
             {secondary}
-          </a>
+          </button>
         </div>
       </div>
 

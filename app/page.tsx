@@ -110,6 +110,17 @@ export default function Home() {
     unlockAfterDelay();
   }, [unlockAfterDelay]);
 
+  const handleGoToServicios = useCallback(() => {
+    wheelLockRef.current = true;
+    setIsAnimating(true);
+
+    setIsCotizaOpen(false);
+    setSelectedBrand(null);
+    setActiveScene(2);
+
+    unlockAfterDelay();
+  }, [unlockAfterDelay]);
+
   useEffect(() => {
     const onWheel = (event: WheelEvent) => {
       if (isCotizaOpen) return;
@@ -169,6 +180,8 @@ export default function Home() {
         activeWorkCard={activeWorkCard}
         onCubeHoverChange={setIsCubeHovered}
         isCotizaOpen={isCotizaOpen}
+        onOpenCotiza={handleOpenCotiza}
+        onGoToServicios={handleGoToServicios}
         onCloseCotiza={handleCloseCotiza}
         selectedBrand={selectedBrand}
         onOpenBrandDetails={handleOpenBrandDetails}
