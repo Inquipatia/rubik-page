@@ -133,44 +133,39 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                       onMouseEnter={() => handleHoverChange(index)}
                       onFocus={() => handleHoverChange(index)}
                       onClick={() => openDetail(index)}
-                      className={`group flex w-full items-center justify-between rounded-[20px] border px-5 py-4 text-left transition-all duration-300 ${
-                        isActive
+                      className={`group flex w-full items-center justify-between rounded-[20px] border px-5 py-4 text-left transition-all duration-300 ${isActive
                           ? "border-white/25 bg-white/10 shadow-[0_14px_34px_rgba(0,0,0,0.28)]"
                           : "border-white/8 bg-white/[0.03] hover:border-white/14 hover:bg-white/[0.06]"
-                      }`}
+                        }`}
                     >
                       <div>
                         <div
-                          className={`omnes-text text-[11px] uppercase tracking-[0.16em] transition ${
-                            isActive ? "text-white/55" : "text-white/35"
-                          }`}
+                          className={`omnes-text text-[11px] uppercase tracking-[0.16em] transition ${isActive ? "text-white/55" : "text-white/35"
+                            }`}
                         >
                           {project.tag}
                         </div>
 
                         <div
-                          className={`omnes-title mt-2 text-[2rem] leading-none tracking-[-0.03em] transition ${
-                            isActive ? "text-white" : "text-white/72"
-                          }`}
+                          className={`omnes-title mt-2 text-[2rem] leading-none tracking-[-0.03em] transition ${isActive ? "text-white" : "text-white/72"
+                            }`}
                         >
                           {project.title}
                         </div>
 
                         <div
-                          className={`omnes-text mt-2 text-sm transition ${
-                            isActive ? "text-white/65" : "text-white/45"
-                          }`}
+                          className={`omnes-text mt-2 text-sm transition ${isActive ? "text-white/65" : "text-white/45"
+                            }`}
                         >
                           {project.subtitle}
                         </div>
                       </div>
 
                       <div
-                        className={`omnes-text ml-4 text-sm transition ${
-                          isActive
+                        className={`omnes-text ml-4 text-sm transition ${isActive
                             ? "translate-x-0 text-white/70"
                             : "-translate-x-1 text-white/25"
-                        }`}
+                          }`}
                       >
                         ↗
                       </div>
@@ -319,7 +314,7 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
               </AnimatePresence>
             </div>
           </motion.div>
-        ) : (
+                ) : (
           <motion.div
             key={`detail-${activeProject.slug}`}
             variants={detailVariants}
@@ -330,22 +325,13 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
               duration: 0.58,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="relative mx-auto w-full max-w-[1360px]"
+            className="relative mx-auto w-full max-w-[1240px]"
           >
-            <motion.div
-              animate={{ y: [0, -4, 0] }}
-              transition={{
-                duration: 5.2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-
             <div className="overflow-hidden rounded-[34px] border border-white/12 bg-[linear-gradient(180deg,rgba(36,18,77,0.96),rgba(18,11,33,0.98))] p-[6px] shadow-[0_30px_90px_rgba(0,0,0,0.36)]">
-              <div className="rounded-[28px] border border-white/8 bg-[linear-gradient(180deg,#20113f_0%,#140d24_100%)] p-5 sm:p-6 lg:p-7">
-                <div className="grid grid-cols-1 gap-5 lg:grid-cols-[0.98fr_1.02fr] lg:items-start">
+              <div className="rounded-[28px] border border-white/8 bg-[linear-gradient(180deg,#20113f_0%,#140d24_100%)] p-4 sm:p-5 lg:p-5">
+                <div className="grid grid-cols-1 gap-4 lg:grid-cols-[0.94fr_1.06fr] lg:items-stretch">
                   {/* IZQUIERDA · CINTA DE FOTOS */}
-                  <div className="relative min-h-[360px] overflow-hidden rounded-[24px] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))] p-4 sm:p-4">
+                  <div className="relative flex h-full min-h-[420px] flex-col overflow-hidden rounded-[24px] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))] p-3 sm:p-4 lg:min-h-[500px]">
                     <div className="pointer-events-none absolute inset-0 opacity-[0.06]">
                       <div
                         className="absolute inset-0"
@@ -360,7 +346,7 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                       />
                     </div>
 
-                    <div className="relative flex h-full min-h-[320px] items-center justify-center">
+                    <div className="relative flex flex-1 items-center justify-center">
                       {detailGallery.map((image, index) => {
                         const offset = index - detailImageIndex;
                         const absOffset = Math.abs(offset);
@@ -375,28 +361,28 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                             onClick={() => setDetailImageIndex(index)}
                             initial={false}
                             animate={{
-                              x: offset * 138,
-                              y: isActive ? 0 : 28,
-                              scale: isActive ? 1 : 0.8,
-                              rotate: isActive ? 0 : offset < 0 ? -10 : 10,
-                              opacity: absOffset === 2 ? 0.22 : isActive ? 1 : 0.58,
+                              x: offset * 128,
+                              y: isActive ? 0 : 18,
+                              scale: isActive ? 0.96 : 0.78,
+                              rotate: isActive ? 0 : offset < 0 ? -9 : 9,
+                              opacity: absOffset === 2 ? 0.18 : isActive ? 1 : 0.56,
                               zIndex: isActive ? 30 : 20 - absOffset,
                             }}
                             transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-                            className="absolute block w-[62%] max-w-[420px] origin-center text-left"
+                            className="absolute block w-[68%] max-w-[430px] origin-center text-left"
                           >
                             <div className="overflow-hidden rounded-[24px] border border-white/14 bg-[#120d20] p-[6px] shadow-[0_20px_44px_rgba(0,0,0,0.28)]">
-                              <div className="relative overflow-hidden rounded-[20px] bg-black">
-                                <div className="relative aspect-[4/5] w-full">
+                              <div className="relative overflow-hidden rounded-[20px] border border-white/8 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),rgba(0,0,0,0.2))]">
+                                <div className="relative aspect-[5/6] w-full">
                                   <Image
                                     src={image}
                                     alt={`${activeProject.title} ${index + 1}`}
                                     fill
-                                    sizes="(max-width: 1024px) 90vw, 520px"
-                                    className="object-cover"
+                                    sizes="(max-width: 1024px) 90vw, 560px"
+                                    className="object-contain object-center"
                                     priority={isActive}
                                   />
-                                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.08),rgba(0,0,0,0.38))]" />
+                                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.05),rgba(0,0,0,0.18))]" />
                                 </div>
                               </div>
                             </div>
@@ -405,31 +391,33 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                       })}
                     </div>
 
-                    <div className="relative mt-4 flex items-center justify-between gap-4">
-                      <button
-                        type="button"
-                        onClick={prevDetailImage}
-                        className="omnes-text inline-flex h-10 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-4 text-sm text-white/82 transition hover:bg-white/[0.08]"
-                      >
-                        Anterior
-                      </button>
+                    <div className="relative mt-auto pt-4">
+                      <div className="flex items-center justify-between gap-4">
+                        <button
+                          type="button"
+                          onClick={prevDetailImage}
+                          className="omnes-text inline-flex h-10 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-4 text-sm text-white/82 transition hover:bg-white/[0.08]"
+                        >
+                          Anterior
+                        </button>
 
-                      <div className="omnes-text text-sm text-white/58">
-                        {detailImageIndex + 1} / {detailGallery.length}
+                        <div className="omnes-text text-sm text-white/58">
+                          {detailImageIndex + 1} / {detailGallery.length}
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={nextDetailImage}
+                          className="omnes-text inline-flex h-10 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-4 text-sm text-white/82 transition hover:bg-white/[0.08]"
+                        >
+                          Siguiente
+                        </button>
                       </div>
-
-                      <button
-                        type="button"
-                        onClick={nextDetailImage}
-                        className="omnes-text inline-flex h-10 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-4 text-sm text-white/82 transition hover:bg-white/[0.08]"
-                      >
-                        Siguiente
-                      </button>
                     </div>
                   </div>
 
                   {/* DERECHA · DESCRIPCIÓN */}
-                  <div className="flex flex-col rounded-[24px] border border-white/8 bg-white/[0.03] px-4 py-4 sm:px-5 sm:py-5 lg:px-6 lg:py-6">
+                  <div className="flex h-full flex-col rounded-[24px] border border-white/8 bg-white/[0.03] px-4 py-4 sm:px-4 sm:py-4 lg:px-5 lg:py-5">
                     <div>
                       <div className="mb-3 flex items-start justify-between gap-4">
                         <div>
@@ -437,11 +425,11 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                             {activeProject.tag}
                           </div>
 
-                          <h2 className="omnes-title mt-2 text-[2.35rem] leading-none tracking-[-0.04em] text-white sm:text-[2.8rem] lg:text-[3.2rem]">
+                          <h2 className="omnes-title mt-2 text-[2rem] leading-none tracking-[-0.04em] text-white sm:text-[2.35rem] lg:text-[2.7rem]">
                             {activeProject.title}
                           </h2>
 
-                          <div className="omnes-text mt-2 text-[13px] text-white/60 sm:text-sm lg:text-[15px]">
+                          <div className="omnes-text mt-2 text-[13px] text-white/60 sm:text-sm lg:text-[14px]">
                             {activeProject.subtitle}
                           </div>
                         </div>
@@ -488,6 +476,8 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                         </div>
                       </div>
                     </div>
+
+                    <div className="mt-auto" />
                   </div>
                 </div>
               </div>

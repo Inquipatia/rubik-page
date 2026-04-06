@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Rubik Page",
@@ -11,7 +12,12 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+
+        <Script src="/three.r134.min.js" strategy="afterInteractive" />
+        <Script src="/vanta.waves.min.js" strategy="afterInteractive" />
+      </body>
     </html>
   );
 }

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import FixedHeader from "@/app/components/fixed-header";
 import SceneStage from "@/app/components/scene-stage";
 import ScrollProgress from "@/app/components/scroll-progress";
+import FloatingSocialOrb from "@/app/components/scenes/floating-social-orb";
 
 export type BrandWorkItem = {
   image: string;
@@ -61,18 +62,21 @@ export default function Home() {
     }
   }, [activeScene, isCotizaOpen, selectedBrand]);
 
-  const handleJump = useCallback((index: number) => {
-    if (wheelLockRef.current) return;
+  const handleJump = useCallback(
+    (index: number) => {
+      if (wheelLockRef.current) return;
 
-    wheelLockRef.current = true;
-    setIsAnimating(true);
+      wheelLockRef.current = true;
+      setIsAnimating(true);
 
-    setIsCotizaOpen(false);
-    setSelectedBrand(null);
-    setActiveScene(index);
+      setIsCotizaOpen(false);
+      setSelectedBrand(null);
+      setActiveScene(index);
 
-    unlockAfterDelay();
-  }, [unlockAfterDelay]);
+      unlockAfterDelay();
+    },
+    [unlockAfterDelay]
+  );
 
   const handleOpenCotiza = useCallback(() => {
     setSelectedBrand(null);
@@ -91,15 +95,18 @@ export default function Home() {
     unlockAfterDelay();
   }, [unlockAfterDelay]);
 
-  const handleOpenBrandDetails = useCallback((brand: SelectedBrand) => {
-    wheelLockRef.current = true;
-    setIsAnimating(true);
+  const handleOpenBrandDetails = useCallback(
+    (brand: SelectedBrand) => {
+      wheelLockRef.current = true;
+      setIsAnimating(true);
 
-    setIsCotizaOpen(false);
-    setSelectedBrand(brand);
+      setIsCotizaOpen(false);
+      setSelectedBrand(brand);
 
-    unlockAfterDelay();
-  }, [unlockAfterDelay]);
+      unlockAfterDelay();
+    },
+    [unlockAfterDelay]
+  );
 
   const handleCloseBrandDetails = useCallback(() => {
     wheelLockRef.current = true;
@@ -195,6 +202,8 @@ export default function Home() {
           Gira arriba / abajo
         </div>
       )}
+
+      {!isCotizaOpen && !selectedBrand && <FloatingSocialOrb />}
     </main>
   );
 }

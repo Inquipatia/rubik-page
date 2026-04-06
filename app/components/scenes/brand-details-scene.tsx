@@ -53,7 +53,7 @@ export default function BrandDetailsScene({
             <button
               type="button"
               onClick={onBack}
-              className="rounded-full border border-white/15 bg-white/8 px-3 py-1.5 text-xs text-white transition duration-300 hover:scale-[1.03] hover:bg-white/14"
+              className="rounded-full border border-white/15 bg-white/8 px-4 py-2 text-sm text-white transition duration-300 hover:scale-[1.03] hover:bg-white/14"
             >
               Volver
             </button>

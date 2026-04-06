@@ -22,40 +22,42 @@ export default function FixedHeader({
   isCotizaOpen,
 }: FixedHeaderProps) {
   return (
-    <header className="relative z-50 mx-auto flex w-full max-w-7xl items-center justify-between px-6 pt-5 lg:px-10">
-      <button
-        type="button"
-        onClick={() => onJump(0)}
-        className="font-[300] text-[28px] tracking-[-0.04em] text-white"
-      >
-        Rubik.
-      </button>
-
-      <nav className="menu-shell hidden md:flex">
-        {navItems.map((item) => {
-          const isActive = !isCotizaOpen && activeScene === item.index;
-
-          return (
-            <button
-              key={item.label}
-              type="button"
-              onClick={() => onJump(item.index)}
-              className={`menu-pill ${isActive ? "is-active" : ""}`}
-            >
-              {item.label}
-            </button>
-          );
-        })}
-      </nav>
-
-      <div className="menu-shell hidden md:flex">
+    <header className="fixed inset-x-0 top-0 z-[80]">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 pt-5 lg:px-10">
         <button
           type="button"
-          onClick={onOpenCotiza}
-          className={`menu-pill cotiza-pill ${isCotizaOpen ? "is-active" : ""}`}
+          onClick={() => onJump(0)}
+          className="font-[300] text-[28px] tracking-[-0.04em] text-white"
         >
-          COTIZA
+          Rubik.
         </button>
+
+        <nav className="menu-shell hidden md:flex">
+          {navItems.map((item) => {
+            const isActive = !isCotizaOpen && activeScene === item.index;
+
+            return (
+              <button
+                key={item.label}
+                type="button"
+                onClick={() => onJump(item.index)}
+                className={`menu-pill ${isActive ? "is-active" : ""}`}
+              >
+                {item.label}
+              </button>
+            );
+          })}
+        </nav>
+
+        <div className="menu-shell hidden md:flex">
+          <button
+            type="button"
+            onClick={onOpenCotiza}
+            className={`menu-pill cotiza-pill ${isCotizaOpen ? "is-active" : ""}`}
+          >
+            COTIZA
+          </button>
+        </div>
       </div>
     </header>
   );

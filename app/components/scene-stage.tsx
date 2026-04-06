@@ -52,6 +52,35 @@ const defaultSceneVariants: Variants = {
   },
 };
 
+const faqSceneVariants: Variants = {
+  initial: {
+    opacity: 0,
+    y: 70,
+    scale: 1.01,
+    filter: "blur(10px)",
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.78,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -26,
+    scale: 0.995,
+    filter: "blur(8px)",
+    transition: {
+      duration: 0.38,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
 const cotizaSceneVariants: Variants = {
   initial: {
     opacity: 0,
@@ -102,6 +131,8 @@ export default function SceneStage({
   onOpenBrandDetails,
   onCloseBrandDetails,
 }: SceneStageProps) {
+  const isFaqScene = !isCotizaOpen && !selectedBrand && activeScene === 4;
+
   const currentKey = isCotizaOpen
     ? "cotiza-scene"
     : selectedBrand
@@ -110,10 +141,18 @@ export default function SceneStage({
 
   const currentVariants = isCotizaOpen
     ? cotizaSceneVariants
-    : defaultSceneVariants;
+    : isFaqScene
+      ? faqSceneVariants
+      : defaultSceneVariants;
 
   return (
-    <section className="relative z-20 mx-auto max-w-[1420px] px-4 pt-6 lg:px-6 lg:pt-6">
+    <section
+      className={
+        isFaqScene
+          ? "relative z-20 h-[100svh] w-full overflow-hidden"
+          : "relative z-20 mx-auto max-w-[1420px] px-4 pt-6 lg:px-6 lg:pt-6"
+      }
+    >
       <AnimatePresence mode="wait">
         <motion.div
           key={currentKey}
@@ -121,7 +160,11 @@ export default function SceneStage({
           initial="initial"
           animate="animate"
           exit="exit"
-          className="relative [transform-style:preserve-3d] [transform:translateZ(0)] will-change-transform"
+          className={
+            isFaqScene
+              ? "relative h-[100svh] w-full will-change-transform"
+              : "relative [transform-style:preserve-3d] [transform:translateZ(0)] will-change-transform"
+          }
         >
           {isCotizaOpen && (
             <motion.div
@@ -139,18 +182,43 @@ export default function SceneStage({
           )}
 
           <motion.div
-            initial={isCotizaOpen ? { opacity: 0, y: 30, scale: 0.985 } : undefined}
-            animate={isCotizaOpen ? { opacity: 1, y: 0, scale: 1 } : undefined}
-            exit={isCotizaOpen ? { opacity: 0, y: -18, scale: 0.99 } : undefined}
+            initial={
+              isCotizaOpen
+                ? { opacity: 0, y: 30, scale: 0.985 }
+                : isFaqScene
+                  ? { opacity: 0, y: 42, scale: 1.005 }
+                  : undefined
+            }
+            animate={
+              isCotizaOpen
+                ? { opacity: 1, y: 0, scale: 1 }
+                : isFaqScene
+                  ? { opacity: 1, y: 0, scale: 1 }
+                  : undefined
+            }
+            exit={
+              isCotizaOpen
+                ? { opacity: 0, y: -18, scale: 0.99 }
+                : isFaqScene
+                  ? { opacity: 0, y: -18, scale: 0.995 }
+                  : undefined
+            }
             transition={
               isCotizaOpen
                 ? {
-                  duration: 0.52,
-                  delay: 0.14,
-                  ease: [0.16, 1, 0.3, 1],
-                }
-                : undefined
+                    duration: 0.52,
+                    delay: 0.14,
+                    ease: [0.16, 1, 0.3, 1],
+                  }
+                : isFaqScene
+                  ? {
+                      duration: 0.7,
+                      delay: 0.08,
+                      ease: [0.16, 1, 0.3, 1],
+                    }
+                  : undefined
             }
+            className={isFaqScene ? "h-[100svh]" : undefined}
           >
             {isCotizaOpen ? (
               <CotizaScene onClose={onCloseCotiza} />
