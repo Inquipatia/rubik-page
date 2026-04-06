@@ -14,7 +14,6 @@ export default function RootLayout({
     <html lang="en">
       <body>
         {children}
-
         <Script src="/three.r134.min.js" strategy="afterInteractive" />
         <Script src="/vanta.waves.min.js" strategy="afterInteractive" />
       </body>

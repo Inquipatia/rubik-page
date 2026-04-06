@@ -23,11 +23,11 @@ export default function FixedHeader({
 }: FixedHeaderProps) {
   return (
     <header className="fixed inset-x-0 top-0 z-[80]">
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 pt-5 lg:px-10">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 pt-4 md:px-6 md:pt-5 lg:px-10">
         <button
           type="button"
           onClick={() => onJump(0)}
-          className="font-[300] text-[28px] tracking-[-0.04em] text-white"
+          className="font-[300] text-[26px] tracking-[-0.04em] text-white md:text-[28px]"
         >
           Rubik.
         </button>

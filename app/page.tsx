@@ -166,15 +166,19 @@ export default function Home() {
   ]);
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[radial-gradient(circle_at_20%_0%,#7a4dff_0%,#4e1cbb_18%,#23114a_54%,#090912_100%)] text-white">
-      <div className="pointer-events-none absolute inset-0 opacity-80">
+  <main className="relative h-[100svh] w-full overflow-hidden text-white">
+    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,#7a4dff_0%,#4e1cbb_18%,#23114a_54%,#090912_100%)]" />
+      <div className="absolute inset-0 opacity-80">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,0.16)_0_1px,transparent_1.5px)] bg-[length:180px_180px]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.045)_0,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[length:30px_30px]" />
         <div className="absolute left-[8%] top-[10%] h-52 w-52 rounded-full bg-fuchsia-500/12 blur-3xl" />
         <div className="absolute right-[10%] top-[12%] h-56 w-56 rounded-full bg-violet-500/12 blur-3xl" />
         <div className="absolute bottom-[8%] left-[30%] h-48 w-48 rounded-full bg-blue-500/10 blur-3xl" />
       </div>
+    </div>
 
+    <div className="relative z-10 h-full w-full">
       <FixedHeader
         activeScene={activeScene}
         onJump={handleJump}
@@ -204,6 +208,7 @@ export default function Home() {
       )}
 
       {!isCotizaOpen && !selectedBrand && <FloatingSocialOrb />}
-    </main>
-  );
+    </div>
+  </main>
+);
 }
