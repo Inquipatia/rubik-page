@@ -52,35 +52,6 @@ const defaultSceneVariants: Variants = {
   },
 };
 
-const faqSceneVariants: Variants = {
-  initial: {
-    opacity: 0,
-    y: 52,
-    scale: 1.005,
-    filter: "blur(10px)",
-  },
-  animate: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    filter: "blur(0px)",
-    transition: {
-      duration: 0.68,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  },
-  exit: {
-    opacity: 0,
-    y: -22,
-    scale: 0.995,
-    filter: "blur(8px)",
-    transition: {
-      duration: 0.34,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
 const cotizaSceneVariants: Variants = {
   initial: {
     opacity: 0,
@@ -133,6 +104,27 @@ export default function SceneStage({
 }: SceneStageProps) {
   const isFaqScene = !isCotizaOpen && !selectedBrand && activeScene === 4;
 
+  // FAQ va fuera del contenedor transformado para que el fondo fixed
+  // realmente ocupe todo el viewport y se vea detrás del navbar.
+  if (isFaqScene) {
+    return (
+      <section className="relative z-20 h-[100svh] w-full overflow-hidden">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key="scene-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            className="relative h-full w-full"
+          >
+            <FaqScene />
+          </motion.div>
+        </AnimatePresence>
+      </section>
+    );
+  }
+
   const currentKey = isCotizaOpen
     ? "cotiza-scene"
     : selectedBrand
@@ -141,9 +133,7 @@ export default function SceneStage({
 
   const currentVariants = isCotizaOpen
     ? cotizaSceneVariants
-    : isFaqScene
-      ? faqSceneVariants
-      : defaultSceneVariants;
+    : defaultSceneVariants;
 
   return (
     <section className="relative z-20 h-[100svh] w-full overflow-hidden">
@@ -176,23 +166,17 @@ export default function SceneStage({
               initial={
                 isCotizaOpen
                   ? { opacity: 0, y: 24, scale: 0.99 }
-                  : isFaqScene
-                    ? { opacity: 0, y: 34, scale: 1.005 }
-                    : undefined
+                  : undefined
               }
               animate={
                 isCotizaOpen
                   ? { opacity: 1, y: 0, scale: 1 }
-                  : isFaqScene
-                    ? { opacity: 1, y: 0, scale: 1 }
-                    : undefined
+                  : undefined
               }
               exit={
                 isCotizaOpen
                   ? { opacity: 0, y: -16, scale: 0.992 }
-                  : isFaqScene
-                    ? { opacity: 0, y: -16, scale: 0.996 }
-                    : undefined
+                  : undefined
               }
               transition={
                 isCotizaOpen
@@ -201,13 +185,7 @@ export default function SceneStage({
                       delay: 0.12,
                       ease: [0.16, 1, 0.3, 1],
                     }
-                  : isFaqScene
-                    ? {
-                        duration: 0.62,
-                        delay: 0.06,
-                        ease: [0.16, 1, 0.3, 1],
-                      }
-                    : undefined
+                  : undefined
               }
               className="h-full w-full overflow-hidden"
             >
@@ -245,8 +223,6 @@ export default function SceneStage({
                   )}
 
                   {activeScene === 3 && <ContactScene />}
-
-                  {activeScene === 4 && <FaqScene />}
                 </>
               )}
             </motion.div>
