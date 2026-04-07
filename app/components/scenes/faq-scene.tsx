@@ -25,17 +25,17 @@ export default function FaqScene() {
       vantaEffect.current = window.VANTA.WAVES({
         el: vantaBgRef.current,
         mouseControls: true,
-  touchControls: true,
-  gyroControls: false,
-  minHeight: 200.00,
-  minWidth: 200.00,
-  scale: 1.00,
-  scaleMobile: 1.00,
-  color: 0x100028,
-  shininess: 150.00,
-  waveHeight: 24.50,
-  waveSpeed: 0.65,
-  zoom: 0.76
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        color: 0x100028,
+        shininess: 150.00,
+        waveHeight: 24.50,
+        waveSpeed: 0.65,
+        zoom: 0.76
       });
     };
 

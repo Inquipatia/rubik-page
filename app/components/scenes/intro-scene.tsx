@@ -1,5 +1,8 @@
 "use client";
 
+import { memo } from "react";
+import Spline from "@splinetool/react-spline";
+
 type IntroSceneProps = {
   titleTop: string;
   titleBottom: string;
@@ -10,6 +13,33 @@ type IntroSceneProps = {
   onOpenCotiza: () => void;
   onGoToServicios: () => void;
 };
+
+const HeroCube = memo(function HeroCube({
+  onCubeHoverChange,
+}: {
+  onCubeHoverChange: (isHovered: boolean) => void;
+}) {
+  return (
+    <div className="relative flex items-center justify-center lg:-translate-y-8">
+      <div className="pointer-events-none absolute h-64 w-64 rounded-full bg-fuchsia-500/25 blur-3xl" />
+      <div className="pointer-events-none absolute -left-4 top-8 h-52 w-52 rounded-full bg-blue-500/20 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-3 h-20 w-56 rounded-full bg-black/20 blur-2xl" />
+
+      <div
+        className="relative z-20 h-[330px] w-[330px] overflow-visible sm:h-[400px] sm:w-[400px] lg:h-[500px] lg:w-[500px]"
+        onMouseEnter={() => onCubeHoverChange(true)}
+        onMouseLeave={() => onCubeHoverChange(false)}
+      >
+        <div className="h-full w-full overflow-visible rounded-[28px]">
+          <Spline
+            scene="https://prod.spline.design/wk0u6G-MY2bbyF6i/scene.splinecode"
+            className="h-full w-full"
+          />
+        </div>
+      </div>
+    </div>
+  );
+});
 
 export default function IntroScene({
   titleTop,
@@ -23,7 +53,6 @@ export default function IntroScene({
 }: IntroSceneProps) {
   return (
     <section className="grid h-[calc(100vh-110px)] grid-cols-1 items-center gap-4 overflow-hidden lg:grid-cols-[0.95fr_1.05fr]">
-      {/* IZQUIERDA */}
       <div className="max-w-[620px]">
         <span className="mb-3 inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-1 text-sm text-white/75 backdrop-blur">
           Rubik Creaciones
@@ -57,29 +86,7 @@ export default function IntroScene({
         </div>
       </div>
 
-      {/* DERECHA */}
-      <div className="relative flex items-center justify-center lg:-translate-y-8">
-        <div className="pointer-events-none absolute h-64 w-64 rounded-full bg-fuchsia-500/25 blur-3xl" />
-        <div className="pointer-events-none absolute -left-4 top-8 h-52 w-52 rounded-full bg-blue-500/20 blur-3xl" />
-        <div className="pointer-events-none absolute bottom-3 h-20 w-56 rounded-full bg-black/20 blur-2xl" />
-
-        <div
-          className="relative z-20 h-[330px] w-[330px] overflow-visible sm:h-[400px] sm:w-[400px] lg:h-[500px] lg:w-[500px]"
-          onMouseEnter={() => onCubeHoverChange(true)}
-          onMouseLeave={() => onCubeHoverChange(false)}
-        >
-          <div className="h-full w-full overflow-visible rounded-[28px]">
-            <iframe
-              src="https://my.spline.design/cube10-x9gcSdkBA1oo2VIAENSUDbZE/"
-              frameBorder="0"
-              width="100%"
-              height="100%"
-              className="h-full w-full"
-              allowFullScreen
-            />
-          </div>
-        </div>
-      </div>
+      <HeroCube onCubeHoverChange={onCubeHoverChange} />
     </section>
   );
 }
