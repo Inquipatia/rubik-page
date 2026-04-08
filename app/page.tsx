@@ -21,6 +21,7 @@ export type SelectedBrand = {
 
 export default function Home() {
   const [activeScene, setActiveScene] = useState(0);
+  const [sceneDirection, setSceneDirection] = useState<1 | -1>(1);
   const [activeWorkCard] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isCubeHovered, setIsCubeHovered] = useState(false);
@@ -50,6 +51,7 @@ export default function Home() {
     if (isCotizaOpen || selectedBrand) return;
 
     if (activeScene < totalMainScenes - 1) {
+      setSceneDirection(1);
       setActiveScene((prev) => prev + 1);
     }
   }, [activeScene, totalMainScenes, isCotizaOpen, selectedBrand]);
@@ -58,6 +60,7 @@ export default function Home() {
     if (isCotizaOpen || selectedBrand) return;
 
     if (activeScene > 0) {
+      setSceneDirection(-1);
       setActiveScene((prev) => prev - 1);
     }
   }, [activeScene, isCotizaOpen, selectedBrand]);
@@ -69,13 +72,17 @@ export default function Home() {
       wheelLockRef.current = true;
       setIsAnimating(true);
 
+      if (index !== activeScene) {
+        setSceneDirection(index > activeScene ? 1 : -1);
+      }
+
       setIsCotizaOpen(false);
       setSelectedBrand(null);
       setActiveScene(index);
 
       unlockAfterDelay();
     },
-    [unlockAfterDelay]
+    [activeScene, unlockAfterDelay]
   );
 
   const handleOpenCotiza = useCallback(() => {
@@ -121,6 +128,7 @@ export default function Home() {
     wheelLockRef.current = true;
     setIsAnimating(true);
 
+    setSceneDirection(1);
     setIsCotizaOpen(false);
     setSelectedBrand(null);
     setActiveScene(2);
@@ -166,49 +174,49 @@ export default function Home() {
   ]);
 
   return (
-  <main className="relative h-[100svh] w-full overflow-hidden text-white">
-    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,#7a4dff_0%,#4e1cbb_18%,#23114a_54%,#090912_100%)]" />
-      <div className="absolute inset-0 opacity-80">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,0.16)_0_1px,transparent_1.5px)] bg-[length:180px_180px]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.045)_0,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[length:30px_30px]" />
-        <div className="absolute left-[8%] top-[10%] h-52 w-52 rounded-full bg-fuchsia-500/12 blur-3xl" />
-        <div className="absolute right-[10%] top-[12%] h-56 w-56 rounded-full bg-violet-500/12 blur-3xl" />
-        <div className="absolute bottom-[8%] left-[30%] h-48 w-48 rounded-full bg-blue-500/10 blur-3xl" />
-      </div>
-    </div>
-
-    <div className="relative z-10 h-full w-full">
-      <FixedHeader
-        activeScene={activeScene}
-        onJump={handleJump}
-        onOpenCotiza={handleOpenCotiza}
-        isCotizaOpen={isCotizaOpen}
-      />
-
-      <SceneStage
-        activeScene={activeScene}
-        activeWorkCard={activeWorkCard}
-        onCubeHoverChange={setIsCubeHovered}
-        isCotizaOpen={isCotizaOpen}
-        onOpenCotiza={handleOpenCotiza}
-        onGoToServicios={handleGoToServicios}
-        onCloseCotiza={handleCloseCotiza}
-        selectedBrand={selectedBrand}
-        onOpenBrandDetails={handleOpenBrandDetails}
-        onCloseBrandDetails={handleCloseBrandDetails}
-      />
-
-      {!isCotizaOpen && !selectedBrand && <ScrollProgress progress={progress} />}
-
-      {!isCotizaOpen && !selectedBrand && (
-        <div className="pointer-events-none fixed bottom-10 left-1/2 z-40 -translate-x-1/2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/60 backdrop-blur">
-          Gira arriba / abajo
+    <main className="relative h-[100svh] w-full overflow-hidden text-white">
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,#7a4dff_0%,#4e1cbb_18%,#23114a_54%,#090912_100%)]" />
+        <div className="absolute inset-0 opacity-80">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,0.16)_0_1px,transparent_1.5px)] bg-[length:180px_180px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.045)_0,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[length:30px_30px]" />
+          <div className="absolute left-[8%] top-[10%] h-52 w-52 rounded-full bg-fuchsia-500/12 blur-3xl" />
+          <div className="absolute right-[10%] top-[12%] h-56 w-56 rounded-full bg-violet-500/12 blur-3xl" />
+          <div className="absolute bottom-[8%] left-[30%] h-48 w-48 rounded-full bg-blue-500/10 blur-3xl" />
         </div>
-      )}
+      </div>
 
-      {!isCotizaOpen && !selectedBrand && <FloatingSocialOrb />}
-    </div>
-  </main>
-);
+      <div className="relative z-10 h-full w-full">
+        <FixedHeader
+          activeScene={activeScene}
+          onJump={handleJump}
+          onOpenCotiza={handleOpenCotiza}
+          isCotizaOpen={isCotizaOpen}
+        />
+
+        <SceneStage
+          activeScene={activeScene}
+          activeWorkCard={activeWorkCard}
+          onCubeHoverChange={setIsCubeHovered}
+          isCotizaOpen={isCotizaOpen}
+          onOpenCotiza={handleOpenCotiza}
+          onGoToServicios={handleGoToServicios}
+          onCloseCotiza={handleCloseCotiza}
+          selectedBrand={selectedBrand}
+          onOpenBrandDetails={handleOpenBrandDetails}
+          onCloseBrandDetails={handleCloseBrandDetails}
+        />
+
+        {!isCotizaOpen && !selectedBrand && <ScrollProgress progress={progress} />}
+
+        {!isCotizaOpen && !selectedBrand && (
+          <div className="pointer-events-none fixed bottom-10 left-1/2 z-40 -translate-x-1/2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/60 backdrop-blur">
+            Gira arriba / abajo
+          </div>
+        )}
+
+        {!isCotizaOpen && !selectedBrand && <FloatingSocialOrb />}
+      </div>
+    </main>
+  );
 }

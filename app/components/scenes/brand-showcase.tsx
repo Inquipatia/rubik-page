@@ -12,7 +12,7 @@ const brands: SelectedBrand[] = [
     brandName: "Santander",
     brandLogo: "/img/works/santa.png",
     description:
-      "Desarrollo de soportes gráficos, implementación visual y piezas de alto impacto para espacios de atención y campañas de marca.",
+      "Activaciones de verano en Surf Festival, con desarrollo de stands en La Serena y Pichilemu, fabricación en MDF y madera tratada, full branding, volumétricos en acrílico, cortes CNC, aplicaciones en Neon Flex e intervención de escenarios y zonas de competencia e hidratación. Posteriormente, parte de esta estructura fue reutilizada y adaptada para su presencia en el Festival de Viña, incluyendo espacios interiores y VIP en la Quinta Vergara.",
     works: [
       {
         image: "/img/works/santa.png",
@@ -40,7 +40,7 @@ const brands: SelectedBrand[] = [
     brandName: "Chevrolet",
     brandLogo: "/img/works/chevrolet.png",
     description:
-      "Producción de piezas visuales para acciones promocionales, exhibición de marca y activaciones en espacios comerciales.",
+      "Lanzamiento Eurosail con fuerte protagonismo de estructuras metálicas, arcos de activación y aplicaciones extensivas de Neón Flex, integrando entre 20 y 30 piezas de marca en distintos puntos relevantes del montaje.",
     works: [
       {
         image: "/img/works/3.png",
@@ -58,7 +58,7 @@ const brands: SelectedBrand[] = [
     brandName: "Complot",
     brandLogo: "/img/works/complot.png",
     description:
-      "Aplicaciones de gran formato, piezas promocionales y soluciones visuales orientadas a espacios de alto tráfico.",
+      "Activación en mall tipo isla, incorporando mobiliario y branding para punto de contacto comercial.",
     works: [
       {
         image: "/img/works/3.png",
@@ -76,7 +76,7 @@ const brands: SelectedBrand[] = [
     brandName: "Latam Airlines",
     brandLogo: "/img/works/latam.png",
     description:
-      "Implementaciones gráficas y materiales visuales para reforzar comunicación de marca y presencia comercial.",
+      "Reacondicionamiento y mantención de volumétricos previamente construidos, incluyendo renovación de lacado, actualización de branding, mantenimiento de iluminación y ajustes en Neon Flex.",
     works: [
       {
         image: "/img/works/3.png",
@@ -94,7 +94,7 @@ const brands: SelectedBrand[] = [
     brandName: "Copec",
     brandLogo: "/img/works/copec.png",
     description:
-      "Desarrollo de recursos gráficos para exhibición, comunicación comercial y montaje de campañas en tienda.",
+      "Activación de verano en playa con fabricación integral de estructura, combinación de MDF y madera nativa, full branding, banderas vela y volumétricos.",
     works: [
       {
         image: "/img/works/3.png",
@@ -130,7 +130,7 @@ const brands: SelectedBrand[] = [
     brandName: "Kaufmann",
     brandLogo: "/img/works/kauf.png",
     description:
-      "Aplicaciones de marca, ambientación y piezas promocionales para campañas visuales de alto impacto.",
+      "Activaciones desarrolladas vía agencia Complot, incluyendo estructuras metálicas para exhibición de vehículos, volumétricos en acrílico, piezas gráficas y emplacado en Trovicel.",
     works: [
       {
         image: "/img/works/3.png",
@@ -148,7 +148,7 @@ const brands: SelectedBrand[] = [
     brandName: "Mistral",
     brandLogo: "/img/works/mistral.png",
     description:
-      "Montajes visuales, piezas gráficas y aplicaciones comerciales pensadas para destacar producto y marca.",
+      "Desarrollo de activaciones con foco en carpintería, especialmente en eventos masivos como Lollapalooza, complementadas con una alta presencia de aplicaciones en Neon Flex.",
     works: [
       {
         image: "/img/works/3.png",
@@ -166,7 +166,7 @@ const brands: SelectedBrand[] = [
     brandName: "Pepsi",
     brandLogo: "/img/works/pepsi.png",
     description:
-      "Producción e instalación de piezas promocionales y soportes de comunicación para campañas de consumo masivo.",
+      "Participación en Lollapalooza mediante branding integral, impresión en PVC y adhesivos, además de fabricación de volumétricos en acrílico y madera.",
     works: [
       {
         image: "/img/works/3.png",

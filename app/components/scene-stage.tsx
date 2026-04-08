@@ -181,10 +181,10 @@ export default function SceneStage({
               transition={
                 isCotizaOpen
                   ? {
-                      duration: 0.48,
-                      delay: 0.12,
-                      ease: [0.16, 1, 0.3, 1],
-                    }
+                    duration: 0.48,
+                    delay: 0.12,
+                    ease: [0.16, 1, 0.3, 1],
+                  }
                   : undefined
               }
               className="h-full w-full overflow-hidden"
