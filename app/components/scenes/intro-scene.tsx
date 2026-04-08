@@ -1,6 +1,6 @@
 "use client";
 
-import { memo } from "react";
+import { memo, useState } from "react";
 import Spline from "@splinetool/react-spline";
 
 type IntroSceneProps = {
@@ -19,21 +19,34 @@ const HeroCube = memo(function HeroCube({
 }: {
   onCubeHoverChange: (isHovered: boolean) => void;
 }) {
+  const [isReady, setIsReady] = useState(false);
+
   return (
     <div className="relative flex items-center justify-center lg:-translate-y-8">
       <div className="pointer-events-none absolute h-64 w-64 rounded-full bg-fuchsia-500/25 blur-3xl" />
       <div className="pointer-events-none absolute -left-4 top-8 h-52 w-52 rounded-full bg-blue-500/20 blur-3xl" />
       <div className="pointer-events-none absolute bottom-3 h-20 w-56 rounded-full bg-black/20 blur-2xl" />
 
-      <div
-        className="relative z-20 h-[330px] w-[330px] overflow-visible sm:h-[400px] sm:w-[400px] lg:h-[500px] lg:w-[500px]"
-        onMouseEnter={() => onCubeHoverChange(true)}
-        onMouseLeave={() => onCubeHoverChange(false)}
-      >
-        <div className="h-full w-full overflow-visible rounded-[28px]">
+      <div className="relative z-20 h-[330px] w-[330px] overflow-visible sm:h-[400px] sm:w-[400px] lg:h-[500px] lg:w-[500px]">
+        <div
+          className={`relative h-full w-full overflow-visible rounded-[28px] transition-all duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            isReady
+              ? "translate-x-0 translate-y-0 scale-100 opacity-100"
+              : "translate-x-10 translate-y-6 scale-[0.88] opacity-0"
+          }`}
+          onMouseEnter={() => isReady && onCubeHoverChange(true)}
+          onMouseLeave={() => onCubeHoverChange(false)}
+        >
           <Spline
             scene="https://prod.spline.design/wk0u6G-MY2bbyF6i/scene.splinecode"
-            className="h-full w-full"
+            className={`h-full w-full transition-opacity duration-500 ${
+              isReady ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
+            }`}
+            onLoad={() => {
+              requestAnimationFrame(() => {
+                setIsReady(true);
+              });
+            }}
           />
         </div>
       </div>
