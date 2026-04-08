@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import IntroScene from "@/app/components/scenes/intro-scene";
 import BrandShowcase from "@/app/components/scenes/brand-showcase";
@@ -8,6 +9,7 @@ import WorkScene from "@/app/components/scenes/work-scene";
 import FaqScene from "@/app/components/scenes/faq-scene";
 import ContactScene from "@/app/components/scenes/contact-scene";
 import CotizaScene from "@/app/components/scenes/cotiza-scene";
+import ContactFaqCloudTransition from "@/app/components/transitions/contact-faq-cloud-transition";
 import type { SelectedBrand } from "@/app/page";
 
 type SceneStageProps = {
@@ -22,6 +24,8 @@ type SceneStageProps = {
   onOpenBrandDetails: (brand: SelectedBrand) => void;
   onCloseBrandDetails: () => void;
 };
+
+type TransitionPhase = "idle" | "prepare" | "covering" | "revealing";
 
 const defaultSceneVariants: Variants = {
   initial: {
@@ -90,6 +94,14 @@ const cotizaSceneVariants: Variants = {
   },
 };
 
+function StageFrame({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="mx-auto box-border flex h-full w-full max-w-6xl flex-col overflow-hidden px-4 pb-5 pt-[88px] md:max-w-7xl md:px-6 md:pb-6 md:pt-[96px] lg:px-10 xl:pt-[104px]">
+      <div className="relative h-full w-full overflow-hidden">{children}</div>
+    </div>
+  );
+}
+
 export default function SceneStage({
   activeScene,
   activeWorkCard,
@@ -102,25 +114,106 @@ export default function SceneStage({
   onOpenBrandDetails,
   onCloseBrandDetails,
 }: SceneStageProps) {
-  const isFaqScene = !isCotizaOpen && !selectedBrand && activeScene === 4;
+  const prevSceneRef = useRef(activeScene);
+  const transitionRafRef = useRef<number | null>(null);
 
-  // FAQ va fuera del contenedor transformado para que el fondo fixed
-  // realmente ocupe todo el viewport y se vea detrás del navbar.
-  if (isFaqScene) {
+  const [visualScene, setVisualScene] = useState(activeScene);
+  const [isContactFaqTransition, setIsContactFaqTransition] = useState(false);
+  const [transitionPhase, setTransitionPhase] =
+    useState<TransitionPhase>("idle");
+
+  useEffect(() => {
+    return () => {
+      if (transitionRafRef.current) {
+        cancelAnimationFrame(transitionRafRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const prevScene = prevSceneRef.current;
+
+    const shouldStartContactToFaq =
+      !isCotizaOpen &&
+      !selectedBrand &&
+      prevScene === 3 &&
+      activeScene === 4 &&
+      !isContactFaqTransition;
+
+    if (shouldStartContactToFaq) {
+      setVisualScene(3);
+      setIsContactFaqTransition(true);
+      setTransitionPhase("prepare");
+
+      transitionRafRef.current = requestAnimationFrame(() => {
+        setTransitionPhase("covering");
+      });
+    } else if (!isContactFaqTransition) {
+      setVisualScene(activeScene);
+    }
+
+    prevSceneRef.current = activeScene;
+  }, [activeScene, isCotizaOpen, selectedBrand, isContactFaqTransition]);
+
+  const handleCloudsCovered = () => {
+    setVisualScene(4);
+    setTransitionPhase("revealing");
+  };
+
+  const handleCloudsFinished = () => {
+    setIsContactFaqTransition(false);
+    setTransitionPhase("idle");
+    setVisualScene(4);
+  };
+
+  const shouldUseFaqStage =
+    !isCotizaOpen &&
+    !selectedBrand &&
+    (visualScene === 4 || isContactFaqTransition);
+
+  const contactLayerHidden =
+    transitionPhase === "covering" || transitionPhase === "revealing";
+
+  const faqLayerVisible =
+    transitionPhase === "revealing" ||
+    (!isContactFaqTransition && visualScene === 4);
+
+  if (shouldUseFaqStage) {
     return (
       <section className="relative z-20 h-[100svh] w-full overflow-hidden">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key="scene-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            className="relative h-full w-full"
+        <div className="relative h-full w-full">
+          {isContactFaqTransition && (
+            <div
+              className={`absolute inset-0 z-20 transition-[opacity,transform,filter] duration-[950ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                contactLayerHidden
+                  ? "translate-y-12 scale-[0.965] opacity-0 blur-[14px]"
+                  : "translate-y-0 scale-100 opacity-100 blur-0"
+              }`}
+            >
+              <StageFrame>
+                <ContactScene />
+              </StageFrame>
+            </div>
+          )}
+
+          <div
+            className={`absolute inset-0 ${
+              isContactFaqTransition ? "z-10" : "z-20"
+            } transition-[opacity,transform,filter] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              faqLayerVisible
+                ? "translate-y-0 scale-100 opacity-100 blur-0"
+                : "translate-y-6 scale-[0.988] opacity-0 blur-[12px]"
+            }`}
           >
             <FaqScene />
-          </motion.div>
-        </AnimatePresence>
+          </div>
+
+          <ContactFaqCloudTransition
+            active={isContactFaqTransition}
+            onCovered={handleCloudsCovered}
+            onFinished={handleCloudsFinished}
+          />
+        </div>
       </section>
     );
   }
@@ -129,7 +222,7 @@ export default function SceneStage({
     ? "cotiza-scene"
     : selectedBrand
       ? `brand-details-${selectedBrand.brandName}`
-      : `scene-${activeScene}`;
+      : `scene-${visualScene}`;
 
   const currentVariants = isCotizaOpen
     ? cotizaSceneVariants
@@ -137,7 +230,7 @@ export default function SceneStage({
 
   return (
     <section className="relative z-20 h-[100svh] w-full overflow-hidden">
-      <div className="mx-auto box-border flex h-full w-full max-w-6xl flex-col overflow-hidden px-4 pt-[88px] pb-5 md:max-w-7xl md:px-6 md:pt-[96px] md:pb-6 lg:px-10 xl:pt-[104px]">
+      <StageFrame>
         <AnimatePresence mode="wait">
           <motion.div
             key={currentKey}
@@ -145,7 +238,7 @@ export default function SceneStage({
             initial="initial"
             animate="animate"
             exit="exit"
-            className="relative h-full w-full overflow-hidden [transform-style:preserve-3d] [transform:translateZ(0)] will-change-transform"
+            className="relative h-full w-full overflow-hidden [transform:translateZ(0)] [transform-style:preserve-3d] will-change-transform"
           >
             {isCotizaOpen && (
               <motion.div
@@ -181,10 +274,10 @@ export default function SceneStage({
               transition={
                 isCotizaOpen
                   ? {
-                    duration: 0.48,
-                    delay: 0.12,
-                    ease: [0.16, 1, 0.3, 1],
-                  }
+                      duration: 0.48,
+                      delay: 0.12,
+                      ease: [0.16, 1, 0.3, 1],
+                    }
                   : undefined
               }
               className="h-full w-full overflow-hidden"
@@ -201,7 +294,7 @@ export default function SceneStage({
                 />
               ) : (
                 <>
-                  {activeScene === 0 && (
+                  {visualScene === 0 && (
                     <IntroScene
                       titleTop="EL EQUIPO QUE"
                       titleBottom="CONCRETA TUS IDEAS"
@@ -214,21 +307,21 @@ export default function SceneStage({
                     />
                   )}
 
-                  {activeScene === 1 && (
+                  {visualScene === 1 && (
                     <BrandShowcase onOpenBrandDetails={onOpenBrandDetails} />
                   )}
 
-                  {activeScene === 2 && (
+                  {visualScene === 2 && (
                     <WorkScene activeWorkCard={activeWorkCard} />
                   )}
 
-                  {activeScene === 3 && <ContactScene />}
+                  {visualScene === 3 && <ContactScene />}
                 </>
               )}
             </motion.div>
           </motion.div>
         </AnimatePresence>
-      </div>
+      </StageFrame>
     </section>
   );
 }

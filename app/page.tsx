@@ -1,9 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import FixedHeader from "@/app/components/fixed-header";
-import SceneStage from "@/app/components/scene-stage";
-import ScrollProgress from "@/app/components/scroll-progress";
+import FixedHeader from "@/app/components/layout/fixed-header";
+import SceneStage from "@/app/components/experience/scene-stage";
+import ScrollProgress from "@/app/components/experience/scroll-progress";
 import FloatingSocialOrb from "@/app/components/scenes/floating-social-orb";
 
 export type BrandWorkItem = {
