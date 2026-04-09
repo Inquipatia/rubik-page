@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import IntroScene from "@/app/components/scenes/intro-scene";
 import BrandShowcase from "@/app/components/scenes/brand-showcase";
@@ -155,16 +155,15 @@ export default function SceneStage({
     prevSceneRef.current = activeScene;
   }, [activeScene, isCotizaOpen, selectedBrand, isContactFaqTransition]);
 
-  const handleCloudsCovered = () => {
-    setVisualScene(4);
-    setTransitionPhase("revealing");
-  };
+  const handleCloudsCovered = useCallback(() => {
+  setTransitionPhase("revealing");
+}, []);
 
-  const handleCloudsFinished = () => {
-    setIsContactFaqTransition(false);
-    setTransitionPhase("idle");
-    setVisualScene(4);
-  };
+  const handleCloudsFinished = useCallback(() => {
+  setIsContactFaqTransition(false);
+  setTransitionPhase("idle");
+  setVisualScene(4);
+}, []);
 
   const shouldUseFaqStage =
     !isCotizaOpen &&
@@ -174,9 +173,7 @@ export default function SceneStage({
   const contactLayerHidden =
     transitionPhase === "covering" || transitionPhase === "revealing";
 
-  const faqLayerVisible =
-    transitionPhase === "revealing" ||
-    (!isContactFaqTransition && visualScene === 4);
+  const faqLayerVisible = !isContactFaqTransition && visualScene === 4;
 
   if (shouldUseFaqStage) {
     return (
@@ -184,11 +181,10 @@ export default function SceneStage({
         <div className="relative h-full w-full">
           {isContactFaqTransition && (
             <div
-              className={`absolute inset-0 z-20 transition-[opacity,transform,filter] duration-[950ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                contactLayerHidden
+              className={`absolute inset-0 z-20 transition-[opacity,transform,filter] duration-[950ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${contactLayerHidden
                   ? "translate-y-12 scale-[0.965] opacity-0 blur-[14px]"
                   : "translate-y-0 scale-100 opacity-100 blur-0"
-              }`}
+                }`}
             >
               <StageFrame>
                 <ContactScene />
@@ -197,13 +193,11 @@ export default function SceneStage({
           )}
 
           <div
-            className={`absolute inset-0 ${
-              isContactFaqTransition ? "z-10" : "z-20"
-            } transition-[opacity,transform,filter] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
-              faqLayerVisible
+            className={`absolute inset-0 ${isContactFaqTransition ? "z-10" : "z-20"
+              } transition-[opacity,transform,filter] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${faqLayerVisible
                 ? "translate-y-0 scale-100 opacity-100 blur-0"
                 : "translate-y-6 scale-[0.988] opacity-0 blur-[12px]"
-            }`}
+              }`}
           >
             <FaqScene />
           </div>
@@ -274,10 +268,10 @@ export default function SceneStage({
               transition={
                 isCotizaOpen
                   ? {
-                      duration: 0.48,
-                      delay: 0.12,
-                      ease: [0.16, 1, 0.3, 1],
-                    }
+                    duration: 0.48,
+                    delay: 0.12,
+                    ease: [0.16, 1, 0.3, 1],
+                  }
                   : undefined
               }
               className="h-full w-full overflow-hidden"

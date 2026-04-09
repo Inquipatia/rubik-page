@@ -15,323 +15,524 @@ export default function ContactFaqCloudTransition({
   onFinished,
 }: ContactFaqCloudTransitionProps) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const coveredOnceRef = useRef(false);
 
-  const skyRef = useRef<HTMLDivElement>(null);
-  const auraRef = useRef<HTMLDivElement>(null);
-  const plumeARef = useRef<HTMLDivElement>(null);
-  const plumeBRef = useRef<HTMLDivElement>(null);
-  const flareRef = useRef<HTMLDivElement>(null);
-  const washRef = useRef<HTMLDivElement>(null);
+  const backdropRef = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
+  const wavesWrapRef = useRef<HTMLDivElement>(null);
+  const waveARef = useRef<SVGPathElement>(null);
+  const waveBRef = useRef<SVGPathElement>(null);
+  const waveCRef = useRef<SVGPathElement>(null);
+  const logoWrapRef = useRef<HTMLDivElement>(null);
+  const logoGlowRef = useRef<HTMLDivElement>(null);
+  const seaRef = useRef<HTMLDivElement>(null);
+  const veilRef = useRef<HTMLDivElement>(null);
   const vignetteRef = useRef<HTMLDivElement>(null);
 
+  const rafRef = useRef<number | null>(null);
+  const coveredOnceRef = useRef(false);
+  const finishedOnceRef = useRef(false);
+
+  const onCoveredRef = useRef(onCovered);
+  const onFinishedRef = useRef(onFinished);
+
   useEffect(() => {
-    if (!active) return;
+    onCoveredRef.current = onCovered;
+    onFinishedRef.current = onFinished;
+  }, [onCovered, onFinished]);
 
-    coveredOnceRef.current = false;
-
+  useEffect(() => {
     const root = rootRef.current;
-    const sky = skyRef.current;
-    const aura = auraRef.current;
-    const plumeA = plumeARef.current;
-    const plumeB = plumeBRef.current;
-    const flare = flareRef.current;
-    const wash = washRef.current;
+    const backdrop = backdropRef.current;
+    const glow = glowRef.current;
+    const wavesWrap = wavesWrapRef.current;
+    const waveA = waveARef.current;
+    const waveB = waveBRef.current;
+    const waveC = waveCRef.current;
+    const logoWrap = logoWrapRef.current;
+    const logoGlow = logoGlowRef.current;
+    const sea = seaRef.current;
+    const veil = veilRef.current;
     const vignette = vignetteRef.current;
 
     if (
       !root ||
-      !sky ||
-      !aura ||
-      !plumeA ||
-      !plumeB ||
-      !flare ||
-      !wash ||
+      !backdrop ||
+      !glow ||
+      !wavesWrap ||
+      !waveA ||
+      !waveB ||
+      !waveC ||
+      !logoWrap ||
+      !logoGlow ||
+      !sea ||
+      !veil ||
       !vignette
     ) {
       return;
     }
 
-    gsap.set(root, { autoAlpha: 1 });
+    let tl: gsap.core.Timeline | null = null;
+    let waveTweenA: gsap.core.Tween | null = null;
+    let waveTweenB: gsap.core.Tween | null = null;
+    let waveTweenC: gsap.core.Tween | null = null;
 
-    gsap.set(sky, {
-      scale: 1.06,
-      yPercent: 4,
+    const cleanupAnimation = () => {
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+
+      tl?.kill();
+      waveTweenA?.kill();
+      waveTweenB?.kill();
+      waveTweenC?.kill();
+
+      gsap.killTweensOf([
+        root,
+        backdrop,
+        glow,
+        wavesWrap,
+        waveA,
+        waveB,
+        waveC,
+        logoWrap,
+        logoGlow,
+        sea,
+        veil,
+        vignette,
+      ]);
+
+      gsap.set(root, { autoAlpha: 0 });
+    };
+
+    if (!active) {
+      cleanupAnimation();
+      return;
+    }
+
+    coveredOnceRef.current = false;
+    finishedOnceRef.current = false;
+
+    gsap.set(root, { autoAlpha: 0 });
+
+    gsap.set(backdrop, {
+      autoAlpha: 1,
+      scale: 1.03,
+      filter: "brightness(1.02)",
       transformOrigin: "50% 50%",
       force3D: true,
     });
 
-    gsap.set(aura, {
-      autoAlpha: 0.3,
-      scale: 1.14,
-      yPercent: 2,
+    gsap.set(glow, {
+      autoAlpha: 0,
+      scale: 0.88,
+      yPercent: 6,
       transformOrigin: "50% 24%",
       force3D: true,
     });
 
-    gsap.set(plumeA, {
+    gsap.set(wavesWrap, {
       autoAlpha: 0,
-      xPercent: -10,
-      yPercent: 16,
-      scale: 1.22,
-      rotate: -5,
+      yPercent: 4,
+      force3D: true,
+    });
+
+    gsap.set([waveA, waveB, waveC], {
+      strokeDasharray: 2200,
+      strokeDashoffset: 2200,
+      autoAlpha: 0,
+      force3D: true,
+    });
+
+    gsap.set(logoWrap, {
+      autoAlpha: 0,
+      yPercent: 12,
+      scale: 0.92,
+      filter: "blur(18px)",
       transformOrigin: "50% 50%",
       force3D: true,
     });
 
-    gsap.set(plumeB, {
+    gsap.set(logoGlow, {
       autoAlpha: 0,
-      xPercent: 10,
-      yPercent: 18,
-      scale: 1.2,
-      rotate: 6,
-      transformOrigin: "50% 50%",
+      scale: 0.82,
       force3D: true,
     });
 
-    gsap.set(flare, {
-      autoAlpha: 0.2,
-      scale: 0.86,
-      yPercent: 8,
-      transformOrigin: "50% 22%",
+    gsap.set(sea, {
+      autoAlpha: 0,
+      yPercent: 24,
+      scaleY: 0.8,
+      transformOrigin: "50% 100%",
       force3D: true,
     });
 
-    gsap.set(wash, {
-      autoAlpha: 0,
-    });
+    gsap.set(veil, { autoAlpha: 0 });
+    gsap.set(vignette, { autoAlpha: 0.42 });
 
-    gsap.set(vignette, {
-      autoAlpha: 0.42,
-    });
+    rafRef.current = requestAnimationFrame(() => {
+      gsap.set(root, { autoAlpha: 1 });
 
-    const tl = gsap.timeline({
-      defaults: { ease: "power2.out" },
-      onComplete: onFinished,
-    });
+      waveTweenA = gsap.to(waveA, {
+        xPercent: 3.5,
+        yPercent: -1,
+        duration: 3.6,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+      });
 
-    tl.to(
-      sky,
-      {
-        scale: 1,
-        yPercent: 0,
-        duration: 0.88,
-        ease: "power2.out",
-      },
-      0
-    )
-      .to(
-        aura,
-        {
-          autoAlpha: 0.9,
-          scale: 1.02,
-          yPercent: -2,
-          duration: 0.72,
-          ease: "power3.out",
+      waveTweenB = gsap.to(waveB, {
+        xPercent: -2.8,
+        yPercent: 0.9,
+        duration: 4.1,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+      });
+
+      waveTweenC = gsap.to(waveC, {
+        xPercent: 2.2,
+        yPercent: -0.7,
+        duration: 3.2,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+      });
+
+      tl = gsap.timeline({
+        defaults: { ease: "power2.out" },
+        onComplete: () => {
+          if (finishedOnceRef.current) return;
+          finishedOnceRef.current = true;
+          onFinishedRef.current();
         },
-        0.03
-      )
-      .to(
-        plumeA,
+      });
+
+      tl.to(
+        glow,
         {
-          autoAlpha: 0.72,
-          xPercent: 0,
+          autoAlpha: 0.88,
+          scale: 1.04,
           yPercent: 0,
-          scale: 1,
-          rotate: -1,
-          duration: 0.78,
+          duration: 0.95,
           ease: "power3.out",
         },
-        0.07
+        0
       )
-      .to(
-        plumeB,
-        {
-          autoAlpha: 0.64,
-          xPercent: 0,
-          yPercent: -4,
-          scale: 1,
-          rotate: 1,
-          duration: 0.82,
-          ease: "power3.out",
-        },
-        0.1
-      )
-      .to(
-        flare,
-        {
-          autoAlpha: 1,
-          scale: 1.08,
-          yPercent: -6,
-          duration: 0.6,
-          ease: "power3.out",
-        },
-        0.16
-      )
-      .to(
-        wash,
-        {
-          autoAlpha: 0.72,
-          duration: 0.34,
-          ease: "power2.out",
-        },
-        0.18
-      )
-      .call(() => {
-        if (!coveredOnceRef.current) {
+        .to(
+          backdrop,
+          {
+            scale: 1,
+            filter: "brightness(0.96)",
+            duration: 2.2,
+            ease: "sine.out",
+          },
+          0
+        )
+        .to(
+          wavesWrap,
+          {
+            autoAlpha: 1,
+            yPercent: 0,
+            duration: 0.75,
+            ease: "power2.out",
+          },
+          0.45
+        )
+        .to(
+          waveA,
+          {
+            strokeDashoffset: 0,
+            autoAlpha: 0.52,
+            duration: 1.1,
+            ease: "power2.out",
+          },
+          0.55
+        )
+        .to(
+          waveB,
+          {
+            strokeDashoffset: 0,
+            autoAlpha: 0.38,
+            duration: 1.15,
+            ease: "power2.out",
+          },
+          0.72
+        )
+        .to(
+          waveC,
+          {
+            strokeDashoffset: 0,
+            autoAlpha: 0.24,
+            duration: 1.2,
+            ease: "power2.out",
+          },
+          0.9
+        )
+        .to(
+          logoGlow,
+          {
+            autoAlpha: 0.5,
+            scale: 1.05,
+            duration: 0.55,
+            ease: "power3.out",
+          },
+          1.45
+        )
+        .to(
+          logoWrap,
+          {
+            autoAlpha: 1,
+            yPercent: 0,
+            scale: 1,
+            filter: "blur(0px)",
+            duration: 0.85,
+            ease: "power3.out",
+          },
+          1.5
+        )
+        .call(() => {
+          if (coveredOnceRef.current) return;
           coveredOnceRef.current = true;
-          onCovered();
-        }
-      }, [], 0.42)
-      .to(
-        aura,
-        {
-          autoAlpha: 0.22,
-          scale: 1.1,
-          duration: 0.5,
-          ease: "power2.out",
-        },
-        0.74
-      )
-      .to(
-        plumeA,
-        {
-          autoAlpha: 0.14,
-          xPercent: 5,
-          yPercent: -10,
-          scale: 1.08,
-          duration: 0.46,
-          ease: "power2.out",
-        },
-        0.76
-      )
-      .to(
-        plumeB,
-        {
-          autoAlpha: 0.1,
-          xPercent: -4,
-          yPercent: -12,
-          scale: 1.1,
-          duration: 0.46,
-          ease: "power2.out",
-        },
-        0.78
-      )
-      .to(
-        flare,
-        {
-          autoAlpha: 0.16,
-          scale: 1.18,
-          duration: 0.48,
-          ease: "power2.out",
-        },
-        0.8
-      )
-      .to(
-        wash,
-        {
-          autoAlpha: 0.16,
-          duration: 0.42,
-          ease: "power2.out",
-        },
-        0.84
-      )
-      .to(
-        root,
-        {
-          autoAlpha: 0,
-          duration: 0.32,
-          ease: "power2.out",
-        },
-        0.96
-      );
+          onCoveredRef.current();
+        }, [], 2.2)
+        .to(
+          logoWrap,
+          {
+            yPercent: -1.5,
+            duration: 1.2,
+            ease: "sine.inOut",
+          },
+          2.25
+        )
+        .to(
+          sea,
+          {
+            autoAlpha: 0.68,
+            yPercent: 0,
+            scaleY: 1,
+            duration: 1.05,
+            ease: "power2.out",
+          },
+          3.1
+        )
+        .to(
+          veil,
+          {
+            autoAlpha: 0.16,
+            duration: 0.7,
+            ease: "power2.out",
+          },
+          3.2
+        )
+        .to(
+          glow,
+          {
+            autoAlpha: 0.52,
+            scale: 1.08,
+            duration: 1.1,
+            ease: "sine.out",
+          },
+          3.35
+        )
+        .to(
+          logoGlow,
+          {
+            autoAlpha: 0.16,
+            scale: 1.12,
+            duration: 0.55,
+            ease: "power2.out",
+          },
+          4.45
+        )
+        .to(
+          logoWrap,
+          {
+            autoAlpha: 0.06,
+            yPercent: -4,
+            scale: 1.02,
+            duration: 0.62,
+            ease: "power2.out",
+          },
+          4.5
+        )
+        .to(
+          wavesWrap,
+          {
+            autoAlpha: 0.16,
+            duration: 0.5,
+            ease: "power2.out",
+          },
+          4.8
+        )
+        .to(
+          sea,
+          {
+            autoAlpha: 0.4,
+            duration: 0.55,
+            ease: "power2.out",
+          },
+          5.05
+        )
+        .to(
+          root,
+          {
+            autoAlpha: 0,
+            duration: 0.45,
+            ease: "power2.out",
+          },
+          5.55
+        );
+    });
 
-    return () => {
-      tl.kill();
-    };
-  }, [active, onCovered, onFinished]);
+    return cleanupAnimation;
+  }, [active]);
 
   if (!active) return null;
 
   return (
     <div
       ref={rootRef}
-      className="pointer-events-none fixed inset-0 z-[90] overflow-hidden"
+      className="pointer-events-none fixed inset-0 z-[90] overflow-hidden opacity-0 invisible"
       aria-hidden="true"
     >
-      {/* Fondo cielo / atmósfera */}
       <div
-        ref={skyRef}
+        ref={backdropRef}
         className="absolute inset-0"
         style={{
           background: `
-            radial-gradient(circle at 50% 8%, rgba(255,255,255,0.24) 0%, rgba(255,255,255,0) 24%),
-            radial-gradient(circle at 22% 20%, rgba(198,138,255,0.22) 0%, rgba(198,138,255,0) 34%),
-            radial-gradient(circle at 78% 24%, rgba(144,104,255,0.18) 0%, rgba(144,104,255,0) 30%),
-            linear-gradient(180deg, #f8f2ff 0%, #ebddff 12%, #d7bcff 26%, #b07cff 44%, #6f2cf0 68%, #23074f 100%)
+            radial-gradient(circle at 50% 18%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 22%),
+            radial-gradient(circle at 50% 30%, rgba(189,129,255,0.08) 0%, rgba(189,129,255,0) 36%),
+            linear-gradient(180deg, #1b0838 0%, #16062f 18%, #120427 36%, #0f0320 56%, #0a0217 76%, #06010d 100%)
           `,
         }}
       />
 
-      {/* Halo amplio superior */}
       <div
-        ref={auraRef}
-        className="absolute inset-x-[-16%] top-[-16%] h-[62vh] blur-[100px] mix-blend-screen"
+        ref={glowRef}
+        className="absolute inset-x-[-16%] top-[-12%] h-[58vh] blur-[88px] mix-blend-screen"
         style={{
           background:
-            "radial-gradient(circle at 50% 24%, rgba(255,255,255,0.98) 0%, rgba(248,236,255,0.9) 16%, rgba(229,196,255,0.58) 34%, rgba(176,106,255,0.18) 56%, rgba(255,255,255,0) 78%)",
+            "radial-gradient(circle at 50% 26%, rgba(255,255,255,0.8) 0%, rgba(240,217,255,0.42) 22%, rgba(181,105,255,0.18) 42%, rgba(181,105,255,0) 72%)",
         }}
       />
 
-      {/* Masa líquida / nube izquierda */}
+      <div ref={wavesWrapRef} className="absolute inset-0">
+        <svg
+          viewBox="0 0 1600 900"
+          preserveAspectRatio="none"
+          className="absolute inset-0 h-full w-full"
+        >
+          <defs>
+            <linearGradient id="rubikWaveA" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="rgba(255,255,255,0)" />
+              <stop offset="18%" stopColor="rgba(255,255,255,0.1)" />
+              <stop offset="50%" stopColor="rgba(225,161,255,0.72)" />
+              <stop offset="82%" stopColor="rgba(255,255,255,0.1)" />
+              <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+            </linearGradient>
+
+            <linearGradient id="rubikWaveB" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="rgba(255,255,255,0)" />
+              <stop offset="20%" stopColor="rgba(209,152,255,0.07)" />
+              <stop offset="50%" stopColor="rgba(233,199,255,0.46)" />
+              <stop offset="80%" stopColor="rgba(209,152,255,0.07)" />
+              <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+            </linearGradient>
+
+            <linearGradient id="rubikWaveC" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="rgba(255,255,255,0)" />
+              <stop offset="20%" stopColor="rgba(168,113,255,0.05)" />
+              <stop offset="50%" stopColor="rgba(219,178,255,0.24)" />
+              <stop offset="80%" stopColor="rgba(168,113,255,0.05)" />
+              <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+            </linearGradient>
+          </defs>
+
+          <path
+            ref={waveARef}
+            d="M -120 438 C 120 396, 310 510, 590 456 S 1090 382, 1750 470"
+            stroke="url(#rubikWaveA)"
+            strokeWidth="3"
+            fill="none"
+            strokeLinecap="round"
+          />
+          <path
+            ref={waveBRef}
+            d="M -160 505 C 140 452, 420 572, 760 516 S 1220 446, 1780 542"
+            stroke="url(#rubikWaveB)"
+            strokeWidth="2"
+            fill="none"
+            strokeLinecap="round"
+          />
+          <path
+            ref={waveCRef}
+            d="M -180 372 C 120 338, 410 438, 690 404 S 1120 348, 1800 430"
+            stroke="url(#rubikWaveC)"
+            strokeWidth="1.4"
+            fill="none"
+            strokeLinecap="round"
+          />
+        </svg>
+      </div>
+
       <div
-        ref={plumeARef}
-        className="absolute left-[-10%] top-[26%] h-[52vh] w-[72vw] blur-[76px] mix-blend-screen"
+        ref={logoGlowRef}
+        className="absolute left-1/2 top-[33%] h-[22rem] w-[22rem] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[80px] mix-blend-screen"
         style={{
           background:
-            "radial-gradient(ellipse at 38% 40%, rgba(245,223,255,0.58) 0%, rgba(216,171,255,0.38) 24%, rgba(157,88,245,0.22) 48%, rgba(96,38,197,0.12) 66%, rgba(96,38,197,0) 84%)",
-          clipPath: "ellipse(44% 34% at 42% 48%)",
+            "radial-gradient(circle, rgba(239,199,255,0.24) 0%, rgba(198,123,255,0.12) 38%, rgba(198,123,255,0) 72%)",
         }}
       />
 
-      {/* Masa líquida / nube derecha */}
       <div
-        ref={plumeBRef}
-        className="absolute right-[-12%] top-[34%] h-[48vh] w-[68vw] blur-[82px] mix-blend-screen"
-        style={{
-          background:
-            "radial-gradient(ellipse at 60% 36%, rgba(239,220,255,0.44) 0%, rgba(201,146,255,0.28) 26%, rgba(133,70,232,0.18) 50%, rgba(75,27,173,0.12) 68%, rgba(75,27,173,0) 86%)",
-          clipPath: "ellipse(40% 30% at 56% 46%)",
-        }}
-      />
+        ref={logoWrapRef}
+        className="absolute left-1/2 top-[38%] z-[2] w-[min(66vw,34rem)] -translate-x-1/2 -translate-y-1/2 mix-blend-screen"
+      >
+        <img
+          src="/img/rubik-transition-logo.png"
+          alt="Rubik Digital"
+          className="h-auto w-full object-contain opacity-95 [filter:drop-shadow(0_0_16px_rgba(255,105,210,0.12))]"
+          draggable={false}
+        />
+      </div>
 
-      {/* Luz central que tapa y luego se va */}
       <div
-        ref={flareRef}
-        className="absolute inset-x-[-8%] top-[-6%] h-[72vh] blur-[74px] mix-blend-screen"
+        ref={seaRef}
+        className="absolute inset-x-[-12%] bottom-[-8%] h-[32vh] overflow-hidden blur-[10px]"
         style={{
-          background:
-            "radial-gradient(ellipse at 50% 18%, rgba(255,255,255,0.98) 0%, rgba(255,243,255,0.86) 14%, rgba(242,214,255,0.52) 28%, rgba(196,128,255,0.18) 46%, rgba(255,255,255,0) 70%)",
+          background: `
+            radial-gradient(ellipse at 50% 0%, rgba(224,177,255,0.12) 0%, rgba(224,177,255,0.05) 18%, rgba(224,177,255,0) 40%),
+            linear-gradient(180deg, rgba(88,35,166,0.02) 0%, rgba(52,19,110,0.16) 28%, rgba(25,8,56,0.46) 62%, rgba(8,2,18,0.96) 100%)
+          `,
+          clipPath: "ellipse(74% 100% at 50% 100%)",
         }}
-      />
+      >
+        <div
+          className="absolute inset-x-[10%] top-[7%] h-px opacity-38"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(238,214,255,0.36) 22%, rgba(255,255,255,0.56) 50%, rgba(238,214,255,0.36) 78%, rgba(255,255,255,0) 100%)",
+          }}
+        />
+      </div>
 
-      {/* Lavado general de luz */}
       <div
-        ref={washRef}
+        ref={veilRef}
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(248,232,255,0.12) 20%, rgba(198,124,255,0.14) 46%, rgba(96,33,198,0.16) 70%, rgba(20,5,48,0.22) 100%)",
+            "linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(183,113,255,0.03) 28%, rgba(80,28,172,0.05) 56%, rgba(8,2,18,0.1) 100%)",
         }}
       />
 
-      {/* Viñeta sutil */}
       <div
         ref={vignetteRef}
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(circle at 50% 36%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.08) 58%, rgba(0,0,0,0.3) 100%)",
+            "radial-gradient(circle at 50% 38%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.12) 62%, rgba(0,0,0,0.42) 100%)",
         }}
       />
     </div>
