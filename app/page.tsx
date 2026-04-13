@@ -1,10 +1,16 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  FaInstagram,
+  FaFacebookF,
+  FaLinkedinIn,
+  FaTiktok,
+  FaWhatsapp,
+} from "react-icons/fa6";
 import FixedHeader from "@/app/components/layout/fixed-header";
 import SceneStage from "@/app/components/experience/scene-stage";
 import ScrollProgress from "@/app/components/experience/scroll-progress";
-import FloatingSocialOrb from "@/app/components/scenes/floating-social-orb";
 
 export type BrandWorkItem = {
   image: string;
@@ -19,9 +25,62 @@ export type SelectedBrand = {
   works: BrandWorkItem[];
 };
 
+function CornerSocialPanel() {
+  const socials = [
+    {
+      href: "https://instagram.com/rubikcreaciones.cl",
+      label: "Instagram",
+      icon: <FaInstagram size={14} />,
+    },
+    {
+      href: "https://web.facebook.com/profile.php?id=100083381976669",
+      label: "Facebook",
+      icon: <FaFacebookF size={13} />,
+    },
+    {
+      href: "https://tiktok.com/@rubikcreaciones",
+      label: "TikTok",
+      icon: <FaTiktok size={13} />,
+    },
+    {
+      href: "https://www.linkedin.com/in/rubik-creaciones-9b13063b5/",
+      label: "LinkedIn",
+      icon: <FaLinkedinIn size={13} />,
+    },
+    {
+      href: "https://wa.me/56991330559",
+      label: "WhatsApp",
+      icon: <FaWhatsapp size={14} />,
+    },
+  ];
+
+  return (
+    <div className="fixed bottom-[72px] right-4 z-50 hidden md:block">
+      <div className="w-[74px] rounded-[22px] border border-white/8 bg-[linear-gradient(180deg,rgba(10,10,16,0.96),rgba(6,6,10,0.98))] p-2 shadow-[0_14px_30px_rgba(0,0,0,0.28)] backdrop-blur-xl">
+        <div className="flex flex-col items-center gap-2">
+          {socials.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={item.label}
+              title={item.label}
+              className="group flex h-[44px] w-[44px] items-center justify-center rounded-full border border-white/8 bg-white/[0.03] text-white/82 transition duration-300 hover:-translate-y-[1px] hover:border-white/14 hover:bg-white/[0.07] hover:text-white"
+            >
+              <span className="transition duration-300 group-hover:scale-110">
+                {item.icon}
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const [activeScene, setActiveScene] = useState(0);
-  const [sceneDirection, setSceneDirection] = useState<1 | -1>(1);
   const [activeWorkCard] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isCubeHovered, setIsCubeHovered] = useState(false);
@@ -44,14 +103,13 @@ export default function Home() {
     window.setTimeout(() => {
       wheelLockRef.current = false;
       setIsAnimating(false);
-    }, 820);
+    }, 680);
   }, []);
 
   const goNext = useCallback(() => {
     if (isCotizaOpen || selectedBrand) return;
 
     if (activeScene < totalMainScenes - 1) {
-      setSceneDirection(1);
       setActiveScene((prev) => prev + 1);
     }
   }, [activeScene, totalMainScenes, isCotizaOpen, selectedBrand]);
@@ -60,7 +118,6 @@ export default function Home() {
     if (isCotizaOpen || selectedBrand) return;
 
     if (activeScene > 0) {
-      setSceneDirection(-1);
       setActiveScene((prev) => prev - 1);
     }
   }, [activeScene, isCotizaOpen, selectedBrand]);
@@ -72,17 +129,13 @@ export default function Home() {
       wheelLockRef.current = true;
       setIsAnimating(true);
 
-      if (index !== activeScene) {
-        setSceneDirection(index > activeScene ? 1 : -1);
-      }
-
       setIsCotizaOpen(false);
       setSelectedBrand(null);
       setActiveScene(index);
 
       unlockAfterDelay();
     },
-    [activeScene, unlockAfterDelay]
+    [unlockAfterDelay]
   );
 
   const handleOpenCotiza = useCallback(() => {
@@ -96,9 +149,7 @@ export default function Home() {
   const handleCloseCotiza = useCallback(() => {
     wheelLockRef.current = true;
     setIsAnimating(true);
-
     setIsCotizaOpen(false);
-
     unlockAfterDelay();
   }, [unlockAfterDelay]);
 
@@ -106,10 +157,8 @@ export default function Home() {
     (brand: SelectedBrand) => {
       wheelLockRef.current = true;
       setIsAnimating(true);
-
       setIsCotizaOpen(false);
       setSelectedBrand(brand);
-
       unlockAfterDelay();
     },
     [unlockAfterDelay]
@@ -118,9 +167,7 @@ export default function Home() {
   const handleCloseBrandDetails = useCallback(() => {
     wheelLockRef.current = true;
     setIsAnimating(true);
-
     setSelectedBrand(null);
-
     unlockAfterDelay();
   }, [unlockAfterDelay]);
 
@@ -128,7 +175,6 @@ export default function Home() {
     wheelLockRef.current = true;
     setIsAnimating(true);
 
-    setSceneDirection(1);
     setIsCotizaOpen(false);
     setSelectedBrand(null);
     setActiveScene(2);
@@ -173,6 +219,8 @@ export default function Home() {
     selectedBrand,
   ]);
 
+  const shouldShowOverlayUi = !isCotizaOpen && !selectedBrand;
+
   return (
     <main className="relative h-[100svh] w-full overflow-hidden text-white">
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
@@ -207,15 +255,15 @@ export default function Home() {
           onCloseBrandDetails={handleCloseBrandDetails}
         />
 
-        {!isCotizaOpen && !selectedBrand && <ScrollProgress progress={progress} />}
+        {shouldShowOverlayUi && <ScrollProgress progress={progress} />}
 
-        {!isCotizaOpen && !selectedBrand && (
+        {shouldShowOverlayUi && (
           <div className="pointer-events-none fixed bottom-10 left-1/2 z-40 -translate-x-1/2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/60 backdrop-blur">
             Gira arriba / abajo
           </div>
         )}
 
-        {!isCotizaOpen && !selectedBrand && <FloatingSocialOrb />}
+        {shouldShowOverlayUi && <CornerSocialPanel />}
       </div>
     </main>
   );

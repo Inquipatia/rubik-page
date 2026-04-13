@@ -7,52 +7,76 @@ type BrandShowcaseProps = {
   onOpenBrandDetails: (brand: SelectedBrand) => void;
 };
 
+function buildWorks(
+  folder: string,
+  prefix: string,
+  count: number,
+  extension: "jpg" | "jpeg" | "png",
+  brandLabel: string,
+  firstItems: {
+    image: string;
+    title: string;
+    description: string;
+  }[] = []
+) {
+  const startIndex = firstItems.length + 1;
+
+  return [
+    ...firstItems,
+    ...Array.from({ length: count - firstItems.length }, (_, i) => ({
+      image: `/img/services/${folder}/${prefix} (${i + startIndex}).${extension}`,
+      title: `${brandLabel} ${i + startIndex}`,
+      description: "Implementación visual enfocada en producto y experiencia.",
+    })),
+  ];
+}
+
 const brands: SelectedBrand[] = [
   {
     brandName: "Santander",
     brandLogo: "/img/works/santa.png",
     description:
       "Activaciones de verano en Surf Festival, con desarrollo de stands en La Serena y Pichilemu, fabricación en MDF y madera tratada, full branding, volumétricos en acrílico, cortes CNC, aplicaciones en Neon Flex e intervención de escenarios y zonas de competencia e hidratación. Posteriormente, parte de esta estructura fue reutilizada y adaptada para su presencia en el Festival de Viña, incluyendo espacios interiores y VIP en la Quinta Vergara.",
-    works: [
+    works: buildWorks("SANTANDER", "santa", 35, "jpg", "Santander", [
       {
-        image: "/img/works/santa.png",
+        image: "/img/services/SANTANDER/santa (1).jpg",
         title: "Implementación sucursal",
         description: "Aplicación gráfica en espacio comercial y comunicación visual.",
       },
       {
-        image: "/img/works/3.png",
+        image: "/img/services/SANTANDER/santa (2).jpg",
         title: "Señalética corporativa",
         description: "Sistema visual para reforzar navegación y presencia de marca.",
       },
       {
-        image: "/img/works/3.png",
+        image: "/img/services/SANTANDER/santa (3).jpg",
         title: "Campaña interior",
         description: "Elementos gráficos para destacar promociones y experiencia de cliente.",
       },
       {
-        image: "/img/works/3.png",
+        image: "/img/services/SANTANDER/santa (4).jpg",
         title: "Piezas de apoyo",
         description: "Producción e instalación de recursos visuales complementarios.",
       },
-    ],
+    ]),
   },
   {
     brandName: "Chevrolet",
     brandLogo: "/img/works/chevrolet.png",
     description:
       "Lanzamiento Eurosail con fuerte protagonismo de estructuras metálicas, arcos de activación y aplicaciones extensivas de Neón Flex, integrando entre 20 y 30 piezas de marca en distintos puntos relevantes del montaje.",
-    works: [
+    works: buildWorks("CHEVROLET", "che", 13, "jpeg", "Chevrolet", [
       {
-        image: "/img/works/3.png",
+        image: "/img/services/CHEVROLET/che (1).jpeg",
         title: "Activación retail",
         description: "Montaje de material visual para campaña promocional.",
       },
       {
-        image: "/img/works/3.png",
+        image: "/img/services/CHEVROLET/che (2).jpeg",
         title: "Display de marca",
         description: "Soportes para reforzar presencia visual en punto de venta.",
       },
-    ],
+    ]),
   },
   {
     brandName: "Complot",
@@ -74,21 +98,21 @@ const brands: SelectedBrand[] = [
   },
   {
     brandName: "Latam Airlines",
-    brandLogo: "/img/works/latam.png",
+    brandLogo: "/img/works/Latam.png",
     description:
       "Reacondicionamiento y mantención de volumétricos previamente construidos, incluyendo renovación de lacado, actualización de branding, mantenimiento de iluminación y ajustes en Neon Flex.",
-    works: [
+    works: buildWorks("LATAM", "latam", 17, "jpeg", "Latam", [
       {
-        image: "/img/works/3.png",
+        image: "/img/services/LATAM/latam (1).jpeg",
         title: "Soporte visual",
         description: "Aplicación de piezas gráficas en entorno comercial.",
       },
       {
-        image: "/img/works/3.png",
+        image: "/img/services/LATAM/latam (2).jpeg",
         title: "Branding interior",
         description: "Refuerzo visual de marca en espacios de atención.",
       },
-    ],
+    ]),
   },
   {
     brandName: "Copec",
@@ -131,18 +155,18 @@ const brands: SelectedBrand[] = [
     brandLogo: "/img/works/kauf.png",
     description:
       "Activaciones desarrolladas vía agencia Complot, incluyendo estructuras metálicas para exhibición de vehículos, volumétricos en acrílico, piezas gráficas y emplacado en Trovicel.",
-    works: [
+    works: buildWorks("KAUFMAN", "kaufman", 17, "jpg", "Kaufmann", [
       {
-        image: "/img/works/3.png",
+        image: "/img/services/KAUFMAN/kaufman (1).jpg",
         title: "Visual de campaña",
         description: "Despliegue gráfico para reforzar storytelling de marca.",
       },
       {
-        image: "/img/works/3.png",
+        image: "/img/services/KAUFMAN/kaufman (2).jpg",
         title: "Ambientación retail",
         description: "Piezas y soportes para experiencia de compra.",
       },
-    ],
+    ]),
   },
   {
     brandName: "Mistral",

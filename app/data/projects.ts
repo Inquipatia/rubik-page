@@ -78,9 +78,9 @@ export const projects = [
     "Desarrollamos soluciones complementarias que no siempre entran en una sola categoría: piezas especiales, adaptaciones gráficas, soportes a medida y recursos visuales pensados para resolver necesidades puntuales de marca, espacio o activación.",
   image: "/img/works/otros.png",
   gallery: [
-    "/img/works/otros-1.png",
-    "/img/works/otros-2.png",
-    "/img/works/otros-3.png",
+    "/img/services/vercel-c.svg",
+    "/img/services/vercel-c.svg",
+    "/img/services/vercel-c.svg",
   ],
 },
 {
