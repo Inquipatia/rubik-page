@@ -206,29 +206,29 @@ export default function BrandShowcase({
   return (
     <section
       id="brands"
-      className="relative mx-auto w-full max-w-[1120px] px-6 py-6 sm:px-8 lg:px-12"
+      className="relative mx-auto w-full max-w-[880px] px-3 py-1 sm:px-4 lg:px-6"
     >
-      <div className="mx-auto max-w-[720px] text-center">
-        <div className="inline-flex rounded-full border border-white/12 bg-white/[0.04] px-4 py-1 text-sm text-white/72 backdrop-blur">
+      <div className="mx-auto max-w-[620px] text-center">
+        <div className="inline-flex rounded-full border border-white/12 bg-white/[0.04] px-3 py-1 text-[11px] text-white/70 backdrop-blur sm:text-[12px]">
           Marcas
         </div>
 
-        <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl lg:text-5xl">
+        <h2 className="mt-2 text-[clamp(1.95rem,3.7vw,3.3rem)] font-[300] leading-[1.02] tracking-[-0.05em] text-white">
           Marcas que han confiado en Rubik
         </h2>
 
-        <p className="mx-auto mt-3 max-w-[620px] text-sm leading-7 text-white/58 sm:text-base">
+        <p className="mx-auto mt-2.5 max-w-[540px] text-[12px] leading-5.5 text-white/54 sm:text-[13px] sm:leading-6">
           Clientes, colaboraciones y proyectos desarrollados junto a marcas que
           buscan impacto visual real, producción cuidada y soluciones pensadas
           para destacar.
         </p>
       </div>
 
-      <div className="relative mx-auto mt-6 max-w-[1180px] rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-[1px] shadow-[0_24px_70px_rgba(0,0,0,0.28)]">
-        <div className="relative overflow-hidden rounded-[29px] bg-[linear-gradient(180deg,#181028_0%,#120b20_45%,#0d0818_100%)] px-4 py-5 sm:px-5 sm:py-6 lg:px-6 lg:py-6">
+      <div className="relative mx-auto mt-3 max-w-[900px] rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-[1px] shadow-[0_14px_34px_rgba(0,0,0,0.2)]">
+        <div className="relative overflow-hidden rounded-[21px] bg-[linear-gradient(180deg,#181028_0%,#120b20_45%,#0d0818_100%)] px-2.5 py-2.5 sm:px-3 sm:py-3 lg:px-3.5 lg:py-3.5">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 opacity-[0.08]"
+            className="pointer-events-none absolute inset-0 opacity-[0.055]"
             style={{
               backgroundImage: `
                 radial-gradient(rgba(255,255,255,0.18) 0.6px, transparent 0.6px),
@@ -239,46 +239,46 @@ export default function BrandShowcase({
             }}
           />
 
-          <div className="pointer-events-none absolute inset-3 rounded-[24px] border border-white/[0.05]" />
+          <div className="pointer-events-none absolute inset-2 rounded-[18px] border border-white/[0.05]" />
 
-          <div className="relative grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+          <div className="relative grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
             {brands.map((brand) => (
               <button
                 key={brand.brandName}
                 type="button"
                 onClick={() => onOpenBrandDetails(brand)}
-                className="group relative min-h-[92px] overflow-hidden rounded-[20px] border border-white/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.018))] p-[1px] text-left transition duration-300 hover:-translate-y-[2px] hover:border-white/[0.18] hover:shadow-[0_18px_38px_rgba(0,0,0,0.24)] focus:outline-none focus:ring-2 focus:ring-white/20"
+                className="group relative min-h-[64px] overflow-hidden rounded-[14px] border border-white/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.015))] p-[1px] text-left transition duration-300 hover:-translate-y-[2px] hover:border-white/[0.18] hover:shadow-[0_10px_20px_rgba(0,0,0,0.18)] focus:outline-none focus:ring-2 focus:ring-white/20 sm:min-h-[70px]"
                 aria-label={`Ver detalles de ${brand.brandName}`}
               >
-                <div className="relative flex h-full min-h-[90px] items-center justify-center overflow-hidden rounded-[19px] bg-[linear-gradient(180deg,#0c0914_0%,#110d1b_40%,#151024_100%)] px-4 py-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),inset_0_-12px_30px_rgba(0,0,0,0.5)] transition duration-300 group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-14px_34px_rgba(0,0,0,0.58),0_12px_26px_rgba(0,0,0,0.16)]">
-                  <div className="pointer-events-none absolute inset-[10px] rounded-[14px] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.04),transparent_48%),linear-gradient(180deg,rgba(255,255,255,0.015),rgba(255,255,255,0.005))]" />
+                <div className="relative flex h-full min-h-[62px] items-center justify-center overflow-hidden rounded-[13px] bg-[linear-gradient(180deg,#0c0914_0%,#110d1b_40%,#151024_100%)] px-2.5 py-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),inset_0_-8px_20px_rgba(0,0,0,0.45)] transition duration-300 group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-10px_24px_rgba(0,0,0,0.52),0_8px_18px_rgba(0,0,0,0.12)] sm:min-h-[68px]">
+                  <div className="pointer-events-none absolute inset-[6px] rounded-[10px] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.04),transparent_48%),linear-gradient(180deg,rgba(255,255,255,0.015),rgba(255,255,255,0.005))]" />
 
-                  <div className="pointer-events-none absolute inset-[2px] rounded-[17px] bg-[linear-gradient(180deg,rgba(255,255,255,0.14),rgba(255,255,255,0.03)_38%,rgba(255,255,255,0.012)_100%)] backdrop-blur-[3px]" />
+                  <div className="pointer-events-none absolute inset-[2px] rounded-[12px] bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0.028)_38%,rgba(255,255,255,0.012)_100%)] backdrop-blur-[3px]" />
 
-                  <div className="pointer-events-none absolute inset-[2px] rounded-[17px] border border-white/[0.14]" />
+                  <div className="pointer-events-none absolute inset-[2px] rounded-[12px] border border-white/[0.12]" />
 
-                  <div className="pointer-events-none absolute inset-[8px] rounded-[14px] border border-white/[0.09]" />
+                  <div className="pointer-events-none absolute inset-[5px] rounded-[9px] border border-white/[0.07]" />
 
-                  <div className="pointer-events-none absolute inset-x-3 top-2 h-7 rounded-full bg-[linear-gradient(180deg,rgba(255,255,255,0.28),rgba(255,255,255,0.04))] blur-md opacity-80 transition duration-300 group-hover:opacity-100" />
+                  <div className="pointer-events-none absolute inset-x-3 top-2 h-4 rounded-full bg-[linear-gradient(180deg,rgba(255,255,255,0.22),rgba(255,255,255,0.03))] blur-md opacity-70 transition duration-300 group-hover:opacity-100" />
 
-                  <div className="pointer-events-none absolute inset-x-5 top-[10px] h-px bg-white/30 opacity-70" />
+                  <div className="pointer-events-none absolute inset-x-5 top-[8px] h-px bg-white/22 opacity-70" />
 
-                  <div className="pointer-events-none absolute -left-[28%] top-[-12%] h-[140%] w-[34%] rotate-[18deg] bg-[linear-gradient(180deg,rgba(255,255,255,0.28),rgba(255,255,255,0.05)_45%,rgba(255,255,255,0.01))] opacity-25 blur-[2px] transition duration-300 group-hover:translate-x-3 group-hover:opacity-40" />
+                  <div className="pointer-events-none absolute -left-[28%] top-[-12%] h-[140%] w-[34%] rotate-[18deg] bg-[linear-gradient(180deg,rgba(255,255,255,0.24),rgba(255,255,255,0.05)_45%,rgba(255,255,255,0.01))] opacity-18 blur-[2px] transition duration-300 group-hover:translate-x-3 group-hover:opacity-30" />
 
-                  <div className="pointer-events-none absolute right-3 top-3 h-10 w-10 rounded-full bg-white/10 blur-xl opacity-40 transition duration-300 group-hover:opacity-60" />
+                  <div className="pointer-events-none absolute right-2.5 top-2.5 h-6 w-6 rounded-full bg-white/10 blur-xl opacity-30 transition duration-300 group-hover:opacity-50" />
 
-                  <div className="pointer-events-none absolute inset-x-4 bottom-2 h-5 rounded-full bg-black/20 blur-md opacity-70" />
+                  <div className="pointer-events-none absolute inset-x-4 bottom-2 h-3 rounded-full bg-black/20 blur-md opacity-70" />
 
-                  <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[19px]">
+                  <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[13px]">
                     <div className="absolute left-[-42%] top-0 h-full w-[26%] rotate-[16deg] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.16),transparent)] opacity-0 [transform:translateX(0)] transition-transform duration-700 ease-out group-hover:translate-x-[620%] group-hover:opacity-100" />
                   </div>
 
-                  <div className="relative z-10 h-[28px] w-full transition duration-300 group-hover:scale-[1.03]">
+                  <div className="relative z-10 h-[18px] w-full transition duration-300 group-hover:scale-[1.03] sm:h-[20px] lg:h-[22px]">
                     <Image
                       src={brand.brandLogo || "/img/works/3.png"}
                       alt={brand.brandName}
                       fill
-                      sizes="(max-width: 768px) 100vw, 220px"
+                      sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 150px"
                       className="object-contain opacity-90 grayscale transition duration-300 group-hover:opacity-100 group-hover:grayscale-0"
                     />
                   </div>

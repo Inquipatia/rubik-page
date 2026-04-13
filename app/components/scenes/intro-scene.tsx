@@ -37,7 +37,6 @@ const HeroCube = memo(function HeroCube({
   }, []);
 
   function handleLoad(splineApp: any) {
-    // Cambia "Cube" por el nombre real del objeto en Spline
     cubeRef.current = splineApp.findObjectByName("Cube");
 
     setIsLoaded(true);
@@ -47,12 +46,10 @@ const HeroCube = memo(function HeroCube({
       setIsSettling(true);
     });
 
-    // recién después del acomodo habilitamos interacción
     settleTimerRef.current = window.setTimeout(() => {
       setIsInteractive(true);
     }, 1180);
 
-    // y un poco después arrancamos la animación interna del cubo
     startAnimTimerRef.current = window.setTimeout(() => {
       try {
         cubeRef.current?.emitEvent("mouseHover");
@@ -63,19 +60,20 @@ const HeroCube = memo(function HeroCube({
   }
 
   return (
-    <div className="relative flex items-center justify-center lg:-translate-y-8">
-      <div className="pointer-events-none absolute h-64 w-64 rounded-full bg-fuchsia-500/22 blur-3xl" />
-      <div className="pointer-events-none absolute -left-4 top-8 h-52 w-52 rounded-full bg-blue-500/18 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-3 h-20 w-56 rounded-full bg-black/20 blur-2xl" />
+    <div className="relative mx-auto flex w-full max-w-[430px] items-center justify-start lg:max-w-[470px] lg:-translate-x-10 lg:-translate-y-3 xl:max-w-[500px] xl:-translate-x-16">
+      <div className="pointer-events-none absolute h-44 w-44 rounded-full bg-fuchsia-500/18 blur-3xl sm:h-52 sm:w-52" />
+      <div className="pointer-events-none absolute -left-5 top-5 h-32 w-32 rounded-full bg-blue-500/12 blur-3xl sm:h-40 sm:w-40" />
+      <div className="pointer-events-none absolute bottom-2 h-14 w-40 rounded-full bg-black/20 blur-2xl" />
 
       <div
-        className="relative z-20 h-[330px] w-[330px] overflow-visible sm:h-[400px] sm:w-[400px] lg:h-[500px] lg:w-[500px]"
+        className="relative z-20 h-[250px] w-[250px] overflow-visible sm:h-[300px] sm:w-[300px] lg:h-[360px] lg:w-[360px] xl:h-[400px] xl:w-[400px]"
         onMouseEnter={() => isInteractive && onCubeHoverChange(true)}
         onMouseLeave={() => onCubeHoverChange(false)}
       >
         <div
-          className={`h-full w-full overflow-visible rounded-[28px] transform-gpu will-change-transform will-change-opacity ${isLoaded && isSettling ? "hero-cube-settle" : "opacity-0"
-            }`}
+          className={`h-full w-full overflow-visible rounded-[24px] transform-gpu will-change-transform will-change-opacity ${
+            isLoaded && isSettling ? "hero-cube-settle" : "opacity-0"
+          }`}
         >
           <Spline
             scene="https://prod.spline.design/wk0u6G-MY2bbyF6i/scene.splinecode"
@@ -96,8 +94,8 @@ const HeroCube = memo(function HeroCube({
 
         @keyframes cubeSettle {
           0% {
-           transform: translate3d(26px, 34px, 0) scale3d(0.95, 0.95, 1)
-           rotate3d(0, 0, 1, 4deg);
+            transform: translate3d(14px, 20px, 0) scale3d(0.94, 0.94, 1)
+              rotate3d(0, 0, 1, 3deg);
           }
 
           16% {
@@ -105,8 +103,8 @@ const HeroCube = memo(function HeroCube({
           }
 
           70% {
-          transform: translate3d(-3px, -4px, 0) scale3d(1.008, 1.008, 1)
-          rotate3d(0, 0, 1, -0.45deg);
+            transform: translate3d(-2px, -3px, 0) scale3d(1.006, 1.006, 1)
+              rotate3d(0, 0, 1, -0.35deg);
           }
 
           100% {
@@ -133,29 +131,30 @@ export default function IntroScene({
   const [heroReady, setHeroReady] = useState(false);
 
   return (
-    <section className="grid h-[calc(100vh-110px)] grid-cols-1 items-center gap-4 overflow-hidden lg:grid-cols-[0.95fr_1.05fr]">
+    <section className="grid min-h-[calc(100vh-110px)] grid-cols-1 items-center gap-6 overflow-hidden px-4 py-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_460px] lg:gap-8 lg:px-8 xl:grid-cols-[minmax(0,1fr)_500px] xl:px-10">
       <div
-        className={`max-w-[620px] transform-gpu transition-all duration-500 ${heroReady ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
-          }`}
+        className={`max-w-[700px] transform-gpu transition-all duration-500 ${
+          heroReady ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+        }`}
       >
-        <span className="mb-3 inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-1 text-sm text-white/75 backdrop-blur">
+        <span className="mb-4 inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm text-white/75 backdrop-blur">
           Rubik Creaciones
         </span>
 
-        <h1 className="mt-3 text-5xl font-semibold leading-[0.9] tracking-[-0.055em] sm:text-6xl lg:text-[5.6rem]">
+        <h1 className="mt-3 max-w-[680px] text-[clamp(2.8rem,5.4vw,5.5rem)] font-semibold leading-[0.9] tracking-[-0.06em] text-white">
           {titleTop}
           <span className="block text-white/75">{titleBottom}</span>
         </h1>
 
-        <p className="mt-5 max-w-[520px] text-base leading-7 text-white/70 sm:text-lg">
+        <p className="mt-5 max-w-[600px] text-[clamp(0.94rem,1.05vw,1.08rem)] leading-[1.5] text-white/70">
           {description}
         </p>
 
-        <div className="mt-8 flex flex-wrap gap-4">
+        <div className="mt-7 flex flex-wrap gap-3">
           <button
             type="button"
             onClick={onOpenCotiza}
-            className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#180d37] transition hover:scale-[1.02]"
+            className="rounded-full bg-white px-5 py-3 text-sm font-semibold text-[#180d37] transition hover:scale-[1.02]"
           >
             {primary}
           </button>
@@ -163,7 +162,7 @@ export default function IntroScene({
           <button
             type="button"
             onClick={onGoToServicios}
-            className="rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10"
+            className="rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10"
           >
             {secondary}
           </button>
@@ -171,8 +170,9 @@ export default function IntroScene({
       </div>
 
       <div
-        className={`transform-gpu transition-all duration-500 ${heroReady ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
-          }`}
+        className={`transform-gpu transition-all duration-500 ${
+          heroReady ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+        }`}
       >
         <HeroCube
           onCubeHoverChange={onCubeHoverChange}

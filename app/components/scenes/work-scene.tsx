@@ -37,11 +37,11 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
 
   const previewVariants = {
     enter: (dir: number) => ({
-      x: dir > 0 ? 44 : -44,
-      y: 8,
+      x: dir > 0 ? 18 : -18,
+      y: 4,
       opacity: 0,
       scale: 0.992,
-      rotate: dir > 0 ? 1.5 : -1.5,
+      rotate: dir > 0 ? 0.7 : -0.7,
     }),
     center: {
       x: 0,
@@ -51,35 +51,35 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
       rotate: 0,
     },
     exit: (dir: number) => ({
-      x: dir > 0 ? -30 : 30,
-      y: -4,
+      x: dir > 0 ? -12 : 12,
+      y: -2,
       opacity: 0,
-      scale: 0.994,
-      rotate: dir > 0 ? -1 : 1,
+      scale: 0.996,
+      rotate: dir > 0 ? -0.4 : 0.4,
     }),
   };
 
   const detailVariants = {
     enter: {
       opacity: 0,
-      y: 28,
-      scale: 0.975,
-      filter: "blur(10px)",
-      clipPath: "inset(0 0 100% 0 round 28px)",
+      y: 16,
+      scale: 0.985,
+      filter: "blur(7px)",
+      clipPath: "inset(0 0 100% 0 round 20px)",
     },
     center: {
       opacity: 1,
       y: 0,
       scale: 1,
       filter: "blur(0px)",
-      clipPath: "inset(0 0 0% 0 round 28px)",
+      clipPath: "inset(0 0 0% 0 round 20px)",
     },
     exit: {
       opacity: 0,
-      y: -12,
-      scale: 0.988,
-      filter: "blur(8px)",
-      clipPath: "inset(0 0 100% 0 round 28px)",
+      y: -8,
+      scale: 0.992,
+      filter: "blur(6px)",
+      clipPath: "inset(0 0 100% 0 round 20px)",
     },
   };
 
@@ -105,7 +105,7 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
   };
 
   return (
-    <section className="relative min-h-[66vh]">
+    <section className="relative h-[calc(100svh-170px)] min-h-0">
       <AnimatePresence mode="wait">
         {!isDetailOpen ? (
           <motion.div
@@ -113,16 +113,21 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[0.82fr_1.18fr]"
+            transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+            className="grid h-full min-h-0 grid-cols-1 items-start gap-3 lg:grid-cols-[308px_minmax(0,1fr)] xl:grid-cols-[328px_minmax(0,1fr)]"
           >
             {/* IZQUIERDA */}
-            <div className="max-w-xl">
-              <span className="omnes-text mb-3 inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-1 text-sm text-white/75 backdrop-blur">
+            <div className="flex h-full min-h-0 flex-col">
+              <span className="omnes-text mb-2 inline-flex rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[10px] text-white/70 backdrop-blur">
                 Seleccione un servicio para ver detalles
               </span>
 
-              <div className="mt-4 space-y-2.5">
+              <div
+                className="grid h-full min-h-0 gap-1.5"
+                style={{
+                  gridTemplateRows: `repeat(${projects.length}, minmax(0, 1fr))`,
+                }}
+              >
                 {projects.map((project, index) => {
                   const isActive = index === hoveredIndex;
 
@@ -133,39 +138,44 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                       onMouseEnter={() => handleHoverChange(index)}
                       onFocus={() => handleHoverChange(index)}
                       onClick={() => openDetail(index)}
-                      className={`group flex w-full items-center justify-between rounded-[20px] border px-5 py-4 text-left transition-all duration-300 ${isActive
-                          ? "border-white/25 bg-white/10 shadow-[0_14px_34px_rgba(0,0,0,0.28)]"
+                      className={`group flex min-h-0 w-full items-center justify-between rounded-[13px] border px-3 py-1.5 text-left transition-all duration-300 ${
+                        isActive
+                          ? "border-white/22 bg-white/9 shadow-[0_8px_20px_rgba(0,0,0,0.22)]"
                           : "border-white/8 bg-white/[0.03] hover:border-white/14 hover:bg-white/[0.06]"
-                        }`}
+                      }`}
                     >
-                      <div>
+                      <div className="min-w-0">
                         <div
-                          className={`omnes-text text-[11px] uppercase tracking-[0.16em] transition ${isActive ? "text-white/55" : "text-white/35"
-                            }`}
+                          className={`omnes-text text-[7px] uppercase tracking-[0.14em] transition ${
+                            isActive ? "text-white/52" : "text-white/34"
+                          }`}
                         >
                           {project.tag}
                         </div>
 
                         <div
-                          className={`omnes-title mt-2 text-[2rem] leading-none tracking-[-0.03em] transition ${isActive ? "text-white" : "text-white/72"
-                            }`}
+                          className={`omnes-title mt-1 text-[0.96rem] leading-none tracking-[-0.03em] transition sm:text-[1.04rem] lg:text-[1.12rem] ${
+                            isActive ? "text-white" : "text-white/72"
+                          }`}
                         >
                           {project.title}
                         </div>
 
                         <div
-                          className={`omnes-text mt-2 text-sm transition ${isActive ? "text-white/65" : "text-white/45"
-                            }`}
+                          className={`omnes-text mt-1 line-clamp-1 text-[10px] leading-4 transition ${
+                            isActive ? "text-white/60" : "text-white/42"
+                          }`}
                         >
                           {project.subtitle}
                         </div>
                       </div>
 
                       <div
-                        className={`omnes-text ml-4 text-sm transition ${isActive
-                            ? "translate-x-0 text-white/70"
-                            : "-translate-x-1 text-white/25"
-                          }`}
+                        className={`omnes-text ml-3 shrink-0 text-[10px] transition ${
+                          isActive
+                            ? "translate-x-0 text-white/64"
+                            : "-translate-x-1 text-white/22"
+                        }`}
                       >
                         ↗
                       </div>
@@ -177,26 +187,26 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
 
             {/* DERECHA */}
             <div
-              className="relative w-full max-w-[660px] justify-self-center pr-16 pt-6"
+              className="relative h-full min-h-0 w-full max-w-[380px] justify-self-center pr-1 pt-0 xl:max-w-[400px]"
               style={{ perspective: "1600px" }}
             >
               {stackedProjects.map((project, i) => {
                 const depth = stackedProjects.length - i;
-                const fanX = depth * 26;
-                const fanY = depth * -10;
-                const fanRotate = depth * 7.5;
-                const fanScale = 1 - depth * 0.04;
+                const fanX = depth * 12;
+                const fanY = depth * -5;
+                const fanRotate = depth * 4;
+                const fanScale = 1 - depth * 0.052;
 
                 return (
                   <motion.div
                     key={`fan-${project.slug}-${hoveredIndex}`}
                     initial={{
                       opacity: 0,
-                      x: fanX + 54,
-                      y: fanY + 18,
-                      rotate: fanRotate + 10,
-                      rotateX: 10,
-                      rotateY: -14,
+                      x: fanX + 18,
+                      y: fanY + 8,
+                      rotate: fanRotate + 6,
+                      rotateX: 7,
+                      rotateY: -10,
                       scale: fanScale - 0.08,
                     }}
                     animate={{
@@ -209,26 +219,26 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                       scale: fanScale,
                     }}
                     transition={{
-                      duration: 0.58,
+                      duration: 0.42,
                       ease: [0.16, 1, 0.3, 1],
                     }}
                     className="absolute inset-0 origin-bottom-left"
                     style={{ zIndex: i + 1 }}
                   >
-                    <div className="overflow-hidden rounded-[28px] border border-white/18 bg-[#1a1234] p-[6px] shadow-[0_24px_40px_rgba(0,0,0,0.28)]">
-                      <div className="relative overflow-hidden rounded-[22px] border border-white/10 bg-black">
+                    <div className="overflow-hidden rounded-[17px] border border-white/14 bg-[#1a1234] p-[4px] shadow-[0_12px_24px_rgba(0,0,0,0.2)]">
+                      <div className="relative overflow-hidden rounded-[13px] border border-white/10 bg-black">
                         <div className="relative aspect-[16/10] w-full">
                           <Image
                             src={project.image}
                             alt={project.title}
                             fill
-                            sizes="(max-width: 1024px) 100vw, 660px"
+                            sizes="(max-width: 1024px) 100vw, 400px"
                             className="object-cover"
                           />
                           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.08),rgba(0,0,0,0.38))]" />
 
-                          <div className="absolute bottom-0 left-0 right-0 p-4">
-                            <div className="omnes-title text-xl tracking-[-0.03em] text-white/88">
+                          <div className="absolute bottom-0 left-0 right-0 p-2">
+                            <div className="omnes-title text-[0.8rem] tracking-[-0.03em] text-white/86">
                               {project.title}
                             </div>
                           </div>
@@ -248,60 +258,60 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                   animate="center"
                   exit="exit"
                   transition={{
-                    duration: 0.72,
+                    duration: 0.44,
                     ease: [0.16, 1, 0.3, 1],
                   }}
                   className="relative"
                   style={{ zIndex: 20 }}
                 >
-                  <div className="overflow-hidden rounded-[32px] border border-white/18 bg-[#24124d] p-[6px] shadow-[0_30px_80px_rgba(0,0,0,0.38)]">
-                    <div className="rounded-[27px] bg-[#2c1760] p-4">
-                      <div className="mb-4 rounded-[22px] border border-white/10 bg-[#3a1f7b] p-4 shadow-[0_16px_30px_rgba(0,0,0,0.18)]">
-                        <div className="omnes-text text-[11px] uppercase tracking-[0.16em] text-white/45">
+                  <div className="overflow-hidden rounded-[18px] border border-white/16 bg-[#24124d] p-[4px] shadow-[0_16px_34px_rgba(0,0,0,0.24)]">
+                    <div className="rounded-[15px] bg-[#2c1760] p-2">
+                      <div className="mb-2 rounded-[13px] border border-white/10 bg-[#3a1f7b] p-2.5 shadow-[0_10px_20px_rgba(0,0,0,0.14)]">
+                        <div className="omnes-text text-[8px] uppercase tracking-[0.14em] text-white/44">
                           {activeProject.tag}
                         </div>
 
-                        <p className="omnes-text mt-3 text-[15px] leading-7 text-white/78">
+                        <p className="omnes-text mt-2 text-[10px] leading-5 text-white/74">
                           {activeProject.description}
                         </p>
 
-                        <div className="omnes-text mt-3 text-sm text-white/52">
+                        <div className="omnes-text mt-2 text-[10px] text-white/48">
                           Click en la visual para abrir la vista del servicio.
                         </div>
 
                         <button
                           type="button"
                           onClick={() => openDetail()}
-                          className="relative block w-full overflow-hidden rounded-[26px] border border-white/12 bg-black text-left shadow-[0_18px_50px_rgba(0,0,0,0.25)] transition-transform duration-300 hover:scale-[1.01]"
+                          className="relative mt-2.5 block w-full overflow-hidden rounded-[14px] border border-white/12 bg-black text-left shadow-[0_12px_24px_rgba(0,0,0,0.2)] transition-transform duration-300 hover:scale-[1.01]"
                         >
                           <div className="relative aspect-[16/9] w-full">
                             <Image
                               src={activeProject.image}
                               alt={activeProject.title}
                               fill
-                              sizes="(max-width: 1024px) 100vw, 660px"
+                              sizes="(max-width: 1024px) 100vw, 400px"
                               className="object-cover"
                               priority
                             />
 
                             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.08),rgba(0,0,0,0.46))]" />
 
-                            <div className="absolute left-0 right-0 top-0 flex items-center justify-between p-4">
-                              <div className="omnes-text rounded-full border border-white/15 bg-black/35 px-4 py-2 text-[11px] uppercase tracking-[0.16em] text-white/88">
+                            <div className="absolute left-0 right-0 top-0 flex items-center justify-between p-2">
+                              <div className="omnes-text rounded-full border border-white/15 bg-black/35 px-2 py-1 text-[7px] uppercase tracking-[0.14em] text-white/84">
                                 Rubik Creaciones
                               </div>
 
-                              <div className="omnes-text rounded-full border border-white/15 bg-black/35 px-4 py-2 text-[11px] uppercase tracking-[0.16em] text-white/88">
+                              <div className="omnes-text rounded-full border border-white/15 bg-black/35 px-2 py-1 text-[7px] uppercase tracking-[0.14em] text-white/84">
                                 {activeProject.tag}
                               </div>
                             </div>
 
-                            <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6">
-                              <div className="omnes-title text-3xl tracking-[-0.03em] text-white sm:text-[3rem]">
+                            <div className="absolute bottom-0 left-0 right-0 p-2.5">
+                              <div className="omnes-title text-[1.06rem] tracking-[-0.03em] text-white sm:text-[1.18rem]">
                                 {activeProject.title}
                               </div>
 
-                              <div className="omnes-text mt-2 text-base text-white/80">
+                              <div className="omnes-text mt-1 text-[10px] text-white/78">
                                 {activeProject.subtitle}
                               </div>
                             </div>
@@ -314,7 +324,7 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
               </AnimatePresence>
             </div>
           </motion.div>
-                ) : (
+        ) : (
           <motion.div
             key={`detail-${activeProject.slug}`}
             variants={detailVariants}
@@ -322,30 +332,15 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
             animate="center"
             exit="exit"
             transition={{
-              duration: 0.58,
+              duration: 0.42,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="relative mx-auto w-full max-w-[1240px]"
+            className="relative mx-auto w-full max-w-[820px]"
           >
-            <div className="overflow-hidden rounded-[34px] border border-white/12 bg-[linear-gradient(180deg,rgba(36,18,77,0.96),rgba(18,11,33,0.98))] p-[6px] shadow-[0_30px_90px_rgba(0,0,0,0.36)]">
-              <div className="rounded-[28px] border border-white/8 bg-[linear-gradient(180deg,#20113f_0%,#140d24_100%)] p-4 sm:p-5 lg:p-5">
-                <div className="grid grid-cols-1 gap-4 lg:grid-cols-[0.94fr_1.06fr] lg:items-stretch">
-                  {/* IZQUIERDA · CINTA DE FOTOS */}
-                  <div className="relative flex h-full min-h-[420px] flex-col overflow-hidden rounded-[24px] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))] p-3 sm:p-4 lg:min-h-[500px]">
-                    <div className="pointer-events-none absolute inset-0 opacity-[0.06]">
-                      <div
-                        className="absolute inset-0"
-                        style={{
-                          backgroundImage: `
-                            radial-gradient(rgba(255,255,255,0.18) 0.6px, transparent 0.6px),
-                            linear-gradient(180deg, rgba(255,255,255,0.04), transparent 35%)
-                          `,
-                          backgroundSize: "14px 14px, 100% 100%",
-                          backgroundPosition: "0 0, 0 0",
-                        }}
-                      />
-                    </div>
-
+            <div className="overflow-hidden rounded-[20px] border border-white/12 bg-[linear-gradient(180deg,rgba(36,18,77,0.96),rgba(18,11,33,0.98))] p-[4px] shadow-[0_16px_40px_rgba(0,0,0,0.28)]">
+              <div className="rounded-[16px] border border-white/8 bg-[linear-gradient(180deg,#20113f_0%,#140d24_100%)] p-2.5 sm:p-3">
+                <div className="grid grid-cols-1 gap-2.5 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch">
+                  <div className="relative flex h-full min-h-[220px] flex-col overflow-hidden rounded-[15px] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))] p-2 lg:min-h-[280px]">
                     <div className="relative flex flex-1 items-center justify-center">
                       {detailGallery.map((image, index) => {
                         const offset = index - detailImageIndex;
@@ -361,28 +356,30 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                             onClick={() => setDetailImageIndex(index)}
                             initial={false}
                             animate={{
-                              x: offset * 128,
-                              y: isActive ? 0 : 18,
-                              scale: isActive ? 0.96 : 0.78,
-                              rotate: isActive ? 0 : offset < 0 ? -9 : 9,
-                              opacity: absOffset === 2 ? 0.18 : isActive ? 1 : 0.56,
+                              x: offset * 76,
+                              y: isActive ? 0 : 10,
+                              scale: isActive ? 0.86 : 0.7,
+                              rotate: isActive ? 0 : offset < 0 ? -5 : 5,
+                              opacity: absOffset === 2 ? 0.14 : isActive ? 1 : 0.5,
                               zIndex: isActive ? 30 : 20 - absOffset,
                             }}
-                            transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-                            className="absolute block w-[68%] max-w-[430px] origin-center text-left"
+                            transition={{
+                              duration: 0.3,
+                              ease: [0.22, 1, 0.36, 1],
+                            }}
+                            className="absolute block w-[60%] max-w-[250px] origin-center text-left"
                           >
-                            <div className="overflow-hidden rounded-[24px] border border-white/14 bg-[#120d20] p-[6px] shadow-[0_20px_44px_rgba(0,0,0,0.28)]">
-                              <div className="relative overflow-hidden rounded-[20px] border border-white/8 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),rgba(0,0,0,0.2))]">
+                            <div className="overflow-hidden rounded-[14px] border border-white/14 bg-[#120d20] p-[4px] shadow-[0_12px_22px_rgba(0,0,0,0.2)]">
+                              <div className="relative overflow-hidden rounded-[10px] border border-white/8 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),rgba(0,0,0,0.2))]">
                                 <div className="relative aspect-[5/6] w-full">
                                   <Image
                                     src={image}
                                     alt={`${activeProject.title} ${index + 1}`}
                                     fill
-                                    sizes="(max-width: 1024px) 90vw, 560px"
+                                    sizes="(max-width: 1024px) 90vw, 320px"
                                     className="object-contain object-center"
                                     priority={isActive}
                                   />
-                                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.05),rgba(0,0,0,0.18))]" />
                                 </div>
                               </div>
                             </div>
@@ -391,24 +388,24 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                       })}
                     </div>
 
-                    <div className="relative mt-auto pt-4">
-                      <div className="flex items-center justify-between gap-4">
+                    <div className="relative mt-auto pt-2.5">
+                      <div className="flex items-center justify-between gap-2">
                         <button
                           type="button"
                           onClick={prevDetailImage}
-                          className="omnes-text inline-flex h-10 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-4 text-sm text-white/82 transition hover:bg-white/[0.08]"
+                          className="omnes-text inline-flex h-8 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-3 text-[11px] text-white/80 transition hover:bg-white/[0.08]"
                         >
                           Anterior
                         </button>
 
-                        <div className="omnes-text text-sm text-white/58">
+                        <div className="omnes-text text-[10px] text-white/56">
                           {detailImageIndex + 1} / {detailGallery.length}
                         </div>
 
                         <button
                           type="button"
                           onClick={nextDetailImage}
-                          className="omnes-text inline-flex h-10 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-4 text-sm text-white/82 transition hover:bg-white/[0.08]"
+                          className="omnes-text inline-flex h-8 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-3 text-[11px] text-white/80 transition hover:bg-white/[0.08]"
                         >
                           Siguiente
                         </button>
@@ -416,20 +413,19 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                     </div>
                   </div>
 
-                  {/* DERECHA · DESCRIPCIÓN */}
-                  <div className="flex h-full flex-col rounded-[24px] border border-white/8 bg-white/[0.03] px-4 py-4 sm:px-4 sm:py-4 lg:px-5 lg:py-5">
+                  <div className="flex h-full flex-col rounded-[15px] border border-white/8 bg-white/[0.03] px-3 py-3">
                     <div>
-                      <div className="mb-3 flex items-start justify-between gap-4">
+                      <div className="mb-2 flex items-start justify-between gap-3">
                         <div>
-                          <div className="omnes-text text-[9px] uppercase tracking-[0.18em] text-white/34">
+                          <div className="omnes-text text-[8px] uppercase tracking-[0.16em] text-white/34">
                             {activeProject.tag}
                           </div>
 
-                          <h2 className="omnes-title mt-2 text-[2rem] leading-none tracking-[-0.04em] text-white sm:text-[2.35rem] lg:text-[2.7rem]">
+                          <h2 className="omnes-title mt-1.5 text-[1.4rem] leading-none tracking-[-0.04em] text-white sm:text-[1.6rem] lg:text-[1.85rem]">
                             {activeProject.title}
                           </h2>
 
-                          <div className="omnes-text mt-2 text-[13px] text-white/60 sm:text-sm lg:text-[14px]">
+                          <div className="omnes-text mt-1.5 text-[11px] text-white/58">
                             {activeProject.subtitle}
                           </div>
                         </div>
@@ -437,42 +433,33 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                         <button
                           type="button"
                           onClick={closeDetail}
-                          className="omnes-text inline-flex h-9 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-4 text-xs text-white/76 transition hover:bg-white/[0.08]"
+                          className="omnes-text inline-flex h-8 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-3 text-[11px] text-white/74 transition hover:bg-white/[0.08]"
                         >
                           Volver
                         </button>
                       </div>
 
-                      <p className="omnes-text mt-4 text-[13px] leading-6 text-white/68 lg:text-sm">
+                      <p className="omnes-text mt-2.5 text-[11px] leading-5 text-white/66">
                         {activeProject.longDescription ?? activeProject.description}
                       </p>
                     </div>
 
-                    <div className="mt-6 grid gap-3">
+                    <div className="mt-3 grid gap-2">
                       <div>
-                        <div className="omnes-text text-[9px] uppercase tracking-[0.18em] text-white/34">
+                        <div className="omnes-text text-[8px] uppercase tracking-[0.16em] text-white/34">
                           Enfoque
                         </div>
-                        <div className="omnes-text mt-1.5 text-[13px] leading-6 text-white/64 lg:text-sm">
+                        <div className="omnes-text mt-1 text-[11px] leading-5 text-white/62">
                           Diseño, producción y presencia visual coherente con la marca.
                         </div>
                       </div>
 
                       <div>
-                        <div className="omnes-text text-[9px] uppercase tracking-[0.18em] text-white/34">
+                        <div className="omnes-text text-[8px] uppercase tracking-[0.16em] text-white/34">
                           Aplicación
                         </div>
-                        <div className="omnes-text mt-1.5 text-[13px] leading-6 text-white/64 lg:text-sm">
+                        <div className="omnes-text mt-1 text-[11px] leading-5 text-white/62">
                           Retail, vitrinas, eventos, fachadas y activaciones.
-                        </div>
-                      </div>
-
-                      <div>
-                        <div className="omnes-text text-[9px] uppercase tracking-[0.18em] text-white/34">
-                          Resultado
-                        </div>
-                        <div className="omnes-text mt-1.5 text-[13px] leading-6 text-white/64 lg:text-sm">
-                          La imagen principal toma protagonismo, las laterales quedan como apoyo y toda la cinta se siente más viva.
                         </div>
                       </div>
                     </div>

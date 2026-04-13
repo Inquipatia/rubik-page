@@ -3,11 +3,11 @@ export const projects = [
     id: 1,
     slug: "neon",
     title: "Neón Flex",
-    subtitle: "Luz, forma e impacto",
+    subtitle: "Iluminación que transforma espacios y marcas.",
     description:
-      "Piezas de alto impacto visual para marcas, vitrinas, activaciones y espacios comerciales.",
+      "Desarrollamos soluciones en neón flex pensadas para destacar visualmente interiores, vitrinas, puntos de venta y espacios comerciales.",
     longDescription:
-      "Desarrollamos piezas de Neón Flex para vitrinas, puntos de venta, activaciones y espacios que necesitan una presencia visual directa, limpia y memorable. Trabajamos diseño, producción y terminaciones para que cada pieza dialogue con la identidad de la marca y el espacio donde se instala.",
+      "Cada pieza se proyecta según la identidad de la marca, buscando alto impacto visual, buena lectura y una presencia moderna que aporta carácter al entorno",
     image: "/img/services/vercel-c.svg",
     tag: "Servicio 01",
     gallery: [
@@ -20,11 +20,11 @@ export const projects = [
     id: 2,
     slug: "stands",
     title: "Stands",
-    subtitle: "Espacios que activan marcas",
+    subtitle: "Espacios diseñados para exhibir y conectar.",
     description:
-      "Diseño y producción de stands para ferias, eventos, lanzamientos y experiencias presenciales.",
+      "Creamos stands publicitarios que integran estructura, gráfica y funcionalidad para potenciar la presencia de marca en ferias, eventos y activaciones.",
     longDescription:
-      "Creamos stands pensados para presentar marcas con claridad, presencia y recorrido visual. Integramos estructura, gráfica, materiales y detalles para lograr espacios funcionales, consistentes y atractivos en eventos, lanzamientos y experiencias presenciales.",
+      "Diseñamos cada propuesta según el objetivo comercial, el espacio disponible y la experiencia que se busca generar, cuidando tanto el impacto visual como la correcta exhibición.",
     image: "/img/services/vercel-c.svg",
     tag: "Servicio 02",
     gallery: [
@@ -37,11 +37,11 @@ export const projects = [
     id: 3,
     slug: "volumetricas",
     title: "Volumétricas",
-    subtitle: "Presencia tridimensional",
+    subtitle: "Relieve, presencia e identidad visual.",
     description:
-      "Letras y elementos volumétricos pensados para reforzar identidad, visibilidad y recordación.",
+      "Fabricamos letras y elementos volumétricos que refuerzan la imagen de marca con una presencia sólida, profesional y de alto valor visual.",
     longDescription:
-      "Diseñamos y producimos letras y elementos volumétricos para reforzar identidad de marca en fachadas, interiores, puntos de contacto y activaciones. Buscamos piezas con volumen, lectura clara y una terminación alineada con el lenguaje visual del proyecto.",
+      "Cada desarrollo considera proporción, materialidad y terminaciones, logrando piezas que jerarquizan espacios y mejoran la percepción visual del negocio.",
     image: "/img/services/vercel-c.svg",
     tag: "Servicio 03",
     gallery: [
@@ -54,11 +54,11 @@ export const projects = [
     id: 4,
     slug: "impresion",
     title: "Impresión",
-    subtitle: "Producción gráfica premium",
+    subtitle: "Gráfica precisa para cada necesidad.",
     description:
-      "Soluciones gráficas para campañas, retail, eventos y soportes de comunicación visual.",
+      "Realizamos impresiones digitales en alta resolución sobre adhesivos, tela PVC y otros sustratos, adaptando cada material al uso, formato y objetivo del proyecto.",
     longDescription:
-      "Desarrollamos piezas impresas para campañas, retail, eventos y comunicación visual con foco en terminación, legibilidad, materialidad y presencia de marca. La idea es que cada soporte funcione bien en uso real y mantenga calidad visual en producción.",
+      "Trabajamos soluciones gráficas pensadas para comunicar con claridad, optimizar la aplicación en distintos soportes y responder de forma correcta a las necesidades de cada cliente.",
     image: "/img/services/vercel-c.svg",
     tag: "Servicio 04",
     gallery: [
@@ -67,4 +67,36 @@ export const projects = [
       "/img/services/vercel-c.svg",
     ],
   },
+  {
+  id: 5,
+  slug: "Proyectos Publicitarios",
+  tag: "Servicio 05",
+  title: "Proyectos Publicitarios",
+  subtitle: "Soluciones a medida con visión integral.",
+  description: "Ejecutamos proyectos publicitarios que combinan desarrollo creativo, producción e implementación, adaptados a los objetivos de cada cliente.",
+  longDescription:
+    "Desarrollamos soluciones complementarias que no siempre entran en una sola categoría: piezas especiales, adaptaciones gráficas, soportes a medida y recursos visuales pensados para resolver necesidades puntuales de marca, espacio o activación.",
+  image: "/img/works/otros.png",
+  gallery: [
+    "/img/works/otros-1.png",
+    "/img/works/otros-2.png",
+    "/img/works/otros-3.png",
+  ],
+},
+{
+  id: 6,
+  slug: "Activaciones de Marca",
+  tag: "Servicio 06",
+  title: "Activaciones de Marca",
+  subtitle: "Experiencias que acercan tu marca a las personas.",
+  description: "Desarrollamos activaciones de marca orientadas a generar visibilidad, interacción y una conexión más directa con el público.",
+  longDescription:
+    "Desarrollamos soluciones complementarias que no siempre entran en una sola categoría: piezas especiales, adaptaciones gráficas, soportes a medida y recursos visuales pensados para resolver necesidades puntuales de marca, espacio o activación.",
+  image: "/img/works/otros.png",
+  gallery: [
+    "/img/works/otros-1.png",
+    "/img/works/otros-2.png",
+    "/img/works/otros-3.png",
+  ],
+}
 ];
