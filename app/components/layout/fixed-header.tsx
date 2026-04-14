@@ -12,7 +12,6 @@ const navItems = [
   { label: "Marcas", index: 1 },
   { label: "Servicios", index: 2 },
   { label: "Contacto", index: 3 },
-  { label: "FAQ", index: 4 },
 ];
 
 export default function FixedHeader({

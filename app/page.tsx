@@ -88,14 +88,13 @@ export default function Home() {
   const [selectedBrand, setSelectedBrand] = useState<SelectedBrand | null>(null);
 
   const wheelLockRef = useRef(false);
-  const totalMainScenes = 5;
+  const totalMainScenes = 4;
 
   const progress = useMemo(() => {
     if (activeScene === 0) return 0.08;
-    if (activeScene === 1) return 0.28;
-    if (activeScene === 2) return 0.52;
-    if (activeScene === 3) return 0.76;
-    if (activeScene === 4) return 1;
+    if (activeScene === 1) return 0.36;
+    if (activeScene === 2) return 0.68;
+    if (activeScene === 3) return 1;
     return 0;
   }, [activeScene]);
 

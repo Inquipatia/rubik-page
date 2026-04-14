@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { projects } from "@/app/data/projects";
@@ -14,8 +14,54 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
   const [direction, setDirection] = useState(1);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const [detailImageIndex, setDetailImageIndex] = useState(0);
+  const [selectedOtherTab, setSelectedOtherTab] = useState<string | null>(null);
 
-  const activeProject = projects[hoveredIndex];
+  const activeProject = projects[hoveredIndex] ?? projects[0];
+
+  useEffect(() => {
+    setHoveredIndex(activeWorkCard);
+  }, [activeWorkCard]);
+
+  useEffect(() => {
+    setDetailImageIndex(0);
+
+    if (activeProject?.slug === "otros" && activeProject.tabs?.length) {
+      setSelectedOtherTab((prev) => {
+        const exists = activeProject.tabs?.some((tab) => tab.id === prev);
+        return exists ? prev : activeProject.tabs?.[0]?.id ?? null;
+      });
+    } else {
+      setSelectedOtherTab(null);
+    }
+  }, [activeProject]);
+
+  const activeTab =
+    activeProject?.slug === "otros" && activeProject.tabs?.length
+      ? activeProject.tabs.find((tab) => tab.id === selectedOtherTab) ??
+        activeProject.tabs[0]
+      : null;
+
+  const detailGallery =
+    activeProject?.slug === "otros" && activeTab?.gallery?.length
+      ? activeTab.gallery
+      : activeProject.gallery && activeProject.gallery.length > 0
+        ? activeProject.gallery
+        : [activeProject.image];
+
+  const previewImage =
+    activeProject?.slug === "otros" && activeTab?.gallery?.length
+      ? activeTab.gallery[0]
+      : activeProject.image;
+
+  const detailTitle =
+    activeProject?.slug === "otros" && activeTab?.label
+      ? activeTab.label
+      : activeProject.title;
+
+  const detailDescription =
+    activeProject?.slug === "otros" && activeTab?.description
+      ? activeTab.description
+      : activeProject.longDescription ?? activeProject.description;
 
   const handleHoverChange = (index: number) => {
     if (index === hoveredIndex) return;
@@ -87,11 +133,6 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
     return projects.slice(hoveredIndex + 1, hoveredIndex + 4);
   }, [hoveredIndex]);
 
-  const detailGallery =
-    activeProject.gallery && activeProject.gallery.length > 0
-      ? activeProject.gallery
-      : [activeProject.image];
-
   const prevDetailImage = () => {
     setDetailImageIndex((prev) =>
       prev === 0 ? detailGallery.length - 1 : prev - 1
@@ -114,9 +155,8 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-            className="grid h-full min-h-0 grid-cols-1 items-start gap-3 lg:grid-cols-[308px_minmax(0,1fr)] xl:grid-cols-[328px_minmax(0,1fr)]"
+            className="grid h-full min-h-0 grid-cols-1 items-start gap-3 lg:grid-cols-[300px_minmax(0,1fr)] xl:grid-cols-[320px_minmax(0,1fr)]"
           >
-            {/* IZQUIERDA */}
             <div className="flex h-full min-h-0 flex-col">
               <span className="omnes-text mb-2 inline-flex rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[10px] text-white/70 backdrop-blur">
                 Seleccione un servicio para ver detalles
@@ -185,9 +225,8 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
               </div>
             </div>
 
-            {/* DERECHA */}
             <div
-              className="relative h-full min-h-0 w-full max-w-[380px] justify-self-center pr-1 pt-0 xl:max-w-[400px]"
+              className="relative h-full min-h-0 w-full max-w-[400px] justify-self-center pr-1 pt-0 xl:max-w-[430px]"
               style={{ perspective: "1600px" }}
             >
               {stackedProjects.map((project, i) => {
@@ -232,7 +271,7 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                             src={project.image}
                             alt={project.title}
                             fill
-                            sizes="(max-width: 1024px) 100vw, 400px"
+                            sizes="(max-width: 1024px) 100vw, 430px"
                             className="object-cover"
                           />
                           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.08),rgba(0,0,0,0.38))]" />
@@ -251,7 +290,7 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
 
               <AnimatePresence initial={false} custom={direction} mode="popLayout">
                 <motion.div
-                  key={activeProject.slug}
+                  key={`${activeProject.slug}-${activeTab?.id ?? "default"}`}
                   custom={direction}
                   variants={previewVariants}
                   initial="enter"
@@ -279,6 +318,34 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                           Click en la visual para abrir la vista del servicio.
                         </div>
 
+                        {activeProject.slug === "otros" &&
+                        activeProject.tabs?.length ? (
+                          <div className="mt-2.5 flex flex-wrap gap-1.5">
+                            {activeProject.tabs.map((tab) => {
+                              const isActive = activeTab?.id === tab.id;
+
+                              return (
+                                <button
+                                  key={tab.id}
+                                  type="button"
+                                  onClick={(event) => {
+                                    event.stopPropagation();
+                                    setSelectedOtherTab(tab.id);
+                                    setDetailImageIndex(0);
+                                  }}
+                                  className={`omnes-text rounded-full border px-2.5 py-1 text-[8px] transition ${
+                                    isActive
+                                      ? "border-white/24 bg-white/10 text-white/88"
+                                      : "border-white/10 bg-white/[0.03] text-white/52 hover:border-white/18 hover:text-white/76"
+                                  }`}
+                                >
+                                  {tab.label}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        ) : null}
+
                         <button
                           type="button"
                           onClick={() => openDetail()}
@@ -286,10 +353,10 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                         >
                           <div className="relative aspect-[16/9] w-full">
                             <Image
-                              src={activeProject.image}
-                              alt={activeProject.title}
+                              src={previewImage}
+                              alt={detailTitle}
                               fill
-                              sizes="(max-width: 1024px) 100vw, 400px"
+                              sizes="(max-width: 1024px) 100vw, 430px"
                               className="object-cover"
                               priority
                             />
@@ -308,11 +375,13 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
 
                             <div className="absolute bottom-0 left-0 right-0 p-2.5">
                               <div className="omnes-title text-[1.06rem] tracking-[-0.03em] text-white sm:text-[1.18rem]">
-                                {activeProject.title}
+                                {detailTitle}
                               </div>
 
                               <div className="omnes-text mt-1 text-[10px] text-white/78">
-                                {activeProject.subtitle}
+                                {activeProject.slug === "otros"
+                                  ? activeProject.subtitle
+                                  : activeProject.subtitle}
                               </div>
                             </div>
                           </div>
@@ -326,7 +395,7 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
           </motion.div>
         ) : (
           <motion.div
-            key={`detail-${activeProject.slug}`}
+            key={`detail-${activeProject.slug}-${activeTab?.id ?? "default"}`}
             variants={detailVariants}
             initial="enter"
             animate="center"
@@ -335,12 +404,12 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
               duration: 0.42,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="relative mx-auto w-full max-w-[820px]"
+            className="relative mx-auto w-full max-w-[940px] xl:max-w-[1040px]"
           >
             <div className="overflow-hidden rounded-[20px] border border-white/12 bg-[linear-gradient(180deg,rgba(36,18,77,0.96),rgba(18,11,33,0.98))] p-[4px] shadow-[0_16px_40px_rgba(0,0,0,0.28)]">
               <div className="rounded-[16px] border border-white/8 bg-[linear-gradient(180deg,#20113f_0%,#140d24_100%)] p-2.5 sm:p-3">
-                <div className="grid grid-cols-1 gap-2.5 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch">
-                  <div className="relative flex h-full min-h-[220px] flex-col overflow-hidden rounded-[15px] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))] p-2 lg:min-h-[280px]">
+                <div className="grid grid-cols-1 gap-2.5 lg:grid-cols-[1.02fr_0.98fr] lg:items-stretch xl:grid-cols-[1.05fr_0.95fr]">
+                  <div className="relative flex h-full min-h-[250px] flex-col overflow-hidden rounded-[15px] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))] p-2.5 lg:min-h-[350px] xl:min-h-[390px]">
                     <div className="relative flex flex-1 items-center justify-center">
                       {detailGallery.map((image, index) => {
                         const offset = index - detailImageIndex;
@@ -351,32 +420,32 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
 
                         return (
                           <motion.button
-                            key={`${activeProject.slug}-detail-${index}`}
+                            key={`${activeProject.slug}-${activeTab?.id ?? "default"}-detail-${index}`}
                             type="button"
                             onClick={() => setDetailImageIndex(index)}
                             initial={false}
                             animate={{
-                              x: offset * 76,
-                              y: isActive ? 0 : 10,
-                              scale: isActive ? 0.86 : 0.7,
+                              x: offset * 82,
+                              y: isActive ? 0 : 12,
+                              scale: isActive ? 0.9 : 0.74,
                               rotate: isActive ? 0 : offset < 0 ? -5 : 5,
-                              opacity: absOffset === 2 ? 0.14 : isActive ? 1 : 0.5,
+                              opacity: absOffset === 2 ? 0.12 : isActive ? 1 : 0.5,
                               zIndex: isActive ? 30 : 20 - absOffset,
                             }}
                             transition={{
                               duration: 0.3,
                               ease: [0.22, 1, 0.36, 1],
                             }}
-                            className="absolute block w-[60%] max-w-[250px] origin-center text-left"
+                            className="absolute block w-[62%] max-w-[270px] origin-center text-left lg:max-w-[300px]"
                           >
                             <div className="overflow-hidden rounded-[14px] border border-white/14 bg-[#120d20] p-[4px] shadow-[0_12px_22px_rgba(0,0,0,0.2)]">
                               <div className="relative overflow-hidden rounded-[10px] border border-white/8 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),rgba(0,0,0,0.2))]">
                                 <div className="relative aspect-[5/6] w-full">
                                   <Image
                                     src={image}
-                                    alt={`${activeProject.title} ${index + 1}`}
+                                    alt={`${detailTitle} ${index + 1}`}
                                     fill
-                                    sizes="(max-width: 1024px) 90vw, 320px"
+                                    sizes="(max-width: 1024px) 90vw, 340px"
                                     className="object-contain object-center"
                                     priority={isActive}
                                   />
@@ -421,8 +490,8 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                             {activeProject.tag}
                           </div>
 
-                          <h2 className="omnes-title mt-1.5 text-[1.4rem] leading-none tracking-[-0.04em] text-white sm:text-[1.6rem] lg:text-[1.85rem]">
-                            {activeProject.title}
+                          <h2 className="omnes-title mt-1.5 text-[1.45rem] leading-none tracking-[-0.04em] text-white sm:text-[1.6rem] lg:text-[1.9rem] xl:text-[2rem]">
+                            {detailTitle}
                           </h2>
 
                           <div className="omnes-text mt-1.5 text-[11px] text-white/58">
@@ -439,8 +508,34 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                         </button>
                       </div>
 
+                      {activeProject.slug === "otros" && activeProject.tabs?.length ? (
+                        <div className="mb-3 flex flex-wrap gap-2">
+                          {activeProject.tabs.map((tab) => {
+                            const isActive = activeTab?.id === tab.id;
+
+                            return (
+                              <button
+                                key={tab.id}
+                                type="button"
+                                onClick={() => {
+                                  setSelectedOtherTab(tab.id);
+                                  setDetailImageIndex(0);
+                                }}
+                                className={`omnes-text rounded-full border px-3 py-1.5 text-[10px] transition ${
+                                  isActive
+                                    ? "border-white/24 bg-white/10 text-white/88"
+                                    : "border-white/10 bg-white/[0.03] text-white/52 hover:border-white/18 hover:text-white/76"
+                                }`}
+                              >
+                                {tab.label}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      ) : null}
+
                       <p className="omnes-text mt-2.5 text-[11px] leading-5 text-white/66">
-                        {activeProject.longDescription ?? activeProject.description}
+                        {detailDescription}
                       </p>
                     </div>
 

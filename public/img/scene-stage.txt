@@ -5,6 +5,7 @@ import IntroScene from "@/app/components/scenes/intro-scene";
 import BrandShowcase from "@/app/components/scenes/brand-showcase";
 import BrandDetailsScene from "@/app/components/scenes/brand-details-scene";
 import WorkScene from "@/app/components/scenes/work-scene";
+
 import ContactScene from "@/app/components/scenes/contact-scene";
 import CotizaScene from "@/app/components/scenes/cotiza-scene";
 import type { SelectedBrand } from "@/app/page";
@@ -118,6 +119,28 @@ export default function SceneStage({
   const currentVariants = isCotizaOpen
     ? cotizaSceneVariants
     : defaultSceneVariants;
+
+  const shouldUseFaqStage =
+    !isCotizaOpen && !selectedBrand && activeScene === 4;
+
+  if (shouldUseFaqStage) {
+    return (
+      <section className="relative z-20 h-[100svh] w-full overflow-hidden">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key="scene-4"
+            variants={defaultSceneVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className="relative h-full w-full overflow-hidden"
+          >
+            
+          </motion.div>
+        </AnimatePresence>
+      </section>
+    );
+  }
 
   return (
     <section className="relative z-20 h-[100svh] w-full overflow-hidden">
