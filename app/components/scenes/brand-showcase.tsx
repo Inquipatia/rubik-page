@@ -108,13 +108,25 @@ const brands: SelectedBrand[] = [
       "Activación de verano en playa con fabricación integral de estructura, combinación de MDF y madera nativa, full branding, banderas vela y volumétricos.",
     works: [
       {
-        image: "/img/works/3.png",
-        title: "Campaña visual",
+        image: "/img/services/COPEC/COPEC (1).jpg",
+        title: "Copec 2026",
         description: "Piezas para destacar oferta y experiencia en tienda.",
       },
       {
-        image: "/img/works/3.png",
-        title: "Elementos POP",
+        image: "/img/services/COPEC/COPEC (2).jpg",
+        title: "Copec 2026",
+        description:
+          "Recursos gráficos orientados a visibilidad de producto.",
+      },
+      {
+        image: "/img/services/COPEC/COPEC (3).jpg",
+        title: "Copec 2026",
+        description:
+          "Recursos gráficos orientados a visibilidad de producto.",
+      },
+      {
+        image: "/img/services/COPEC/COPEC (4).jpg",
+        title: "Copec 2026",
         description:
           "Recursos gráficos orientados a visibilidad de producto.",
       },

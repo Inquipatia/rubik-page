@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 type FixedHeaderProps = {
   activeScene: number;
   onJump: (index: number) => void;
@@ -26,9 +28,19 @@ export default function FixedHeader({
         <button
           type="button"
           onClick={() => onJump(0)}
-          className="shrink-0 font-[300] text-[22px] tracking-[-0.04em] text-white sm:text-[24px] md:text-[26px]"
+          aria-label="Ir al inicio"
+          className="flex shrink-0 items-center"
         >
-          Rubik.
+          <div className="relative h-[40px] w-[118px] sm:h-[46px] sm:w-[136px] md:h-[56px] md:w-[165px] lg:h-[78px] lg:w-[235px] xl:h-[92px] xl:w-[280px] 2xl:h-[100px] 2xl:w-[305px]">
+            <Image
+              src="/img/logo.png"
+              alt="Rubik"
+              fill
+              priority
+              className="object-contain object-left"
+              sizes="(max-width: 640px) 110px, (max-width: 768px) 128px, (max-width: 1024px) 150px, (max-width: 1280px) 210px, 245px"
+            />
+          </div>
         </button>
 
         <nav className="menu-shell hidden md:flex md:scale-[0.92] lg:scale-100">
