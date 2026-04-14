@@ -26,7 +26,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
         animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
         exit={{ opacity: 0, y: -14, scale: 0.985, filter: "blur(8px)" }}
         transition={shellTransition}
-        className="relative mx-auto w-full max-w-[920px] will-change-transform transform-gpu"
+        className="relative mx-auto w-full max-w-[860px] will-change-transform transform-gpu lg:max-w-[900px]"
       >
         <div className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute left-[10%] top-[8%] h-20 w-20 rounded-full bg-fuchsia-500/12 blur-3xl" />
@@ -45,7 +45,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
             }}
             className="will-change-transform transform-gpu"
           >
-            <h2 className="omnes-title text-[1.35rem] text-white lg:text-[1.75rem]">
+            <h2 className="omnes-title text-[1.22rem] text-white lg:text-[1.55rem]">
               Cuéntanos tu proyecto
             </h2>
 
@@ -55,7 +55,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
           </motion.div>
         </div>
 
-        <div className="grid gap-2.5 lg:grid-cols-[1fr_0.94fr]">
+        <div className="grid gap-2 lg:grid-cols-[1fr_0.94fr] lg:gap-2.5">
           <motion.div
             initial={{ opacity: 0, x: -20, y: 8, scale: 0.992 }}
             animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}

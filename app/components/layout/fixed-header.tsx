@@ -31,7 +31,7 @@ export default function FixedHeader({
           aria-label="Ir al inicio"
           className="flex shrink-0 items-center"
         >
-          <div className="relative h-[40px] w-[118px] sm:h-[46px] sm:w-[136px] md:h-[56px] md:w-[165px] lg:h-[78px] lg:w-[235px] xl:h-[92px] xl:w-[280px] 2xl:h-[100px] 2xl:w-[305px]">
+          <div className="relative h-[38px] w-[112px] sm:h-[42px] sm:w-[126px] md:h-[48px] md:w-[145px] lg:h-[60px] lg:w-[182px] xl:h-[70px] xl:w-[212px] 2xl:h-[76px] 2xl:w-[230px]">
             <Image
               src="/img/logo.png"
               alt="Rubik"

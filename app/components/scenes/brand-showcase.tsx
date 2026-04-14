@@ -152,19 +152,24 @@ const brands: SelectedBrand[] = [
     ]),
   },
   {
-    brandName: "Canada Dry",
-    brandLogo: "/img/works/canada.png",
+    brandName: "Mistral",
+    brandLogo: "/img/works/mistral.png",
     description:
       "Soluciones gráficas corporativas para espacios de atención, campañas y refuerzo de identidad visual.",
     works: [
       {
-        image: "/img/works/3.png",
+        image: "/img/services/MISTRAL/MISTRAL (1).jpg",
         title: "Señalética corporativa",
         description:
           "Aplicación de elementos visuales en entorno institucional.",
       },
       {
-        image: "/img/works/3.png",
+        image: "/img/services/MISTRAL/MISTRAL (2).jpg",
+        title: "Gráfica de apoyo",
+        description: "Piezas para comunicación y presencia de marca.",
+      },
+      {
+        image: "/img/services/MISTRAL/MISTRAL (3).jpg",
         title: "Gráfica de apoyo",
         description: "Piezas para comunicación y presencia de marca.",
       },
@@ -178,26 +183,26 @@ export default function BrandShowcase({
   return (
     <section
       id="brands"
-      className="relative mx-auto w-full max-w-[1080px] px-3 py-1 sm:px-4 lg:px-6 xl:max-w-[1160px]"
+      className="relative mx-auto w-full max-w-[980px] px-3 py-1 sm:px-4 lg:max-w-[1000px] lg:px-5 xl:max-w-[1040px] xl:px-5 2xl:max-w-[1160px] 2xl:px-8"
     >
-      <div className="mx-auto max-w-[680px] text-center">
+      <div className="mx-auto max-w-[640px] text-center xl:max-w-[660px] 2xl:max-w-[680px]">
         <div className="inline-flex rounded-full border border-white/12 bg-white/[0.04] px-3 py-1 text-[11px] text-white/70 backdrop-blur sm:text-[12px]">
           Marcas
         </div>
 
-        <h2 className="mt-2 text-[clamp(1.95rem,3.7vw,3.3rem)] font-[300] leading-[1.02] tracking-[-0.05em] text-white">
+        <h2 className="mt-2 text-[clamp(1.95rem,3.5vw,3.3rem)] font-[300] leading-[1.02] tracking-[-0.05em] text-white">
           Marcas que han confiado en Rubik
         </h2>
 
-        <p className="mx-auto mt-2.5 max-w-[560px] text-[12px] leading-5.5 text-white/54 sm:text-[13px] sm:leading-6">
+        <p className="mx-auto mt-2.5 max-w-[540px] text-[12px] leading-5.5 text-white/54 sm:text-[13px] sm:leading-6">
           Clientes, colaboraciones y proyectos desarrollados junto a marcas que
           buscan impacto visual real, producción cuidada y soluciones pensadas
           para destacar.
         </p>
       </div>
 
-      <div className="relative mx-auto mt-4 max-w-[1120px] rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-[1px] shadow-[0_14px_34px_rgba(0,0,0,0.2)] xl:mt-5">
-        <div className="relative overflow-hidden rounded-[21px] bg-[linear-gradient(180deg,#181028_0%,#120b20_45%,#0d0818_100%)] px-2.5 py-2.5 sm:px-3 sm:py-3 lg:px-3.5 lg:py-3.5 xl:px-4 xl:py-4">
+      <div className="relative mx-auto mt-4 max-w-[980px] rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-[1px] shadow-[0_14px_34px_rgba(0,0,0,0.2)] xl:mt-5 xl:max-w-[1000px] 2xl:max-w-[1120px]">
+        <div className="relative overflow-hidden rounded-[21px] bg-[linear-gradient(180deg,#181028_0%,#120b20_45%,#0d0818_100%)] px-2.5 py-2.5 sm:px-3 sm:py-3 lg:px-3 lg:py-3 xl:px-3 xl:py-3 2xl:px-4 2xl:py-4">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 opacity-[0.055]"
@@ -213,16 +218,16 @@ export default function BrandShowcase({
 
           <div className="pointer-events-none absolute inset-2 rounded-[18px] border border-white/[0.05]" />
 
-          <div className="relative grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-3 lg:gap-3 xl:grid-cols-3 xl:gap-4">
+          <div className="relative grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-3 lg:gap-2.5 xl:grid-cols-3 xl:gap-3 2xl:gap-4">
             {brands.map((brand) => (
               <button
                 key={brand.brandName}
                 type="button"
                 onClick={() => onOpenBrandDetails(brand)}
-                className="group relative min-h-[84px] overflow-hidden rounded-[16px] border border-white/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.015))] p-[1px] text-left transition duration-300 hover:-translate-y-[2px] hover:border-white/[0.18] hover:shadow-[0_10px_20px_rgba(0,0,0,0.18)] focus:outline-none focus:ring-2 focus:ring-white/20 sm:min-h-[92px] xl:min-h-[110px]"
+                className="group relative min-h-[76px] overflow-hidden rounded-[16px] border border-white/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.015))] p-[1px] text-left transition duration-300 hover:-translate-y-[2px] hover:border-white/[0.18] hover:shadow-[0_10px_20px_rgba(0,0,0,0.18)] focus:outline-none focus:ring-2 focus:ring-white/20 sm:min-h-[82px] lg:min-h-[86px] xl:min-h-[92px] 2xl:min-h-[110px]"
                 aria-label={`Ver detalles de ${brand.brandName}`}
               >
-                <div className="relative flex h-full min-h-[82px] items-center justify-center overflow-hidden rounded-[15px] bg-[linear-gradient(180deg,#0c0914_0%,#110d1b_40%,#151024_100%)] px-3 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),inset_0_-8px_20px_rgba(0,0,0,0.45)] transition duration-300 group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-10px_24px_rgba(0,0,0,0.52),0_8px_18px_rgba(0,0,0,0.12)] sm:min-h-[90px] xl:min-h-[108px]">
+                <div className="relative flex h-full min-h-[74px] items-center justify-center overflow-hidden rounded-[15px] bg-[linear-gradient(180deg,#0c0914_0%,#110d1b_40%,#151024_100%)] px-2.5 py-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),inset_0_-8px_20px_rgba(0,0,0,0.45)] transition duration-300 group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-10px_24px_rgba(0,0,0,0.52),0_8px_18px_rgba(0,0,0,0.12)] sm:min-h-[80px] lg:min-h-[84px] xl:min-h-[90px] 2xl:min-h-[108px]">
                   <div className="pointer-events-none absolute inset-[6px] rounded-[10px] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.04),transparent_48%),linear-gradient(180deg,rgba(255,255,255,0.015),rgba(255,255,255,0.005))]" />
 
                   <div className="pointer-events-none absolute inset-[2px] rounded-[14px] bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0.028)_38%,rgba(255,255,255,0.012)_100%)] backdrop-blur-[3px]" />
@@ -245,7 +250,7 @@ export default function BrandShowcase({
                     <div className="absolute left-[-42%] top-0 h-full w-[26%] rotate-[16deg] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.16),transparent)] opacity-0 [transform:translateX(0)] transition-transform duration-700 ease-out group-hover:translate-x-[620%] group-hover:opacity-100" />
                   </div>
 
-                  <div className="relative z-10 h-[22px] w-full transition duration-300 group-hover:scale-[1.03] sm:h-[24px] lg:h-[26px] xl:h-[32px]">
+                  <div className="relative z-10 h-[20px] w-full transition duration-300 group-hover:scale-[1.03] sm:h-[22px] lg:h-[24px] xl:h-[26px] 2xl:h-[32px]">
                     <Image
                       src={brand.brandLogo || "/img/works/3.png"}
                       alt={brand.brandName}
