@@ -131,15 +131,15 @@ function NeonCard({ children, accent, hoverBorder }: NeonCardProps) {
 
   return (
     <div
-      className={`relative flex h-full min-h-[220px] flex-col overflow-hidden rounded-[18px] border ${theme.border} bg-[linear-gradient(180deg,rgba(16,16,26,0.98),rgba(8,8,14,1))] p-4 shadow-[0_12px_28px_rgba(0,0,0,0.24)] transition-all duration-300 xl:min-h-[300px] xl:rounded-[22px] xl:p-5 ${theme.hoverBorder}`}
+      className={`relative flex h-full min-h-[260px] flex-col overflow-hidden rounded-[20px] border ${theme.border} bg-[linear-gradient(180deg,rgba(16,16,26,0.98),rgba(8,8,14,1))] p-5 shadow-[0_14px_34px_rgba(0,0,0,0.26)] transition-all duration-300 xl:min-h-[360px] xl:rounded-[24px] xl:p-6 2xl:min-h-[390px] ${theme.hoverBorder}`}
     >
       <div
-        className="pointer-events-none absolute inset-0 rounded-[16px]"
+        className="pointer-events-none absolute inset-0 rounded-[18px]"
         style={{ boxShadow: theme.frameShadow }}
       />
 
       <div
-        className="pointer-events-none absolute inset-0 rounded-[16px]"
+        className="pointer-events-none absolute inset-0 rounded-[18px]"
         style={{
           padding: "1px",
           background: theme.neonGradient,
@@ -153,7 +153,7 @@ function NeonCard({ children, accent, hoverBorder }: NeonCardProps) {
       />
 
       <div
-        className="pointer-events-none absolute -inset-[1px] rounded-[18px]"
+        className="pointer-events-none absolute -inset-[1px] rounded-[20px]"
         style={{
           background: theme.bloom,
           filter: "blur(10px)",
@@ -212,7 +212,7 @@ function NeonCard({ children, accent, hoverBorder }: NeonCardProps) {
       />
 
       <div
-        className="pointer-events-none absolute inset-[6px] rounded-[12px]"
+        className="pointer-events-none absolute inset-[6px] rounded-[14px]"
         style={{
           border: "1px solid rgba(255,255,255,0.05)",
           boxShadow:
@@ -231,9 +231,9 @@ function NeonCard({ children, accent, hoverBorder }: NeonCardProps) {
 
 export default function ContactScene() {
   return (
-    <section className="relative flex min-h-[50vh] items-center justify-center py-2 xl:min-h-[58vh]">
-      <div className="w-full max-w-[1220px] px-3 sm:px-4 xl:px-6">
-        <div className="mb-3 text-center xl:mb-4">
+    <section className="relative flex min-h-[58vh] items-center justify-center py-4 xl:min-h-[68vh] 2xl:min-h-[72vh]">
+      <div className="w-full max-w-[1380px] px-4 sm:px-5 xl:px-8">
+        <div className="mb-4 text-center xl:mb-5">
           <span className="omnes-text inline-flex rounded-full border border-white/14 bg-white/[0.05] px-3 py-1 text-[8px] uppercase tracking-[0.15em] text-white/74 backdrop-blur xl:px-4 xl:py-1.5 xl:text-[9px]">
             Contacto
           </span>
@@ -243,7 +243,7 @@ export default function ContactScene() {
           variants={containerVariants}
           initial="hidden"
           animate="show"
-          className="grid grid-cols-1 gap-3 lg:grid-cols-3 xl:gap-4"
+          className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3 xl:gap-5"
         >
           <motion.div
             custom="left"
@@ -251,9 +251,9 @@ export default function ContactScene() {
             initial="hidden"
             animate="show"
             whileHover={{
-              y: -2,
-              scale: 1.001,
-              transition: { duration: 0.16, ease: [0.22, 1, 0.36, 1] },
+              y: -3,
+              scale: 1.004,
+              transition: { duration: 0.18, ease: [0.22, 1, 0.36, 1] },
             }}
             className="group [transform:translateZ(0)] will-change-transform"
           >
@@ -273,29 +273,29 @@ export default function ContactScene() {
                   </div>
 
                   <div
-                    className="flex h-8 w-8 items-center justify-center rounded-full border border-violet-200/28 bg-violet-400/18 text-violet-100 xl:h-9 xl:w-9"
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-violet-200/28 bg-violet-400/18 text-violet-100 xl:h-10 xl:w-10"
                     style={{
                       boxShadow:
                         "0 0 6px rgba(196,181,253,0.34), 0 0 12px rgba(139,92,246,0.24), inset 0 0 8px rgba(196,181,253,0.1)",
                     }}
                   >
-                    <MapPin size={14} />
+                    <MapPin size={15} />
                   </div>
                 </motion.div>
 
-                <div className="mt-3 space-y-3 xl:mt-3.5 xl:space-y-3.5">
+                <div className="mt-4 space-y-4 xl:mt-4.5 xl:space-y-4.5">
                   <motion.div variants={itemVariants}>
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-3">
                       <div
-                        className="flex h-9 w-9 items-center justify-center rounded-full border border-violet-200/28 bg-violet-400/18 text-violet-100 xl:h-10 xl:w-10"
+                        className="flex h-10 w-10 items-center justify-center rounded-full border border-violet-200/28 bg-violet-400/18 text-violet-100 xl:h-11 xl:w-11"
                         style={{
                           boxShadow:
                             "0 0 6px rgba(196,181,253,0.34), 0 0 12px rgba(139,92,246,0.24), inset 0 0 8px rgba(196,181,253,0.1)",
                         }}
                       >
-                        <MapPin size={14} />
+                        <MapPin size={15} />
                       </div>
-                      <div className="omnes-title text-[1.08rem] leading-none text-white xl:text-[1.2rem]">
+                      <div className="omnes-title text-[1.15rem] leading-none text-white xl:text-[1.3rem]">
                         Ubicación
                       </div>
                     </div>
@@ -304,7 +304,7 @@ export default function ContactScene() {
                       href="https://maps.app.goo.gl/6JbPNCg9zs2NQCWM9"
                       target="_blank"
                       rel="noreferrer"
-                      className="omnes-text mt-2 block text-[11px] leading-5 text-white/80 transition hover:text-white xl:text-[12px]"
+                      className="omnes-text mt-2.5 block text-[12px] leading-5 text-white/80 transition hover:text-white xl:text-[13px]"
                     >
                       Abre nuestra ubicación en Google Maps ↗
                     </a>
@@ -316,23 +316,23 @@ export default function ContactScene() {
                   />
 
                   <motion.div variants={itemVariants}>
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-3">
                       <div
-                        className="flex h-9 w-9 items-center justify-center rounded-full border border-violet-200/28 bg-violet-400/18 text-violet-100 xl:h-10 xl:w-10"
+                        className="flex h-10 w-10 items-center justify-center rounded-full border border-violet-200/28 bg-violet-400/18 text-violet-100 xl:h-11 xl:w-11"
                         style={{
                           boxShadow:
                             "0 0 6px rgba(196,181,253,0.34), 0 0 12px rgba(139,92,246,0.24), inset 0 0 8px rgba(196,181,253,0.1)",
                         }}
                       >
-                        <Clock3 size={14} />
+                        <Clock3 size={15} />
                       </div>
-                      <div className="omnes-title text-[1.08rem] leading-none text-white xl:text-[1.2rem]">
+                      <div className="omnes-title text-[1.15rem] leading-none text-white xl:text-[1.3rem]">
                         Horario
                       </div>
                     </div>
 
-                    <div className="mt-2 space-y-2">
-                      <div className="rounded-[12px] border border-violet-200/22 bg-[linear-gradient(180deg,rgba(139,92,246,0.16),rgba(255,255,255,0.05))] px-3 py-2.5">
+                    <div className="mt-3 space-y-2.5">
+                      <div className="rounded-[13px] border border-violet-200/22 bg-[linear-gradient(180deg,rgba(139,92,246,0.16),rgba(255,255,255,0.05))] px-3.5 py-3">
                         <div className="omnes-text text-[11px] text-white/88 xl:text-[12px]">
                           Lunes — Jueves
                         </div>
@@ -341,7 +341,7 @@ export default function ContactScene() {
                         </div>
                       </div>
 
-                      <div className="rounded-[12px] border border-violet-200/22 bg-[linear-gradient(180deg,rgba(139,92,246,0.16),rgba(255,255,255,0.05))] px-3 py-2.5">
+                      <div className="rounded-[13px] border border-violet-200/22 bg-[linear-gradient(180deg,rgba(139,92,246,0.16),rgba(255,255,255,0.05))] px-3.5 py-3">
                         <div className="omnes-text text-[11px] text-white/88 xl:text-[12px]">
                           Viernes
                         </div>
@@ -350,7 +350,7 @@ export default function ContactScene() {
                         </div>
                       </div>
 
-                      <div className="rounded-[12px] border border-violet-200/22 bg-[linear-gradient(180deg,rgba(139,92,246,0.16),rgba(255,255,255,0.05))] px-3 py-2.5">
+                      <div className="rounded-[13px] border border-violet-200/22 bg-[linear-gradient(180deg,rgba(139,92,246,0.16),rgba(255,255,255,0.05))] px-3.5 py-3">
                         <div className="omnes-text text-[11px] text-white/88 xl:text-[12px]">
                           Sábados — Domingos
                         </div>
@@ -371,9 +371,9 @@ export default function ContactScene() {
             initial="hidden"
             animate="show"
             whileHover={{
-              y: -2,
-              scale: 1.001,
-              transition: { duration: 0.16, ease: [0.22, 1, 0.36, 1] },
+              y: -3,
+              scale: 1.004,
+              transition: { duration: 0.18, ease: [0.22, 1, 0.36, 1] },
             }}
             className="group [transform:translateZ(0)] will-change-transform"
           >
@@ -393,36 +393,36 @@ export default function ContactScene() {
                   </div>
 
                   <div
-                    className="flex h-8 w-8 items-center justify-center rounded-full border border-white/22 bg-white/[0.09] text-white/90 xl:h-9 xl:w-9"
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/22 bg-white/[0.09] text-white/90 xl:h-10 xl:w-10"
                     style={{
                       boxShadow:
                         "0 0 6px rgba(255,255,255,0.22), 0 0 12px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.07)",
                     }}
                   >
-                    <Phone size={14} />
+                    <Phone size={15} />
                   </div>
                 </motion.div>
 
-                <div className="mt-3 space-y-3 xl:mt-3.5 xl:space-y-3.5">
+                <div className="mt-4 space-y-4 xl:mt-4.5 xl:space-y-4.5">
                   <motion.div variants={itemVariants}>
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-3">
                       <div
-                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/22 bg-white/[0.09] text-white/90 xl:h-10 xl:w-10"
+                        className="flex h-10 w-10 items-center justify-center rounded-full border border-white/22 bg-white/[0.09] text-white/90 xl:h-11 xl:w-11"
                         style={{
                           boxShadow:
                             "0 0 6px rgba(255,255,255,0.22), 0 0 12px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.07)",
                         }}
                       >
-                        <Phone size={14} />
+                        <Phone size={15} />
                       </div>
-                      <div className="omnes-title text-[1.08rem] leading-none text-white xl:text-[1.2rem]">
+                      <div className="omnes-title text-[1.15rem] leading-none text-white xl:text-[1.3rem]">
                         Celular
                       </div>
                     </div>
 
                     <a
                       href="tel:+56991330559"
-                      className="omnes-text mt-2 block text-[11px] leading-5 text-white/84 transition hover:text-white xl:text-[12px]"
+                      className="omnes-text mt-2.5 block text-[12px] leading-5 text-white/84 transition hover:text-white xl:text-[13px]"
                     >
                       +56 9 9133 0559
                     </a>
@@ -434,24 +434,24 @@ export default function ContactScene() {
                   />
 
                   <motion.div variants={itemVariants}>
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-3">
                       <div
-                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/22 bg-white/[0.09] text-white/90 xl:h-10 xl:w-10"
+                        className="flex h-10 w-10 items-center justify-center rounded-full border border-white/22 bg-white/[0.09] text-white/90 xl:h-11 xl:w-11"
                         style={{
                           boxShadow:
                             "0 0 6px rgba(255,255,255,0.22), 0 0 12px rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.07)",
                         }}
                       >
-                        <Mail size={14} />
+                        <Mail size={15} />
                       </div>
-                      <div className="omnes-title text-[1.08rem] leading-none text-white xl:text-[1.2rem]">
+                      <div className="omnes-title text-[1.15rem] leading-none text-white xl:text-[1.3rem]">
                         Email
                       </div>
                     </div>
 
                     <a
                       href="mailto:rubik@rubikcreaciones.cl"
-                      className="omnes-text mt-2 block break-all text-[11px] leading-5 text-white/84 transition hover:text-white xl:text-[12px]"
+                      className="omnes-text mt-2.5 block break-all text-[12px] leading-5 text-white/84 transition hover:text-white xl:text-[13px]"
                     >
                       rubik@rubikcreaciones.cl
                     </a>
@@ -467,9 +467,9 @@ export default function ContactScene() {
             initial="hidden"
             animate="show"
             whileHover={{
-              y: -2,
-              scale: 1.001,
-              transition: { duration: 0.16, ease: [0.22, 1, 0.36, 1] },
+              y: -3,
+              scale: 1.004,
+              transition: { duration: 0.18, ease: [0.22, 1, 0.36, 1] },
             }}
             className="group [transform:translateZ(0)] will-change-transform"
           >
@@ -489,52 +489,52 @@ export default function ContactScene() {
                   </div>
 
                   <div
-                    className="flex h-8 w-8 items-center justify-center rounded-full border border-fuchsia-200/24 bg-fuchsia-400/18 text-fuchsia-100 xl:h-9 xl:w-9"
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-fuchsia-200/24 bg-fuchsia-400/18 text-fuchsia-100 xl:h-10 xl:w-10"
                     style={{
                       boxShadow:
                         "0 0 6px rgba(251,207,232,0.24), 0 0 12px rgba(236,72,153,0.18), inset 0 0 8px rgba(244,114,182,0.08)",
                     }}
                   >
-                    <FaInstagram size={14} />
+                    <FaInstagram size={15} />
                   </div>
                 </motion.div>
 
-                <div className="mt-3">
-                  <div className="omnes-title text-[1.08rem] leading-none text-white xl:text-[1.2rem]">
+                <div className="mt-4">
+                  <div className="omnes-title text-[1.15rem] leading-none text-white xl:text-[1.3rem]">
                     Redes Sociales
                   </div>
 
-                  <div className="mt-2.5 grid grid-cols-1 gap-2 xl:gap-2.5">
+                  <div className="mt-3 grid grid-cols-1 gap-2.5 xl:gap-3">
                     {[
                       {
                         href: "https://instagram.com/rubikcreaciones.cl",
                         label: "Instagram",
-                        icon: <FaInstagram size={12} />,
+                        icon: <FaInstagram size={13} />,
                       },
                       {
                         href: "https://web.facebook.com/profile.php?id=100083381976669",
                         label: "Facebook",
-                        icon: <FaFacebookF size={12} />,
+                        icon: <FaFacebookF size={13} />,
                       },
                       {
                         href: "https://tiktok.com/@rubikcreaciones",
                         label: "TikTok",
-                        icon: <FaTiktok size={12} />,
+                        icon: <FaTiktok size={13} />,
                       },
                       {
                         href: "https://www.linkedin.com/in/rubik-creaciones-9b13063b5/",
                         label: "LinkedIn",
-                        icon: <FaLinkedinIn size={12} />,
+                        icon: <FaLinkedinIn size={13} />,
                       },
                       {
                         href: "https://wa.me/56991330559",
                         label: "WhatsApp",
-                        icon: <FaWhatsapp size={12} />,
+                        icon: <FaWhatsapp size={13} />,
                       },
                     ].map((item) => (
                       <motion.a
                         key={item.label}
-                        whileHover={{ x: 2, scale: 1.002 }}
+                        whileHover={{ x: 3, scale: 1.006 }}
                         transition={{
                           duration: 0.16,
                           ease: [0.22, 1, 0.36, 1],
@@ -542,10 +542,10 @@ export default function ContactScene() {
                         href={item.href}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-center gap-2.5 rounded-[12px] border border-fuchsia-200/22 bg-[linear-gradient(180deg,rgba(255,255,255,0.10),rgba(255,255,255,0.04))] px-3 py-2 transition duration-300 hover:border-fuchsia-200/38 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.13),rgba(255,255,255,0.05))] xl:px-3.5 xl:py-2.5"
+                        className="flex items-center gap-3 rounded-[13px] border border-fuchsia-200/22 bg-[linear-gradient(180deg,rgba(255,255,255,0.10),rgba(255,255,255,0.04))] px-3.5 py-2.5 transition duration-300 hover:border-fuchsia-200/38 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.13),rgba(255,255,255,0.05))] xl:px-4 xl:py-3"
                       >
                         <div
-                          className="flex h-7 w-7 items-center justify-center rounded-full border border-fuchsia-200/22 bg-fuchsia-400/18 text-fuchsia-100 xl:h-8 xl:w-8"
+                          className="flex h-8 w-8 items-center justify-center rounded-full border border-fuchsia-200/22 bg-fuchsia-400/18 text-fuchsia-100 xl:h-9 xl:w-9"
                           style={{
                             boxShadow:
                               "0 0 6px rgba(251,207,232,0.22), 0 0 10px rgba(236,72,153,0.16), inset 0 0 6px rgba(244,114,182,0.08)",
@@ -554,7 +554,7 @@ export default function ContactScene() {
                           {item.icon}
                         </div>
 
-                        <span className="omnes-text text-[11px] text-white/84 xl:text-[12px]">
+                        <span className="omnes-text text-[12px] text-white/84 xl:text-[13px]">
                           {item.label}
                         </span>
                       </motion.a>

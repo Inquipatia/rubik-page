@@ -306,13 +306,13 @@ export default function BrandDetailsScene({
             )}
           </div>
 
-          <div className="grid min-h-0 flex-1 gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="grid min-h-0 flex-1 gap-4 lg:grid-cols-[1.18fr_0.82fr]">
             <button
               type="button"
               onClick={openPreview}
-              className="group relative min-h-0 overflow-hidden rounded-[18px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))] text-left"
+              className="group relative min-h-0 h-full overflow-hidden rounded-[18px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))] text-left"
             >
-              <div className="relative h-[260px] w-full md:h-[340px] lg:h-full lg:min-h-[520px]">
+              <div className="absolute inset-0">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeWork.image}
@@ -326,30 +326,16 @@ export default function BrandDetailsScene({
                       src={activeWork.image}
                       alt={activeWork.title || brandName}
                       fill
-                      className="object-cover scale-105 opacity-20 blur-2xl"
+                      className="object-cover"
                       sizes="(max-width: 1024px) 100vw, 48vw"
                       priority
                     />
-
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(116,62,200,0.08)_0%,rgba(21,13,39,0.12)_42%,rgba(10,7,18,0.42)_100%)]" />
-
-                    <div className="absolute inset-0 p-3 sm:p-4 lg:p-5">
-                      <div className="relative h-full w-full overflow-hidden rounded-[14px] border border-white/8 bg-black/10">
-                        <Image
-                          src={activeWork.image}
-                          alt={activeWork.title || brandName}
-                          fill
-                          className="object-contain transition duration-500 group-hover:scale-[1.015]"
-                          sizes="(max-width: 1024px) 100vw, 48vw"
-                          priority
-                        />
-                      </div>
-                    </div>
+                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,4,18,0.12)_0%,rgba(8,4,18,0.03)_40%,rgba(0,0,0,0.52)_100%)]" />
                   </motion.div>
                 </AnimatePresence>
               </div>
 
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/28 to-transparent p-4 sm:p-5">
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/90 via-black/30 to-transparent p-4 sm:p-5">
                 <h3 className="text-[16px] font-medium text-white sm:text-[1.05rem]">
                   {activeWork.title || brandName}
                 </h3>
@@ -366,14 +352,17 @@ export default function BrandDetailsScene({
               </div>
             </button>
 
-            <div className="flex min-h-0 flex-col gap-4">
-              <div className="rounded-[18px] border border-white/10 bg-white/[0.045] p-4">
+            <div className="grid min-h-0 h-full grid-rows-[minmax(0,1fr)_auto] gap-4">
+              <div className="flex min-h-0 flex-col rounded-[18px] border border-white/10 bg-white/[0.045] p-4">
                 <p className="text-[8px] uppercase tracking-[0.22em] text-white/42">
                   Descripción
                 </p>
-                <p className="mt-2 text-[11px] leading-6 text-white/78 sm:text-[12px] lg:text-[12.5px]">
-                  {description}
-                </p>
+
+                <div className="mt-3 flex-1">
+                  <p className="text-[12px] leading-7 text-white/78 sm:text-[13px] lg:text-[13.5px]">
+                    {description}
+                  </p>
+                </div>
               </div>
 
               <div className="rounded-[18px] border border-white/10 bg-white/[0.045] p-3.5">
