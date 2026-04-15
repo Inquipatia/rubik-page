@@ -76,8 +76,10 @@ const cotizaSceneVariants: Variants = {
 
 function StageFrame({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mx-auto box-border flex h-full w-full max-w-[1220px] flex-col overflow-hidden px-3 pb-3 pt-[86px] sm:px-4 sm:pb-4 sm:pt-[92px] md:px-5 md:pt-[98px] lg:px-6 lg:pt-[106px] xl:px-8 xl:pt-[118px] 2xl:pt-[124px]">
-      <div className="relative h-full w-full overflow-hidden">{children}</div>
+    <div className="mx-auto box-border flex h-full w-full max-w-[1220px] flex-col overflow-visible px-3 pb-3 pt-[86px] sm:px-4 sm:pb-4 sm:pt-[92px] md:px-5 md:pt-[98px] lg:px-6 lg:pt-[106px] xl:px-8 xl:pt-[118px] 2xl:pt-[124px]">
+      <div className="relative h-full w-full overflow-visible">
+        {children}
+      </div>
     </div>
   );
 }
@@ -105,7 +107,7 @@ export default function SceneStage({
     : defaultSceneVariants;
 
   return (
-    <section className="relative z-20 h-[100svh] w-full overflow-hidden">
+    <section className="relative z-20 h-[100svh] w-full overflow-visible">
       <StageFrame>
         <AnimatePresence mode="wait">
           <motion.div
@@ -114,7 +116,7 @@ export default function SceneStage({
             initial="initial"
             animate="animate"
             exit="exit"
-            className="relative h-full w-full overflow-hidden [transform:translateZ(0)] [transform-style:preserve-3d] will-change-transform"
+            className="relative h-full w-full overflow-visible [transform:translateZ(0)] [transform-style:preserve-3d] will-change-transform"
           >
             {isCotizaOpen && (
               <motion.div
@@ -156,7 +158,7 @@ export default function SceneStage({
                     }
                   : undefined
               }
-              className="h-full w-full overflow-hidden"
+              className="h-full w-full overflow-visible"
             >
               {isCotizaOpen ? (
                 <CotizaScene onClose={onCloseCotiza} />

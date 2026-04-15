@@ -56,8 +56,6 @@ export default function BrandDetailsScene({
 
     if (isPreviewOpen) {
       document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = previousOverflow;
     }
 
     return () => {
@@ -91,7 +89,7 @@ export default function BrandDetailsScene({
     if (nextPage !== page) {
       setPage(nextPage);
     }
-  }, [activeIndex]);
+  }, [activeIndex, page]);
 
   const activeWork = useMemo(() => {
     if (!safeWorks.length) {
@@ -125,20 +123,12 @@ export default function BrandDetailsScene({
 
   const handlePrevImage = () => {
     if (!safeWorks.length) return;
-
-    setActiveIndex((prev) => {
-      const nextIndex = (prev - 1 + safeWorks.length) % safeWorks.length;
-      return nextIndex;
-    });
+    setActiveIndex((prev) => (prev - 1 + safeWorks.length) % safeWorks.length);
   };
 
   const handleNextImage = () => {
     if (!safeWorks.length) return;
-
-    setActiveIndex((prev) => {
-      const nextIndex = (prev + 1) % safeWorks.length;
-      return nextIndex;
-    });
+    setActiveIndex((prev) => (prev + 1) % safeWorks.length);
   };
 
   const openPreview = () => {
@@ -155,8 +145,8 @@ export default function BrandDetailsScene({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-[220] bg-[rgba(6,3,18,0.88)]"
+              transition={{ duration: 0.22 }}
+              className="fixed inset-0 z-[220] bg-[rgba(6,3,18,0.9)]"
               onClick={() => setIsPreviewOpen(false)}
             >
               <div
@@ -168,11 +158,11 @@ export default function BrandDetailsScene({
                     src={activeWork.image}
                     alt={activeWork.title || brandName}
                     fill
-                    className="object-cover scale-110 opacity-25 blur-2xl"
+                    className="object-cover scale-110 opacity-20 blur-3xl"
                     sizes="100vw"
                     priority
                   />
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(20,10,40,0.08)_0%,rgba(10,5,20,0.52)_55%,rgba(4,2,12,0.88)_100%)]" />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(32,18,60,0.12)_0%,rgba(12,7,24,0.62)_58%,rgba(4,2,10,0.92)_100%)]" />
                 </div>
 
                 <div className="absolute inset-x-0 top-0 z-30 flex items-center justify-between p-4 sm:p-5 lg:p-6">
@@ -225,7 +215,7 @@ export default function BrandDetailsScene({
                   </>
                 )}
 
-                <div className="relative z-20 flex h-full w-full items-center justify-center">
+                <div className="relative z-20 flex h-full w-full items-center justify-center px-4 py-20 sm:px-8 lg:px-12">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={`${activeWork.image}-${previewMode}`}
@@ -235,8 +225,8 @@ export default function BrandDetailsScene({
                       transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                       className={
                         previewMode === "cover"
-                          ? "relative h-full w-full"
-                          : "relative h-[78vh] w-[88vw] max-w-[1280px]"
+                          ? "relative h-full w-full overflow-hidden rounded-[24px]"
+                          : "relative h-[78vh] w-[90vw] max-w-[1360px] overflow-hidden rounded-[24px]"
                       }
                     >
                       <Image
@@ -246,7 +236,7 @@ export default function BrandDetailsScene({
                         className={
                           previewMode === "cover"
                             ? "object-cover"
-                            : "object-contain drop-shadow-[0_18px_48px_rgba(0,0,0,0.35)]"
+                            : "object-contain drop-shadow-[0_18px_48px_rgba(0,0,0,0.38)]"
                         }
                         sizes="100vw"
                         priority
@@ -275,16 +265,16 @@ export default function BrandDetailsScene({
 
   return (
     <>
-      <section className="relative mx-auto h-full w-full overflow-hidden rounded-[22px] border border-white/10 bg-white/5 px-4 pb-3 pt-4 backdrop-blur-xl sm:px-5 sm:pb-4 sm:pt-5 lg:px-6 lg:pb-4 lg:pt-5">
+      <section className="relative mx-auto h-full w-full overflow-hidden rounded-[24px] border border-white/10 bg-white/[0.045] px-4 pb-4 pt-4 backdrop-blur-xl sm:px-5 sm:pb-5 sm:pt-5 lg:px-6 lg:pb-5 lg:pt-5">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-[8%] top-[10%] h-20 w-20 rounded-full bg-fuchsia-500/8 blur-3xl" />
+          <div className="absolute left-[8%] top-[10%] h-24 w-24 rounded-full bg-fuchsia-500/8 blur-3xl" />
           <div className="absolute right-[10%] top-[16%] h-24 w-24 rounded-full bg-violet-500/8 blur-3xl" />
-          <div className="absolute bottom-[10%] left-[30%] h-20 w-20 rounded-full bg-blue-500/8 blur-3xl" />
+          <div className="absolute bottom-[10%] left-[30%] h-24 w-24 rounded-full bg-blue-500/8 blur-3xl" />
         </div>
 
-        <div className="relative z-10 flex h-full min-h-0 flex-col gap-3">
-          <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-            <div className="flex items-center gap-2.5">
+        <div className="relative z-10 flex h-full min-h-0 flex-col gap-4">
+          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-center gap-3">
               <button
                 type="button"
                 onClick={onBack}
@@ -316,61 +306,78 @@ export default function BrandDetailsScene({
             )}
           </div>
 
-          <div className="grid min-h-0 flex-1 gap-3 lg:grid-cols-[1fr_0.95fr]">
+          <div className="grid min-h-0 flex-1 gap-4 lg:grid-cols-[1.1fr_0.9fr]">
             <button
               type="button"
               onClick={openPreview}
-              className="relative min-h-0 overflow-hidden rounded-[16px] border border-white/10 bg-[linear-gradient(180deg,rgba(0,0,0,0.26),rgba(0,0,0,0.18))] text-left"
+              className="group relative min-h-0 overflow-hidden rounded-[18px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))] text-left"
             >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeWork.image}
-                  initial={{ opacity: 0, scale: 1.01, y: 6 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.994, y: -4 }}
-                  transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-                  className="relative h-[220px] w-full md:h-[280px] lg:h-[360px]"
-                >
-                  <Image
-                    src={activeWork.image}
-                    alt={activeWork.title || brandName}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 48vw"
-                    priority
-                  />
-                </motion.div>
-              </AnimatePresence>
+              <div className="relative h-[260px] w-full md:h-[340px] lg:h-full lg:min-h-[520px]">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeWork.image}
+                    initial={{ opacity: 0, scale: 1.01, y: 6 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.994, y: -4 }}
+                    transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src={activeWork.image}
+                      alt={activeWork.title || brandName}
+                      fill
+                      className="object-cover scale-105 opacity-20 blur-2xl"
+                      sizes="(max-width: 1024px) 100vw, 48vw"
+                      priority
+                    />
 
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/28 to-transparent p-4">
-                <h3 className="text-[15px] font-medium text-white sm:text-base">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(116,62,200,0.08)_0%,rgba(21,13,39,0.12)_42%,rgba(10,7,18,0.42)_100%)]" />
+
+                    <div className="absolute inset-0 p-3 sm:p-4 lg:p-5">
+                      <div className="relative h-full w-full overflow-hidden rounded-[14px] border border-white/8 bg-black/10">
+                        <Image
+                          src={activeWork.image}
+                          alt={activeWork.title || brandName}
+                          fill
+                          className="object-contain transition duration-500 group-hover:scale-[1.015]"
+                          sizes="(max-width: 1024px) 100vw, 48vw"
+                          priority
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/28 to-transparent p-4 sm:p-5">
+                <h3 className="text-[16px] font-medium text-white sm:text-[1.05rem]">
                   {activeWork.title || brandName}
                 </h3>
 
                 {activeWork.description && (
-                  <p className="mt-1 max-w-2xl text-[10px] leading-4 text-white/70 sm:text-[11px]">
+                  <p className="mt-1 max-w-2xl text-[11px] leading-5 text-white/72 sm:text-[12px]">
                     {activeWork.description}
                   </p>
                 )}
 
-                <span className="mt-2 inline-flex rounded-full border border-white/15 bg-black/25 px-2 py-1 text-[10px] text-white/75">
+                <span className="mt-3 inline-flex rounded-full border border-white/15 bg-black/25 px-2.5 py-1 text-[10px] text-white/78">
                   Click para ampliar
                 </span>
               </div>
             </button>
 
-            <div className="flex min-h-0 flex-col gap-3">
-              <div className="rounded-[16px] border border-white/10 bg-white/6 p-3.5">
+            <div className="flex min-h-0 flex-col gap-4">
+              <div className="rounded-[18px] border border-white/10 bg-white/[0.045] p-4">
                 <p className="text-[8px] uppercase tracking-[0.22em] text-white/42">
                   Descripción
                 </p>
-                <p className="mt-2 text-[11px] leading-5 text-white/78 sm:text-[12px]">
+                <p className="mt-2 text-[11px] leading-6 text-white/78 sm:text-[12px] lg:text-[12.5px]">
                   {description}
                 </p>
               </div>
 
-              <div className="rounded-[16px] border border-white/10 bg-white/6 p-3">
-                <div className="mb-2 flex items-center justify-between gap-2">
+              <div className="rounded-[18px] border border-white/10 bg-white/[0.045] p-3.5">
+                <div className="mb-3 flex items-center justify-between gap-2">
                   <p className="text-[8px] uppercase tracking-[0.22em] text-white/42">
                     Trabajos realizados
                   </p>
@@ -380,7 +387,7 @@ export default function BrandDetailsScene({
                       <button
                         type="button"
                         onClick={handlePrevPage}
-                        className="flex h-7 w-7 items-center justify-center rounded-full border border-white/14 bg-white/8 text-[12px] text-white/80 transition hover:bg-white/14"
+                        className="flex h-8 w-8 items-center justify-center rounded-full border border-white/14 bg-white/8 text-[12px] text-white/80 transition hover:bg-white/14"
                         aria-label="Anterior"
                       >
                         ←
@@ -389,7 +396,7 @@ export default function BrandDetailsScene({
                       <button
                         type="button"
                         onClick={handleNextPage}
-                        className="flex h-7 w-7 items-center justify-center rounded-full border border-white/14 bg-white/8 text-[12px] text-white/80 transition hover:bg-white/14"
+                        className="flex h-8 w-8 items-center justify-center rounded-full border border-white/14 bg-white/8 text-[12px] text-white/80 transition hover:bg-white/14"
                         aria-label="Siguiente"
                       >
                         →
@@ -398,7 +405,7 @@ export default function BrandDetailsScene({
                   )}
                 </div>
 
-                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
                   {pagedWorks.map((work, localIndex) => {
                     const globalIndex = page * PAGE_SIZE + localIndex;
                     const isActive = globalIndex === activeIndex;
@@ -408,29 +415,35 @@ export default function BrandDetailsScene({
                         key={`${work.image}-${globalIndex}`}
                         type="button"
                         onClick={() => setActiveIndex(globalIndex)}
-                        className={`group flex min-h-[76px] items-center gap-3 overflow-hidden rounded-[12px] border px-2.5 py-2 text-left transition duration-300 ${
+                        className={`group flex min-h-[86px] items-center gap-3 overflow-hidden rounded-[14px] border px-2.5 py-2.5 text-left transition duration-300 ${
                           isActive
-                            ? "border-white/28 bg-white/10"
+                            ? "border-white/28 bg-white/10 shadow-[0_0_0_1px_rgba(255,255,255,0.03)]"
                             : "border-white/10 bg-white/[0.03] hover:border-white/18 hover:bg-white/[0.06]"
                         }`}
                       >
-                        <div className="relative h-12 w-14 shrink-0 overflow-hidden rounded-[10px] border border-white/8 bg-black/12">
+                        <div className="relative h-14 w-16 shrink-0 overflow-hidden rounded-[11px] border border-white/8 bg-black/15">
                           <Image
                             src={work.image}
                             alt={work.title || `${brandName} ${globalIndex + 1}`}
                             fill
-                            className="object-contain p-1 transition duration-300 group-hover:scale-[1.03]"
-                            sizes="56px"
+                            className="object-cover transition duration-300 group-hover:scale-[1.04]"
+                            sizes="64px"
                           />
                         </div>
 
                         <div className="min-w-0 flex-1">
-                          <p className="line-clamp-2 text-[13px] leading-4 text-white/82">
+                          <p className="line-clamp-2 text-[12px] leading-4 text-white/84 sm:text-[13px]">
                             {work.title || `Trabajo ${globalIndex + 1}`}
                           </p>
 
+                          {work.description && (
+                            <p className="mt-1 line-clamp-2 text-[10px] leading-4 text-white/52">
+                              {work.description}
+                            </p>
+                          )}
+
                           {isActive && (
-                            <div className="mt-1 inline-flex rounded-full border border-white/20 bg-black/30 px-1.5 py-0.5 text-[7px] uppercase tracking-[0.14em] text-white/80">
+                            <div className="mt-1.5 inline-flex rounded-full border border-white/20 bg-black/30 px-1.5 py-0.5 text-[7px] uppercase tracking-[0.14em] text-white/80">
                               Active
                             </div>
                           )}
@@ -441,7 +454,7 @@ export default function BrandDetailsScene({
                 </div>
 
                 {safeWorks.length > PAGE_SIZE && (
-                  <div className="mt-2 text-right text-[10px] text-white/42">
+                  <div className="mt-3 text-right text-[10px] text-white/42">
                     {page + 1} / {totalPages}
                   </div>
                 )}
