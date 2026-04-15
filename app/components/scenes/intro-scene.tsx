@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 const Spline = dynamic(() => import("@splinetool/react-spline"), {
   ssr: false,
@@ -28,17 +29,19 @@ export default function IntroScene({
   onOpenCotiza,
   onGoToServicios,
 }: IntroSceneProps) {
+  const [isSplineReady, setIsSplineReady] = useState(false);
+
   return (
     <section className="relative h-full w-full overflow-hidden">
       <div className="mx-auto flex h-full w-full max-w-[1400px] items-center px-4 sm:px-6 lg:px-6 xl:px-10">
-        <div className="grid w-full items-center gap-5 lg:grid-cols-[0.75fr_1.25fr] xl:grid-cols-[1.02fr_0.98fr] xl:gap-8">
+        <div className="grid w-full items-center gap-5 lg:grid-cols-[0.78fr_1.22fr] xl:grid-cols-[1.02fr_0.98fr] xl:gap-8">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
             className="relative z-20 max-w-[720px] md:max-w-[430px] lg:max-w-[560px] lg:origin-left lg:scale-[0.68] xl:max-w-[560px] xl:scale-100 2xl:max-w-[620px]"
           >
-            <div className="mb-4 inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-medium uppercase tracking-[0.16em] text-white/70 backdrop-blur-md sm:text-sm lg:px-3 lg:py-1.5 lg:text-[11px] xl:px-4 xl:py-2 xl:text-sm">
+            <div className="mb-4 inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-medium uppercase tracking-[0.16em] text-white/70 sm:text-sm lg:px-3 lg:py-1.5 lg:text-[11px] xl:px-4 xl:py-2 xl:text-sm">
               Rubik Creaciones
             </div>
 
@@ -64,7 +67,7 @@ export default function IntroScene({
               <button
                 type="button"
                 onClick={onGoToServicios}
-                className="rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-[12px] font-semibold text-white backdrop-blur-md transition duration-300 hover:bg-white/10 lg:px-4 lg:py-2 lg:text-[11px] xl:px-7 xl:py-4 xl:text-sm"
+                className="rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-[12px] font-semibold text-white transition duration-300 hover:bg-white/10 lg:px-4 lg:py-2 lg:text-[11px] xl:px-7 xl:py-4 xl:text-sm"
               >
                 {secondary}
               </button>
@@ -72,11 +75,11 @@ export default function IntroScene({
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 28, scale: 0.97 }}
+            initial={{ opacity: 0, x: 18, scale: 0.985 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{
-              duration: 0.85,
-              delay: 0.1,
+              duration: 0.48,
+              delay: 0.04,
               ease: [0.22, 1, 0.36, 1],
             }}
             onMouseEnter={() => onCubeHoverChange?.(true)}
@@ -85,16 +88,24 @@ export default function IntroScene({
           >
             <div
               className="
-                relative
-                h-[200px] w-full max-w-[220px]
-                sm:h-[250px] sm:max-w-[270px]
-                md:h-[300px] md:max-w-[330px]
-                lg:h-[360px] lg:max-w-[400px]
-                xl:h-[500px] xl:max-w-[560px] xl:translate-x-8
-                2xl:h-[500px] 2xl:max-w-[560px] 2xl:translate-x-12
-              "
+      relative
+      h-[200px] w-full max-w-[220px]
+      sm:h-[250px] sm:max-w-[270px]
+      md:h-[300px] md:max-w-[330px]
+      lg:h-[360px] lg:max-w-[400px]
+      xl:h-[500px] xl:max-w-[560px] xl:translate-x-8
+      2xl:h-[500px] 2xl:max-w-[560px] 2xl:translate-x-12
+    "
             >
-              <Spline scene="https://prod.spline.design/wk0u6G-MY2bbyF6i/scene.splinecode" />
+              <div
+                className={`h-full w-full transition-opacity duration-500 ${isSplineReady ? "opacity-100" : "opacity-0"
+                  }`}
+              >
+                <Spline
+                  scene="https://prod.spline.design/wk0u6G-MY2bbyF6i/scene.splinecode"
+                  onLoad={() => setIsSplineReady(true)}
+                />
+              </div>
             </div>
           </motion.div>
         </div>
