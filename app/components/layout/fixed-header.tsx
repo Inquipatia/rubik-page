@@ -31,14 +31,14 @@ export default function FixedHeader({
           aria-label="Ir al inicio"
           className="flex shrink-0 items-center"
         >
-          <div className="relative h-[38px] w-[112px] sm:h-[42px] sm:w-[126px] md:h-[48px] md:w-[145px] lg:h-[60px] lg:w-[182px] xl:h-[70px] xl:w-[212px] 2xl:h-[76px] 2xl:w-[230px]">
+          <div className="relative h-[48px] w-[142px] sm:h-[54px] sm:w-[160px] md:h-[62px] md:w-[186px] lg:h-[76px] lg:w-[228px] xl:h-[88px] xl:w-[264px] 2xl:h-[96px] 2xl:w-[288px] overflow-visible">
             <Image
               src="/img/logo.png"
               alt="Rubik"
               fill
               priority
-              className="object-contain object-left"
-              sizes="(max-width: 640px) 110px, (max-width: 768px) 128px, (max-width: 1024px) 150px, (max-width: 1280px) 210px, 245px"
+              className="scale-[1.25] object-contain object-left origin-left"
+              sizes="(max-width: 640px) 142px, (max-width: 768px) 160px, (max-width: 1024px) 186px, (max-width: 1280px) 228px, (max-width: 1536px) 264px, 288px"
             />
           </div>
         </button>

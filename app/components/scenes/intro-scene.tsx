@@ -30,33 +30,33 @@ export default function IntroScene({
 }: IntroSceneProps) {
   return (
     <section className="relative h-full w-full overflow-hidden">
-      <div className="mx-auto flex h-full w-full max-w-[1320px] items-center px-4 sm:px-5 lg:px-6 xl:px-8">
-        <div className="grid w-full items-center gap-4 lg:grid-cols-[0.82fr_1.18fr] xl:grid-cols-[0.92fr_1.08fr] 2xl:grid-cols-[0.95fr_1.05fr]">
+      <div className="mx-auto flex h-full w-full max-w-[1400px] items-center px-4 sm:px-6 lg:px-6 xl:px-10">
+        <div className="grid w-full items-center gap-5 lg:grid-cols-[0.75fr_1.25fr] xl:grid-cols-[1.02fr_0.98fr] xl:gap-8">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-20 max-w-[640px] md:max-w-[360px] lg:max-w-[420px] xl:max-w-[500px] 2xl:max-w-[540px]"
+            className="relative z-20 max-w-[720px] md:max-w-[430px] lg:max-w-[560px] lg:origin-left lg:scale-[0.68] xl:max-w-[560px] xl:scale-100 2xl:max-w-[620px]"
           >
-            <div className="mb-3 inline-flex rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.16em] text-white/70 backdrop-blur-md sm:text-[11px] xl:px-4 xl:py-2 xl:text-xs">
+            <div className="mb-4 inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-medium uppercase tracking-[0.16em] text-white/70 backdrop-blur-md sm:text-sm lg:px-3 lg:py-1.5 lg:text-[11px] xl:px-4 xl:py-2 xl:text-sm">
               Rubik Creaciones
             </div>
 
-            <h1 className="text-[28px] font-light uppercase leading-[0.84] tracking-[-0.03em] text-white sm:text-[34px] md:text-[34px] lg:text-[38px] xl:text-[64px] 2xl:text-[74px]">
+            <h1 className="text-[34px] font-light uppercase leading-[0.86] tracking-[-0.03em] text-white sm:text-[42px] md:text-[44px] lg:text-[44px] xl:text-[92px] 2xl:text-[104px]">
               {titleTop}
               <br />
               {titleBottom}
             </h1>
 
-            <p className="mt-4 max-w-[460px] text-[11px] uppercase tracking-[-0.02em] text-white/55 sm:text-[12px] md:max-w-[320px] lg:max-w-[380px] lg:text-[12px] xl:mt-5 xl:max-w-[460px] xl:text-[13px] 2xl:text-[14px]">
+            <p className="mt-4 max-w-[520px] text-[12px] uppercase tracking-[-0.02em] text-white/55 sm:text-[13px] md:max-w-[400px] md:text-[12px] lg:max-w-[430px] lg:text-[12px] xl:mt-6 xl:text-base">
               {description}
             </p>
 
-            <div className="mt-5 flex w-fit flex-wrap items-center gap-2.5 xl:mt-6 xl:gap-3">
+            <div className="mt-5 flex w-fit flex-wrap items-center gap-3 md:mt-6">
               <button
                 type="button"
                 onClick={onOpenCotiza}
-                className="rounded-full bg-white px-4 py-2 text-[11px] font-semibold text-[#1b1240] transition duration-300 hover:scale-[1.02] hover:bg-white/90 lg:px-4 lg:py-2 xl:px-5 xl:py-2.5 xl:text-[12px]"
+                className="rounded-full bg-white px-5 py-2.5 text-[12px] font-semibold text-[#1b1240] transition duration-300 hover:scale-[1.02] hover:bg-white/90 lg:px-4 lg:py-2 lg:text-[11px] xl:px-7 xl:py-4 xl:text-sm"
               >
                 {primary}
               </button>
@@ -64,7 +64,7 @@ export default function IntroScene({
               <button
                 type="button"
                 onClick={onGoToServicios}
-                className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[11px] font-semibold text-white backdrop-blur-md transition duration-300 hover:bg-white/10 lg:px-4 lg:py-2 xl:px-5 xl:py-2.5 xl:text-[12px]"
+                className="rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-[12px] font-semibold text-white backdrop-blur-md transition duration-300 hover:bg-white/10 lg:px-4 lg:py-2 lg:text-[11px] xl:px-7 xl:py-4 xl:text-sm"
               >
                 {secondary}
               </button>
@@ -86,12 +86,12 @@ export default function IntroScene({
             <div
               className="
                 relative
-                h-[170px] w-full max-w-[190px]
-                sm:h-[210px] sm:max-w-[230px]
-                md:h-[250px] md:max-w-[280px]
-                lg:h-[320px] lg:max-w-[360px]
-                xl:h-[420px] xl:max-w-[470px] xl:translate-x-4
-                2xl:h-[460px] 2xl:max-w-[500px] 2xl:translate-x-6
+                h-[200px] w-full max-w-[220px]
+                sm:h-[250px] sm:max-w-[270px]
+                md:h-[300px] md:max-w-[330px]
+                lg:h-[360px] lg:max-w-[400px]
+                xl:h-[500px] xl:max-w-[560px] xl:translate-x-8
+                2xl:h-[500px] 2xl:max-w-[560px] 2xl:translate-x-12
               "
             >
               <Spline scene="https://prod.spline.design/wk0u6G-MY2bbyF6i/scene.splinecode" />

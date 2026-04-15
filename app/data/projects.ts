@@ -13,11 +13,10 @@ const impresionGallery = Array.from(
   (_, i) => `/img/impresion/impre (${i + 1}).jpg`
 );
 
-const volumetricasGallery = [
-  "/img/Volumetricos/volu (1).jpg",
-  "/img/Volumetricos/volu (2).jpg",
-  "/img/Volumetricos/volu (3).jpg",
-];
+const volumetricasGallery = Array.from(
+  { length: 7 },
+  (_, i) => `/img/Volumetricos/volu (${i + 1}).jpg`
+);
 
 const otrosPublicitariosGallery = [
   "/img/otros/otros (1).jpeg",
@@ -40,7 +39,7 @@ export const projects = [
     description:
       "Desarrollamos soluciones en neón flex pensadas para destacar visualmente interiores, vitrinas, puntos de venta y espacios comerciales.",
     longDescription:
-      "Cada pieza se proyecta según la identidad de la marca, buscando alto impacto visual, buena lectura y una presencia moderna que aporta carácter al entorno",
+      "Cada pieza se proyecta según la identidad de la marca, buscando alto impacto visual, buena lectura y una presencia moderna que aporta carácter al entorno.",
     image: neonGallery[0],
     tag: "Servicio 01",
     gallery: neonGallery,
@@ -64,9 +63,9 @@ export const projects = [
     title: "Volumétricas",
     subtitle: "Relieve, presencia e identidad visual.",
     description:
-      "Fabricamos letras y elementos volumétricos que refuerzan la imagen de marca con una presencia sólida, profesional y de alto valor visual.",
+      "Desarrollamos letras y elementos volumétricos pensados para reforzar la presencia de marca en espacios comerciales, corporativos y publicitarios.",
     longDescription:
-      "Cada desarrollo considera proporción, materialidad y terminaciones, logrando piezas que jerarquizan espacios y mejoran la percepción visual del negocio.",
+      "Cada pieza se fabrica considerando proporción, materialidad, terminaciones y tipo de montaje, logrando soluciones visuales con mayor presencia, mejor lectura y una imagen más sólida para cada proyecto.",
     image: volumetricasGallery[0] ?? "/img/services/vercel-c.svg",
     tag: "Servicio 03",
     gallery: volumetricasGallery.length
