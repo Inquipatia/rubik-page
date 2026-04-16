@@ -90,32 +90,55 @@ export const projects = [
     gallery: impresionGallery,
   },
   {
-    id: 5,
-    slug: "otros",
-    tag: "Servicio 05",
-    title: "Otros",
-    subtitle: "Soluciones complementarias con distintas líneas de trabajo.",
-    description:
-      "Unificamos aquí desarrollos especiales, activaciones e implementaciones publicitarias que requieren una lectura más flexible.",
-    longDescription:
-      "Dentro de esta categoría agrupamos proyectos complementarios que se dividen en dos líneas: proyectos publicitarios y activaciones de marca, cada una con su propia galería y enfoque visual.",
-    image: otrosPublicitariosGallery[0],
-    gallery: otrosPublicitariosGallery,
-    tabs: [
-      {
-        id: "publicitarios",
-        label: "Proyectos Publicitarios",
-        description:
-          "Piezas especiales, soportes, recursos visuales y desarrollos publicitarios a medida.",
-        gallery: otrosPublicitariosGallery,
-      },
-      {
-        id: "activaciones",
-        label: "Activaciones de Marca",
-        description:
-          "Implementaciones orientadas a visibilidad, interacción y experiencia de marca.",
-        gallery: otrosActivacionesGallery,
-      },
-    ],
-  },
+  id: 5,
+  slug: "otros",
+  tag: "SERVICIO 05",
+  title: "Otros",
+  subtitle: "Soluciones complementarias con distintas líneas de trabajo.",
+  description:
+    "Selecciona una línea dentro de Otros para revisar proyectos específicos y su enfoque visual.",
+  longDescription:
+    "Selecciona una línea dentro de Otros para revisar proyectos específicos y su enfoque visual.",
+  image: "/img/services/otros/proyectos-publicitarios/otros (1).jpg",
+  gallery: [
+    "/img/services/otros/proyectos-publicitarios/otros (1).jpg",
+    "/img/services/otros/proyectos-publicitarios/otros (2).jpg",
+  ],
+  variants: [
+    {
+      key: "proyectos-publicitarios",
+      label: "Proyectos publicitarios",
+      tag: "OTROS 01",
+      title: "Proyectos publicitarios",
+      subtitle: "Aplicaciones visuales para campañas y presencia de marca.",
+      description:
+        "Desarrollamos piezas y soportes visuales orientados a campañas, exhibición y comunicación de marca.",
+      longDescription:
+        "Línea enfocada en campañas visuales, soportes promocionales, implementación gráfica y piezas complementarias para reforzar presencia de marca en distintos puntos de contacto.",
+      image: "/img/services/otros/proyectos-publicitarios/otros (1).jpg",
+      gallery: [
+        "/img/services/otros/proyectos-publicitarios/otros (1).jpg",
+        "/img/services/otros/proyectos-publicitarios/otros (2).jpg",
+        "/img/services/otros/proyectos-publicitarios/otros (3).jpg",
+      ],
+    },
+    {
+      key: "activacion-de-marca",
+      label: "Activación de marca",
+      tag: "OTROS 02",
+      title: "Activación de marca",
+      subtitle: "Experiencias visuales para conectar con audiencia y espacio.",
+      description:
+        "Creamos recursos visuales y montajes orientados a activaciones, interacción y experiencia de marca.",
+      longDescription:
+        "Línea pensada para activaciones de marca, experiencias promocionales, intervenciones en espacio y recursos de apoyo para eventos y puntos de contacto de alto impacto.",
+      image: "/img/services/otros/activacion-de-marca/act (1).jpg",
+      gallery: [
+        "/img/services/otros/activacion-de-marca/act (1).jpg",
+        "/img/services/otros/activacion-de-marca/act (2).jpg",
+        "/img/services/otros/activacion-de-marca/act (3).jpg",
+      ],
+    },
+  ],
+}
 ];

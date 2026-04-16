@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 
 type CotizaSceneProps = {
@@ -19,6 +20,8 @@ const cardTransition = {
 };
 
 export default function CotizaScene({ onClose }: CotizaSceneProps) {
+  const [selectedService, setSelectedService] = useState<string>("");
+
   return (
     <section className="relative flex min-h-[calc(100vh-118px)] w-full items-start justify-center overflow-hidden px-4 pt-3 sm:pt-4 lg:px-6 lg:pt-5">
       <motion.div
@@ -134,29 +137,58 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
               </p>
 
               <div className="grid gap-2.5">
-                {serviceOptions.map((item, index) => (
-                  <motion.button
-                    key={item}
-                    type="button"
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      delay: 0.18 + index * 0.045,
-                      duration: 0.24,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                    className="flex min-h-[46px] items-center gap-3 rounded-[15px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.03))] px-4 text-left text-white/84 transition duration-300 hover:border-white/22 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.11),rgba(255,255,255,0.04))]"
-                  >
-                    <span className="h-3.5 w-3.5 rounded-full border border-white/30 bg-white/90 shadow-[0_0_8px_rgba(255,255,255,0.22)]" />
-                    <span className="omnes-text text-[14px]">{item}</span>
-                  </motion.button>
-                ))}
+                {serviceOptions.map((item, index) => {
+                  const isSelected = selectedService === item;
+
+                  return (
+                    <motion.button
+                      key={item}
+                      type="button"
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        delay: 0.18 + index * 0.045,
+                        duration: 0.24,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      onClick={() => setSelectedService(item)}
+                      className={`flex min-h-[46px] items-center gap-3 rounded-[15px] px-4 text-left transition duration-300 ${
+                        isSelected
+                          ? "border border-white/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.14),rgba(255,255,255,0.05))] text-white shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_0_22px_rgba(255,255,255,0.06)]"
+                          : "border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.03))] text-white/84 hover:border-white/22 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.11),rgba(255,255,255,0.04))]"
+                      }`}
+                    >
+                      <span
+                        className={`flex h-3.5 w-3.5 items-center justify-center rounded-full border transition duration-300 ${
+                          isSelected
+                            ? "border-white bg-white shadow-[0_0_10px_rgba(255,255,255,0.35)]"
+                            : "border-white/30 bg-white/90 shadow-[0_0_8px_rgba(255,255,255,0.22)]"
+                        }`}
+                      >
+                        <span
+                          className={`h-1.5 w-1.5 rounded-full bg-[#5d2bbf] transition duration-300 ${
+                            isSelected ? "scale-100 opacity-100" : "scale-0 opacity-0"
+                          }`}
+                        />
+                      </span>
+
+                      <span
+                        className={`omnes-text text-[14px] transition duration-300 ${
+                          isSelected ? "text-white" : "text-white/84"
+                        }`}
+                      >
+                        {item}
+                      </span>
+                    </motion.button>
+                  );
+                })}
               </div>
 
               <div className="mt-4 rounded-[15px] border border-white/10 bg-black/16 px-4 py-4">
                 <p className="omnes-text text-[12px] leading-6 text-white/58 lg:text-[13px]">
-                  Elige el tipo de trabajo para orientar mejor la cotización y
-                  preparar una propuesta visual más precisa.
+                  {selectedService
+                    ? `Servicio seleccionado: ${selectedService}. Completa tus datos para preparar una cotización más precisa.`
+                    : "Elige el tipo de trabajo para orientar mejor la cotización y preparar una propuesta visual más precisa."}
                 </p>
               </div>
             </div>
