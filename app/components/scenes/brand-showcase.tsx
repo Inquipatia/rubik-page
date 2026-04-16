@@ -9,127 +9,31 @@ type BrandShowcaseProps = {
 
 const brands: SelectedBrand[] = [
   {
-    brandName: "Santander",
-    brandLogo: "/img/works/santa.png",
+    brandName: "Mistral",
+    brandLogo: "/img/works/mistral.png",
     description:
-      "Activaciones de verano en Surf Festival, con desarrollo de stands en La Serena y Pichilemu, fabricación en MDF y madera tratada, full branding, volumétricos en acrílico, cortes CNC, aplicaciones en Neon Flex e intervención de escenarios y zonas de competencia e hidratación. Posteriormente, parte de esta estructura fue reutilizada y adaptada para su presencia en el Festival de Viña, incluyendo espacios interiores y VIP en la Quinta Vergara.",
+      "Soluciones gráficas corporativas para espacios de atención, campañas y refuerzo de identidad visual.",
     works: [
       {
-        image: "/img/services/SANTANDER/santa (1).png",
-        title: "Implementación sucursal",
-        description:
-          "Aplicación gráfica en espacio comercial y comunicación visual.",
-      },
-      {
-        image: "/img/services/SANTANDER/santa (2).png",
+        image: "/img/services/MISTRAL/MISTRAL (1).png",
         title: "Señalética corporativa",
         description:
-          "Sistema visual para reforzar navegación y presencia de marca.",
+          "Aplicación de elementos visuales en entorno institucional.",
       },
       {
-        image: "/img/services/SANTANDER/santa (3).png",
-        title: "Campaña interior",
-        description:
-          "Elementos gráficos para destacar promociones y experiencia de cliente.",
+        image: "/img/services/MISTRAL/MISTRAL (2).png",
+        title: "Gráfica de apoyo",
+        description: "Piezas para comunicación y presencia de marca.",
       },
       {
-        image: "/img/services/SANTANDER/santa (4).png",
-        title: "Piezas de apoyo",
-        description:
-          "Producción e instalación de recursos visuales complementarios.",
-      },
-    ],
-  },
-
-  {
-    brandName: "Chevrolet",
-    brandLogo: "/img/works/chevrolet.png",
-    description:
-      "Lanzamiento Eurosail con fuerte protagonismo de estructuras metálicas, arcos de activación y aplicaciones extensivas de Neón Flex, integrando piezas de marca en distintos puntos relevantes del montaje.",
-    works: [
-      {
-        image: "/img/services/CHEVROLET/che (1).png",
-        title: "Activación retail",
-        description: "Montaje de material visual para campaña promocional.",
-      },
-      {
-        image: "/img/services/CHEVROLET/che (2).png",
-        title: "Display de marca",
-        description: "Soportes para reforzar presencia visual en punto de venta.",
-      },
-      {
-        image: "/img/services/CHEVROLET/che (3).png",
-        title: "Piezas gráficas",
-        description: "Aplicaciones visuales en estructura y entorno de marca.",
-      },
-      {
-        image: "/img/services/CHEVROLET/che (4).png",
+        image: "/img/services/MISTRAL/MISTRAL (3).png",
         title: "Implementación visual",
-        description: "Recursos gráficos para activación y experiencia.",
+        description: "Refuerzo gráfico para espacios y campaña.",
       },
       {
-        image: "/img/services/CHEVROLET/che (5).png",
-        title: "Soporte promocional",
-        description: "Elementos para reforzar presencia en evento.",
-      },
-      {
-        image: "/img/services/CHEVROLET/che (6).png",
-        title: "Cierre de montaje",
-        description: "Integración visual de piezas y estructura.",
-      },
-    ],
-  },
-
-  {
-    brandName: "Copec",
-    brandLogo: "/img/works/copec.png",
-    description:
-      "Activación de verano en playa con fabricación integral de estructura, combinación de MDF y madera nativa, full branding, banderas vela y volumétricos.",
-    works: [
-      {
-        image: "/img/services/COPEC/COPEC (1).png",
-        title: "Copec 01",
-        description: "Piezas para destacar oferta y experiencia en tienda.",
-      },
-      {
-        image: "/img/services/COPEC/COPEC (2).png",
-        title: "Copec 02",
-        description: "Recursos gráficos orientados a visibilidad de producto.",
-      },
-      {
-        image: "/img/services/COPEC/COPEC (3).png",
-        title: "Copec 03",
-        description: "Aplicación visual para presencia de marca.",
-      },
-    ],
-  },
-
-  {
-    brandName: "Kaufmann",
-    brandLogo: "/img/works/kauf.png",
-    description:
-      "Activaciones desarrolladas vía agencia Complot, incluyendo estructuras metálicas para exhibición de vehículos, volumétricos en acrílico, piezas gráficas y emplacado en Trovicel.",
-    works: [
-      {
-        image: "/img/services/KAUFMAN/kaufman (1).png",
-        title: "Visual de campaña",
-        description:
-          "Despliegue gráfico para reforzar storytelling de marca.",
-      },
-      {
-        image: "/img/services/KAUFMAN/kaufman (2).png",
-        title: "Ambientación retail",
-        description: "Piezas y soportes para experiencia de compra.",
-      },
-      {
-        image: "/img/services/KAUFMAN/kaufman (3).png",
-        title: "Soporte promocional",
-        description: "Aplicaciones visuales para exhibición y marca.",
-      },
-      {
-        image: "/img/services/KAUFMAN/kaufman (4).png",
-        title: "Implementación comercial",
-        description: "Recursos gráficos en entorno de atención y venta.",
+        image: "/img/services/MISTRAL/MISTRAL (4).png",
+        title: "Cierre visual",
+        description: "Aplicación final de piezas y soportes.",
       },
     ],
   },
@@ -174,31 +78,138 @@ const brands: SelectedBrand[] = [
   },
 
   {
-    brandName: "Mistral",
-    brandLogo: "/img/works/mistral.png",
+    brandName: "Santander",
+    brandLogo: "/img/works/santa.png",
     description:
-      "Soluciones gráficas corporativas para espacios de atención, campañas y refuerzo de identidad visual.",
+      "Activaciones de verano en Surf Festival, con desarrollo de stands en La Serena y Pichilemu, fabricación en MDF y madera tratada, full branding, volumétricos en acrílico, cortes CNC, aplicaciones en Neon Flex e intervención de escenarios y zonas de competencia e hidratación.",
     works: [
       {
-        image: "/img/services/MISTRAL/MISTRAL (1).png",
+        image: "/img/services/SANTANDER/santa (1).png",
+        title: "Implementación sucursal",
+        description:
+          "Aplicación gráfica en espacio comercial y comunicación visual.",
+      },
+      {
+        image: "/img/services/SANTANDER/santa (2).png",
         title: "Señalética corporativa",
         description:
-          "Aplicación de elementos visuales en entorno institucional.",
+          "Sistema visual para reforzar navegación y presencia de marca.",
       },
       {
-        image: "/img/services/MISTRAL/MISTRAL (2).png",
-        title: "Gráfica de apoyo",
-        description: "Piezas para comunicación y presencia de marca.",
+        image: "/img/services/SANTANDER/santa (3).png",
+        title: "Campaña interior",
+        description:
+          "Elementos gráficos para destacar promociones y experiencia de cliente.",
       },
       {
-        image: "/img/services/MISTRAL/MISTRAL (3).png",
+        image: "/img/services/SANTANDER/santa (4).png",
+        title: "Piezas de apoyo",
+        description:
+          "Producción e instalación de recursos visuales complementarios.",
+      },
+      {
+        image: "/img/services/SANTANDER/santa (5).png",
+        title: "Activación de marca",
+        description:
+          "Despliegue visual para reforzar presencia y experiencia de campaña.",
+      },
+    ],
+  },
+
+  {
+    brandName: "Chevrolet",
+    brandLogo: "/img/works/chevrolet.png",
+    description:
+      "Lanzamiento Eurosail con fuerte protagonismo de estructuras metálicas, arcos de activación y aplicaciones extensivas de Neón Flex, integrando piezas de marca en distintos puntos relevantes del montaje.",
+    works: [
+      {
+        image: "/img/services/CHEVROLET/che (1).png",
+        title: "Activación retail",
+        description: "Montaje de material visual para campaña promocional.",
+      },
+      {
+        image: "/img/services/CHEVROLET/che (2).png",
+        title: "Display de marca",
+        description: "Soportes para reforzar presencia visual en punto de venta.",
+      },
+      {
+        image: "/img/services/CHEVROLET/che (3).png",
+        title: "Piezas gráficas",
+        description: "Aplicaciones visuales en estructura y entorno de marca.",
+      },
+      {
+        image: "/img/services/CHEVROLET/che (4).png",
         title: "Implementación visual",
-        description: "Refuerzo gráfico para espacios y campaña.",
+        description: "Recursos gráficos para activación y experiencia.",
       },
       {
-        image: "/img/services/MISTRAL/MISTRAL (4).png",
-        title: "Cierre visual",
-        description: "Aplicación final de piezas y soportes.",
+        image: "/img/services/CHEVROLET/che (5).png",
+        title: "Soporte promocional",
+        description: "Elementos para reforzar presencia en evento.",
+      },
+    ],
+  },
+
+  {
+    brandName: "Copec",
+    brandLogo: "/img/works/copec.png",
+    description:
+      "Activación de verano en playa con fabricación integral de estructura, combinación de MDF y madera nativa, full branding, banderas vela y volumétricos.",
+    works: [
+      {
+        image: "/img/services/COPEC/COPEC (1).png",
+        title: "Copec 01",
+        description: "Piezas para destacar oferta y experiencia en tienda.",
+      },
+      {
+        image: "/img/services/COPEC/COPEC (2).png",
+        title: "Copec 02",
+        description: "Recursos gráficos orientados a visibilidad de producto.",
+      },
+      {
+        image: "/img/services/COPEC/COPEC (3).png",
+        title: "Copec 03",
+        description: "Aplicación visual para presencia de marca.",
+      },
+      {
+        image: "/img/services/COPEC/COPEC (4).jpg",
+        title: "Copec 04",
+        description: "Cierre visual y refuerzo de experiencia de campaña.",
+      },
+    ],
+  },
+
+  {
+    brandName: "Kaufmann",
+    brandLogo: "/img/works/kauf.png",
+    description:
+      "Activaciones desarrolladas vía agencia Complot, incluyendo estructuras metálicas para exhibición de vehículos, volumétricos en acrílico, piezas gráficas y emplacado en Trovicel.",
+    works: [
+      {
+        image: "/img/services/KAUFMAN/kaufman (1).png",
+        title: "Visual de campaña",
+        description:
+          "Despliegue gráfico para reforzar storytelling de marca.",
+      },
+      {
+        image: "/img/services/KAUFMAN/kaufman (2).png",
+        title: "Ambientación retail",
+        description: "Piezas y soportes para experiencia de compra.",
+      },
+      {
+        image: "/img/services/KAUFMAN/kaufman (3).png",
+        title: "Soporte promocional",
+        description: "Aplicaciones visuales para exhibición y marca.",
+      },
+      {
+        image: "/img/services/KAUFMAN/kaufman (4).png",
+        title: "Implementación comercial",
+        description: "Recursos gráficos en entorno de atención y venta.",
+      },
+      {
+        image: "/img/services/KAUFMAN/kaufman (5).png",
+        title: "Cierre de activación",
+        description: "Terminaciones visuales y soporte de marca en montaje.",
       },
     ],
   },
