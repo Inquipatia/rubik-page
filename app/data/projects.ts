@@ -51,6 +51,9 @@ const otrosPublicitariosGallery = [
 ];
 
 const otrosActivacionesGallery = [
+  "/img/otros/otros (1).jpeg",
+  "/img/otros/otros (2).jpeg",
+  "/img/otros/otros (3).jpeg",
   "/img/otros/otros (4).jpeg",
   "/img/otros/otros (5).jpeg",
   "/img/otros/otros (6).jpeg",

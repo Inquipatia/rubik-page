@@ -25,24 +25,27 @@ type SceneStageProps = {
 const defaultSceneVariants: Variants = {
   initial: {
     opacity: 0,
-    y: 14,
-    scale: 0.995,
+    y: 18,
+    scale: 0.992,
+    filter: "blur(6px)",
   },
   animate: {
     opacity: 1,
     y: 0,
     scale: 1,
+    filter: "blur(0px)",
     transition: {
-      duration: 0.28,
+      duration: 0.34,
       ease: [0.22, 1, 0.36, 1],
     },
   },
   exit: {
     opacity: 0,
-    y: -8,
-    scale: 0.997,
+    y: -10,
+    scale: 0.996,
+    filter: "blur(4px)",
     transition: {
-      duration: 0.18,
+      duration: 0.22,
       ease: [0.22, 1, 0.36, 1],
     },
   },
@@ -51,33 +54,63 @@ const defaultSceneVariants: Variants = {
 const cotizaSceneVariants: Variants = {
   initial: {
     opacity: 0,
-    y: 28,
-    scale: 0.985,
+    y: 46,
+    scale: 0.97,
+    rotateX: 8,
+    rotateY: -3,
+    filter: "blur(12px)",
+    transformPerspective: 1400,
   },
   animate: {
     opacity: 1,
     y: 0,
     scale: 1,
+    rotateX: 0,
+    rotateY: 0,
+    filter: "blur(0px)",
+    transformPerspective: 1400,
     transition: {
-      duration: 0.38,
+      duration: 0.56,
       ease: [0.16, 1, 0.3, 1],
     },
   },
   exit: {
     opacity: 0,
-    y: -12,
-    scale: 0.992,
+    y: -18,
+    scale: 0.985,
+    rotateX: -5,
+    rotateY: 2,
+    filter: "blur(8px)",
+    transformPerspective: 1400,
     transition: {
-      duration: 0.22,
+      duration: 0.28,
       ease: [0.22, 1, 0.36, 1],
     },
   },
 };
 
-function StageFrame({ children }: { children: React.ReactNode }) {
+function StageFrame({
+  children,
+  allowOverflow = false,
+}: {
+  children: React.ReactNode;
+  allowOverflow?: boolean;
+}) {
   return (
-    <div className="mx-auto box-border flex h-full w-full max-w-[1220px] flex-col overflow-hidden px-3 pb-3 pt-[86px] sm:px-4 sm:pb-4 sm:pt-[92px] md:px-5 md:pt-[98px] lg:px-6 lg:pt-[106px] xl:px-8 xl:pt-[118px] 2xl:pt-[124px]">
-      <div className="relative h-full w-full overflow-hidden">{children}</div>
+    <div
+      className={`mx-auto box-border flex h-full w-full flex-col pb-3 pt-[96px] sm:pb-4 sm:pt-[102px] md:pt-[108px] lg:pt-[114px] xl:pt-[120px] ${
+        allowOverflow
+          ? "max-w-[1380px] overflow-visible pl-3 pr-0 sm:pl-4 sm:pr-0 md:pl-5 md:pr-0 lg:pl-6 lg:pr-0 xl:pl-8 xl:pr-0 2xl:max-w-[1460px] 2xl:pl-8 2xl:pr-0"
+          : "max-w-[1220px] overflow-hidden px-3 sm:px-4 md:px-5 lg:px-6 xl:px-8"
+      }`}
+    >
+      <div
+        className={`relative h-full w-full ${
+          allowOverflow ? "overflow-visible" : "overflow-hidden"
+        }`}
+      >
+        {children}
+      </div>
     </div>
   );
 }
@@ -104,9 +137,36 @@ export default function SceneStage({
     ? cotizaSceneVariants
     : defaultSceneVariants;
 
+  const shouldUseFaqStage =
+    !isCotizaOpen && !selectedBrand && activeScene === 4;
+
+  const isWorkStage = !isCotizaOpen && !selectedBrand && activeScene === 2;
+
+  if (shouldUseFaqStage) {
+    return (
+      <section className="relative z-20 h-[100svh] w-full overflow-hidden">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key="scene-4"
+            variants={defaultSceneVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className="relative h-full w-full overflow-hidden"
+          >
+          </motion.div>
+        </AnimatePresence>
+      </section>
+    );
+  }
+
   return (
-    <section className="relative z-20 h-[100svh] w-full overflow-hidden">
-      <StageFrame>
+    <section
+      className={`relative z-20 h-[100svh] w-full ${
+        isWorkStage ? "overflow-visible" : "overflow-hidden"
+      }`}
+    >
+      <StageFrame allowOverflow={isWorkStage}>
         <AnimatePresence mode="wait">
           <motion.div
             key={currentKey}
@@ -114,7 +174,9 @@ export default function SceneStage({
             initial="initial"
             animate="animate"
             exit="exit"
-            className="relative h-full w-full overflow-hidden [transform:translateZ(0)] [transform-style:preserve-3d] will-change-transform"
+            className={`relative h-full w-full [transform:translateZ(0)] [transform-style:preserve-3d] will-change-transform ${
+              isWorkStage ? "overflow-visible" : "overflow-hidden"
+            }`}
           >
             {isCotizaOpen && (
               <motion.div
@@ -156,7 +218,9 @@ export default function SceneStage({
                     }
                   : undefined
               }
-              className="h-full w-full overflow-hidden"
+              className={`h-full w-full ${
+                isWorkStage ? "overflow-visible" : "overflow-hidden"
+              }`}
             >
               {isCotizaOpen ? (
                 <CotizaScene onClose={onCloseCotiza} />

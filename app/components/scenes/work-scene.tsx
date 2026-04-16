@@ -84,19 +84,19 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
   const resolvedProject: ProjectItem =
     activeVariant && activeProject
       ? {
-          ...activeProject,
-          tag: activeVariant.tag,
-          title: activeVariant.title,
-          subtitle: activeVariant.subtitle,
-          description: activeVariant.description,
-          longDescription:
-            activeVariant.longDescription ?? activeVariant.description,
-          image: activeVariant.image,
-          gallery:
-            activeVariant.gallery && activeVariant.gallery.length > 0
-              ? activeVariant.gallery
-              : [activeVariant.image],
-        }
+        ...activeProject,
+        tag: activeVariant.tag,
+        title: activeVariant.title,
+        subtitle: activeVariant.subtitle,
+        description: activeVariant.description,
+        longDescription:
+          activeVariant.longDescription ?? activeVariant.description,
+        image: activeVariant.image,
+        gallery:
+          activeVariant.gallery && activeVariant.gallery.length > 0
+            ? activeVariant.gallery
+            : [activeVariant.image],
+      }
       : activeProject;
 
   const handleHoverChange = (index: number) => {
@@ -217,132 +217,132 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
   const previewModal =
     isClient && isImageZoomOpen
       ? createPortal(
-          <AnimatePresence>
-            <motion.div
-              key="service-preview-overlay"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.22 }}
-              className="fixed inset-0 z-[220] bg-[rgba(6,3,18,0.9)]"
-              onClick={closeZoom}
+        <AnimatePresence>
+          <motion.div
+            key="service-preview-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.22 }}
+            className="fixed inset-0 z-[220] bg-[rgba(6,3,18,0.9)]"
+            onClick={closeZoom}
+          >
+            <div
+              className="relative h-screen w-screen overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
             >
-              <div
-                className="relative h-screen w-screen overflow-hidden"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <div className="absolute inset-0">
-                  <Image
-                    src={detailGallery[detailImageIndex]}
-                    alt={`${resolvedProject.title} ampliada ${detailImageIndex + 1}`}
-                    fill
-                    className="object-cover scale-110 opacity-20 blur-3xl"
-                    sizes="100vw"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(32,18,60,0.12)_0%,rgba(12,7,24,0.62)_58%,rgba(4,2,10,0.92)_100%)]" />
+              <div className="absolute inset-0">
+                <Image
+                  src={detailGallery[detailImageIndex]}
+                  alt={`${resolvedProject.title} ampliada ${detailImageIndex + 1}`}
+                  fill
+                  className="object-cover scale-110 opacity-20 blur-3xl"
+                  sizes="100vw"
+                  priority
+                />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(32,18,60,0.12)_0%,rgba(12,7,24,0.62)_58%,rgba(4,2,10,0.92)_100%)]" />
+              </div>
+
+              <div className="absolute inset-x-0 top-0 z-30 flex items-center justify-between p-4 sm:p-5 lg:p-6">
+                <div className="rounded-full border border-white/12 bg-black/20 px-4 py-2 text-sm text-white/78 backdrop-blur">
+                  Vista ampliada
                 </div>
 
-                <div className="absolute inset-x-0 top-0 z-30 flex items-center justify-between p-4 sm:p-5 lg:p-6">
-                  <div className="rounded-full border border-white/12 bg-black/20 px-4 py-2 text-sm text-white/78 backdrop-blur">
-                    Vista ampliada
-                  </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setPreviewMode((prev) =>
+                        prev === "cover" ? "contain" : "cover"
+                      )
+                    }
+                    className="rounded-full border border-white/15 bg-black/28 px-4 py-2 text-sm text-white/85 backdrop-blur transition hover:bg-black/40"
+                  >
+                    {previewMode === "cover" ? "Ver completa" : "Llenar pantalla"}
+                  </button>
 
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setPreviewMode((prev) =>
-                          prev === "cover" ? "contain" : "cover"
-                        )
-                      }
-                      className="rounded-full border border-white/15 bg-black/28 px-4 py-2 text-sm text-white/85 backdrop-blur transition hover:bg-black/40"
-                    >
-                      {previewMode === "cover" ? "Ver completa" : "Llenar pantalla"}
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={closeZoom}
-                      className="rounded-full border border-white/15 bg-black/28 px-4 py-2 text-sm text-white/85 backdrop-blur transition hover:bg-black/40"
-                    >
-                      Cerrar
-                    </button>
-                  </div>
-                </div>
-
-                {detailGallery.length > 1 && (
-                  <>
-                    <button
-                      type="button"
-                      onClick={prevDetailImage}
-                      className="absolute left-4 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/28 text-xl text-white/85 backdrop-blur transition hover:bg-black/40"
-                      aria-label="Imagen anterior"
-                    >
-                      ←
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={nextDetailImage}
-                      className="absolute right-4 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/28 text-xl text-white/85 backdrop-blur transition hover:bg-black/40"
-                      aria-label="Imagen siguiente"
-                    >
-                      →
-                    </button>
-                  </>
-                )}
-
-                <div className="relative z-20 flex h-full w-full items-center justify-center px-4 py-20 sm:px-8 lg:px-12">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={`${detailGallery[detailImageIndex]}-${previewMode}`}
-                      initial={{ opacity: 0, scale: 1.01 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.99 }}
-                      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                      className={
-                        previewMode === "cover"
-                          ? "relative h-full w-full overflow-hidden rounded-[24px]"
-                          : "relative h-[78vh] w-[90vw] max-w-[1360px] overflow-hidden rounded-[24px]"
-                      }
-                    >
-                      <Image
-                        src={detailGallery[detailImageIndex]}
-                        alt={`${resolvedProject.title} ampliada ${detailImageIndex + 1}`}
-                        fill
-                        className={
-                          previewMode === "cover"
-                            ? "object-cover"
-                            : "object-contain drop-shadow-[0_18px_48px_rgba(0,0,0,0.38)]"
-                        }
-                        sizes="100vw"
-                        priority
-                      />
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 bg-gradient-to-t from-black/80 via-black/24 to-transparent p-5 sm:p-6 lg:p-8">
-                  <h3 className="omnes-title text-xl tracking-[-0.03em] text-white sm:text-[1.4rem]">
-                    {resolvedProject.title}
-                  </h3>
-
-                  <p className="omnes-text mt-1 max-w-3xl text-sm text-white/72 sm:text-base">
-                    {resolvedProject.subtitle}
-                  </p>
+                  <button
+                    type="button"
+                    onClick={closeZoom}
+                    className="rounded-full border border-white/15 bg-black/28 px-4 py-2 text-sm text-white/85 backdrop-blur transition hover:bg-black/40"
+                  >
+                    Cerrar
+                  </button>
                 </div>
               </div>
-            </motion.div>
-          </AnimatePresence>,
-          document.body
-        )
+
+              {detailGallery.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    onClick={prevDetailImage}
+                    className="absolute left-4 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/28 text-xl text-white/85 backdrop-blur transition hover:bg-black/40"
+                    aria-label="Imagen anterior"
+                  >
+                    ←
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={nextDetailImage}
+                    className="absolute right-4 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/28 text-xl text-white/85 backdrop-blur transition hover:bg-black/40"
+                    aria-label="Imagen siguiente"
+                  >
+                    →
+                  </button>
+                </>
+              )}
+
+              <div className="relative z-20 flex h-full w-full items-center justify-center px-4 py-20 sm:px-8 lg:px-12">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={`${detailGallery[detailImageIndex]}-${previewMode}`}
+                    initial={{ opacity: 0, scale: 1.01 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.99 }}
+                    transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                    className={
+                      previewMode === "cover"
+                        ? "relative h-full w-full overflow-hidden rounded-[24px]"
+                        : "relative h-[78vh] w-[90vw] max-w-[1360px] overflow-hidden rounded-[24px]"
+                    }
+                  >
+                    <Image
+                      src={detailGallery[detailImageIndex]}
+                      alt={`${resolvedProject.title} ampliada ${detailImageIndex + 1}`}
+                      fill
+                      className={
+                        previewMode === "cover"
+                          ? "object-cover"
+                          : "object-contain drop-shadow-[0_18px_48px_rgba(0,0,0,0.38)]"
+                      }
+                      sizes="100vw"
+                      priority
+                    />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 bg-gradient-to-t from-black/80 via-black/24 to-transparent p-5 sm:p-6 lg:p-8">
+                <h3 className="omnes-title text-xl tracking-[-0.03em] text-white sm:text-[1.4rem]">
+                  {resolvedProject.title}
+                </h3>
+
+                <p className="omnes-text mt-1 max-w-3xl text-sm text-white/72 sm:text-base">
+                  {resolvedProject.subtitle}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>,
+        document.body
+      )
       : null;
 
   return (
     <>
-      <section className="relative w-full overflow-hidden">
-        <div className="grid h-full w-full max-w-[1180px] grid-cols-1 items-start gap-3 px-3 pb-3 pt-0 min-[1700px]:max-w-[1260px] min-[1700px]:gap-4 min-[1700px]:px-4 2xl:max-w-[1320px] 2xl:gap-5 2xl:px-5">
+      <section className="relative w-full overflow-visible">
+        <div className="grid h-full w-full max-w-[1320px] grid-cols-1 items-start gap-3 px-3 pb-3 pt-0 min-[1700px]:max-w-[1440px] min-[1700px]:gap-4 min-[1700px]:px-4 2xl:max-w-[1520px] 2xl:gap-5 2xl:px-6">
           {!isDetailOpen ? (
             <motion.div
               key="work-overview"
@@ -350,9 +350,9 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-              className="grid min-h-0 grid-cols-1 gap-3 lg:grid-cols-[0.92fr_1.08fr] min-[1700px]:gap-4 2xl:gap-5"
+              className="grid min-h-0 grid-cols-1 gap-4 lg:grid-cols-[0.84fr_1.16fr] min-[1700px]:gap-5 2xl:gap-6"
             >
-              <div className="max-w-[460px] justify-self-start min-[1700px]:max-w-[480px] 2xl:max-w-[500px]">
+              <div className="max-w-[500px] justify-self-start min-[1700px]:max-w-[530px] 2xl:max-w-[560px]">
                 <div className="mb-3 inline-flex rounded-full border border-white/10 bg-white/[0.08] px-4 py-1.5 text-[12px] text-white/78">
                   Seleccione un servicio para ver detalles
                 </div>
@@ -368,44 +368,39 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                         onMouseEnter={() => handleHoverChange(index)}
                         onFocus={() => handleHoverChange(index)}
                         onClick={() => openDetail(index)}
-                        className={`group flex w-full items-center justify-between rounded-[18px] border px-5 py-3.5 text-left transition-all duration-300 ${
-                          isActive
-                            ? "border-white/25 bg-white/10 shadow-[0_14px_34px_rgba(0,0,0,0.28)]"
-                            : "border-white/8 bg-white/[0.03] hover:border-white/14 hover:bg-white/[0.06]"
-                        } min-[1700px]:px-5 min-[1700px]:py-4`}
+                        className={`group flex w-full items-center justify-between rounded-[18px] border px-5 py-3.5 text-left transition-all duration-300 ${isActive
+                          ? "border-white/25 bg-white/10 shadow-[0_14px_34px_rgba(0,0,0,0.28)]"
+                          : "border-white/8 bg-white/[0.03] hover:border-white/14 hover:bg-white/[0.06]"
+                          } min-[1700px]:px-5 min-[1700px]:py-4`}
                       >
                         <div>
                           <div
-                            className={`omnes-text text-[10.5px] uppercase tracking-[0.16em] transition ${
-                              isActive ? "text-white/55" : "text-white/35"
-                            }`}
+                            className={`omnes-text text-[10.5px] uppercase tracking-[0.16em] transition ${isActive ? "text-white/55" : "text-white/35"
+                              }`}
                           >
                             {project.tag}
                           </div>
 
                           <div
-                            className={`omnes-title mt-2 text-[1.68rem] leading-none tracking-[-0.03em] transition ${
-                              isActive ? "text-white" : "text-white/72"
-                            } min-[1700px]:text-[1.76rem] 2xl:text-[1.86rem]`}
+                            className={`omnes-title mt-2 text-[1.68rem] leading-none tracking-[-0.03em] transition ${isActive ? "text-white" : "text-white/72"
+                              } min-[1700px]:text-[1.76rem] 2xl:text-[1.86rem]`}
                           >
                             {project.title}
                           </div>
 
                           <div
-                            className={`omnes-text mt-1.5 text-[13px] transition ${
-                              isActive ? "text-white/65" : "text-white/45"
-                            } min-[1700px]:text-[13.5px]`}
+                            className={`omnes-text mt-1.5 text-[13px] transition ${isActive ? "text-white/65" : "text-white/45"
+                              } min-[1700px]:text-[13.5px]`}
                           >
                             {project.subtitle}
                           </div>
                         </div>
 
                         <div
-                          className={`omnes-text ml-4 text-sm transition ${
-                            isActive
-                              ? "translate-x-0 text-white/70"
-                              : "-translate-x-1 text-white/25"
-                          }`}
+                          className={`omnes-text ml-4 text-sm transition ${isActive
+                            ? "translate-x-0 text-white/70"
+                            : "-translate-x-1 text-white/25"
+                            }`}
                         >
                           ↗
                         </div>
@@ -416,7 +411,7 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
               </div>
 
               <div
-                className="relative w-full max-w-[565px] justify-self-center pt-4 min-[1700px]:max-w-[615px] min-[1700px]:pt-5 2xl:max-w-[665px] 2xl:pt-5"
+                className="relative w-full max-w-[680px] justify-self-center pt-4 min-[1700px]:max-w-[760px] min-[1700px]:pt-5 2xl:max-w-[840px] 2xl:pt-5"
                 style={{ perspective: "1600px" }}
               >
                 {stackedProjects.map((project, i) => {
@@ -461,7 +456,7 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                               src={project.image}
                               alt={project.title}
                               fill
-                              sizes="(max-width: 1024px) 100vw, (max-width: 1699px) 565px, (max-width: 1919px) 615px, 665px"
+                              sizes="(max-width: 1024px) 100vw, (max-width: 1699px) 680px, (max-width: 1919px) 760px, 840px"
                               className="object-cover object-center"
                             />
                             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.04),rgba(0,0,0,0.22))]" />
@@ -521,11 +516,10 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                                       setOtherVariantIndex(index);
                                       setDetailImageIndex(0);
                                     }}
-                                    className={`omnes-text rounded-full border px-3 py-1.5 text-[11px] transition ${
-                                      isActiveVariant
-                                        ? "border-white/24 bg-white/12 text-white"
-                                        : "border-white/10 bg-white/[0.04] text-white/62 hover:bg-white/[0.08]"
-                                    }`}
+                                    className={`omnes-text rounded-full border px-3 py-1.5 text-[11px] transition ${isActiveVariant
+                                      ? "border-white/24 bg-white/12 text-white"
+                                      : "border-white/10 bg-white/[0.04] text-white/62 hover:bg-white/[0.08]"
+                                      }`}
                                   >
                                     {variant.label}
                                   </button>
@@ -678,11 +672,10 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                                 setIsImageZoomOpen(false);
                                 setPreviewMode("contain");
                               }}
-                              className={`omnes-text rounded-full border px-3 py-1.5 text-[12px] transition ${
-                                isActiveVariant
-                                  ? "border-white/22 bg-white/12 text-white"
-                                  : "border-white/10 bg-white/[0.04] text-white/62 hover:bg-white/[0.08]"
-                              }`}
+                              className={`omnes-text rounded-full border px-3 py-1.5 text-[12px] transition ${isActiveVariant
+                                ? "border-white/22 bg-white/12 text-white"
+                                : "border-white/10 bg-white/[0.04] text-white/62 hover:bg-white/[0.08]"
+                                }`}
                             >
                               {variant.label}
                             </button>
@@ -736,11 +729,10 @@ export default function WorkScene({ activeWorkCard }: WorkSceneProps) {
                               key={`${image}-${index}`}
                               type="button"
                               onClick={() => openZoom(index)}
-                              className={`group relative overflow-hidden rounded-[14px] border transition ${
-                                detailImageIndex === index
-                                  ? "border-white/24 bg-white/[0.06] shadow-[0_0_0_1px_rgba(255,255,255,0.04)]"
-                                  : "border-white/8 bg-white/[0.02] hover:border-white/16 hover:bg-white/[0.04]"
-                              }`}
+                              className={`group relative overflow-hidden rounded-[14px] border transition ${detailImageIndex === index
+                                ? "border-white/24 bg-white/[0.06] shadow-[0_0_0_1px_rgba(255,255,255,0.04)]"
+                                : "border-white/8 bg-white/[0.02] hover:border-white/16 hover:bg-white/[0.04]"
+                                }`}
                             >
                               <div className="relative aspect-[4/3] w-full overflow-hidden">
                                 <Image
