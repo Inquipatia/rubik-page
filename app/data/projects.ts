@@ -1,5 +1,5 @@
 const neonGallery = [
-  "/img/neon/neon (1).jpg",
+  "/img/neon/neon (1).png",
   "/img/neon/neon (2).jpg",
   "/img/neon/neon (3).jpg",
   "/img/neon/neon (4).jpg",
