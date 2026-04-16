@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 type CotizaSceneProps = {
   onClose: () => void;
@@ -19,8 +19,122 @@ const cardTransition = {
   ease: [0.22, 1, 0.36, 1] as const,
 };
 
+type FormState = {
+  name: string;
+  phone: string;
+  email: string;
+  company: string;
+  message: string;
+};
+
+const initialForm: FormState = {
+  name: "",
+  phone: "",
+  email: "",
+  company: "",
+  message: "",
+};
+
 export default function CotizaScene({ onClose }: CotizaSceneProps) {
   const [selectedService, setSelectedService] = useState<string>("");
+  const [form, setForm] = useState<FormState>(initialForm);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({
+    type: null,
+    message: "",
+  });
+
+  const isValid = useMemo(() => {
+    return (
+      form.name.trim() &&
+      form.phone.trim() &&
+      form.email.trim() &&
+      form.message.trim() &&
+      selectedService.trim()
+    );
+  }, [form, selectedService]);
+
+  const handleChange =
+    (field: keyof FormState) =>
+    (
+      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+      setForm((prev) => ({
+        ...prev,
+        [field]: e.target.value,
+      }));
+
+      if (status.type) {
+        setStatus({ type: null, message: "" });
+      }
+    };
+
+  const handleSelectService = (service: string) => {
+    setSelectedService(service);
+
+    if (status.type) {
+      setStatus({ type: null, message: "" });
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!isValid) {
+      setStatus({
+        type: "error",
+        message: "Completa nombre, teléfono, correo, servicio y detalle.",
+      });
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      setStatus({ type: null, message: "" });
+
+      const res = await fetch("/api/send-quote", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name,
+          phone: form.phone,
+          email: form.email,
+          company: form.company,
+          service: selectedService,
+          message: form.message,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.ok) {
+        throw new Error(data.message || "No se pudo enviar el correo.");
+      }
+
+      setStatus({
+        type: "success",
+        message: "Solicitud enviada correctamente. Te contactaremos pronto.",
+      });
+
+      setForm(initialForm);
+      setSelectedService("");
+    } catch (error) {
+      setStatus({
+        type: "error",
+        message:
+          error instanceof Error
+            ? error.message
+            : "No se pudo enviar el correo.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section className="relative flex min-h-[calc(100vh-118px)] w-full items-start justify-center overflow-hidden px-4 pt-3 sm:pt-4 lg:px-6 lg:pt-5">
@@ -76,34 +190,73 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                 Datos de contacto
               </p>
 
-              <form className="grid gap-3">
+              <form onSubmit={handleSubmit} className="grid gap-3">
                 <input
                   type="text"
+                  value={form.name}
+                  onChange={handleChange("name")}
                   placeholder="Nombre"
                   className="h-[40px] rounded-[15px] border border-white/10 bg-black/20 px-4 text-[14px] text-white outline-none transition duration-300 placeholder:text-white/32 focus:border-white/24 focus:bg-white/[0.07] focus:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_0_16px_rgba(143,92,255,0.10)]"
                 />
 
                 <input
                   type="tel"
+                  value={form.phone}
+                  onChange={handleChange("phone")}
                   placeholder="Teléfono"
                   className="h-[40px] rounded-[15px] border border-white/10 bg-black/20 px-4 text-[14px] text-white outline-none transition duration-300 placeholder:text-white/32 focus:border-white/24 focus:bg-white/[0.07] focus:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_0_16px_rgba(143,92,255,0.10)]"
                 />
 
                 <input
                   type="email"
+                  value={form.email}
+                  onChange={handleChange("email")}
                   placeholder="Correo"
                   className="h-[40px] rounded-[15px] border border-white/10 bg-black/20 px-4 text-[14px] text-white outline-none transition duration-300 placeholder:text-white/32 focus:border-white/24 focus:bg-white/[0.07] focus:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_0_16px_rgba(143,92,255,0.10)]"
                 />
 
+                <input
+                  type="text"
+                  value={form.company}
+                  onChange={handleChange("company")}
+                  placeholder="Empresa (opcional)"
+                  className="h-[40px] rounded-[15px] border border-white/10 bg-black/20 px-4 text-[14px] text-white outline-none transition duration-300 placeholder:text-white/32 focus:border-white/24 focus:bg-white/[0.07] focus:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_0_16px_rgba(143,92,255,0.10)]"
+                />
+
                 <textarea
+                  value={form.message}
+                  onChange={handleChange("message")}
                   placeholder="Detalle cotización"
                   className="min-h-[118px] rounded-[15px] border border-white/10 bg-black/20 px-4 py-3 text-[14px] text-white outline-none transition duration-300 placeholder:text-white/32 focus:border-white/24 focus:bg-white/[0.07] focus:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_0_16px_rgba(143,92,255,0.10)]"
                 />
 
+                <AnimatePresence mode="wait">
+                  {status.type && (
+                    <motion.div
+                      key={status.type + status.message}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.22 }}
+                      className={`rounded-[15px] border px-4 py-3 text-[13px] leading-5 ${
+                        status.type === "success"
+                          ? "border-emerald-400/20 bg-emerald-500/10 text-emerald-100"
+                          : "border-rose-400/20 bg-rose-500/10 text-rose-100"
+                      }`}
+                    >
+                      {status.message}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
                 <div className="flex flex-wrap items-center gap-2 pt-1">
-                  <button type="submit" className="menu-shell">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="menu-shell disabled:pointer-events-none disabled:opacity-70"
+                  >
                     <span className="menu-pill is-active cotiza-pill">
-                      Enviar solicitud
+                      {isSubmitting ? "Enviando..." : "Enviar solicitud"}
                     </span>
                   </button>
 
@@ -151,7 +304,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                         duration: 0.24,
                         ease: [0.22, 1, 0.36, 1],
                       }}
-                      onClick={() => setSelectedService(item)}
+                      onClick={() => handleSelectService(item)}
                       className={`flex min-h-[46px] items-center gap-3 rounded-[15px] px-4 text-left transition duration-300 ${
                         isSelected
                           ? "border border-white/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.14),rgba(255,255,255,0.05))] text-white shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_0_22px_rgba(255,255,255,0.06)]"
