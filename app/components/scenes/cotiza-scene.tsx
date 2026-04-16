@@ -39,6 +39,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
   const [selectedService, setSelectedService] = useState<string>("");
   const [form, setForm] = useState<FormState>(initialForm);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccessOverlay, setShowSuccessOverlay] = useState(false);
   const [status, setStatus] = useState<{
     type: "success" | "error" | null;
     message: string;
@@ -59,15 +60,13 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
 
   const handleChange =
     (field: keyof FormState) =>
-    (
-      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       setForm((prev) => ({
         ...prev,
         [field]: e.target.value,
       }));
 
-      if (status.type) {
+      if (status.type === "error") {
         setStatus({ type: null, message: "" });
       }
     };
@@ -75,7 +74,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
   const handleSelectService = (service: string) => {
     setSelectedService(service);
 
-    if (status.type) {
+    if (status.type === "error") {
       setStatus({ type: null, message: "" });
     }
   };
@@ -116,13 +115,13 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
         throw new Error(data.message || "No se pudo enviar el correo.");
       }
 
-      setStatus({
-        type: "success",
-        message: "Solicitud enviada correctamente. Te contactaremos pronto.",
-      });
-
       setForm(initialForm);
       setSelectedService("");
+      setShowSuccessOverlay(true);
+
+      window.setTimeout(() => {
+        setShowSuccessOverlay(false);
+      }, 2200);
     } catch (error) {
       setStatus({
         type: "error",
@@ -230,19 +229,14 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                   className="min-h-[118px] rounded-[15px] border border-white/10 bg-black/20 px-4 py-3 text-[14px] text-white outline-none transition duration-300 placeholder:text-white/32 focus:border-white/24 focus:bg-white/[0.07] focus:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_0_16px_rgba(143,92,255,0.10)]"
                 />
 
-                <AnimatePresence mode="wait">
-                  {status.type && (
+                <AnimatePresence>
+                  {status.type === "error" && (
                     <motion.div
-                      key={status.type + status.message}
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -8 }}
+                      initial={{ opacity: 0, y: 8, filter: "blur(6px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, y: -6, filter: "blur(4px)" }}
                       transition={{ duration: 0.22 }}
-                      className={`rounded-[15px] border px-4 py-3 text-[13px] leading-5 ${
-                        status.type === "success"
-                          ? "border-emerald-400/20 bg-emerald-500/10 text-emerald-100"
-                          : "border-rose-400/20 bg-rose-500/10 text-rose-100"
-                      }`}
+                      className="rounded-[15px] border border-rose-400/20 bg-rose-500/10 px-4 py-3 text-[13px] leading-5 text-rose-100"
                     >
                       {status.message}
                     </motion.div>
@@ -270,6 +264,61 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                 </div>
               </form>
             </div>
+
+            <AnimatePresence>
+              {showSuccessOverlay && (
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    scale: 0.92,
+                    y: 14,
+                    filter: "blur(10px)",
+                  }}
+                  animate={{
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    filter: "blur(0px)",
+                  }}
+                  exit={{
+                    opacity: 0,
+                    scale: 0.96,
+                    y: 10,
+                    filter: "blur(8px)",
+                  }}
+                  transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                  className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center rounded-[22px] bg-[rgba(8,6,20,0.34)] backdrop-blur-[6px]"
+                >
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ delay: 0.05, duration: 0.25 }}
+                    className="flex min-w-[280px] max-w-[360px] items-center gap-3 rounded-[20px] border border-emerald-300/20 bg-[linear-gradient(180deg,rgba(9,24,20,0.92),rgba(8,18,16,0.88))] px-5 py-4 shadow-[0_18px_50px_rgba(0,0,0,0.30),0_0_30px_rgba(16,185,129,0.08)]"
+                  >
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-emerald-300/20 bg-emerald-400/12">
+                      <motion.span
+                        initial={{ scale: 0.7, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ delay: 0.12, duration: 0.2 }}
+                        className="text-[18px] text-emerald-100"
+                      >
+                        ✓
+                      </motion.span>
+                    </div>
+
+                    <div className="space-y-0.5">
+                      <p className="omnes-title text-[14px] text-white">
+                        Solicitud enviada
+                      </p>
+                      <p className="omnes-text text-[12px] leading-5 text-white/72">
+                        Te contactaremos pronto con una respuesta.
+                      </p>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
 
           <motion.div
@@ -320,7 +369,9 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                       >
                         <span
                           className={`h-1.5 w-1.5 rounded-full bg-[#5d2bbf] transition duration-300 ${
-                            isSelected ? "scale-100 opacity-100" : "scale-0 opacity-0"
+                            isSelected
+                              ? "scale-100 opacity-100"
+                              : "scale-0 opacity-0"
                           }`}
                         />
                       </span>
