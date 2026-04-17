@@ -36,10 +36,22 @@ export default function BrandDetailsScene({
   const [page, setPage] = useState(0);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [previewMode, setPreviewMode] = useState<"cover" | "contain">("contain");
 
   useEffect(() => {
     setIsClient(true);
+
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
   }, []);
 
   useEffect(() => {
@@ -132,135 +144,145 @@ export default function BrandDetailsScene({
   };
 
   const openPreview = () => {
+    if (!isMobile) return;
     setPreviewMode("contain");
     setIsPreviewOpen(true);
+  };
+
+  const handleSelectWork = (index: number) => {
+    setActiveIndex(index);
+
+    if (isMobile) {
+      setPreviewMode("contain");
+      setIsPreviewOpen(true);
+    }
   };
 
   const previewModal =
     isClient && isPreviewOpen
       ? createPortal(
-        <AnimatePresence>
-          <motion.div
-            key="preview-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.22 }}
-            className="fixed inset-0 z-[220] bg-[rgba(6,3,18,0.9)]"
-            onClick={() => setIsPreviewOpen(false)}
-          >
-            <div
-              className="relative h-screen w-screen overflow-hidden"
-              onClick={(e) => e.stopPropagation()}
+          <AnimatePresence>
+            <motion.div
+              key="preview-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.22 }}
+              className="fixed inset-0 z-[220] bg-[rgba(6,3,18,0.9)]"
+              onClick={() => setIsPreviewOpen(false)}
             >
-              <div className="absolute inset-0">
-                <Image
-                  src={activeWork.image}
-                  alt={activeWork.title || brandName}
-                  fill
-                  className="object-cover scale-110 opacity-20 blur-3xl"
-                  sizes="100vw"
-                  priority
-                />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(32,18,60,0.12)_0%,rgba(12,7,24,0.62)_58%,rgba(4,2,10,0.92)_100%)]" />
-              </div>
-
-              <div className="absolute inset-x-0 top-0 z-30 flex items-center justify-between p-4 sm:p-5 lg:p-6">
-                <div className="rounded-full border border-white/12 bg-black/20 px-4 py-2 text-sm text-white/78 backdrop-blur">
-                  Vista ampliada
+              <div
+                className="relative h-screen w-screen overflow-hidden"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="absolute inset-0">
+                  <Image
+                    src={activeWork.image}
+                    alt={activeWork.title || brandName}
+                    fill
+                    className="object-cover scale-110 opacity-20 blur-3xl"
+                    sizes="100vw"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(32,18,60,0.12)_0%,rgba(12,7,24,0.62)_58%,rgba(4,2,10,0.92)_100%)]" />
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setPreviewMode((prev) =>
-                        prev === "cover" ? "contain" : "cover"
-                      )
-                    }
-                    className="rounded-full border border-white/15 bg-black/28 px-4 py-2 text-sm text-white/85 backdrop-blur transition hover:bg-black/40"
-                  >
-                    {previewMode === "cover" ? "Ver completa" : "Llenar pantalla"}
-                  </button>
+                <div className="absolute inset-x-0 top-0 z-30 flex items-center justify-between p-4 sm:p-5 lg:p-6">
+                  <div className="rounded-full border border-white/12 bg-black/20 px-4 py-2 text-sm text-white/78 backdrop-blur">
+                    Vista ampliada
+                  </div>
 
-                  <button
-                    type="button"
-                    onClick={() => setIsPreviewOpen(false)}
-                    className="rounded-full border border-white/15 bg-black/28 px-4 py-2 text-sm text-white/85 backdrop-blur transition hover:bg-black/40"
-                  >
-                    Cerrar
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setPreviewMode((prev) =>
+                          prev === "cover" ? "contain" : "cover"
+                        )
+                      }
+                      className="rounded-full border border-white/15 bg-black/28 px-4 py-2 text-sm text-white/85 backdrop-blur transition hover:bg-black/40"
+                    >
+                      {previewMode === "cover" ? "Ver completa" : "Llenar pantalla"}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setIsPreviewOpen(false)}
+                      className="rounded-full border border-white/15 bg-black/28 px-4 py-2 text-sm text-white/85 backdrop-blur transition hover:bg-black/40"
+                    >
+                      Cerrar
+                    </button>
+                  </div>
                 </div>
-              </div>
 
-              {safeWorks.length > 1 && (
-                <>
-                  <button
-                    type="button"
-                    onClick={handlePrevImage}
-                    className="absolute left-4 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/28 text-xl text-white/85 backdrop-blur transition hover:bg-black/40"
-                    aria-label="Imagen anterior"
-                  >
-                    ←
-                  </button>
+                {safeWorks.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={handlePrevImage}
+                      className="absolute left-4 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/28 text-xl text-white/85 backdrop-blur transition hover:bg-black/40"
+                      aria-label="Imagen anterior"
+                    >
+                      ←
+                    </button>
 
-                  <button
-                    type="button"
-                    onClick={handleNextImage}
-                    className="absolute right-4 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/28 text-xl text-white/85 backdrop-blur transition hover:bg-black/40"
-                    aria-label="Imagen siguiente"
-                  >
-                    →
-                  </button>
-                </>
-              )}
+                    <button
+                      type="button"
+                      onClick={handleNextImage}
+                      className="absolute right-4 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/28 text-xl text-white/85 backdrop-blur transition hover:bg-black/40"
+                      aria-label="Imagen siguiente"
+                    >
+                      →
+                    </button>
+                  </>
+                )}
 
-              <div className="relative z-20 flex h-full w-full items-center justify-center px-4 py-20 sm:px-8 lg:px-12">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={`${activeWork.image}-${previewMode}`}
-                    initial={{ opacity: 0, scale: 1.01 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.99 }}
-                    transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                    className={
-                      previewMode === "cover"
-                        ? "relative h-full w-full overflow-hidden rounded-[24px]"
-                        : "relative h-[78vh] w-[90vw] max-w-[1360px] overflow-hidden rounded-[24px]"
-                    }
-                  >
-                    <Image
-                      src={activeWork.image}
-                      alt={activeWork.title || brandName}
-                      fill
+                <div className="relative z-20 flex h-full w-full items-center justify-center px-4 py-20 sm:px-8 lg:px-12">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={`${activeWork.image}-${previewMode}`}
+                      initial={{ opacity: 0, scale: 1.01 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.99 }}
+                      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                       className={
                         previewMode === "cover"
-                          ? "object-cover"
-                          : "object-contain drop-shadow-[0_18px_48px_rgba(0,0,0,0.38)]"
+                          ? "relative h-full w-full overflow-hidden rounded-[24px]"
+                          : "relative h-[78vh] w-[90vw] max-w-[1360px] overflow-hidden rounded-[24px]"
                       }
-                      sizes="100vw"
-                      priority
-                    />
-                  </motion.div>
-                </AnimatePresence>
-              </div>
+                    >
+                      <Image
+                        src={activeWork.image}
+                        alt={activeWork.title || brandName}
+                        fill
+                        className={
+                          previewMode === "cover"
+                            ? "object-cover"
+                            : "object-contain drop-shadow-[0_18px_48px_rgba(0,0,0,0.38)]"
+                        }
+                        sizes="100vw"
+                        priority
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
 
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 bg-gradient-to-t from-black/80 via-black/24 to-transparent p-5 sm:p-6 lg:p-8">
-                <h3 className="text-xl font-medium text-white">
-                  {activeWork.title || brandName}
-                </h3>
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 bg-gradient-to-t from-black/80 via-black/24 to-transparent p-5 sm:p-6 lg:p-8">
+                  <h3 className="text-xl font-medium text-white">
+                    {activeWork.title || brandName}
+                  </h3>
 
-                {activeWork.description && (
-                  <p className="mt-1 max-w-3xl text-sm text-white/72 sm:text-base">
-                    {activeWork.description}
-                  </p>
-                )}
+                  {activeWork.description && (
+                    <p className="mt-1 max-w-3xl text-sm text-white/72 sm:text-base">
+                      {activeWork.description}
+                    </p>
+                  )}
+                </div>
               </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>,
-        document.body
-      )
+            </motion.div>
+          </AnimatePresence>,
+          document.body
+        )
       : null;
 
   return (
@@ -346,9 +368,11 @@ export default function BrandDetailsScene({
                   </p>
                 )}
 
-                <span className="mt-3 inline-flex rounded-full border border-white/15 bg-black/25 px-2.5 py-1 text-[10px] text-white/78">
-                  Click para ampliar
-                </span>
+                {isMobile && (
+                  <span className="mt-3 inline-flex rounded-full border border-white/15 bg-black/25 px-2.5 py-1 text-[10px] text-white/78">
+                    Toca para ampliar
+                  </span>
+                )}
               </div>
             </button>
 
@@ -403,12 +427,13 @@ export default function BrandDetailsScene({
                       <button
                         key={`${work.image}-${globalIndex}`}
                         type="button"
-                        onClick={() => setActiveIndex(globalIndex)}
+                        onClick={() => handleSelectWork(globalIndex)}
                         aria-label={work.title || `Trabajo ${globalIndex + 1}`}
-                        className={`group relative min-h-[116px] overflow-hidden rounded-[14px] border transition duration-300 ${isActive
-                          ? "border-white/28 bg-white/10 shadow-[0_0_0_1px_rgba(255,255,255,0.03)]"
-                          : "border-white/10 bg-white/[0.03] hover:border-white/18 hover:bg-white/[0.06]"
-                          }`}
+                        className={`group relative min-h-[116px] overflow-hidden rounded-[14px] border transition duration-300 ${
+                          isActive
+                            ? "border-white/28 bg-white/10 shadow-[0_0_0_1px_rgba(255,255,255,0.03)]"
+                            : "border-white/10 bg-white/[0.03] hover:border-white/18 hover:bg-white/[0.06]"
+                        }`}
                       >
                         <div className="relative h-full min-h-[116px] w-full overflow-hidden rounded-[14px] bg-black/20">
                           <Image

@@ -179,10 +179,11 @@ export default function FixedHeader({
                         key={item.label}
                         type="button"
                         onClick={() => handleJump(item.index)}
-                        className={`flex min-h-[56px] items-center justify-between rounded-[18px] border px-5 text-left text-[14px] font-medium transition ${isActive
-                          ? "border-white/24 bg-white/14 text-white shadow-[0_10px_24px_rgba(124,58,237,0.18)]"
-                          : "border-white/10 bg-white/[0.05] text-white/86 hover:border-white/18 hover:bg-white/[0.09]"
-                          }`}
+                        className={`flex min-h-[56px] items-center justify-between rounded-[18px] border px-5 text-left text-[14px] font-medium transition ${
+                          isActive
+                            ? "border-white/24 bg-white/14 text-white shadow-[0_10px_24px_rgba(124,58,237,0.18)]"
+                            : "border-white/10 bg-white/[0.05] text-white/86 hover:border-white/18 hover:bg-white/[0.09]"
+                        }`}
                       >
                         <span>{item.label}</span>
                         <span className="text-[11px] text-white/44">
@@ -195,10 +196,11 @@ export default function FixedHeader({
                   <button
                     type="button"
                     onClick={handleCotiza}
-                    className={`mt-2 flex min-h-[58px] items-center justify-center rounded-[18px] border px-5 text-[14px] font-semibold transition ${isCotizaOpen && !isMobileSinglePage
-                      ? "border-white/24 bg-white/16 text-white"
-                      : "border-fuchsia-300/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.16),rgba(255,255,255,0.08))] text-white hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.2),rgba(255,255,255,0.1))]"
-                      }`}
+                    className={`mt-2 flex min-h-[58px] items-center justify-center rounded-[18px] border px-5 text-[14px] font-semibold transition ${
+                      isCotizaOpen && !isMobileSinglePage
+                        ? "border-white/24 bg-white/16 text-white"
+                        : "border-fuchsia-300/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.16),rgba(255,255,255,0.08))] text-white hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.2),rgba(255,255,255,0.1))]"
+                    }`}
                   >
                     COTIZA
                   </button>
