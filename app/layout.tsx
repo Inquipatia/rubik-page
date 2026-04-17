@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "Rubik Page",
+  title: "Rubik Creaciones",
   description: "Rubik Creaciones interactive landing",
 };
 
