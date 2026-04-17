@@ -13,6 +13,7 @@ import SceneStage from "@/app/components/experience/scene-stage";
 import ScrollProgress from "@/app/components/experience/scroll-progress";
 import IntroScene from "@/app/components/scenes/intro-scene";
 import BrandShowcase from "@/app/components/scenes/brand-showcase";
+import BrandDetailsScene from "@/app/components/scenes/brand-details-scene";
 import WorkScene from "@/app/components/scenes/work-scene";
 import ContactScene from "@/app/components/scenes/contact-scene";
 import CotizaScene from "@/app/components/scenes/cotiza-scene";
@@ -96,7 +97,7 @@ function MobileSection({
   return (
     <section
       id={id}
-      className={`scroll-mt-[92px] px-3 sm:px-4 ${className}`}
+      className={`scroll-mt-[96px] px-3 sm:px-4 ${className}`}
     >
       <div className="mx-auto w-full max-w-[1220px]">{children}</div>
     </section>
@@ -125,6 +126,7 @@ export default function Home() {
 
   const scrollToSection = useCallback((id: string) => {
     if (typeof window === "undefined") return;
+
     const element = document.getElementById(id);
     if (!element) return;
 
@@ -195,6 +197,7 @@ export default function Home() {
 
   const handleOpenCotiza = useCallback(() => {
     if (isMobile) {
+      setSelectedBrand(null);
       scrollToSection("cotiza");
       return;
     }
@@ -207,29 +210,46 @@ export default function Home() {
   }, [isMobile, scrollToSection, unlockAfterDelay]);
 
   const handleCloseCotiza = useCallback(() => {
+    if (isMobile) {
+      scrollToSection("inicio");
+      return;
+    }
+
     wheelLockRef.current = true;
     setIsAnimating(true);
     setIsCotizaOpen(false);
     unlockAfterDelay();
-  }, [unlockAfterDelay]);
+  }, [isMobile, scrollToSection, unlockAfterDelay]);
 
   const handleOpenBrandDetails = useCallback(
     (brand: SelectedBrand) => {
+      if (isMobile) {
+        setIsCotizaOpen(false);
+        setSelectedBrand(brand);
+        return;
+      }
+
       wheelLockRef.current = true;
       setIsAnimating(true);
       setIsCotizaOpen(false);
       setSelectedBrand(brand);
       unlockAfterDelay();
     },
-    [unlockAfterDelay]
+    [isMobile, unlockAfterDelay]
   );
 
   const handleCloseBrandDetails = useCallback(() => {
+    if (isMobile) {
+      setSelectedBrand(null);
+      scrollToSection("marcas");
+      return;
+    }
+
     wheelLockRef.current = true;
     setIsAnimating(true);
     setSelectedBrand(null);
     unlockAfterDelay();
-  }, [unlockAfterDelay]);
+  }, [isMobile, scrollToSection, unlockAfterDelay]);
 
   const handleGoToServicios = useCallback(() => {
     if (isMobile) {
@@ -239,7 +259,6 @@ export default function Home() {
 
     wheelLockRef.current = true;
     setIsAnimating(true);
-
     setIsCotizaOpen(false);
     setSelectedBrand(null);
     setActiveScene(2);
@@ -287,8 +306,7 @@ export default function Home() {
     isMobile,
   ]);
 
-  const shouldShowOverlayUi =
-    !isMobile && !isCotizaOpen && !selectedBrand;
+  const shouldShowOverlayUi = !isMobile && !isCotizaOpen && !selectedBrand;
 
   return (
     <main
@@ -316,8 +334,8 @@ export default function Home() {
         />
 
         {isMobile ? (
-          <div className="relative z-10 flex flex-col gap-5 pb-8 pt-[84px]">
-            <MobileSection id="inicio" className="pt-1">
+          <div className="relative z-10 flex flex-col gap-8 pb-12 pt-[92px]">
+            <MobileSection id="inicio" className="pt-2">
               <IntroScene
                 titleTop="EL EQUIPO QUE"
                 titleBottom="CONCRETA TUS IDEAS"
@@ -330,19 +348,31 @@ export default function Home() {
               />
             </MobileSection>
 
-            <MobileSection id="marcas">
-              <BrandShowcase onOpenBrandDetails={handleOpenBrandDetails} />
+            <MobileSection id="marcas" className="pt-2">
+              {selectedBrand ? (
+                <BrandDetailsScene
+                  brandName={selectedBrand.brandName}
+                  brandLogo={selectedBrand.brandLogo}
+                  description={selectedBrand.description}
+                  works={selectedBrand.works}
+                  onBack={handleCloseBrandDetails}
+                />
+              ) : (
+                <BrandShowcase onOpenBrandDetails={handleOpenBrandDetails} />
+              )}
             </MobileSection>
 
-            <MobileSection id="servicios">
-              <WorkScene activeWorkCard={activeWorkCard} />
+            <MobileSection id="servicios" className="pt-4">
+              <div className="rounded-[28px] border border-white/10 bg-white/[0.03] px-3 py-5">
+                <WorkScene activeWorkCard={activeWorkCard} />
+              </div>
             </MobileSection>
 
-            <MobileSection id="contacto">
+            <MobileSection id="contacto" className="pt-2">
               <ContactScene />
             </MobileSection>
 
-            <MobileSection id="cotiza" className="pb-6">
+            <MobileSection id="cotiza" className="pb-8 pt-2">
               <CotizaScene onClose={() => scrollToSection("inicio")} />
             </MobileSection>
           </div>
