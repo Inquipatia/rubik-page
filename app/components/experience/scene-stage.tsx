@@ -142,6 +142,7 @@ export default function SceneStage({
   const shouldUseFaqStage =
     !isCotizaOpen && !selectedBrand && activeScene === 4;
 
+  const isIntroStage = !isCotizaOpen && !selectedBrand && activeScene === 0;
   const isWorkStage = !isCotizaOpen && !selectedBrand && activeScene === 2;
   const isBrandDetailsStage = !isCotizaOpen && !!selectedBrand;
 
@@ -162,7 +163,8 @@ export default function SceneStage({
     );
   }
 
-  const allowWideInteraction = isWorkStage || isBrandDetailsStage;
+  const allowWideInteraction =
+  isIntroStage || isWorkStage || isBrandDetailsStage;
 
   return (
     <section

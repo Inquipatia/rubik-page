@@ -32,14 +32,14 @@ export default function IntroScene({
   const [isSplineReady, setIsSplineReady] = useState(false);
 
   return (
-    <section className="relative h-full w-full overflow-hidden">
-      <div className="mx-auto flex h-full w-full max-w-[1400px] items-center px-4 sm:px-6 lg:px-6 xl:px-10">
+    <section className="relative h-full w-full overflow-visible">
+      <div className="mx-auto flex h-full w-full max-w-[1560px] items-center px-1 sm:px-2 lg:px-2 xl:px-3">
         <div className="grid w-full items-center gap-6 lg:grid-cols-[0.88fr_1.12fr] xl:grid-cols-[1.02fr_0.98fr] xl:gap-8">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-20 max-w-[760px] md:max-w-[520px] lg:max-w-[640px] lg:origin-left lg:scale-[0.84] xl:max-w-[620px] xl:scale-100 2xl:max-w-[680px]"
+            className="relative z-20 max-w-[760px] md:max-w-[520px] lg:max-w-[640px] lg:-translate-x-8 lg:origin-left lg:scale-[0.84] xl:max-w-[620px] xl:-translate-x-12 xl:scale-100 2xl:max-w-[680px] 2xl:-translate-x-14"
           >
             <div className="omnes-text mb-4 inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[12px] font-medium uppercase tracking-[0.14em] text-white/78 sm:text-[13px] lg:px-4 lg:py-2 lg:text-[12px] xl:px-4 xl:py-2 xl:text-sm">
               Rubik Creaciones
