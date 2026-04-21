@@ -113,6 +113,9 @@ export default function Home() {
   const [selectedBrand, setSelectedBrand] = useState<SelectedBrand | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
+  // NEW: this forces servicios to go back to its main/root view
+  const [servicesResetKey, setServicesResetKey] = useState(0);
+
   const wheelLockRef = useRef(false);
   const totalMainScenes = 4;
 
@@ -174,7 +177,13 @@ export default function Home() {
 
   const handleJump = useCallback(
     (index: number) => {
+      const isServicios = index === 2;
+
       if (isMobile) {
+        if (isServicios) {
+          setServicesResetKey((prev) => prev + 1);
+        }
+
         const mobileIds = ["inicio", "marcas", "servicios", "contacto"];
         const targetId = mobileIds[index];
         if (targetId) scrollToSection(targetId);
@@ -188,6 +197,11 @@ export default function Home() {
 
       setIsCotizaOpen(false);
       setSelectedBrand(null);
+
+      if (isServicios) {
+        setServicesResetKey((prev) => prev + 1);
+      }
+
       setActiveScene(index);
 
       unlockAfterDelay();
@@ -252,6 +266,9 @@ export default function Home() {
   }, [isMobile, scrollToSection, unlockAfterDelay]);
 
   const handleGoToServicios = useCallback(() => {
+    // NEW: every time you go to servicios, return to main servicios view
+    setServicesResetKey((prev) => prev + 1);
+
     if (isMobile) {
       scrollToSection("servicios");
       return;
@@ -364,7 +381,10 @@ export default function Home() {
 
             <MobileSection id="servicios" className="pt-4">
               <div className="rounded-[28px] border border-white/10 bg-white/[0.03] px-3 py-5">
-                <WorkScene activeWorkCard={activeWorkCard} />
+                <WorkScene
+                  activeWorkCard={activeWorkCard}
+                  servicesResetKey={servicesResetKey}
+                />
               </div>
             </MobileSection>
 
@@ -388,6 +408,7 @@ export default function Home() {
             selectedBrand={selectedBrand}
             onOpenBrandDetails={handleOpenBrandDetails}
             onCloseBrandDetails={handleCloseBrandDetails}
+            servicesResetKey={servicesResetKey}
           />
         )}
 

@@ -12,7 +12,7 @@ import type { SelectedBrand } from "@/app/page";
 type SceneStageProps = {
   activeScene: number;
   activeWorkCard: number;
-  onCubeHoverChange: (isHovered: boolean) => void;
+  onCubeHoverChange: (hovered: boolean) => void;
   isCotizaOpen: boolean;
   onOpenCotiza: () => void;
   onGoToServicios: () => void;
@@ -20,6 +20,7 @@ type SceneStageProps = {
   selectedBrand: SelectedBrand | null;
   onOpenBrandDetails: (brand: SelectedBrand) => void;
   onCloseBrandDetails: () => void;
+  servicesResetKey: number;
 };
 
 const defaultSceneVariants: Variants = {
@@ -100,7 +101,7 @@ function StageFrame({
     <div
       className={`mx-auto box-border flex h-full w-full flex-col pb-3 pt-[96px] sm:pb-4 sm:pt-[102px] md:pt-[108px] lg:pt-[114px] xl:pt-[120px] ${
         allowOverflow
-          ? "max-w-[1380px] overflow-visible pl-3 pr-0 sm:pl-4 sm:pr-0 md:pl-5 md:pr-0 lg:pl-6 lg:pr-0 xl:pl-8 xl:pr-0 2xl:max-w-[1460px] 2xl:pl-8 2xl:pr-0"
+          ? "max-w-[1500px] overflow-visible pl-6 pr-6 sm:pl-8 sm:pr-8 md:pl-10 md:pr-10 lg:pl-12 lg:pr-12 xl:pl-14 xl:pr-14 2xl:max-w-[1620px]"
           : "max-w-[1220px] overflow-hidden px-3 sm:px-4 md:px-5 lg:px-6 xl:px-8"
       }`}
     >
@@ -126,6 +127,7 @@ export default function SceneStage({
   selectedBrand,
   onOpenBrandDetails,
   onCloseBrandDetails,
+  servicesResetKey,
 }: SceneStageProps) {
   const currentKey = isCotizaOpen
     ? "cotiza-scene"
@@ -141,6 +143,7 @@ export default function SceneStage({
     !isCotizaOpen && !selectedBrand && activeScene === 4;
 
   const isWorkStage = !isCotizaOpen && !selectedBrand && activeScene === 2;
+  const isBrandDetailsStage = !isCotizaOpen && !!selectedBrand;
 
   if (shouldUseFaqStage) {
     return (
@@ -153,20 +156,21 @@ export default function SceneStage({
             animate="animate"
             exit="exit"
             className="relative h-full w-full overflow-hidden"
-          >
-          </motion.div>
+          />
         </AnimatePresence>
       </section>
     );
   }
 
+  const allowWideInteraction = isWorkStage || isBrandDetailsStage;
+
   return (
     <section
       className={`relative z-20 h-[100svh] w-full ${
-        isWorkStage ? "overflow-visible" : "overflow-hidden"
+        allowWideInteraction ? "overflow-visible" : "overflow-hidden"
       }`}
     >
-      <StageFrame allowOverflow={isWorkStage}>
+      <StageFrame allowOverflow={allowWideInteraction}>
         <AnimatePresence mode="wait">
           <motion.div
             key={currentKey}
@@ -175,7 +179,7 @@ export default function SceneStage({
             animate="animate"
             exit="exit"
             className={`relative h-full w-full [transform:translateZ(0)] [transform-style:preserve-3d] will-change-transform ${
-              isWorkStage ? "overflow-visible" : "overflow-hidden"
+              allowWideInteraction ? "overflow-visible" : "overflow-hidden"
             }`}
           >
             {isCotizaOpen && (
@@ -219,7 +223,7 @@ export default function SceneStage({
                   : undefined
               }
               className={`h-full w-full ${
-                isWorkStage ? "overflow-visible" : "overflow-hidden"
+                allowWideInteraction ? "overflow-visible" : "overflow-hidden"
               }`}
             >
               {isCotizaOpen ? (
@@ -252,7 +256,10 @@ export default function SceneStage({
                   )}
 
                   {activeScene === 2 && (
-                    <WorkScene activeWorkCard={activeWorkCard} />
+                    <WorkScene
+                      activeWorkCard={activeWorkCard}
+                      servicesResetKey={servicesResetKey}
+                    />
                   )}
 
                   {activeScene === 3 && <ContactScene />}

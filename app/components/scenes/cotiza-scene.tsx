@@ -150,7 +150,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
           <div className="absolute left-1/2 top-[18%] h-20 w-20 -translate-x-1/2 rounded-full bg-white/6 blur-2xl" />
         </div>
 
-        <div className="mb-4 flex items-start justify-between gap-4 lg:mb-5">
+        <div className="mb-5 flex items-start justify-between gap-4 lg:mb-6">
           <motion.div
             initial={{ opacity: 0, x: -16 }}
             animate={{ opacity: 1, x: 0 }}
@@ -161,11 +161,11 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
             }}
             className="transform-gpu will-change-transform"
           >
-            <h2 className="omnes-title text-[1.32rem] text-white lg:text-[1.72rem] xl:text-[1.9rem]">
+            <h2 className="omnes-title text-[1.7rem] text-white sm:text-[1.9rem] lg:text-[2.05rem] xl:text-[2.2rem]">
               Cuéntanos tu proyecto
             </h2>
 
-            <p className="omnes-text mt-1.5 max-w-[50ch] text-[12px] leading-5 text-white/68 lg:text-[13px]">
+            <p className="omnes-text mt-2 max-w-[54ch] text-[14px] leading-6 text-white/78 lg:text-[15px] lg:leading-7">
               Déjanos tus datos y selecciona el servicio que necesitas.
             </p>
           </motion.div>
@@ -185,7 +185,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
             </div>
 
             <div className="relative [transform:translateZ(0)]">
-              <p className="omnes-title mb-3 text-[10px] uppercase tracking-[0.18em] text-white/62 lg:text-[11px]">
+              <p className="omnes-text mb-3 text-[11px] uppercase tracking-[0.16em] text-white/68 lg:text-[12px]">
                 Datos de contacto
               </p>
 
@@ -195,7 +195,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                   value={form.name}
                   onChange={handleChange("name")}
                   placeholder="Nombre"
-                  className="h-[40px] rounded-[15px] border border-white/10 bg-black/20 px-4 text-[14px] text-white outline-none transition duration-300 placeholder:text-white/32 focus:border-white/24 focus:bg-white/[0.07] focus:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_0_16px_rgba(143,92,255,0.10)]"
+                  className="h-[44px] rounded-[15px] border border-white/10 bg-black/20 px-4 text-[15px] text-white outline-none transition duration-300 placeholder:text-white/42 focus:border-white/24 focus:bg-white/[0.07] focus:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_0_16px_rgba(143,92,255,0.10)]"
                 />
 
                 <input
@@ -203,7 +203,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                   value={form.phone}
                   onChange={handleChange("phone")}
                   placeholder="Teléfono"
-                  className="h-[40px] rounded-[15px] border border-white/10 bg-black/20 px-4 text-[14px] text-white outline-none transition duration-300 placeholder:text-white/32 focus:border-white/24 focus:bg-white/[0.07] focus:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_0_16px_rgba(143,92,255,0.10)]"
+                  className="h-[44px] rounded-[15px] border border-white/10 bg-black/20 px-4 text-[15px] text-white outline-none transition duration-300 placeholder:text-white/42 focus:border-white/24 focus:bg-white/[0.07] focus:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_0_16px_rgba(143,92,255,0.10)]"
                 />
 
                 <input
@@ -211,7 +211,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                   value={form.email}
                   onChange={handleChange("email")}
                   placeholder="Correo"
-                  className="h-[40px] rounded-[15px] border border-white/10 bg-black/20 px-4 text-[14px] text-white outline-none transition duration-300 placeholder:text-white/32 focus:border-white/24 focus:bg-white/[0.07] focus:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_0_16px_rgba(143,92,255,0.10)]"
+                  className="h-[44px] rounded-[15px] border border-white/10 bg-black/20 px-4 text-[15px] text-white outline-none transition duration-300 placeholder:text-white/42 focus:border-white/24 focus:bg-white/[0.07] focus:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_0_16px_rgba(143,92,255,0.10)]"
                 />
 
                 <input
@@ -219,14 +219,14 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                   value={form.company}
                   onChange={handleChange("company")}
                   placeholder="Empresa (opcional)"
-                  className="h-[40px] rounded-[15px] border border-white/10 bg-black/20 px-4 text-[14px] text-white outline-none transition duration-300 placeholder:text-white/32 focus:border-white/24 focus:bg-white/[0.07] focus:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_0_16px_rgba(143,92,255,0.10)]"
+                  className="h-[44px] rounded-[15px] border border-white/10 bg-black/20 px-4 text-[15px] text-white outline-none transition duration-300 placeholder:text-white/42 focus:border-white/24 focus:bg-white/[0.07] focus:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_0_16px_rgba(143,92,255,0.10)]"
                 />
 
                 <textarea
                   value={form.message}
                   onChange={handleChange("message")}
                   placeholder="Detalle cotización"
-                  className="min-h-[118px] rounded-[15px] border border-white/10 bg-black/20 px-4 py-3 text-[14px] text-white outline-none transition duration-300 placeholder:text-white/32 focus:border-white/24 focus:bg-white/[0.07] focus:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_0_16px_rgba(143,92,255,0.10)]"
+                  className="min-h-[132px] rounded-[15px] border border-white/10 bg-black/20 px-4 py-3 text-[15px] text-white outline-none transition duration-300 placeholder:text-white/42 focus:border-white/24 focus:bg-white/[0.07] focus:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_0_16px_rgba(143,92,255,0.10)]"
                 />
 
                 <AnimatePresence>
@@ -236,7 +236,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                       exit={{ opacity: 0, y: -6, filter: "blur(4px)" }}
                       transition={{ duration: 0.22 }}
-                      className="rounded-[15px] border border-rose-400/20 bg-rose-500/10 px-4 py-3 text-[13px] leading-5 text-rose-100"
+                      className="omnes-text rounded-[15px] border border-rose-400/20 bg-rose-500/10 px-4 py-3 text-[14px] leading-6 text-rose-100"
                     >
                       {status.message}
                     </motion.div>
@@ -249,7 +249,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                     disabled={isSubmitting}
                     className="menu-shell disabled:pointer-events-none disabled:opacity-70"
                   >
-                    <span className="menu-pill is-active cotiza-pill">
+                    <span className="menu-pill is-active cotiza-pill omnes-text text-[14px] font-semibold">
                       {isSubmitting ? "Enviando..." : "Enviar solicitud"}
                     </span>
                   </button>
@@ -259,7 +259,9 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                     onClick={onClose}
                     className="menu-shell"
                   >
-                    <span className="menu-pill">Regresar</span>
+                    <span className="menu-pill omnes-text text-[14px] font-medium">
+                      Regresar
+                    </span>
                   </button>
                 </div>
               </form>
@@ -308,10 +310,10 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                     </div>
 
                     <div className="space-y-0.5">
-                      <p className="omnes-title text-[14px] text-white">
+                      <p className="omnes-title text-[15px] text-white">
                         Solicitud enviada
                       </p>
-                      <p className="omnes-text text-[12px] leading-5 text-white/72">
+                      <p className="omnes-text text-[13px] leading-5 text-white/78">
                         Te contactaremos pronto con una respuesta.
                       </p>
                     </div>
@@ -334,7 +336,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
             </div>
 
             <div className="relative [transform:translateZ(0)]">
-              <p className="omnes-title mb-3 text-[10px] uppercase tracking-[0.18em] text-white/62 lg:text-[11px]">
+              <p className="omnes-text mb-3 text-[11px] uppercase tracking-[0.16em] text-white/68 lg:text-[12px]">
                 Selecciona un servicio
               </p>
 
@@ -354,14 +356,14 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                         ease: [0.22, 1, 0.36, 1],
                       }}
                       onClick={() => handleSelectService(item)}
-                      className={`flex min-h-[46px] items-center gap-3 rounded-[15px] px-4 text-left transition duration-300 ${
+                      className={`flex min-h-[50px] items-center gap-3 rounded-[15px] px-4 text-left transition duration-300 ${
                         isSelected
                           ? "border border-white/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.14),rgba(255,255,255,0.05))] text-white shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_0_22px_rgba(255,255,255,0.06)]"
                           : "border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.03))] text-white/84 hover:border-white/22 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.11),rgba(255,255,255,0.04))]"
                       }`}
                     >
                       <span
-                        className={`flex h-3.5 w-3.5 items-center justify-center rounded-full border transition duration-300 ${
+                        className={`flex h-4 w-4 items-center justify-center rounded-full border transition duration-300 ${
                           isSelected
                             ? "border-white bg-white shadow-[0_0_10px_rgba(255,255,255,0.35)]"
                             : "border-white/30 bg-white/90 shadow-[0_0_8px_rgba(255,255,255,0.22)]"
@@ -377,8 +379,8 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                       </span>
 
                       <span
-                        className={`omnes-text text-[14px] transition duration-300 ${
-                          isSelected ? "text-white" : "text-white/84"
+                        className={`omnes-text text-[15px] transition duration-300 ${
+                          isSelected ? "text-white" : "text-white/88"
                         }`}
                       >
                         {item}
@@ -389,7 +391,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
               </div>
 
               <div className="mt-4 rounded-[15px] border border-white/10 bg-black/16 px-4 py-4">
-                <p className="omnes-text text-[12px] leading-6 text-white/58 lg:text-[13px]">
+                <p className="omnes-text text-[14px] leading-7 text-white/72 lg:text-[15px]">
                   {selectedService
                     ? `Servicio seleccionado: ${selectedService}. Completa tus datos para preparar una cotización más precisa.`
                     : "Elige el tipo de trabajo para orientar mejor la cotización y preparar una propuesta visual más precisa."}

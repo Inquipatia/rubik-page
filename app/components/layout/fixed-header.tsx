@@ -65,7 +65,7 @@ export default function FixedHeader({
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-[80]">
-        <div className="mx-auto w-full max-w-[1360px] px-2 pt-3 sm:px-3 sm:pt-4 md:px-4 lg:px-5 xl:px-6">
+        <div className="mx-auto w-full max-w-[1460px] px-3 pt-3 sm:px-4 sm:pt-4 md:px-5 lg:px-6 xl:px-8">
           <div className="grid grid-cols-[1fr_auto] items-center md:grid-cols-[1fr_auto_1fr] md:gap-4">
             <div className="flex min-w-0 items-center justify-start">
               <button
@@ -74,14 +74,14 @@ export default function FixedHeader({
                 aria-label="Ir al inicio"
                 className="flex shrink-0 items-center"
               >
-                <div className="relative h-[48px] w-[142px] overflow-visible sm:h-[54px] sm:w-[160px] md:h-[62px] md:w-[186px] lg:h-[76px] lg:w-[228px] xl:h-[88px] xl:w-[264px] 2xl:h-[96px] 2xl:w-[288px]">
+                <div className="relative h-[62px] w-[182px] overflow-visible sm:h-[70px] sm:w-[205px] md:h-[82px] md:w-[240px] lg:h-[108px] lg:w-[324px] xl:h-[126px] xl:w-[380px] 2xl:h-[136px] 2xl:w-[410px]">
                   <Image
                     src="/img/logo.png"
                     alt="Rubik"
                     fill
                     priority
-                    className="origin-left scale-[1.23] object-contain object-left"
-                    sizes="(max-width: 640px) 142px, (max-width: 768px) 160px, (max-width: 1024px) 186px, (max-width: 1280px) 228px, (max-width: 1536px) 264px, 288px"
+                    className="origin-left scale-[1.1] object-contain object-left"
+                    sizes="(max-width: 640px) 182px, (max-width: 768px) 205px, (max-width: 1024px) 240px, (max-width: 1280px) 324px, (max-width: 1536px) 380px, 410px"
                   />
                 </div>
               </button>
@@ -97,7 +97,7 @@ export default function FixedHeader({
                       key={item.label}
                       type="button"
                       onClick={() => onJump(item.index)}
-                      className={`menu-pill ${isActive ? "is-active" : ""}`}
+                      className={`menu-pill omnes-text text-[14px] font-medium tracking-[-0.01em] text-white/88 ${isActive ? "is-active" : ""}`}
                     >
                       {item.label}
                     </button>
@@ -111,7 +111,9 @@ export default function FixedHeader({
                 <button
                   type="button"
                   onClick={onOpenCotiza}
-                  className={`menu-pill cotiza-pill ${isCotizaOpen ? "is-active" : ""}`}
+                  className={`menu-pill cotiza-pill omnes-text text-[14px] font-semibold tracking-[0.02em] text-white/92 ${
+                    isCotizaOpen ? "is-active" : ""
+                  }`}
                 >
                   COTIZA
                 </button>
@@ -124,9 +126,9 @@ export default function FixedHeader({
                 onClick={() => setIsMobileMenuOpen(true)}
                 aria-label="Abrir menú"
                 aria-expanded={isMobileMenuOpen}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/12 bg-white/8 text-white shadow-[0_10px_30px_rgba(0,0,0,0.22)] backdrop-blur-xl transition hover:bg-white/12"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/14 bg-white/10 text-white shadow-[0_10px_30px_rgba(0,0,0,0.22)] backdrop-blur-xl transition hover:bg-white/14"
               >
-                <HiOutlineBars3 size={21} />
+                <HiOutlineBars3 size={22} />
               </button>
             </div>
           </div>
@@ -162,7 +164,7 @@ export default function FixedHeader({
                   aria-label="Cerrar menú"
                   className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/8 text-white transition hover:bg-white/12"
                 >
-                  <HiOutlineXMark size={20} />
+                  <HiOutlineXMark size={21} />
                 </button>
               </div>
 
@@ -179,14 +181,16 @@ export default function FixedHeader({
                         key={item.label}
                         type="button"
                         onClick={() => handleJump(item.index)}
-                        className={`flex min-h-[56px] items-center justify-between rounded-[18px] border px-5 text-left text-[14px] font-medium transition ${
+                        className={`flex min-h-[58px] items-center justify-between rounded-[18px] border px-5 text-left transition ${
                           isActive
                             ? "border-white/24 bg-white/14 text-white shadow-[0_10px_24px_rgba(124,58,237,0.18)]"
-                            : "border-white/10 bg-white/[0.05] text-white/86 hover:border-white/18 hover:bg-white/[0.09]"
+                            : "border-white/10 bg-white/[0.05] text-white/90 hover:border-white/18 hover:bg-white/[0.09]"
                         }`}
                       >
-                        <span>{item.label}</span>
-                        <span className="text-[11px] text-white/44">
+                        <span className="omnes-text text-[15px] font-medium tracking-[-0.01em]">
+                          {item.label}
+                        </span>
+                        <span className="omnes-text text-[12px] text-white/56">
                           {String(item.index + 1).padStart(2, "0")}
                         </span>
                       </button>
@@ -196,13 +200,15 @@ export default function FixedHeader({
                   <button
                     type="button"
                     onClick={handleCotiza}
-                    className={`mt-2 flex min-h-[58px] items-center justify-center rounded-[18px] border px-5 text-[14px] font-semibold transition ${
+                    className={`mt-2 flex min-h-[60px] items-center justify-center rounded-[18px] border px-5 transition ${
                       isCotizaOpen && !isMobileSinglePage
                         ? "border-white/24 bg-white/16 text-white"
                         : "border-fuchsia-300/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.16),rgba(255,255,255,0.08))] text-white hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.2),rgba(255,255,255,0.1))]"
                     }`}
                   >
-                    COTIZA
+                    <span className="omnes-text text-[15px] font-semibold tracking-[0.02em]">
+                      COTIZA
+                    </span>
                   </button>
                 </div>
               </div>

@@ -19,7 +19,7 @@ type BrandDetailsSceneProps = {
   onBack: () => void;
 };
 
-const PAGE_SIZE = 2;
+const WORKS_PER_PAGE = 4;
 
 export default function BrandDetailsScene({
   brandName,
@@ -33,30 +33,16 @@ export default function BrandDetailsScene({
   }, [works]);
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const [page, setPage] = useState(0);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const [previewMode, setPreviewMode] = useState<"cover" | "contain">("contain");
 
   useEffect(() => {
     setIsClient(true);
-
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-
-    return () => {
-      window.removeEventListener("resize", checkMobile);
-    };
   }, []);
 
   useEffect(() => {
     setActiveIndex(0);
-    setPage(0);
     setIsPreviewOpen(false);
     setPreviewMode("contain");
   }, [brandName]);
@@ -75,33 +61,13 @@ export default function BrandDetailsScene({
     };
   }, [isClient, isPreviewOpen]);
 
-  useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setIsPreviewOpen(false);
-      }
+  const totalPages = Math.max(1, Math.ceil(safeWorks.length / WORKS_PER_PAGE));
+  const currentPage = Math.floor(activeIndex / WORKS_PER_PAGE);
 
-      if (!safeWorks.length) return;
-
-      if (event.key === "ArrowRight") {
-        setActiveIndex((prev) => (prev + 1) % safeWorks.length);
-      }
-
-      if (event.key === "ArrowLeft") {
-        setActiveIndex((prev) => (prev - 1 + safeWorks.length) % safeWorks.length);
-      }
-    };
-
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [safeWorks]);
-
-  useEffect(() => {
-    const nextPage = Math.floor(activeIndex / PAGE_SIZE);
-    if (nextPage !== page) {
-      setPage(nextPage);
-    }
-  }, [activeIndex, page]);
+  const visibleWorks = useMemo(() => {
+    const start = currentPage * WORKS_PER_PAGE;
+    return safeWorks.slice(start, start + WORKS_PER_PAGE);
+  }, [safeWorks, currentPage]);
 
   const activeWork = useMemo(() => {
     if (!safeWorks.length) {
@@ -115,22 +81,23 @@ export default function BrandDetailsScene({
     return safeWorks[Math.min(activeIndex, safeWorks.length - 1)];
   }, [safeWorks, activeIndex]);
 
-  const totalPages = Math.max(1, Math.ceil(safeWorks.length / PAGE_SIZE));
-  const pagedWorks = safeWorks.slice(
-    page * PAGE_SIZE,
-    page * PAGE_SIZE + PAGE_SIZE
-  );
+  const goToPage = (page: number) => {
+    if (!safeWorks.length) return;
+
+    const safePage = Math.max(0, Math.min(page, totalPages - 1));
+    const nextIndex = safePage * WORKS_PER_PAGE;
+
+    setActiveIndex(Math.min(nextIndex, safeWorks.length - 1));
+  };
 
   const handlePrevPage = () => {
-    const nextPage = (page - 1 + totalPages) % totalPages;
-    setPage(nextPage);
-    setActiveIndex(nextPage * PAGE_SIZE);
+    if (totalPages <= 1) return;
+    goToPage(currentPage === 0 ? totalPages - 1 : currentPage - 1);
   };
 
   const handleNextPage = () => {
-    const nextPage = (page + 1) % totalPages;
-    setPage(nextPage);
-    setActiveIndex(nextPage * PAGE_SIZE);
+    if (totalPages <= 1) return;
+    goToPage(currentPage === totalPages - 1 ? 0 : currentPage + 1);
   };
 
   const handlePrevImage = () => {
@@ -144,18 +111,12 @@ export default function BrandDetailsScene({
   };
 
   const openPreview = () => {
-    if (!isMobile) return;
     setPreviewMode("contain");
     setIsPreviewOpen(true);
   };
 
   const handleSelectWork = (index: number) => {
     setActiveIndex(index);
-
-    if (isMobile) {
-      setPreviewMode("contain");
-      setIsPreviewOpen(true);
-    }
   };
 
   const previewModal =
@@ -188,7 +149,7 @@ export default function BrandDetailsScene({
                 </div>
 
                 <div className="absolute inset-x-0 top-0 z-30 flex items-center justify-between p-4 sm:p-5 lg:p-6">
-                  <div className="rounded-full border border-white/12 bg-black/20 px-4 py-2 text-sm text-white/78 backdrop-blur">
+                  <div className="omnes-text rounded-full border border-white/12 bg-black/20 px-4 py-2 text-sm text-white/82 backdrop-blur">
                     Vista ampliada
                   </div>
 
@@ -200,7 +161,7 @@ export default function BrandDetailsScene({
                           prev === "cover" ? "contain" : "cover"
                         )
                       }
-                      className="rounded-full border border-white/15 bg-black/28 px-4 py-2 text-sm text-white/85 backdrop-blur transition hover:bg-black/40"
+                      className="omnes-text rounded-full border border-white/15 bg-black/28 px-4 py-2 text-sm text-white/88 backdrop-blur transition hover:bg-black/40"
                     >
                       {previewMode === "cover" ? "Ver completa" : "Llenar pantalla"}
                     </button>
@@ -208,7 +169,7 @@ export default function BrandDetailsScene({
                     <button
                       type="button"
                       onClick={() => setIsPreviewOpen(false)}
-                      className="rounded-full border border-white/15 bg-black/28 px-4 py-2 text-sm text-white/85 backdrop-blur transition hover:bg-black/40"
+                      className="omnes-text rounded-full border border-white/15 bg-black/28 px-4 py-2 text-sm text-white/88 backdrop-blur transition hover:bg-black/40"
                     >
                       Cerrar
                     </button>
@@ -248,7 +209,7 @@ export default function BrandDetailsScene({
                       className={
                         previewMode === "cover"
                           ? "relative h-full w-full overflow-hidden rounded-[24px]"
-                          : "relative h-[78vh] w-[90vw] max-w-[1360px] overflow-hidden rounded-[24px]"
+                          : "relative h-[78vh] w-[90vw] max-w-[1360px] overflow-hidden rounded-[24px] bg-[#05070d]"
                       }
                     >
                       <Image
@@ -268,12 +229,12 @@ export default function BrandDetailsScene({
                 </div>
 
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 bg-gradient-to-t from-black/80 via-black/24 to-transparent p-5 sm:p-6 lg:p-8">
-                  <h3 className="text-xl font-medium text-white">
+                  <h3 className="omnes-title text-[1.5rem] tracking-[-0.03em] text-white sm:text-[1.65rem]">
                     {activeWork.title || brandName}
                   </h3>
 
                   {activeWork.description && (
-                    <p className="mt-1 max-w-3xl text-sm text-white/72 sm:text-base">
+                    <p className="omnes-text mt-1 max-w-3xl text-sm text-white/82 sm:text-base">
                       {activeWork.description}
                     </p>
                   )}
@@ -287,184 +248,201 @@ export default function BrandDetailsScene({
 
   return (
     <>
-      <section className="relative mx-auto h-full w-full overflow-hidden rounded-[24px] border border-white/10 bg-white/[0.045] px-4 pb-4 pt-4 backdrop-blur-xl sm:px-5 sm:pb-5 sm:pt-5 lg:px-6 lg:pb-5 lg:pt-5">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-[8%] top-[10%] h-24 w-24 rounded-full bg-fuchsia-500/8 blur-3xl" />
-          <div className="absolute right-[10%] top-[16%] h-24 w-24 rounded-full bg-violet-500/8 blur-3xl" />
-          <div className="absolute bottom-[10%] left-[30%] h-24 w-24 rounded-full bg-blue-500/8 blur-3xl" />
-        </div>
+      <div className="relative h-full w-full">
+        <button
+          type="button"
+          aria-label="Volver a marcas"
+          onClick={onBack}
+          className="absolute inset-0 z-0 block h-full w-full cursor-default bg-transparent"
+        />
 
-        <div className="relative z-10 flex h-full min-h-0 flex-col gap-4">
-          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <div className="flex items-center gap-3">
-              <button
-                type="button"
-                onClick={onBack}
-                className="rounded-full border border-white/15 bg-white/8 px-3 py-1.5 text-[13px] text-white transition duration-300 hover:scale-[1.02] hover:bg-white/14"
-              >
-                Volver
-              </button>
-
-              <div>
-                <p className="text-[8px] uppercase tracking-[0.22em] text-white/42">
-                  Marca destacada
-                </p>
-                <h2 className="mt-1 text-[1.9rem] font-semibold leading-none text-white sm:text-[2.2rem] lg:text-[2.8rem]">
-                  {brandName}
-                </h2>
-              </div>
-            </div>
-
-            {brandLogo && (
-              <div className="relative h-8 w-24 shrink-0 opacity-90 lg:h-9 lg:w-28">
-                <Image
-                  src={brandLogo}
-                  alt={brandName}
-                  fill
-                  className="object-contain"
-                  sizes="112px"
-                />
-              </div>
-            )}
+        <section
+          className="relative z-10 mx-auto h-full w-full max-w-[1040px] overflow-hidden rounded-[24px] border border-white/12 bg-white/[0.045] px-4 pb-4 pt-4 backdrop-blur-xl sm:px-5 sm:pb-5 sm:pt-5 lg:px-6 lg:pb-5 lg:pt-5"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="pointer-events-none absolute inset-0">
+            <div className="absolute left-[8%] top-[10%] h-24 w-24 rounded-full bg-fuchsia-500/8 blur-3xl" />
+            <div className="absolute right-[10%] top-[16%] h-24 w-24 rounded-full bg-violet-500/8 blur-3xl" />
+            <div className="absolute bottom-[10%] left-[30%] h-24 w-24 rounded-full bg-blue-500/8 blur-3xl" />
           </div>
 
-          <div className="grid min-h-0 flex-1 gap-4 lg:grid-cols-[1.18fr_0.82fr]">
-            <button
-              type="button"
-              onClick={openPreview}
-              className="group relative min-h-0 h-full overflow-hidden rounded-[18px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))] text-left"
-            >
-              <div className="absolute inset-0">
+          <div className="relative z-10 flex h-full min-h-0 flex-col gap-4">
+            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onBack();
+                  }}
+                  className="omnes-text rounded-full border border-white/15 bg-white/8 px-3 py-1.5 text-[13px] text-white/88 transition duration-300 hover:scale-[1.02] hover:bg-white/14"
+                >
+                  Volver
+                </button>
+
+                <div>
+                  <p className="omnes-text text-[10px] uppercase tracking-[0.16em] text-white/45">
+                    Marca destacada
+                  </p>
+                  <h2 className="omnes-title mt-2 text-[2.05rem] leading-none tracking-[-0.03em] text-white sm:text-[2.35rem] lg:text-[2.9rem]">
+                    {brandName}
+                  </h2>
+                </div>
+              </div>
+
+              {brandLogo && (
+                <div className="relative h-8 w-24 shrink-0 opacity-90 lg:h-9 lg:w-28">
+                  <Image
+                    src={brandLogo}
+                    alt={brandName}
+                    fill
+                    className="object-contain"
+                    sizes="112px"
+                  />
+                </div>
+              )}
+            </div>
+
+            <div className="grid min-h-0 flex-1 items-stretch gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.72fr)]">
+              <button
+                type="button"
+                onClick={openPreview}
+                className="group relative block min-h-[420px] overflow-hidden rounded-[22px] border border-white/12 bg-[#05070d] text-left lg:h-[689px] lg:min-h-0"
+              >
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeWork.image}
-                    initial={{ opacity: 0, scale: 1.01, y: 6 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.994, y: -4 }}
-                    transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+                    initial={{ opacity: 0.22, scale: 1.02 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0.18, scale: 0.985 }}
+                    transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
                     className="absolute inset-0"
                   >
                     <Image
                       src={activeWork.image}
                       alt={activeWork.title || brandName}
                       fill
-                      className="object-cover"
-                      sizes="(max-width: 1024px) 100vw, 48vw"
+                      className="object-contain object-center"
+                      sizes="(max-width: 1024px) 100vw, 58vw"
                       priority
                     />
-                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,4,18,0.12)_0%,rgba(8,4,18,0.03)_40%,rgba(0,0,0,0.52)_100%)]" />
                   </motion.div>
                 </AnimatePresence>
-              </div>
 
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/90 via-black/30 to-transparent p-4 sm:p-5">
-                <h3 className="text-[16px] font-medium text-white sm:text-[1.05rem]">
-                  {activeWork.title || brandName}
-                </h3>
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.02),rgba(0,0,0,0.26))]" />
 
-                {activeWork.description && (
-                  <p className="mt-1 max-w-2xl text-[11px] leading-5 text-white/72 sm:text-[12px]">
-                    {activeWork.description}
-                  </p>
-                )}
-
-                {isMobile && (
-                  <span className="mt-3 inline-flex rounded-full border border-white/15 bg-black/25 px-2.5 py-1 text-[10px] text-white/78">
-                    Toca para ampliar
-                  </span>
-                )}
-              </div>
-            </button>
-
-            <div className="grid min-h-0 h-full grid-rows-[minmax(0,1fr)_auto] gap-4">
-              <div className="flex min-h-0 flex-col rounded-[18px] border border-white/10 bg-white/[0.045] p-4">
-                <p className="text-[8px] uppercase tracking-[0.22em] text-white/42">
-                  Descripción
-                </p>
-
-                <div className="mt-3 flex-1">
-                  <p className="text-[12px] leading-7 text-white/78 sm:text-[13px] lg:text-[13.5px]">
-                    {description}
-                  </p>
+                <div className="omnes-text absolute right-4 top-4 z-20 rounded-full border border-white/14 bg-black/35 px-3 py-1.5 text-[10px] uppercase tracking-[0.14em] text-white/88">
+                  Ampliar
                 </div>
-              </div>
 
-              <div className="rounded-[18px] border border-white/10 bg-white/[0.045] p-3.5">
-                <div className="mb-3 flex items-center justify-between gap-2">
-                  <p className="text-[8px] uppercase tracking-[0.22em] text-white/42">
-                    Trabajos realizados
-                  </p>
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 p-4 sm:p-5">
+                  <h3 className="omnes-title text-[1.95rem] tracking-[-0.03em] text-white sm:text-[2.05rem] lg:text-[2.15rem]">
+                    {activeWork.title || brandName}
+                  </h3>
 
-                  {safeWorks.length > PAGE_SIZE && (
-                    <div className="flex items-center gap-1.5">
-                      <button
-                        type="button"
-                        onClick={handlePrevPage}
-                        className="flex h-8 w-8 items-center justify-center rounded-full border border-white/14 bg-white/8 text-[12px] text-white/80 transition hover:bg-white/14"
-                        aria-label="Anterior"
-                      >
-                        ←
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={handleNextPage}
-                        className="flex h-8 w-8 items-center justify-center rounded-full border border-white/14 bg-white/8 text-[12px] text-white/80 transition hover:bg-white/14"
-                        aria-label="Siguiente"
-                      >
-                        →
-                      </button>
-                    </div>
+                  {activeWork.description && (
+                    <p className="omnes-text mt-1.5 text-[13px] text-white/84 sm:text-[13.5px]">
+                      {activeWork.description}
+                    </p>
                   )}
                 </div>
+              </button>
 
-                <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-                  {pagedWorks.map((work, localIndex) => {
-                    const globalIndex = page * PAGE_SIZE + localIndex;
-                    const isActive = globalIndex === activeIndex;
+              <div className="flex min-h-[420px] flex-col gap-4 lg:h-[689px] lg:min-h-0">
+                <div className="shrink-0 rounded-[18px] border border-white/12 bg-white/[0.055] p-4 lg:h-[328px]">
+                  <p className="omnes-text text-[10px] uppercase tracking-[0.16em] text-white/45">
+                    Descripción
+                  </p>
 
-                    return (
-                      <button
-                        key={`${work.image}-${globalIndex}`}
-                        type="button"
-                        onClick={() => handleSelectWork(globalIndex)}
-                        aria-label={work.title || `Trabajo ${globalIndex + 1}`}
-                        className={`group relative min-h-[116px] overflow-hidden rounded-[14px] border transition duration-300 ${
-                          isActive
-                            ? "border-white/28 bg-white/10 shadow-[0_0_0_1px_rgba(255,255,255,0.03)]"
-                            : "border-white/10 bg-white/[0.03] hover:border-white/18 hover:bg-white/[0.06]"
-                        }`}
-                      >
-                        <div className="relative h-full min-h-[116px] w-full overflow-hidden rounded-[14px] bg-black/20">
-                          <Image
-                            src={work.image}
-                            alt={work.title || `${brandName} ${globalIndex + 1}`}
-                            fill
-                            className="scale-[1.02] object-cover transition duration-300 group-hover:scale-[1.05]"
-                            sizes="(max-width: 640px) 100vw, 22vw"
-                          />
-                        </div>
-
-                        {isActive && (
-                          <div className="pointer-events-none absolute bottom-2 right-2 inline-flex rounded-full border border-white/20 bg-black/40 px-1.5 py-0.5 text-[7px] uppercase tracking-[0.14em] text-white/80 backdrop-blur-sm">
-                            Active
-                          </div>
-                        )}
-                      </button>
-                    );
-                  })}
+                  <div className="mt-3 h-[calc(100%-20px)] overflow-hidden">
+                    <p className="omnes-text text-[13px] leading-7 text-white/84 sm:text-[13.5px] lg:text-[14px]">
+                      {description}
+                    </p>
+                  </div>
                 </div>
 
-                {safeWorks.length > PAGE_SIZE && (
-                  <div className="mt-3 text-right text-[10px] text-white/42">
-                    {page + 1} / {totalPages}
+                <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[18px] border border-white/12 bg-white/[0.055] p-3.5">
+                  <div className="mb-3 flex items-center justify-between gap-2">
+                    <p className="omnes-text text-[10px] uppercase tracking-[0.16em] text-white/45">
+                      Trabajos realizados
+                    </p>
+
+                    {totalPages > 1 && (
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={handlePrevPage}
+                          className="flex h-8 w-8 items-center justify-center rounded-full border border-white/14 bg-white/8 text-[12px] text-white/80 transition hover:bg-white/14"
+                          aria-label="Página anterior"
+                        >
+                          ←
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={handleNextPage}
+                          className="flex h-8 w-8 items-center justify-center rounded-full border border-white/14 bg-white/8 text-[12px] text-white/80 transition hover:bg-white/14"
+                          aria-label="Página siguiente"
+                        >
+                          →
+                        </button>
+                      </div>
+                    )}
                   </div>
-                )}
+
+                  {safeWorks.length > 0 && (
+                    <div className="omnes-text mb-3 flex items-center justify-between text-[10px] text-white/48">
+                      <span>
+                        Página {currentPage + 1} / {totalPages}
+                      </span>
+                      <span>
+                        {activeIndex + 1} / {safeWorks.length}
+                      </span>
+                    </div>
+                  )}
+
+                  <div className="grid min-h-0 flex-1 grid-cols-2 content-start gap-2.5">
+                    {visibleWorks.map((work, localIndex) => {
+                      const realIndex = currentPage * WORKS_PER_PAGE + localIndex;
+                      const isActive = realIndex === activeIndex;
+
+                      return (
+                        <button
+                          key={`${work.image}-${realIndex}`}
+                          type="button"
+                          onClick={() => handleSelectWork(realIndex)}
+                          aria-label={work.title || `Trabajo ${realIndex + 1}`}
+                          className={`group relative overflow-hidden rounded-[14px] border transition duration-300 ${
+                            isActive
+                              ? "border-white/28 bg-white/10 shadow-[0_0_0_1px_rgba(255,255,255,0.03)]"
+                              : "border-white/10 bg-white/[0.03] hover:border-white/18 hover:bg-white/[0.06]"
+                          }`}
+                        >
+                          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[14px] bg-black/20">
+                            <Image
+                              src={work.image}
+                              alt={work.title || `${brandName} ${realIndex + 1}`}
+                              fill
+                              className="scale-[1.02] object-cover object-center transition duration-300 group-hover:scale-[1.05]"
+                              sizes="(max-width: 640px) 100vw, 14vw"
+                            />
+                          </div>
+
+                          {isActive && (
+                            <div className="pointer-events-none absolute bottom-2 right-2 inline-flex rounded-full border border-white/20 bg-black/40 px-1.5 py-0.5 text-[7px] uppercase tracking-[0.14em] text-white/80 backdrop-blur-sm">
+                              Active
+                            </div>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       {previewModal}
     </>
