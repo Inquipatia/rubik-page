@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 const Spline = dynamic(() => import("@splinetool/react-spline"), {
   ssr: false,
@@ -16,6 +16,7 @@ type SplineMouseEvent = {
 
 type FloatingSocialOrbProps = {
   visible?: boolean;
+  className?: string;
 };
 
 type IdleWindow = Window & {
@@ -62,11 +63,17 @@ function resolveSocialUrl(rawName?: string) {
 
 export default function FloatingSocialOrb({
   visible = true,
+  className = "",
 }: FloatingSocialOrbProps) {
   const [shouldRenderSpline, setShouldRenderSpline] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    if (!visible || shouldRenderSpline) return;
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted || !visible || shouldRenderSpline) return;
 
     const idleWindow = window as IdleWindow;
     let timeoutId: number | null = null;
@@ -77,13 +84,16 @@ export default function FloatingSocialOrb({
     };
 
     if (typeof idleWindow.requestIdleCallback === "function") {
-      idleId = idleWindow.requestIdleCallback(loadOrb, { timeout: 1800 });
+      idleId = idleWindow.requestIdleCallback(loadOrb, { timeout: 1500 });
     } else {
-      timeoutId = window.setTimeout(loadOrb, 900);
+      timeoutId = window.setTimeout(loadOrb, 700);
     }
 
     return () => {
-      if (idleId !== null && typeof idleWindow.cancelIdleCallback === "function") {
+      if (
+        idleId !== null &&
+        typeof idleWindow.cancelIdleCallback === "function"
+      ) {
         idleWindow.cancelIdleCallback(idleId);
       }
 
@@ -91,7 +101,7 @@ export default function FloatingSocialOrb({
         window.clearTimeout(timeoutId);
       }
     };
-  }, [visible, shouldRenderSpline]);
+  }, [isMounted, visible, shouldRenderSpline]);
 
   const handleSplineMouseDown = useCallback((e: SplineMouseEvent) => {
     const clickedName = e?.target?.name;
@@ -102,29 +112,39 @@ export default function FloatingSocialOrb({
     window.open(url, "_blank", "noopener,noreferrer");
   }, []);
 
+  const visibilityClasses = useMemo(() => {
+    return visible
+      ? "pointer-events-auto opacity-100 translate-y-0"
+      : "pointer-events-none opacity-0 translate-y-3";
+  }, [visible]);
+
   return (
     <div
-      className={`fixed bottom-4 right-1 z-50 h-[220px] w-[220px] transform-gpu transition-opacity duration-300 ${
-        visible
-          ? "pointer-events-auto opacity-100"
-          : "pointer-events-none opacity-0"
-      }`}
+      className={[
+        "fixed bottom-4 right-2 z-50",
+        "h-[220px] w-[220px]",
+        "transform-gpu transition-all duration-300 ease-out",
+        visibilityClasses,
+        className,
+      ].join(" ")}
       aria-hidden={!visible}
     >
-      <div className="relative h-full w-full overflow-hidden">
+      <div className="relative h-full w-full overflow-hidden rounded-full">
         {!shouldRenderSpline && visible && (
           <>
-            <div className="pointer-events-none absolute inset-10 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm" />
-            <div className="pointer-events-none absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-fuchsia-500/12 blur-2xl" />
+            <div className="pointer-events-none absolute inset-6 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm" />
+            <div className="pointer-events-none absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-fuchsia-500/15 blur-2xl" />
           </>
         )}
 
         {shouldRenderSpline && (
-          <Spline
-            scene={SPLINE_SCENE_URL}
-            className="h-full w-full"
-            onSplineMouseDown={handleSplineMouseDown}
-          />
+          <div className="h-full w-full">
+            <Spline
+              scene={SPLINE_SCENE_URL}
+              className="h-full w-full"
+              onSplineMouseDown={handleSplineMouseDown}
+            />
+          </div>
         )}
       </div>
     </div>

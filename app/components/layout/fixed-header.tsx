@@ -65,7 +65,7 @@ export default function FixedHeader({
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-[80]">
-        <div className="mx-auto w-full max-w-[1460px] px-3 pt-3 sm:px-4 sm:pt-4 md:px-5 lg:px-6 xl:px-8">
+        <div className="mx-auto w-full max-w-[1880px] px-2 pt-3 sm:px-3 sm:pt-4 md:px-4 lg:px-5 xl:px-6 2xl:px-8">
           <div className="grid grid-cols-[1fr_auto] items-center md:grid-cols-[1fr_auto_1fr] md:gap-4">
             <div className="flex min-w-0 items-center justify-start">
               <button
@@ -97,7 +97,9 @@ export default function FixedHeader({
                       key={item.label}
                       type="button"
                       onClick={() => onJump(item.index)}
-                      className={`menu-pill omnes-text text-[14px] font-medium tracking-[-0.01em] text-white/88 ${isActive ? "is-active" : ""}`}
+                      className={`menu-pill omnes-text text-[14px] font-medium tracking-[-0.01em] text-white/88 ${
+                        isActive ? "is-active" : ""
+                      }`}
                     >
                       {item.label}
                     </button>
@@ -106,7 +108,7 @@ export default function FixedHeader({
               </nav>
             </div>
 
-            <div className="hidden min-w-[228px] items-center justify-end md:flex xl:min-w-[264px] 2xl:min-w-[288px]">
+            <div className="hidden min-w-[170px] items-center justify-end md:flex xl:min-w-[190px] 2xl:min-w-[210px]">
               <div className="menu-shell">
                 <button
                   type="button"
