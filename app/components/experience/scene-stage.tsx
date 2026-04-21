@@ -26,27 +26,21 @@ type SceneStageProps = {
 const defaultSceneVariants: Variants = {
   initial: {
     opacity: 0,
-    y: 18,
-    scale: 0.992,
-    filter: "blur(6px)",
+    y: 12,
   },
   animate: {
     opacity: 1,
     y: 0,
-    scale: 1,
-    filter: "blur(0px)",
     transition: {
-      duration: 0.34,
+      duration: 0.28,
       ease: [0.22, 1, 0.36, 1],
     },
   },
   exit: {
     opacity: 0,
-    y: -10,
-    scale: 0.996,
-    filter: "blur(4px)",
+    y: -8,
     transition: {
-      duration: 0.22,
+      duration: 0.18,
       ease: [0.22, 1, 0.36, 1],
     },
   },
@@ -55,36 +49,21 @@ const defaultSceneVariants: Variants = {
 const cotizaSceneVariants: Variants = {
   initial: {
     opacity: 0,
-    y: 46,
-    scale: 0.97,
-    rotateX: 8,
-    rotateY: -3,
-    filter: "blur(12px)",
-    transformPerspective: 1400,
+    y: 18,
   },
   animate: {
     opacity: 1,
     y: 0,
-    scale: 1,
-    rotateX: 0,
-    rotateY: 0,
-    filter: "blur(0px)",
-    transformPerspective: 1400,
     transition: {
-      duration: 0.56,
+      duration: 0.34,
       ease: [0.16, 1, 0.3, 1],
     },
   },
   exit: {
     opacity: 0,
-    y: -18,
-    scale: 0.985,
-    rotateX: -5,
-    rotateY: 2,
-    filter: "blur(8px)",
-    transformPerspective: 1400,
+    y: -10,
     transition: {
-      duration: 0.28,
+      duration: 0.22,
       ease: [0.22, 1, 0.36, 1],
     },
   },
@@ -98,13 +77,7 @@ function StageFrame({
   allowOverflow?: boolean;
 }) {
   return (
-    <div
-      className={`mx-auto box-border flex h-full w-full flex-col pb-3 pt-[96px] sm:pb-4 sm:pt-[102px] md:pt-[108px] lg:pt-[114px] xl:pt-[120px] ${
-        allowOverflow
-          ? "max-w-[1500px] overflow-visible pl-6 pr-6 sm:pl-8 sm:pr-8 md:pl-10 md:pr-10 lg:pl-12 lg:pr-12 xl:pl-14 xl:pr-14 2xl:max-w-[1620px]"
-          : "max-w-[1220px] overflow-hidden px-3 sm:px-4 md:px-5 lg:px-6 xl:px-8"
-      }`}
-    >
+    <div className="mx-auto box-border flex h-full w-full max-w-[1220px] flex-col px-3 pb-3 pt-[96px] sm:px-4 sm:pb-4 sm:pt-[102px] md:px-5 md:pt-[108px] lg:px-6 lg:pt-[114px] xl:px-8 xl:pt-[120px]">
       <div
         className={`relative h-full w-full ${
           allowOverflow ? "overflow-visible" : "overflow-hidden"
@@ -149,7 +122,7 @@ export default function SceneStage({
   if (shouldUseFaqStage) {
     return (
       <section className="relative z-20 h-[100svh] w-full overflow-hidden">
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="sync" initial={false}>
           <motion.div
             key="scene-4"
             variants={defaultSceneVariants}
@@ -164,7 +137,7 @@ export default function SceneStage({
   }
 
   const allowWideInteraction =
-  isIntroStage || isWorkStage || isBrandDetailsStage;
+    isIntroStage || isWorkStage || isBrandDetailsStage;
 
   return (
     <section
@@ -173,7 +146,7 @@ export default function SceneStage({
       }`}
     >
       <StageFrame allowOverflow={allowWideInteraction}>
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="sync" initial={false}>
           <motion.div
             key={currentKey}
             variants={currentVariants}
@@ -187,10 +160,10 @@ export default function SceneStage({
             {isCotizaOpen && (
               <motion.div
                 aria-hidden
-                initial={{ opacity: 0, scale: 0.86 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 1.04 }}
-                transition={{ duration: 0.52, ease: [0.16, 1, 0.3, 1] }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 className="pointer-events-none absolute inset-0 -z-10"
               >
                 <div className="absolute left-1/2 top-[16%] h-36 w-36 -translate-x-1/2 rounded-full bg-fuchsia-500/18 blur-3xl md:h-44 md:w-44" />
@@ -200,26 +173,14 @@ export default function SceneStage({
             )}
 
             <motion.div
-              initial={
-                isCotizaOpen
-                  ? { opacity: 0, y: 16, scale: 0.992 }
-                  : undefined
-              }
-              animate={
-                isCotizaOpen
-                  ? { opacity: 1, y: 0, scale: 1 }
-                  : undefined
-              }
-              exit={
-                isCotizaOpen
-                  ? { opacity: 0, y: -10, scale: 0.995 }
-                  : undefined
-              }
+              initial={isCotizaOpen ? { opacity: 0, y: 10 } : undefined}
+              animate={isCotizaOpen ? { opacity: 1, y: 0 } : undefined}
+              exit={isCotizaOpen ? { opacity: 0, y: -6 } : undefined}
               transition={
                 isCotizaOpen
                   ? {
-                      duration: 0.34,
-                      delay: 0.08,
+                      duration: 0.24,
+                      delay: 0.04,
                       ease: [0.16, 1, 0.3, 1],
                     }
                   : undefined
