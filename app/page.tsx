@@ -323,12 +323,12 @@ export default function Home() {
   ]);
 
   const shouldShowOverlayUi = !isMobile && !isCotizaOpen && !selectedBrand;
+  const shouldMountOrb = !isMobile;
 
   return (
     <main
-      className={`relative w-full overflow-x-hidden text-white ${
-        isMobile ? "min-h-screen" : "h-[100svh] overflow-hidden"
-      }`}
+      className={`relative w-full overflow-x-hidden text-white ${isMobile ? "min-h-screen" : "h-[100svh] overflow-hidden"
+        }`}
     >
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,#7a4dff_0%,#4e1cbb_18%,#23114a_54%,#090912_100%)]" />
@@ -358,7 +358,7 @@ export default function Home() {
                 description="CON MÁS DE 100 TRABAJOS REALIZADOS, RUBIK CREACIONES CRECE CONTIGO, ¿QUÉ ESPERAS PARA TRABAJAR JUNTOS?"
                 primary="Cotiza con nosotros"
                 secondary="Ver nuestros trabajos"
-                onCubeHoverChange={() => {}}
+                onCubeHoverChange={() => { }}
                 onOpenCotiza={handleOpenCotiza}
                 onGoToServicios={handleGoToServicios}
               />
@@ -419,9 +419,7 @@ export default function Home() {
           </div>
         )}
 
-        {shouldShowOverlayUi && (
-          <FloatingSocialOrb visible={shouldShowOverlayUi} />
-        )}
+        {shouldMountOrb && <FloatingSocialOrb />}
 
         {/*
           Deja esto comentado mientras pruebas el orbe para que no aparezcan ambos.
