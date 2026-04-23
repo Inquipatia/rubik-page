@@ -694,6 +694,34 @@ export default function WorkScene({
                           </div>
                         </div>
                       </button>
+
+                      {detailGallery.length > 1 && (
+                        <>
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              prevDetailImage();
+                            }}
+                            className="absolute left-3 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/14 bg-black/30 text-lg text-white/88 backdrop-blur-md transition duration-300 hover:scale-[1.03] hover:bg-black/45"
+                            aria-label="Imagen anterior"
+                          >
+                            ←
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              nextDetailImage();
+                            }}
+                            className="absolute right-3 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/14 bg-black/30 text-lg text-white/88 backdrop-blur-md transition duration-300 hover:scale-[1.03] hover:bg-black/45"
+                            aria-label="Imagen siguiente"
+                          >
+                            →
+                          </button>
+                        </>
+                      )}
                     </div>
 
                     <div className="grid min-h-0 h-full overflow-hidden grid-rows-[322px_minmax(0,1fr)] gap-4 lg:h-[689px]">
@@ -760,42 +788,44 @@ export default function WorkScene({
 
                       {detailGallery.length > 1 ? (
                         <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[22px] border border-white/10 bg-white/[0.04] p-3.5 min-[1700px]:p-4">
-                          <div className="mb-3 flex items-center justify-between gap-2">
-                            <p className="omnes-text text-[11px] uppercase tracking-[0.14em] text-white/48">
-                              Trabajos realizados
-                            </p>
+                          <div className="mb-3">
+                            <div className="flex items-center justify-between gap-2">
+                              <p className="omnes-text text-[11px] uppercase tracking-[0.14em] text-white/48">
+                                Trabajos realizados
+                              </p>
 
-                            {detailTotalPages > 1 && (
-                              <div className="flex items-center gap-2">
-                                <button
-                                  type="button"
-                                  onClick={prevDetailPage}
-                                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/14 bg-white/8 text-[13px] text-white/84 transition hover:bg-white/14"
-                                  aria-label="Página anterior"
-                                >
-                                  ←
-                                </button>
+                              {detailTotalPages > 1 && (
+                                <div className="flex items-center gap-2">
+                                  <button
+                                    type="button"
+                                    onClick={prevDetailPage}
+                                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/14 bg-white/8 text-[13px] text-white/84 transition hover:bg-white/14"
+                                    aria-label="Página anterior"
+                                  >
+                                    ←
+                                  </button>
 
-                                <button
-                                  type="button"
-                                  onClick={nextDetailPage}
-                                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/14 bg-white/8 text-[13px] text-white/84 transition hover:bg-white/14"
-                                  aria-label="Página siguiente"
-                                >
-                                  →
-                                </button>
-                              </div>
-                            )}
-                          </div>
+                                  <button
+                                    type="button"
+                                    onClick={nextDetailPage}
+                                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/14 bg-white/8 text-[13px] text-white/84 transition hover:bg-white/14"
+                                    aria-label="Página siguiente"
+                                  >
+                                    →
+                                  </button>
+                                </div>
+                              )}
+                            </div>
 
-                          <div className="mb-3 flex items-center justify-between text-right">
-                            <span className="omnes-text text-[11px] text-white/48">
-                              Página {detailCurrentPage + 1}/{detailTotalPages}
-                            </span>
+                            <div className="mt-2 flex items-center justify-between">
+                              <span className="omnes-text text-[11px] text-white/48">
+                                {detailImageIndex + 1}/{detailGallery.length}
+                              </span>
 
-                            <span className="omnes-text text-[11px] text-white/48">
-                              {detailImageIndex + 1}/{detailGallery.length}
-                            </span>
+                              <span className="omnes-text text-[11px] text-right text-white/48">
+                                Página {detailCurrentPage + 1}/{detailTotalPages}
+                              </span>
+                            </div>
                           </div>
 
                           <div className="grid min-h-0 flex-1 grid-cols-2 content-start gap-2.5">

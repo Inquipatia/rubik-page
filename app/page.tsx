@@ -17,6 +17,7 @@ import BrandDetailsScene from "@/app/components/scenes/brand-details-scene";
 import WorkScene from "@/app/components/scenes/work-scene";
 import ContactScene from "@/app/components/scenes/contact-scene";
 import CotizaScene from "@/app/components/scenes/cotiza-scene";
+import FloatingSocialOrb from "@/app/components/scenes/floating-social-orb";
 
 export type BrandWorkItem = {
   image: string;
@@ -113,7 +114,6 @@ export default function Home() {
   const [selectedBrand, setSelectedBrand] = useState<SelectedBrand | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  // NEW: this forces servicios to go back to its main/root view
   const [servicesResetKey, setServicesResetKey] = useState(0);
 
   const wheelLockRef = useRef(false);
@@ -266,7 +266,6 @@ export default function Home() {
   }, [isMobile, scrollToSection, unlockAfterDelay]);
 
   const handleGoToServicios = useCallback(() => {
-    // NEW: every time you go to servicios, return to main servicios view
     setServicesResetKey((prev) => prev + 1);
 
     if (isMobile) {
@@ -420,7 +419,17 @@ export default function Home() {
           </div>
         )}
 
+        {shouldShowOverlayUi && (
+          <FloatingSocialOrb visible={shouldShowOverlayUi} />
+        )}
+
+        {/*
+          Deja esto comentado mientras pruebas el orbe para que no aparezcan ambos.
+          Cuando termines de probar, puedes elegir uno u otro.
+        */}
+        {/*
         {shouldShowOverlayUi && <CornerSocialPanel />}
+        */}
       </div>
     </main>
   );

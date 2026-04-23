@@ -1,18 +1,12 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const Spline = dynamic(() => import("@splinetool/react-spline"), {
   ssr: false,
   loading: () => null,
 });
-
-type SplineMouseEvent = {
-  target?: {
-    name?: string;
-  };
-};
 
 type FloatingSocialOrbProps = {
   visible?: boolean;
@@ -28,38 +22,7 @@ type IdleWindow = Window & {
 };
 
 const SPLINE_SCENE_URL =
-  "https://prod.spline.design/6mY5DQbKv1vnH5GE/scene.splinecode";
-
-const SOCIAL_URLS = {
-  instagram: "PEGA_AQUI_TU_LINK_DE_INSTAGRAM",
-  linkedin: "PEGA_AQUI_TU_LINK_DE_LINKEDIN",
-  facebook: "PEGA_AQUI_TU_LINK_DE_FACEBOOK",
-  whatsapp: "https://wa.me/56991330559",
-};
-
-function resolveSocialUrl(rawName?: string) {
-  const name = rawName?.toLowerCase().trim() ?? "";
-
-  if (!name) return null;
-
-  if (name.includes("instagram") || name.includes("instragram")) {
-    return SOCIAL_URLS.instagram;
-  }
-
-  if (name.includes("linkedin")) {
-    return SOCIAL_URLS.linkedin;
-  }
-
-  if (name.includes("facebook")) {
-    return SOCIAL_URLS.facebook;
-  }
-
-  if (name.includes("whatsapp") || name.includes("whats")) {
-    return SOCIAL_URLS.whatsapp;
-  }
-
-  return null;
-}
+  "https://prod.spline.design/6mY5DQbKv1vnH5GE/scene.splinecode?v=10";
 
 export default function FloatingSocialOrb({
   visible = true,
@@ -84,9 +47,9 @@ export default function FloatingSocialOrb({
     };
 
     if (typeof idleWindow.requestIdleCallback === "function") {
-      idleId = idleWindow.requestIdleCallback(loadOrb, { timeout: 1500 });
+      idleId = idleWindow.requestIdleCallback(loadOrb, { timeout: 1400 });
     } else {
-      timeoutId = window.setTimeout(loadOrb, 700);
+      timeoutId = window.setTimeout(loadOrb, 650);
     }
 
     return () => {
@@ -103,46 +66,37 @@ export default function FloatingSocialOrb({
     };
   }, [isMounted, visible, shouldRenderSpline]);
 
-  const handleSplineMouseDown = useCallback((e: SplineMouseEvent) => {
-    const clickedName = e?.target?.name;
-    const url = resolveSocialUrl(clickedName);
-
-    if (!url) return;
-
-    window.open(url, "_blank", "noopener,noreferrer");
-  }, []);
-
   const visibilityClasses = useMemo(() => {
     return visible
-      ? "pointer-events-auto opacity-100 translate-y-0"
-      : "pointer-events-none opacity-0 translate-y-3";
+      ? "pointer-events-auto opacity-100 translate-y-0 scale-100"
+      : "pointer-events-none opacity-0 translate-y-3 scale-95";
   }, [visible]);
 
   return (
     <div
       className={[
-        "fixed bottom-4 right-2 z-50",
-        "h-[220px] w-[220px]",
+        "fixed bottom-2 right-2 z-50 hidden md:block",
+        "h-[320px] w-[320px]",
         "transform-gpu transition-all duration-300 ease-out",
         visibilityClasses,
         className,
       ].join(" ")}
       aria-hidden={!visible}
     >
-      <div className="relative h-full w-full overflow-hidden rounded-full">
+      <div className="relative h-full w-full">
         {!shouldRenderSpline && visible && (
           <>
-            <div className="pointer-events-none absolute inset-6 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm" />
-            <div className="pointer-events-none absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-fuchsia-500/15 blur-2xl" />
+            <div className="pointer-events-none absolute inset-[34px] rounded-full border border-white/10 bg-white/5 backdrop-blur-sm" />
+            <div className="pointer-events-none absolute left-1/2 top-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-fuchsia-500/15 blur-3xl" />
           </>
         )}
 
         {shouldRenderSpline && (
-          <div className="h-full w-full">
+          <div className="absolute inset-0">
             <Spline
+              key={SPLINE_SCENE_URL}
               scene={SPLINE_SCENE_URL}
-              className="h-full w-full"
-              onSplineMouseDown={handleSplineMouseDown}
+              className="h-full w-full scale-[1.02]"
             />
           </div>
         )}
