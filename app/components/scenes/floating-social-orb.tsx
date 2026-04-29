@@ -18,7 +18,7 @@ type SplineApp = {
 };
 
 const SPLINE_SCENE_URL =
-  "https://prod.spline.design/ibmgpFj-KRoqSskz/scene.splinecode?=3";
+  "https://prod.spline.design/6jSzeBgOSHM563BI/scene.splinecode?=3";
 
 export default function FloatingSocialOrb({
   visible = true,
@@ -36,7 +36,7 @@ export default function FloatingSocialOrb({
 
     const timeout = window.setTimeout(() => {
       setShouldRenderSpline(true);
-    }, 650);
+    }, 100);
 
     return () => window.clearTimeout(timeout);
   }, [visible, shouldRenderSpline]);
