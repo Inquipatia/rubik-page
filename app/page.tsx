@@ -113,7 +113,6 @@ export default function Home() {
   const [isCotizaOpen, setIsCotizaOpen] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState<SelectedBrand | null>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const [canMountOrb, setCanMountOrb] = useState(false);
 
   const [servicesResetKey, setServicesResetKey] = useState(0);
 
@@ -152,21 +151,6 @@ export default function Home() {
       window.removeEventListener("resize", checkMobile);
     };
   }, []);
-
-  useEffect(() => {
-    if (isMobile) {
-      setCanMountOrb(false);
-      return;
-    }
-
-    const timer = window.setTimeout(() => {
-      setCanMountOrb(true);
-    }, 1800);
-
-    return () => {
-      window.clearTimeout(timer);
-    };
-  }, [isMobile]);
 
   const unlockAfterDelay = useCallback(() => {
     window.setTimeout(() => {
@@ -339,7 +323,12 @@ export default function Home() {
   ]);
 
   const shouldShowOverlayUi = !isMobile && !isCotizaOpen && !selectedBrand;
-  const shouldMountOrb = !isMobile && canMountOrb;
+
+  /**
+   * Ahora el orbe se monta desde el inicio en desktop.
+   * El cubo será el que se retrase desde intro-scene.tsx.
+   */
+  const shouldMountOrb = !isMobile;
 
   return (
     <main

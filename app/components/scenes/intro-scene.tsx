@@ -2,17 +2,12 @@
 
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useState } from "react";
 
 const Spline = dynamic(() => import("@splinetool/react-spline"), {
   ssr: false,
   loading: () => null,
 });
-
-type SplineApp = {
-  emitEvent?: (eventName: any, nameOrUuid: string) => void;
-  findObjectByName?: (name: string) => unknown;
-};
 
 type IntroSceneProps = {
   titleTop: string;
@@ -48,27 +43,17 @@ export default function IntroScene({
   onOpenCotiza,
   onGoToServicios,
 }: IntroSceneProps) {
-  const startTimersRef = useRef<number[]>([]);
+  const [canMountCube, setCanMountCube] = useState(false);
 
-  const handleSplineLoad = (app: SplineApp) => {
-    startTimersRef.current.forEach((timer) => window.clearTimeout(timer));
-    startTimersRef.current = [];
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setCanMountCube(true);
+    }, 1800);
 
-    const triggerCubeStart = () => {
-      try {
-        app.emitEvent?.("start" as any, "Orbit_Helper");
-        app.emitEvent?.("start" as any, "Cube_Master");
-      } catch {
-        // Si Spline no acepta "start" desde runtime, simplemente no rompe la página.
-      }
+    return () => {
+      window.clearTimeout(timer);
     };
-
-    startTimersRef.current = [
-      window.setTimeout(triggerCubeStart, 300),
-      window.setTimeout(triggerCubeStart, 900),
-      window.setTimeout(triggerCubeStart, 1600),
-    ];
-  };
+  }, []);
 
   return (
     <section className="relative h-full w-full overflow-visible">
@@ -179,10 +164,9 @@ export default function IntroScene({
                 2xl:h-[500px] 2xl:max-w-[560px] 2xl:translate-x-12
               "
             >
-              <Spline
-                scene="https://prod.spline.design/wk0u6G-MY2bbyF6i/scene.splinecode"
-                onLoad={handleSplineLoad}
-              />
+              {canMountCube && (
+                <Spline scene="https://prod.spline.design/wk0u6G-MY2bbyF6i/scene.splinecode" />
+              )}
             </div>
           </div>
         </div>
