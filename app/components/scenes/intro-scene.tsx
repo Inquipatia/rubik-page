@@ -2,11 +2,17 @@
 
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useRef } from "react";
 
 const Spline = dynamic(() => import("@splinetool/react-spline"), {
   ssr: false,
+  loading: () => null,
 });
+
+type SplineApp = {
+  emitEvent?: (eventName: any, nameOrUuid: string) => void;
+  findObjectByName?: (name: string) => unknown;
+};
 
 type IntroSceneProps = {
   titleTop: string;
@@ -42,7 +48,27 @@ export default function IntroScene({
   onOpenCotiza,
   onGoToServicios,
 }: IntroSceneProps) {
-  const [isSplineReady, setIsSplineReady] = useState(false);
+  const startTimersRef = useRef<number[]>([]);
+
+  const handleSplineLoad = (app: SplineApp) => {
+    startTimersRef.current.forEach((timer) => window.clearTimeout(timer));
+    startTimersRef.current = [];
+
+    const triggerCubeStart = () => {
+      try {
+        app.emitEvent?.("start" as any, "Orbit_Helper");
+        app.emitEvent?.("start" as any, "Cube_Master");
+      } catch {
+        // Si Spline no acepta "start" desde runtime, simplemente no rompe la página.
+      }
+    };
+
+    startTimersRef.current = [
+      window.setTimeout(triggerCubeStart, 300),
+      window.setTimeout(triggerCubeStart, 900),
+      window.setTimeout(triggerCubeStart, 1600),
+    ];
+  };
 
   return (
     <section className="relative h-full w-full overflow-visible">
@@ -137,14 +163,7 @@ export default function IntroScene({
             </motion.div>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 24, scale: 0.975 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            transition={{
-              duration: 0.85,
-              delay: 0.45,
-              ease: [0.16, 1, 0.3, 1],
-            }}
+          <div
             onMouseEnter={() => onCubeHoverChange?.(true)}
             onMouseLeave={() => onCubeHoverChange?.(false)}
             className="relative z-10 flex justify-center lg:justify-end"
@@ -160,18 +179,12 @@ export default function IntroScene({
                 2xl:h-[500px] 2xl:max-w-[560px] 2xl:translate-x-12
               "
             >
-              <div
-                className={`h-full w-full transition-opacity duration-700 ${
-                  isSplineReady ? "opacity-100" : "opacity-0"
-                }`}
-              >
-                <Spline
-                  scene="https://prod.spline.design/wk0u6G-MY2bbyF6i/scene.splinecode"
-                  onLoad={() => setIsSplineReady(true)}
-                />
-              </div>
+              <Spline
+                scene="https://prod.spline.design/wk0u6G-MY2bbyF6i/scene.splinecode"
+                onLoad={handleSplineLoad}
+              />
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

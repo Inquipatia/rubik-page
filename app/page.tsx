@@ -113,6 +113,7 @@ export default function Home() {
   const [isCotizaOpen, setIsCotizaOpen] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState<SelectedBrand | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [canMountOrb, setCanMountOrb] = useState(false);
 
   const [servicesResetKey, setServicesResetKey] = useState(0);
 
@@ -151,6 +152,21 @@ export default function Home() {
       window.removeEventListener("resize", checkMobile);
     };
   }, []);
+
+  useEffect(() => {
+    if (isMobile) {
+      setCanMountOrb(false);
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      setCanMountOrb(true);
+    }, 1800);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [isMobile]);
 
   const unlockAfterDelay = useCallback(() => {
     window.setTimeout(() => {
@@ -323,12 +339,13 @@ export default function Home() {
   ]);
 
   const shouldShowOverlayUi = !isMobile && !isCotizaOpen && !selectedBrand;
-  const shouldMountOrb = !isMobile;
+  const shouldMountOrb = !isMobile && canMountOrb;
 
   return (
     <main
-      className={`relative w-full overflow-x-hidden text-white ${isMobile ? "min-h-screen" : "h-[100svh] overflow-hidden"
-        }`}
+      className={`relative w-full overflow-x-hidden text-white ${
+        isMobile ? "min-h-screen" : "h-[100svh] overflow-hidden"
+      }`}
     >
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,#7a4dff_0%,#4e1cbb_18%,#23114a_54%,#090912_100%)]" />
@@ -340,7 +357,11 @@ export default function Home() {
         </div>
       </div>
 
-      <div className={`relative z-10 w-full ${isMobile ? "min-h-screen" : "h-full"}`}>
+      <div
+        className={`relative z-10 w-full ${
+          isMobile ? "min-h-screen" : "h-full"
+        }`}
+      >
         <FixedHeader
           activeScene={activeScene}
           onJump={handleJump}
@@ -358,7 +379,7 @@ export default function Home() {
                 description="CON MÁS DE 100 TRABAJOS REALIZADOS, RUBIK CREACIONES CRECE CONTIGO, ¿QUÉ ESPERAS PARA TRABAJAR JUNTOS?"
                 primary="Cotiza con nosotros"
                 secondary="Ver nuestros trabajos"
-                onCubeHoverChange={() => { }}
+                onCubeHoverChange={() => {}}
                 onOpenCotiza={handleOpenCotiza}
                 onGoToServicios={handleGoToServicios}
               />

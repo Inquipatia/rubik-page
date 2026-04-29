@@ -167,7 +167,7 @@ export default function SceneStage({
           <motion.div
             key="scene-4"
             variants={defaultSceneVariants}
-            initial="initial"
+            initial={isIntroStage ? false : "initial"}
             animate="animate"
             exit="exit"
             className="relative h-full w-full overflow-hidden"
