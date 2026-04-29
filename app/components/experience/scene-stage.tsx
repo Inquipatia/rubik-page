@@ -149,6 +149,7 @@ export default function SceneStage({
   const isIntroStage = !isCotizaOpen && !selectedBrand && activeScene === 0;
   const isBrandsStage = !isCotizaOpen && !selectedBrand && activeScene === 1;
   const isWorkStage = !isCotizaOpen && !selectedBrand && activeScene === 2;
+  const isContactStage = !isCotizaOpen && !selectedBrand && activeScene === 3;
   const isBrandDetailsStage = !isCotizaOpen && !!selectedBrand;
 
   const currentVariants = isCotizaOpen
@@ -160,6 +161,20 @@ export default function SceneStage({
   const shouldUseFaqStage =
     !isCotizaOpen && !selectedBrand && activeScene === 4;
 
+  /**
+   * Importante:
+   * Contacto y Cotiza usan animaciones con y / scale / blur.
+   * Si el wrapper queda con overflow-hidden, durante la transición se corta texto,
+   * botones o cards. Por eso ahora también permitimos overflow en Contacto y Cotiza.
+   */
+  const allowWideInteraction =
+    isIntroStage ||
+    isBrandsStage ||
+    isWorkStage ||
+    isContactStage ||
+    isBrandDetailsStage ||
+    isCotizaOpen;
+
   if (shouldUseFaqStage) {
     return (
       <section className="relative z-20 h-[100svh] w-full overflow-hidden">
@@ -167,7 +182,7 @@ export default function SceneStage({
           <motion.div
             key="scene-4"
             variants={defaultSceneVariants}
-            initial={isIntroStage ? false : "initial"}
+            initial="initial"
             animate="animate"
             exit="exit"
             className="relative h-full w-full overflow-hidden"
@@ -176,9 +191,6 @@ export default function SceneStage({
       </section>
     );
   }
-
-  const allowWideInteraction =
-    isIntroStage || isBrandsStage || isWorkStage || isBrandDetailsStage;
 
   return (
     <section
@@ -191,7 +203,7 @@ export default function SceneStage({
           <motion.div
             key={currentKey}
             variants={currentVariants}
-            initial="initial"
+            initial={isIntroStage ? false : "initial"}
             animate="animate"
             exit="exit"
             className={`relative h-full w-full [transform:translateZ(0)] [transform-style:preserve-3d] will-change-transform ${
