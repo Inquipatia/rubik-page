@@ -19,6 +19,19 @@ type IntroSceneProps = {
   onGoToServicios?: () => void;
 };
 
+const revealLine = {
+  hidden: {
+    y: "140%",
+    opacity: 0,
+    filter: "blur(14px)",
+  },
+  visible: {
+    y: "0%",
+    opacity: 1,
+    filter: "blur(0px)",
+  },
+};
+
 export default function IntroScene({
   titleTop,
   titleBottom,
@@ -35,27 +48,77 @@ export default function IntroScene({
     <section className="relative h-full w-full overflow-visible">
       <div className="mx-auto flex h-full w-full max-w-[1560px] items-center px-1 sm:px-2 lg:px-2 xl:px-3">
         <div className="grid w-full items-center gap-6 lg:grid-cols-[0.88fr_1.12fr] xl:grid-cols-[1.02fr_0.98fr] xl:gap-8">
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-20 max-w-[760px] md:max-w-[520px] lg:max-w-[640px] lg:-translate-x-8 lg:origin-left lg:scale-[0.84] xl:max-w-[620px] xl:-translate-x-12 xl:scale-100 2xl:max-w-[680px] 2xl:-translate-x-14"
-          >
-            <div className="omnes-text mb-4 inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[12px] font-medium uppercase tracking-[0.14em] text-white/78 sm:text-[13px] lg:px-4 lg:py-2 lg:text-[12px] xl:px-4 xl:py-2 xl:text-sm">
+          <div className="relative z-20 max-w-[760px] md:max-w-[520px] lg:max-w-[640px] lg:-translate-x-8 lg:origin-left lg:scale-[0.84] xl:max-w-[620px] xl:-translate-x-12 xl:scale-100 2xl:max-w-[680px] 2xl:-translate-x-14">
+            <motion.div
+              initial={{ opacity: 0, y: 18, scale: 0.94 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{
+                duration: 0.75,
+                delay: 0.05,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="omnes-text mb-4 inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[12px] font-medium uppercase tracking-[0.14em] text-white/78 sm:text-[13px] lg:px-4 lg:py-2 lg:text-[12px] xl:px-4 xl:py-2 xl:text-sm"
+            >
               Rubik Creaciones
-            </div>
+            </motion.div>
 
             <h1 className="omnes-title text-[42px] leading-[0.9] tracking-[-0.04em] text-white sm:text-[54px] md:text-[62px] lg:text-[64px] xl:text-[92px] 2xl:text-[104px]">
-              {titleTop}
-              <br />
-              {titleBottom}
+              <span className="block overflow-hidden pb-[0.06em]">
+                <motion.span
+                  className="block"
+                  variants={revealLine}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{
+                    duration: 1.15,
+                    delay: 0.25,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                >
+                  {titleTop}
+                </motion.span>
+              </span>
+
+              <span className="block overflow-hidden pb-[0.1em]">
+                <motion.span
+                  className="block bg-gradient-to-r from-white via-white to-white/70 bg-clip-text text-transparent"
+                  variants={revealLine}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{
+                    duration: 1.25,
+                    delay: 0.55,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                >
+                  {titleBottom}
+                </motion.span>
+              </span>
             </h1>
 
-            <p className="omnes-text mt-5 max-w-[560px] text-[14px] leading-6 text-white/78 sm:text-[15px] sm:leading-7 md:max-w-[470px] md:text-[15px] lg:max-w-[500px] lg:text-[15px] xl:mt-6 xl:text-[16px] xl:leading-7">
+            <motion.p
+              initial={{ opacity: 0, y: 22, filter: "blur(10px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{
+                duration: 0.85,
+                delay: 0.95,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="omnes-text mt-5 max-w-[560px] text-[14px] leading-6 text-white/78 sm:text-[15px] sm:leading-7 md:max-w-[470px] md:text-[15px] lg:max-w-[500px] lg:text-[15px] xl:mt-6 xl:text-[16px] xl:leading-7"
+            >
               {description}
-            </p>
+            </motion.p>
 
-            <div className="mt-6 flex w-fit flex-wrap items-center gap-3 md:mt-7">
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{
+                duration: 0.75,
+                delay: 1.15,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="mt-6 flex w-fit flex-wrap items-center gap-3 md:mt-7"
+            >
               <button
                 type="button"
                 onClick={onOpenCotiza}
@@ -71,16 +134,16 @@ export default function IntroScene({
               >
                 {secondary}
               </button>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
 
           <motion.div
-            initial={{ opacity: 0, x: 18, scale: 0.985 }}
+            initial={{ opacity: 0, x: 24, scale: 0.975 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{
-              duration: 0.48,
-              delay: 0.04,
-              ease: [0.22, 1, 0.36, 1],
+              duration: 0.85,
+              delay: 0.45,
+              ease: [0.16, 1, 0.3, 1],
             }}
             onMouseEnter={() => onCubeHoverChange?.(true)}
             onMouseLeave={() => onCubeHoverChange?.(false)}
@@ -98,7 +161,7 @@ export default function IntroScene({
               "
             >
               <div
-                className={`h-full w-full transition-opacity duration-500 ${
+                className={`h-full w-full transition-opacity duration-700 ${
                   isSplineReady ? "opacity-100" : "opacity-0"
                 }`}
               >

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import {
   FaInstagram,
   FaFacebookF,
@@ -10,54 +10,87 @@ import {
 } from "react-icons/fa6";
 import { Mail, Phone, MapPin, Clock3 } from "lucide-react";
 
-const containerVariants = {
+const headerContainerVariants: Variants = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.035,
-      delayChildren: 0.01,
+      staggerChildren: 0.12,
+      delayChildren: 0.08,
     },
   },
 };
 
-const cardVariants = {
+const headerItemVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 24,
+    filter: "blur(14px)",
+  },
+  show: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.75,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+};
+
+const containerVariants: Variants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.16,
+      delayChildren: 0.45,
+    },
+  },
+};
+
+const cardVariants: Variants = {
   hidden: (direction: "left" | "center" | "right") => ({
     opacity: 0,
-    x: direction === "left" ? -16 : direction === "right" ? 16 : 0,
-    y: direction === "center" ? 6 : -4,
+    x: direction === "left" ? -34 : direction === "right" ? 34 : 0,
+    y: direction === "center" ? 34 : 18,
+    scale: 0.965,
+    filter: "blur(18px)",
   }),
   show: {
     opacity: 1,
     x: 0,
     y: 0,
+    scale: 1,
+    filter: "blur(0px)",
     transition: {
-      duration: 0.28,
-      ease: [0.22, 1, 0.36, 1] as const,
+      duration: 0.85,
+      ease: [0.16, 1, 0.3, 1],
     },
   },
 };
 
-const innerVariants = {
+const innerVariants: Variants = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.018,
-      delayChildren: 0.012,
+      staggerChildren: 0.055,
+      delayChildren: 0.12,
     },
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: {
     opacity: 0,
-    y: 5,
+    y: 12,
+    filter: "blur(8px)",
   },
   show: {
     opacity: 1,
     y: 0,
+    filter: "blur(0px)",
     transition: {
-      duration: 0.22,
-      ease: [0.22, 1, 0.36, 1] as const,
+      duration: 0.5,
+      ease: [0.16, 1, 0.3, 1],
     },
   },
 };
@@ -233,11 +266,36 @@ export default function ContactScene() {
   return (
     <section className="relative flex min-h-[58vh] items-center justify-center py-4 xl:min-h-[68vh] 2xl:min-h-[72vh]">
       <div className="w-full max-w-[1380px] px-4 sm:px-5 xl:px-8">
-        <div className="mb-4 text-center xl:mb-5">
-          <span className="omnes-text inline-flex rounded-full border border-white/14 bg-white/[0.05] px-3 py-1 text-[8px] uppercase tracking-[0.15em] text-white/74 backdrop-blur xl:px-4 xl:py-1.5 xl:text-[9px]">
+        <motion.div
+          variants={headerContainerVariants}
+          initial="hidden"
+          animate="show"
+          className="mb-5 text-center xl:mb-6"
+        >
+          <motion.div
+            variants={headerItemVariants}
+            className="omnes-text inline-flex rounded-full border border-white/14 bg-white/[0.05] px-3 py-1 text-[8px] uppercase tracking-[0.15em] text-white/74 backdrop-blur xl:px-4 xl:py-1.5 xl:text-[9px]"
+          >
             Contacto
-          </span>
-        </div>
+          </motion.div>
+
+          <div className="mt-3 overflow-hidden">
+            <motion.h2
+              variants={headerItemVariants}
+              className="omnes-title text-[clamp(2rem,3.4vw,3.85rem)] leading-[1.02] tracking-[-0.05em] text-white"
+            >
+              Hablemos de tu próximo proyecto
+            </motion.h2>
+          </div>
+
+          <motion.p
+            variants={headerItemVariants}
+            className="omnes-text mx-auto mt-3 max-w-[620px] text-[13px] leading-6 text-white/70 sm:text-[14px] xl:text-[15px]"
+          >
+            Cuéntanos qué necesitas desarrollar y te ayudamos a convertirlo en
+            una solución gráfica clara, producible y lista para ejecutarse.
+          </motion.p>
+        </motion.div>
 
         <motion.div
           variants={containerVariants}
@@ -248,12 +306,10 @@ export default function ContactScene() {
           <motion.div
             custom="left"
             variants={cardVariants}
-            initial="hidden"
-            animate="show"
             whileHover={{
-              y: -3,
-              scale: 1.004,
-              transition: { duration: 0.18, ease: [0.22, 1, 0.36, 1] },
+              y: -5,
+              scale: 1.006,
+              transition: { duration: 0.22, ease: [0.22, 1, 0.36, 1] },
             }}
             className="group [transform:translateZ(0)] will-change-transform"
           >
@@ -268,7 +324,7 @@ export default function ContactScene() {
                   variants={itemVariants}
                   className="flex items-start justify-between gap-3"
                 >
-                  <div className="omnes-text text-[8px] xl:text-[9px] uppercase tracking-[0.15em] text-white/54">
+                  <div className="omnes-text text-[8px] uppercase tracking-[0.15em] text-white/54 xl:text-[9px]">
                     INFORMACIÓN
                   </div>
 
@@ -295,6 +351,7 @@ export default function ContactScene() {
                       >
                         <MapPin size={15} />
                       </div>
+
                       <div className="omnes-title text-[1.15rem] leading-none text-white xl:text-[1.3rem]">
                         Ubicación
                       </div>
@@ -326,38 +383,32 @@ export default function ContactScene() {
                       >
                         <Clock3 size={15} />
                       </div>
+
                       <div className="omnes-title text-[1.15rem] leading-none text-white xl:text-[1.3rem]">
                         Horario
                       </div>
                     </div>
 
                     <div className="mt-3 space-y-2.5">
-                      <div className="rounded-[13px] border border-violet-200/22 bg-[linear-gradient(180deg,rgba(139,92,246,0.16),rgba(255,255,255,0.05))] px-3.5 py-3">
-                        <div className="omnes-text text-[11px] text-white/88 xl:text-[12px]">
-                          Lunes — Jueves
-                        </div>
-                        <div className="omnes-text mt-0.5 text-[11px] text-white/68 xl:text-[12px]">
-                          09:00 — 19:00
-                        </div>
-                      </div>
-
-                      <div className="rounded-[13px] border border-violet-200/22 bg-[linear-gradient(180deg,rgba(139,92,246,0.16),rgba(255,255,255,0.05))] px-3.5 py-3">
-                        <div className="omnes-text text-[11px] text-white/88 xl:text-[12px]">
-                          Viernes
-                        </div>
-                        <div className="omnes-text mt-0.5 text-[11px] text-white/68 xl:text-[12px]">
-                          09:00 — 18:00
-                        </div>
-                      </div>
-
-                      <div className="rounded-[13px] border border-violet-200/22 bg-[linear-gradient(180deg,rgba(139,92,246,0.16),rgba(255,255,255,0.05))] px-3.5 py-3">
-                        <div className="omnes-text text-[11px] text-white/88 xl:text-[12px]">
-                          Sábados — Domingos
-                        </div>
-                        <div className="omnes-text mt-0.5 text-[11px] text-white/68 xl:text-[12px]">
-                          Closed
-                        </div>
-                      </div>
+                      {[
+                        ["Lunes — Jueves", "09:00 — 19:00"],
+                        ["Viernes", "09:00 — 18:00"],
+                        ["Sábados — Domingos", "Cerrado"],
+                      ].map(([day, hour]) => (
+                        <motion.div
+                          key={day}
+                          variants={itemVariants}
+                          whileHover={{ x: 3 }}
+                          className="rounded-[13px] border border-violet-200/22 bg-[linear-gradient(180deg,rgba(139,92,246,0.16),rgba(255,255,255,0.05))] px-3.5 py-3"
+                        >
+                          <div className="omnes-text text-[11px] text-white/88 xl:text-[12px]">
+                            {day}
+                          </div>
+                          <div className="omnes-text mt-0.5 text-[11px] text-white/68 xl:text-[12px]">
+                            {hour}
+                          </div>
+                        </motion.div>
+                      ))}
                     </div>
                   </motion.div>
                 </div>
@@ -368,12 +419,10 @@ export default function ContactScene() {
           <motion.div
             custom="center"
             variants={cardVariants}
-            initial="hidden"
-            animate="show"
             whileHover={{
-              y: -3,
-              scale: 1.004,
-              transition: { duration: 0.18, ease: [0.22, 1, 0.36, 1] },
+              y: -5,
+              scale: 1.006,
+              transition: { duration: 0.22, ease: [0.22, 1, 0.36, 1] },
             }}
             className="group [transform:translateZ(0)] will-change-transform"
           >
@@ -388,7 +437,7 @@ export default function ContactScene() {
                   variants={itemVariants}
                   className="flex items-start justify-between gap-3"
                 >
-                  <div className="omnes-text text-[8px] xl:text-[9px] uppercase tracking-[0.15em] text-white/54">
+                  <div className="omnes-text text-[8px] uppercase tracking-[0.15em] text-white/54 xl:text-[9px]">
                     DIRECTO
                   </div>
 
@@ -415,6 +464,7 @@ export default function ContactScene() {
                       >
                         <Phone size={15} />
                       </div>
+
                       <div className="omnes-title text-[1.15rem] leading-none text-white xl:text-[1.3rem]">
                         Celular
                       </div>
@@ -444,6 +494,7 @@ export default function ContactScene() {
                       >
                         <Mail size={15} />
                       </div>
+
                       <div className="omnes-title text-[1.15rem] leading-none text-white xl:text-[1.3rem]">
                         Email
                       </div>
@@ -464,12 +515,10 @@ export default function ContactScene() {
           <motion.div
             custom="right"
             variants={cardVariants}
-            initial="hidden"
-            animate="show"
             whileHover={{
-              y: -3,
-              scale: 1.004,
-              transition: { duration: 0.18, ease: [0.22, 1, 0.36, 1] },
+              y: -5,
+              scale: 1.006,
+              transition: { duration: 0.22, ease: [0.22, 1, 0.36, 1] },
             }}
             className="group [transform:translateZ(0)] will-change-transform"
           >
@@ -484,7 +533,7 @@ export default function ContactScene() {
                   variants={itemVariants}
                   className="flex items-start justify-between gap-3"
                 >
-                  <div className="omnes-text text-[8px] xl:text-[9px] uppercase tracking-[0.15em] text-white/54">
+                  <div className="omnes-text text-[8px] uppercase tracking-[0.15em] text-white/54 xl:text-[9px]">
                     CANALES
                   </div>
 
@@ -500,9 +549,12 @@ export default function ContactScene() {
                 </motion.div>
 
                 <div className="mt-4">
-                  <div className="omnes-title text-[1.15rem] leading-none text-white xl:text-[1.3rem]">
+                  <motion.div
+                    variants={itemVariants}
+                    className="omnes-title text-[1.15rem] leading-none text-white xl:text-[1.3rem]"
+                  >
                     Redes Sociales
-                  </div>
+                  </motion.div>
 
                   <div className="mt-3 grid grid-cols-1 gap-2.5 xl:gap-3">
                     {[
@@ -534,9 +586,10 @@ export default function ContactScene() {
                     ].map((item) => (
                       <motion.a
                         key={item.label}
-                        whileHover={{ x: 3, scale: 1.006 }}
+                        variants={itemVariants}
+                        whileHover={{ x: 5, scale: 1.01 }}
                         transition={{
-                          duration: 0.16,
+                          duration: 0.18,
                           ease: [0.22, 1, 0.36, 1],
                         }}
                         href={item.href}

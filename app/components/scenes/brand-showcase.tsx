@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 import type { SelectedBrand } from "@/app/page";
 
 type BrandShowcaseProps = {
@@ -298,23 +299,70 @@ export default function BrandShowcase({
       className="relative mx-auto flex h-full w-full max-w-[1320px] items-center px-4 sm:px-5 lg:px-6 2xl:max-w-[1380px] 2xl:px-8"
     >
       <div className="w-full -translate-y-2 sm:-translate-y-1 lg:-translate-y-3 xl:-translate-y-4">
-        <div className="mx-auto max-w-[760px] text-center xl:max-w-[800px] 2xl:max-w-[840px]">
-          <div className="omnes-text inline-flex rounded-full border border-white/12 bg-white/[0.04] px-3.5 py-1.5 text-[12px] text-white/78 backdrop-blur sm:text-[13px]">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          className="mx-auto max-w-[760px] text-center xl:max-w-[800px] 2xl:max-w-[840px]"
+        >
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 14, scale: 0.94 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                transition: {
+                  duration: 0.55,
+                  ease: [0.16, 1, 0.3, 1],
+                },
+              },
+            }}
+            className="omnes-text inline-flex rounded-full border border-white/12 bg-white/[0.04] px-3.5 py-1.5 text-[12px] text-white/78 backdrop-blur sm:text-[13px]"
+          >
             Marcas
-          </div>
+          </motion.div>
 
-          <h2 className="omnes-title mt-3 text-[clamp(2rem,3.4vw,3.8rem)] leading-[1.03] tracking-[-0.05em] text-white">
-            Marcas que han confiado en Rubik
+          <h2 className="omnes-title mt-3 overflow-hidden text-[clamp(2rem,3.4vw,3.8rem)] leading-[1.03] tracking-[-0.05em] text-white">
+            <motion.span
+              className="inline-block"
+              initial={{ y: "115%", opacity: 0, filter: "blur(12px)" }}
+              animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
+              transition={{
+                duration: 0.95,
+                delay: 0.12,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+            >
+              Marcas que han confiado en Rubik
+            </motion.span>
           </h2>
 
-          <p className="omnes-text mx-auto mt-3 max-w-[680px] text-[13px] leading-6 text-white/72 sm:text-[14px]">
+          <motion.p
+            initial={{ opacity: 0, y: 18, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{
+              duration: 0.75,
+              delay: 0.42,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className="omnes-text mx-auto mt-3 max-w-[680px] text-[13px] leading-6 text-white/72 sm:text-[14px]"
+          >
             Clientes, colaboraciones y proyectos desarrollados junto a marcas que
             buscan impacto visual real, producción cuidada y soluciones pensadas
             para destacar.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
-        <div className="relative mx-auto mt-4 max-w-[1180px] rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-[1px] shadow-[0_14px_34px_rgba(0,0,0,0.2)] xl:max-w-[1220px] 2xl:max-w-[1280px]">
+        <motion.div
+          initial={{ opacity: 0, y: 28, scale: 0.985, filter: "blur(14px)" }}
+          animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+          transition={{
+            duration: 0.75,
+            delay: 0.5,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+          className="relative mx-auto mt-4 max-w-[1180px] rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-[1px] shadow-[0_14px_34px_rgba(0,0,0,0.2)] xl:max-w-[1220px] 2xl:max-w-[1280px]"
+        >
           <div className="relative overflow-hidden rounded-[21px] bg-[linear-gradient(180deg,#181028_0%,#120b20_45%,#0d0818_100%)] px-3 py-3 sm:px-3.5 sm:py-3.5 lg:px-4 lg:py-4">
             <div
               aria-hidden="true"
@@ -332,11 +380,28 @@ export default function BrandShowcase({
             <div className="pointer-events-none absolute inset-2 rounded-[18px] border border-white/[0.05]" />
 
             <div className="relative grid grid-cols-5 gap-2 sm:gap-2.5 lg:gap-3">
-              {brands.map((brand) => (
-                <button
+              {brands.map((brand, index) => (
+                <motion.button
                   key={brand.brandName}
                   type="button"
                   onClick={() => onOpenBrandDetails(brand)}
+                  initial={{
+                    opacity: 0,
+                    y: 24,
+                    scale: 0.94,
+                    filter: "blur(10px)",
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    filter: "blur(0px)",
+                  }}
+                  transition={{
+                    duration: 0.55,
+                    delay: 0.65 + index * 0.035,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
                   className="group relative min-h-[58px] overflow-hidden rounded-[14px] border border-white/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.015))] p-[1px] text-left transition duration-300 hover:-translate-y-[2px] hover:border-white/[0.18] hover:shadow-[0_10px_20px_rgba(0,0,0,0.18)] focus:outline-none focus:ring-2 focus:ring-white/20 sm:min-h-[64px] lg:min-h-[70px] xl:min-h-[76px] 2xl:min-h-[82px]"
                   aria-label={`Ver detalles de ${brand.brandName}`}
                 >
@@ -359,11 +424,11 @@ export default function BrandShowcase({
                       />
                     </div>
                   </div>
-                </button>
+                </motion.button>
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

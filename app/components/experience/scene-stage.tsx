@@ -26,22 +26,57 @@ type SceneStageProps = {
 const defaultSceneVariants: Variants = {
   initial: {
     opacity: 0,
-    y: 12,
+    y: 28,
+    scale: 0.985,
+    filter: "blur(14px)",
   },
   animate: {
     opacity: 1,
     y: 0,
+    scale: 1,
+    filter: "blur(0px)",
     transition: {
-      duration: 0.28,
-      ease: [0.22, 1, 0.36, 1],
+      duration: 0.78,
+      ease: [0.16, 1, 0.3, 1],
     },
   },
   exit: {
     opacity: 0,
-    y: -8,
+    y: -34,
+    scale: 0.975,
+    filter: "blur(16px)",
     transition: {
-      duration: 0.18,
-      ease: [0.22, 1, 0.36, 1],
+      duration: 0.52,
+      ease: [0.7, 0, 0.84, 0],
+    },
+  },
+};
+
+const introToBrandsVariants: Variants = {
+  initial: {
+    opacity: 0,
+    y: 46,
+    scale: 0.965,
+    filter: "blur(18px)",
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: {
+      duration: 1.05,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -52,
+    scale: 1.025,
+    filter: "blur(22px)",
+    transition: {
+      duration: 0.7,
+      ease: [0.7, 0, 0.84, 0],
     },
   },
 };
@@ -50,20 +85,23 @@ const cotizaSceneVariants: Variants = {
   initial: {
     opacity: 0,
     y: 18,
+    filter: "blur(12px)",
   },
   animate: {
     opacity: 1,
     y: 0,
+    filter: "blur(0px)",
     transition: {
-      duration: 0.34,
+      duration: 0.7,
       ease: [0.16, 1, 0.3, 1],
     },
   },
   exit: {
     opacity: 0,
-    y: -10,
+    y: -14,
+    filter: "blur(12px)",
     transition: {
-      duration: 0.22,
+      duration: 0.42,
       ease: [0.22, 1, 0.36, 1],
     },
   },
@@ -108,21 +146,24 @@ export default function SceneStage({
       ? `brand-details-${selectedBrand.brandName}`
       : `scene-${activeScene}`;
 
+  const isIntroStage = !isCotizaOpen && !selectedBrand && activeScene === 0;
+  const isBrandsStage = !isCotizaOpen && !selectedBrand && activeScene === 1;
+  const isWorkStage = !isCotizaOpen && !selectedBrand && activeScene === 2;
+  const isBrandDetailsStage = !isCotizaOpen && !!selectedBrand;
+
   const currentVariants = isCotizaOpen
     ? cotizaSceneVariants
-    : defaultSceneVariants;
+    : isBrandsStage
+      ? introToBrandsVariants
+      : defaultSceneVariants;
 
   const shouldUseFaqStage =
     !isCotizaOpen && !selectedBrand && activeScene === 4;
 
-  const isIntroStage = !isCotizaOpen && !selectedBrand && activeScene === 0;
-  const isWorkStage = !isCotizaOpen && !selectedBrand && activeScene === 2;
-  const isBrandDetailsStage = !isCotizaOpen && !!selectedBrand;
-
   if (shouldUseFaqStage) {
     return (
       <section className="relative z-20 h-[100svh] w-full overflow-hidden">
-        <AnimatePresence mode="sync" initial={false}>
+        <AnimatePresence mode="wait">
           <motion.div
             key="scene-4"
             variants={defaultSceneVariants}
@@ -137,7 +178,7 @@ export default function SceneStage({
   }
 
   const allowWideInteraction =
-    isIntroStage || isWorkStage || isBrandDetailsStage;
+    isIntroStage || isBrandsStage || isWorkStage || isBrandDetailsStage;
 
   return (
     <section
@@ -146,7 +187,7 @@ export default function SceneStage({
       }`}
     >
       <StageFrame allowOverflow={allowWideInteraction}>
-        <AnimatePresence mode="sync" initial={false}>
+        <AnimatePresence mode="wait">
           <motion.div
             key={currentKey}
             variants={currentVariants}
@@ -163,7 +204,7 @@ export default function SceneStage({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                 className="pointer-events-none absolute inset-0 -z-10"
               >
                 <div className="absolute left-1/2 top-[16%] h-36 w-36 -translate-x-1/2 rounded-full bg-fuchsia-500/18 blur-3xl md:h-44 md:w-44" />
@@ -179,8 +220,8 @@ export default function SceneStage({
               transition={
                 isCotizaOpen
                   ? {
-                      duration: 0.24,
-                      delay: 0.04,
+                      duration: 0.34,
+                      delay: 0.08,
                       ease: [0.16, 1, 0.3, 1],
                     }
                   : undefined
