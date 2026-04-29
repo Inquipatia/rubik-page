@@ -38,6 +38,57 @@ type ProjectItem = {
 
 const DETAIL_ITEMS_PER_PAGE = 4;
 
+const servicesIntroVariants: Variants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.09,
+      delayChildren: 0.08,
+    },
+  },
+};
+
+const servicesItemVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 24,
+    scale: 0.96,
+    filter: "blur(12px)",
+  },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.68,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+};
+
+const servicesPreviewVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    x: 34,
+    y: 18,
+    scale: 0.965,
+    filter: "blur(16px)",
+  },
+  show: {
+    opacity: 1,
+    x: 0,
+    y: 0,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.82,
+      delay: 0.25,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+};
+
 export default function WorkScene({
   activeWorkCard,
   servicesResetKey = 0,
@@ -98,19 +149,19 @@ export default function WorkScene({
   const resolvedProject: ProjectItem =
     activeVariant && activeProject
       ? {
-        ...activeProject,
-        tag: activeVariant.tag,
-        title: activeVariant.title,
-        subtitle: activeVariant.subtitle,
-        description: activeVariant.description,
-        longDescription:
-          activeVariant.longDescription ?? activeVariant.description,
-        image: activeVariant.image,
-        gallery:
-          activeVariant.gallery && activeVariant.gallery.length > 0
-            ? activeVariant.gallery
-            : [activeVariant.image],
-      }
+          ...activeProject,
+          tag: activeVariant.tag,
+          title: activeVariant.title,
+          subtitle: activeVariant.subtitle,
+          description: activeVariant.description,
+          longDescription:
+            activeVariant.longDescription ?? activeVariant.description,
+          image: activeVariant.image,
+          gallery:
+            activeVariant.gallery && activeVariant.gallery.length > 0
+              ? activeVariant.gallery
+              : [activeVariant.image],
+        }
       : activeProject;
 
   const handleHoverChange = (index: number) => {
@@ -129,6 +180,7 @@ export default function WorkScene({
       setHoveredIndex(index);
       setOtherVariantIndex(0);
     }
+
     setDetailImageIndex(0);
     setIsImageZoomOpen(false);
     setPreviewMode("contain");
@@ -145,6 +197,7 @@ export default function WorkScene({
     if (typeof index === "number") {
       setDetailImageIndex(index);
     }
+
     setPreviewMode("contain");
     setIsImageZoomOpen(true);
   };
@@ -266,126 +319,126 @@ export default function WorkScene({
   const previewModal =
     isClient && isImageZoomOpen
       ? createPortal(
-        <AnimatePresence>
-          <motion.div
-            key="service-preview-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.22 }}
-            className="fixed inset-0 z-[220] bg-[rgba(6,3,18,0.9)]"
-            onClick={closeZoom}
-          >
-            <div
-              className="relative h-screen w-screen overflow-hidden"
-              onClick={(e) => e.stopPropagation()}
+          <AnimatePresence>
+            <motion.div
+              key="service-preview-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.22 }}
+              className="fixed inset-0 z-[220] bg-[rgba(6,3,18,0.9)]"
+              onClick={closeZoom}
             >
-              <div className="absolute inset-0">
-                <Image
-                  src={detailGallery[detailImageIndex]}
-                  alt={`${resolvedProject.title} ampliada ${detailImageIndex + 1}`}
-                  fill
-                  className="object-cover scale-110 opacity-20 blur-3xl"
-                  sizes="100vw"
-                  priority
-                />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(32,18,60,0.12)_0%,rgba(12,7,24,0.62)_58%,rgba(4,2,10,0.92)_100%)]" />
-              </div>
-
-              <div className="absolute inset-x-0 top-0 z-30 flex items-center justify-between p-4 sm:p-5 lg:p-6">
-                <div className="omnes-text rounded-full border border-white/12 bg-black/20 px-4 py-2 text-sm text-white/82 backdrop-blur">
-                  Vista ampliada
+              <div
+                className="relative h-screen w-screen overflow-hidden"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="absolute inset-0">
+                  <Image
+                    src={detailGallery[detailImageIndex]}
+                    alt={`${resolvedProject.title} ampliada ${detailImageIndex + 1}`}
+                    fill
+                    className="scale-110 object-cover opacity-20 blur-3xl"
+                    sizes="100vw"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(32,18,60,0.12)_0%,rgba(12,7,24,0.62)_58%,rgba(4,2,10,0.92)_100%)]" />
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setPreviewMode((prev) =>
-                        prev === "cover" ? "contain" : "cover"
-                      )
-                    }
-                    className="omnes-text rounded-full border border-white/15 bg-black/28 px-4 py-2 text-sm text-white/88 backdrop-blur transition hover:bg-black/40"
-                  >
-                    {previewMode === "cover" ? "Ver completa" : "Llenar pantalla"}
-                  </button>
+                <div className="absolute inset-x-0 top-0 z-30 flex items-center justify-between p-4 sm:p-5 lg:p-6">
+                  <div className="omnes-text rounded-full border border-white/12 bg-black/20 px-4 py-2 text-sm text-white/82 backdrop-blur">
+                    Vista ampliada
+                  </div>
 
-                  <button
-                    type="button"
-                    onClick={closeZoom}
-                    className="omnes-text rounded-full border border-white/15 bg-black/28 px-4 py-2 text-sm text-white/88 backdrop-blur transition hover:bg-black/40"
-                  >
-                    Cerrar
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setPreviewMode((prev) =>
+                          prev === "cover" ? "contain" : "cover"
+                        )
+                      }
+                      className="omnes-text rounded-full border border-white/15 bg-black/28 px-4 py-2 text-sm text-white/88 backdrop-blur transition hover:bg-black/40"
+                    >
+                      {previewMode === "cover" ? "Ver completa" : "Llenar pantalla"}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={closeZoom}
+                      className="omnes-text rounded-full border border-white/15 bg-black/28 px-4 py-2 text-sm text-white/88 backdrop-blur transition hover:bg-black/40"
+                    >
+                      Cerrar
+                    </button>
+                  </div>
                 </div>
-              </div>
 
-              {detailGallery.length > 1 && (
-                <>
-                  <button
-                    type="button"
-                    onClick={prevDetailImage}
-                    className="absolute left-4 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/28 text-xl text-white/85 backdrop-blur transition hover:bg-black/40"
-                    aria-label="Imagen anterior"
-                  >
-                    ←
-                  </button>
+                {detailGallery.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={prevDetailImage}
+                      className="absolute left-4 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/28 text-xl text-white/85 backdrop-blur transition hover:bg-black/40"
+                      aria-label="Imagen anterior"
+                    >
+                      ←
+                    </button>
 
-                  <button
-                    type="button"
-                    onClick={nextDetailImage}
-                    className="absolute right-4 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/28 text-xl text-white/85 backdrop-blur transition hover:bg-black/40"
-                    aria-label="Imagen siguiente"
-                  >
-                    →
-                  </button>
-                </>
-              )}
+                    <button
+                      type="button"
+                      onClick={nextDetailImage}
+                      className="absolute right-4 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/28 text-xl text-white/85 backdrop-blur transition hover:bg-black/40"
+                      aria-label="Imagen siguiente"
+                    >
+                      →
+                    </button>
+                  </>
+                )}
 
-              <div className="relative z-20 flex h-full w-full items-center justify-center px-4 py-20 sm:px-8 lg:px-12">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={`${detailGallery[detailImageIndex]}-${previewMode}`}
-                    initial={{ opacity: 0, scale: 1.01 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.99 }}
-                    transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                    className={
-                      previewMode === "cover"
-                        ? "relative h-full w-full overflow-hidden rounded-[24px]"
-                        : "relative h-[78vh] w-[90vw] max-w-[1360px] overflow-hidden rounded-[24px]"
-                    }
-                  >
-                    <Image
-                      src={detailGallery[detailImageIndex]}
-                      alt={`${resolvedProject.title} ampliada ${detailImageIndex + 1}`}
-                      fill
+                <div className="relative z-20 flex h-full w-full items-center justify-center px-4 py-20 sm:px-8 lg:px-12">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={`${detailGallery[detailImageIndex]}-${previewMode}`}
+                      initial={{ opacity: 0, scale: 1.01 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.99 }}
+                      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                       className={
                         previewMode === "cover"
-                          ? "object-cover"
-                          : "object-contain drop-shadow-[0_18px_48px_rgba(0,0,0,0.38)]"
+                          ? "relative h-full w-full overflow-hidden rounded-[24px]"
+                          : "relative h-[78vh] w-[90vw] max-w-[1360px] overflow-hidden rounded-[24px]"
                       }
-                      sizes="100vw"
-                      priority
-                    />
-                  </motion.div>
-                </AnimatePresence>
-              </div>
+                    >
+                      <Image
+                        src={detailGallery[detailImageIndex]}
+                        alt={`${resolvedProject.title} ampliada ${detailImageIndex + 1}`}
+                        fill
+                        className={
+                          previewMode === "cover"
+                            ? "object-cover"
+                            : "object-contain drop-shadow-[0_18px_48px_rgba(0,0,0,0.38)]"
+                        }
+                        sizes="100vw"
+                        priority
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
 
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 bg-gradient-to-t from-black/80 via-black/24 to-transparent p-5 sm:p-6 lg:p-8">
-                <h3 className="omnes-title text-[1.5rem] tracking-[-0.03em] text-white sm:text-[1.65rem]">
-                  {resolvedProject.title}
-                </h3>
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 bg-gradient-to-t from-black/80 via-black/24 to-transparent p-5 sm:p-6 lg:p-8">
+                  <h3 className="omnes-title text-[1.5rem] tracking-[-0.03em] text-white sm:text-[1.65rem]">
+                    {resolvedProject.title}
+                  </h3>
 
-                <p className="omnes-text mt-1 max-w-3xl text-sm text-white/82 sm:text-base">
-                  {resolvedProject.subtitle}
-                </p>
+                  <p className="omnes-text mt-1 max-w-3xl text-sm text-white/82 sm:text-base">
+                    {resolvedProject.subtitle}
+                  </p>
+                </div>
               </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>,
-        document.body
-      )
+            </motion.div>
+          </AnimatePresence>,
+          document.body
+        )
       : null;
 
   return (
@@ -401,65 +454,124 @@ export default function WorkScene({
               transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
               className="grid min-h-0 grid-cols-1 gap-4 lg:grid-cols-[0.84fr_1.16fr] min-[1700px]:gap-5 2xl:gap-6"
             >
-              <div className="max-w-[500px] justify-self-start min-[1700px]:max-w-[530px] 2xl:max-w-[560px]">
-                <div className="omnes-text mb-3 inline-flex rounded-full border border-white/10 bg-white/[0.08] px-4 py-2 text-[13px] text-white/84">
+              <motion.div
+                variants={servicesIntroVariants}
+                initial="hidden"
+                animate="show"
+                className="max-w-[500px] justify-self-start min-[1700px]:max-w-[530px] 2xl:max-w-[560px]"
+              >
+                <motion.div
+                  variants={servicesItemVariants}
+                  className="omnes-text mb-3 inline-flex rounded-full border border-white/10 bg-white/[0.08] px-4 py-2 text-[13px] text-white/84"
+                >
                   Seleccione un servicio para ver detalles
-                </div>
+                </motion.div>
 
-                <div className="space-y-3">
+                <motion.div variants={servicesIntroVariants} className="space-y-3">
                   {typedProjects.map((project, index) => {
                     const isActive = index === hoveredIndex;
 
                     return (
-                      <button
+                      <motion.button
                         key={project.id}
                         type="button"
+                        variants={servicesItemVariants}
+                        whileHover={{
+                          x: 8,
+                          scale: 1.015,
+                          transition: {
+                            duration: 0.22,
+                            ease: [0.22, 1, 0.36, 1],
+                          },
+                        }}
+                        whileTap={{ scale: 0.985 }}
                         onMouseEnter={() => handleHoverChange(index)}
                         onFocus={() => handleHoverChange(index)}
                         onClick={() => openDetail(index)}
-                        className={`group flex w-full items-center justify-between rounded-[18px] border px-5 py-3.5 text-left transition-all duration-300 ${isActive
+                        className={`group relative flex w-full items-center justify-between overflow-hidden rounded-[18px] border px-5 py-3.5 text-left transition-all duration-300 ${
+                          isActive
                             ? "border-white/25 bg-white/10 shadow-[0_14px_34px_rgba(0,0,0,0.28)]"
                             : "border-white/8 bg-white/[0.03] hover:border-white/14 hover:bg-white/[0.06]"
-                          } min-[1700px]:px-5 min-[1700px]:py-4`}
+                        } min-[1700px]:px-5 min-[1700px]:py-4`}
                       >
-                        <div>
+                        <motion.div
+                          aria-hidden
+                          className="pointer-events-none absolute inset-y-0 left-0 w-[3px] rounded-full bg-white/70"
+                          initial={false}
+                          animate={{
+                            opacity: isActive ? 1 : 0,
+                            scaleY: isActive ? 1 : 0.35,
+                          }}
+                          transition={{
+                            duration: 0.28,
+                            ease: [0.22, 1, 0.36, 1],
+                          }}
+                        />
+
+                        <motion.div
+                          aria-hidden
+                          className="pointer-events-none absolute -right-10 top-1/2 h-24 w-24 -translate-y-1/2 rounded-full bg-white/8 blur-2xl"
+                          initial={false}
+                          animate={{
+                            opacity: isActive ? 0.72 : 0,
+                            scale: isActive ? 1 : 0.72,
+                          }}
+                          transition={{
+                            duration: 0.32,
+                            ease: [0.22, 1, 0.36, 1],
+                          }}
+                        />
+
+                        <div className="relative z-10">
                           <div
-                            className={`omnes-text text-[11.5px] uppercase tracking-[0.14em] transition ${isActive ? "text-white/62" : "text-white/45"
-                              }`}
+                            className={`omnes-text text-[11.5px] uppercase tracking-[0.14em] transition ${
+                              isActive ? "text-white/62" : "text-white/45"
+                            }`}
                           >
                             {project.tag}
                           </div>
 
                           <div
-                            className={`omnes-title mt-2 text-[1.88rem] leading-none tracking-[-0.03em] transition ${isActive ? "text-white" : "text-white/80"
-                              } min-[1700px]:text-[1.96rem] 2xl:text-[2.06rem]`}
+                            className={`omnes-title mt-2 text-[1.88rem] leading-none tracking-[-0.03em] transition ${
+                              isActive ? "text-white" : "text-white/80"
+                            } min-[1700px]:text-[1.96rem] 2xl:text-[2.06rem]`}
                           >
                             {project.title}
                           </div>
 
                           <div
-                            className={`omnes-text mt-1.5 text-[14px] transition ${isActive ? "text-white/78" : "text-white/58"
-                              } min-[1700px]:text-[14.5px]`}
+                            className={`omnes-text mt-1.5 text-[14px] transition ${
+                              isActive ? "text-white/78" : "text-white/58"
+                            } min-[1700px]:text-[14.5px]`}
                           >
                             {project.subtitle}
                           </div>
                         </div>
 
-                        <div
-                          className={`omnes-text ml-4 text-base transition ${isActive
-                              ? "translate-x-0 text-white/78"
-                              : "-translate-x-1 text-white/35"
-                            }`}
+                        <motion.div
+                          className={`omnes-text relative z-10 ml-4 text-base transition ${
+                            isActive ? "text-white/78" : "text-white/35"
+                          }`}
+                          initial={false}
+                          animate={{
+                            x: isActive ? 0 : -4,
+                            rotate: isActive ? 0 : -10,
+                            scale: isActive ? 1.08 : 1,
+                          }}
+                          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                         >
                           ↗
-                        </div>
-                      </button>
+                        </motion.div>
+                      </motion.button>
                     );
                   })}
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
 
-              <div
+              <motion.div
+                variants={servicesPreviewVariants}
+                initial="hidden"
+                animate="show"
                 className="relative w-full max-w-[680px] justify-self-center pt-4 min-[1700px]:max-w-[760px] min-[1700px]:pt-5 2xl:max-w-[840px] 2xl:pt-5"
                 style={{ perspective: "1600px" }}
               >
@@ -529,6 +641,14 @@ export default function WorkScene({
                     initial="enter"
                     animate="center"
                     exit="exit"
+                    whileHover={{
+                      y: -3,
+                      rotate: -1.4,
+                      transition: {
+                        duration: 0.28,
+                        ease: [0.22, 1, 0.36, 1],
+                      },
+                    }}
                     transition={{
                       duration: 0.68,
                       ease: [0.16, 1, 0.3, 1],
@@ -565,10 +685,11 @@ export default function WorkScene({
                                       setOtherVariantIndex(index);
                                       setDetailImageIndex(0);
                                     }}
-                                    className={`omnes-text rounded-full border px-3 py-1.5 text-[12px] transition ${isActiveVariant
+                                    className={`omnes-text rounded-full border px-3 py-1.5 text-[12px] transition ${
+                                      isActiveVariant
                                         ? "border-white/24 bg-white/12 text-white"
                                         : "border-white/10 bg-white/[0.04] text-white/68 hover:bg-white/[0.08]"
-                                      }`}
+                                    }`}
                                   >
                                     {variant.label}
                                   </button>
@@ -604,6 +725,19 @@ export default function WorkScene({
                                 </div>
                               </div>
 
+                              <motion.div
+                                aria-hidden
+                                className="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,transparent_0%,transparent_42%,rgba(255,255,255,0.18)_50%,transparent_58%,transparent_100%)]"
+                                initial={{ x: "-120%" }}
+                                animate={{ x: ["-120%", "120%"] }}
+                                transition={{
+                                  duration: 3.4,
+                                  repeat: Infinity,
+                                  repeatDelay: 3.2,
+                                  ease: "easeInOut",
+                                }}
+                              />
+
                               <div className="absolute bottom-0 left-0 right-0 p-3.5 sm:p-4 min-[1700px]:p-4.5">
                                 <div className="omnes-title text-[1.95rem] tracking-[-0.03em] text-white sm:text-[2.08rem] min-[1700px]:text-[2.16rem] 2xl:text-[2.28rem]">
                                   {resolvedProject.title}
@@ -620,7 +754,7 @@ export default function WorkScene({
                     </div>
                   </motion.div>
                 </AnimatePresence>
-              </div>
+              </motion.div>
             </motion.div>
           ) : (
             <div className="fixed inset-0 z-[120] flex items-center justify-center px-4 py-6">
@@ -718,7 +852,7 @@ export default function WorkScene({
                       )}
                     </div>
 
-                    <div className="grid min-h-0 h-full overflow-hidden grid-rows-[322px_minmax(0,1fr)] gap-4 lg:h-[689px]">
+                    <div className="grid h-full min-h-0 grid-rows-[322px_minmax(0,1fr)] gap-4 overflow-hidden lg:h-[689px]">
                       <div className="flex min-h-0 flex-col rounded-[22px] border border-white/10 bg-white/[0.04] p-4 min-[1700px]:p-5">
                         <div className="flex items-start justify-between gap-3">
                           <div>
@@ -762,10 +896,11 @@ export default function WorkScene({
                                     setIsImageZoomOpen(false);
                                     setPreviewMode("contain");
                                   }}
-                                  className={`omnes-text rounded-full border px-3 py-1.5 text-[12px] transition ${isActiveVariant
+                                  className={`omnes-text rounded-full border px-3 py-1.5 text-[12px] transition ${
+                                    isActiveVariant
                                       ? "border-white/22 bg-white/12 text-white"
                                       : "border-white/10 bg-white/[0.04] text-white/68 hover:bg-white/[0.08]"
-                                    }`}
+                                  }`}
                                 >
                                   {variant.label}
                                 </button>
@@ -815,7 +950,7 @@ export default function WorkScene({
                                 {detailImageIndex + 1}/{detailGallery.length}
                               </span>
 
-                              <span className="omnes-text text-[11px] text-right text-white/48">
+                              <span className="omnes-text text-right text-[11px] text-white/48">
                                 Página {detailCurrentPage + 1}/{detailTotalPages}
                               </span>
                             </div>
@@ -834,10 +969,11 @@ export default function WorkScene({
                                   type="button"
                                   onClick={() => setDetailImageIndex(realIndex)}
                                   aria-label={`${resolvedProject.title} ${realIndex + 1}`}
-                                  className={`group relative overflow-hidden rounded-[14px] border transition duration-300 ${isActive
+                                  className={`group relative overflow-hidden rounded-[14px] border transition duration-300 ${
+                                    isActive
                                       ? "border-white/28 bg-white/10 shadow-[0_0_0_1px_rgba(255,255,255,0.03)]"
                                       : "border-white/10 bg-white/[0.03] hover:border-white/18 hover:bg-white/[0.06]"
-                                    }`}
+                                  }`}
                                 >
                                   <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[14px] bg-black/20">
                                     <Image
