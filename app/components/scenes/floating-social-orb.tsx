@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 const Spline = dynamic(() => import("@splinetool/react-spline"), {
@@ -11,6 +12,16 @@ const Spline = dynamic(() => import("@splinetool/react-spline"), {
 type FloatingSocialOrbProps = {
   visible?: boolean;
   className?: string;
+
+  /**
+   * Opcional:
+   * Pásale activeScene, currentScene, selectedScene o cualquier valor que cambie
+   * cuando cambias de vista interna en la landing.
+   *
+   * Ejemplo:
+   * <FloatingSocialOrb visible={true} resetKey={activeScene} />
+   */
+  resetKey?: string | number | boolean | null;
 };
 
 type SplineObject = {
@@ -31,7 +42,7 @@ type SplineApp = {
 };
 
 const SPLINE_SCENE_URL =
-  "https://prod.spline.design/6jSzeBgOSHM563BI/scene.splinecode?=3";
+  "https://prod.spline.design/42jS12fjmGmSM15i/scene.splinecode?=3";
 
 const BLINK_INTERVAL_MS = 3200;
 const BLINK_CLOSE_MS = 70;
@@ -40,7 +51,10 @@ const BLINK_OPEN_MS = 105;
 export default function FloatingSocialOrb({
   visible = true,
   className = "",
+  resetKey = null,
 }: FloatingSocialOrbProps) {
+  const pathname = usePathname();
+
   const [shouldRenderSpline, setShouldRenderSpline] = useState(false);
 
   const orbWrapRef = useRef<HTMLDivElement | null>(null);
@@ -60,6 +74,7 @@ export default function FloatingSocialOrb({
 
   const blinkIntervalRef = useRef<number | null>(null);
   const blinkTimeoutsRef = useRef<number[]>([]);
+  const resetTimeoutsRef = useRef<number[]>([]);
 
   useEffect(() => {
     if (!visible || shouldRenderSpline) return;
@@ -74,6 +89,7 @@ export default function FloatingSocialOrb({
   useEffect(() => {
     return () => {
       stopBlinkLoop();
+      clearResetTimeouts();
     };
   }, []);
 
@@ -89,6 +105,14 @@ export default function FloatingSocialOrb({
     });
 
     blinkTimeoutsRef.current = [];
+  };
+
+  const clearResetTimeouts = () => {
+    resetTimeoutsRef.current.forEach((timeout) => {
+      window.clearTimeout(timeout);
+    });
+
+    resetTimeoutsRef.current = [];
   };
 
   const restoreEyesOpen = () => {
@@ -125,6 +149,51 @@ export default function FloatingSocialOrb({
     if (eyeRight?.scale && rightScale) {
       eyeRight.scale.y = rightScale.y * 0.08;
     }
+  };
+
+  const resetEyesPosition = () => {
+    const eyesControl = eyesControlRef.current;
+    const center = centerPositionRef.current;
+
+    if (!eyesControl || !center) return;
+
+    eyesControl.position.x = center.x;
+    eyesControl.position.y = center.y;
+    eyesControl.position.z = center.z;
+  };
+
+  const resetEyes = () => {
+    resetEyesPosition();
+    restoreEyesOpen();
+  };
+
+  const hardResetEyes = () => {
+    clearBlinkTimeouts();
+    resetEyes();
+  };
+
+  const scheduleHardResetEyes = () => {
+    clearResetTimeouts();
+
+    hardResetEyes();
+
+    const reset1 = window.setTimeout(() => {
+      hardResetEyes();
+    }, 80);
+
+    const reset2 = window.setTimeout(() => {
+      hardResetEyes();
+    }, 180);
+
+    const reset3 = window.setTimeout(() => {
+      hardResetEyes();
+    }, 420);
+
+    const reset4 = window.setTimeout(() => {
+      hardResetEyes();
+    }, 750);
+
+    resetTimeoutsRef.current = [reset1, reset2, reset3, reset4];
   };
 
   const doBlink = () => {
@@ -225,7 +294,7 @@ export default function FloatingSocialOrb({
       }
     }
 
-    restoreEyesOpen();
+    scheduleHardResetEyes();
     startBlinkLoop();
   };
 
@@ -253,26 +322,47 @@ export default function FloatingSocialOrb({
     eyesControl.position.x += (targetX - eyesControl.position.x) * 0.45;
     eyesControl.position.y += (targetY - eyesControl.position.y) * 0.45;
     eyesControl.position.z = center.z;
-  };
-
-  const resetEyes = () => {
-    const eyesControl = eyesControlRef.current;
-    const center = centerPositionRef.current;
-
-    if (!eyesControl || !center) return;
-
-    eyesControl.position.x = center.x;
-    eyesControl.position.y = center.y;
-    eyesControl.position.z = center.z;
 
     restoreEyesOpen();
   };
+
+  const handleOrbPointerDown = () => {
+    scheduleHardResetEyes();
+  };
+
+  const handleOrbPointerUp = () => {
+    scheduleHardResetEyes();
+  };
+
+  const handleOrbClick = () => {
+    scheduleHardResetEyes();
+  };
+
+  const handleOrbLeave = () => {
+    scheduleHardResetEyes();
+  };
+
+  useEffect(() => {
+    scheduleHardResetEyes();
+  }, [visible]);
+
+  useEffect(() => {
+    scheduleHardResetEyes();
+  }, [pathname]);
+
+  useEffect(() => {
+    scheduleHardResetEyes();
+  }, [resetKey]);
 
   return (
     <div
       ref={orbWrapRef}
       onMouseMove={handleMouseMove}
-      onMouseLeave={resetEyes}
+      onMouseLeave={handleOrbLeave}
+      onPointerLeave={handleOrbLeave}
+      onPointerDown={handleOrbPointerDown}
+      onPointerUp={handleOrbPointerUp}
+      onClick={handleOrbClick}
       className={[
         "fixed bottom-2 right-2 z-[9999] hidden md:block",
         "h-[320px] w-[320px]",
