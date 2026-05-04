@@ -64,7 +64,7 @@ export default function FixedHeader({
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-[80]">
+      <header className="absolute inset-x-0 top-0 z-[100] md:fixed">
         <div className="mx-auto w-full max-w-[1880px] px-2 pt-3 sm:px-3 sm:pt-4 md:px-4 lg:px-5 xl:px-6 2xl:px-8">
           <div className="grid grid-cols-[1fr_auto] items-center md:grid-cols-[1fr_auto_1fr] md:gap-4">
             <div className="flex min-w-0 items-center justify-start">
@@ -138,7 +138,7 @@ export default function FixedHeader({
       </header>
 
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-[120] md:hidden">
+        <div className="fixed inset-0 z-[240] md:hidden">
           <button
             type="button"
             aria-label="Cerrar menú"
