@@ -160,13 +160,6 @@ const brands: SelectedBrand[] = [
     ],
   },
   {
-    brandName: "Pepsi",
-    brandLogo: "/img/works/pepsi.png",
-    description:
-      "Producción visual para campañas, activaciones y presencia de marca en espacios comerciales.",
-    works: genericWorks,
-  },
-  {
     brandName: "Santander",
     brandLogo: "/img/works/santa.png",
     description:
@@ -200,55 +193,6 @@ const brands: SelectedBrand[] = [
     ],
   },
   {
-    brandName: "Kersting",
-    brandLogo: "/img/works/kersting.png",
-    description:
-      "Desarrollo de elementos visuales para comunicación comercial, presencia corporativa y soporte de marca.",
-    works: genericWorks,
-  },
-  {
-    brandName: "Glam & Co",
-    brandLogo: "/img/works/glam y co.png",
-    description:
-      "Implementaciones gráficas para espacios de atención, retail y comunicación visual de marca.",
-    works: genericWorks,
-  },
-  {
-    brandName: "Canada Dry",
-    brandLogo: "/img/works/canada dry.png",
-    description:
-      "Producción de piezas gráficas y soportes visuales para activaciones, campañas y presencia de producto.",
-    works: genericWorks,
-  },
-  {
-    brandName: "ASI",
-    brandLogo: "/img/works/asi.png",
-    description:
-      "Soluciones de impresión, instalación y comunicación visual para requerimientos corporativos.",
-    works: genericWorks,
-  },
-  {
-    brandName: "Complot",
-    brandLogo: "/img/works/complot.png",
-    description:
-      "Colaboración en producción, activaciones y ejecución gráfica para campañas y experiencias de marca.",
-    works: genericWorks,
-  },
-  {
-    brandName: "Novovet",
-    brandLogo: "/img/works/novovet.png",
-    description:
-      "Soluciones visuales para marca veterinaria, incluyendo aplicaciones gráficas, señalética, merchandising y soporte comercial.",
-    works: genericWorks,
-  },
-  {
-    brandName: "Ford",
-    brandLogo: "/img/works/ford.png",
-    description:
-      "Producción gráfica y elementos de apoyo visual para presencia de marca automotriz, eventos y espacios comerciales.",
-    works: genericWorks,
-  },
-  {
     brandName: "Chevrolet",
     brandLogo: "/img/works/chevrolet.png",
     description:
@@ -280,13 +224,6 @@ const brands: SelectedBrand[] = [
         description: "Elementos para reforzar presencia en evento.",
       },
     ],
-  },
-  {
-    brandName: "Otras",
-    brandLogo: "/img/works/otras.png",
-    description:
-      "Otros proyectos desarrollados para marcas, campañas, activaciones y soluciones gráficas especiales.",
-    works: genericWorks,
   },
 ];
 
@@ -379,7 +316,7 @@ export default function BrandShowcase({
 
             <div className="pointer-events-none absolute inset-2 rounded-[18px] border border-white/[0.05]" />
 
-            <div className="relative grid grid-cols-5 gap-2 sm:gap-2.5 lg:gap-3">
+            <div className="relative grid grid-cols-3 gap-2.5 sm:gap-3 lg:gap-3 xl:gap-3.5 2xl:gap-4">
               {brands.map((brand, index) => (
                 <motion.button
                   key={brand.brandName}
