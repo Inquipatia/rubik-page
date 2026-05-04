@@ -41,12 +41,30 @@ type SplineApp = {
   findObjectByName?: (name: string) => any;
 };
 
+type SplineEvent = {
+  target?: {
+    name?: string;
+    id?: string;
+  };
+};
+
 const SPLINE_SCENE_URL =
   "https://prod.spline.design/42jS12fjmGmSM15i/scene.splinecode?=3";
+
+const HOVER_SOUND_URL = "/sounds/openningbbpop.mp3";
 
 const BLINK_INTERVAL_MS = 3200;
 const BLINK_CLOSE_MS = 70;
 const BLINK_OPEN_MS = 105;
+
+const HOVER_SOUND_COOLDOWN_MS = 650;
+const VIEW_ACT_OBJECT_NAME = "ViewAct";
+
+/**
+ * Spline dispara onSplineMouseHover muchas veces mientras el mouse está encima.
+ * Este timeout permite detectar "salida" sin necesitar un onMouseLeave del objeto.
+ */
+const VIEW_ACT_HOVER_RESET_MS = 180;
 
 export default function FloatingSocialOrb({
   visible = true,
@@ -76,6 +94,106 @@ export default function FloatingSocialOrb({
   const blinkTimeoutsRef = useRef<number[]>([]);
   const resetTimeoutsRef = useRef<number[]>([]);
 
+  const hoverAudioRef = useRef<HTMLAudioElement | null>(null);
+  const lastHoverSoundAtRef = useRef(0);
+  const audioUnlockedRef = useRef(false);
+
+  const isViewActHoveringRef = useRef(false);
+  const viewActHoverResetTimeoutRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const audio = new Audio(HOVER_SOUND_URL);
+    audio.volume = 0.35;
+    audio.preload = "auto";
+    hoverAudioRef.current = audio;
+
+    const unlockAudio = () => {
+      const currentAudio = hoverAudioRef.current;
+      if (!currentAudio || audioUnlockedRef.current) return;
+
+      currentAudio.muted = true;
+      currentAudio.currentTime = 0;
+
+      currentAudio
+        .play()
+        .then(() => {
+          currentAudio.pause();
+          currentAudio.currentTime = 0;
+          currentAudio.muted = false;
+          audioUnlockedRef.current = true;
+        })
+        .catch(() => {
+          currentAudio.muted = false;
+        });
+    };
+
+    window.addEventListener("pointerdown", unlockAudio, { once: true });
+    window.addEventListener("click", unlockAudio, { once: true });
+    window.addEventListener("touchstart", unlockAudio, { once: true });
+
+    return () => {
+      window.removeEventListener("pointerdown", unlockAudio);
+      window.removeEventListener("click", unlockAudio);
+      window.removeEventListener("touchstart", unlockAudio);
+
+      if (hoverAudioRef.current) {
+        hoverAudioRef.current.pause();
+        hoverAudioRef.current.src = "";
+        hoverAudioRef.current = null;
+      }
+    };
+  }, []);
+
+  const playHoverSound = () => {
+    if (!visible) return;
+
+    const now = Date.now();
+
+    if (now - lastHoverSoundAtRef.current < HOVER_SOUND_COOLDOWN_MS) {
+      return;
+    }
+
+    lastHoverSoundAtRef.current = now;
+
+    const audio = hoverAudioRef.current;
+    if (!audio) return;
+
+    audio.muted = false;
+    audio.currentTime = 0;
+
+    audio.play().catch(() => {
+      /**
+       * El navegador puede bloquear el audio si aún no hubo interacción.
+       * Después del primer click/pointerdown debería quedar habilitado.
+       */
+    });
+  };
+
+  const handleSplineMouseHover = (event: SplineEvent) => {
+    const targetName = event?.target?.name;
+
+    if (targetName !== VIEW_ACT_OBJECT_NAME) return;
+
+    if (viewActHoverResetTimeoutRef.current) {
+      window.clearTimeout(viewActHoverResetTimeoutRef.current);
+    }
+
+    viewActHoverResetTimeoutRef.current = window.setTimeout(() => {
+      isViewActHoveringRef.current = false;
+      viewActHoverResetTimeoutRef.current = null;
+    }, VIEW_ACT_HOVER_RESET_MS);
+
+    if (isViewActHoveringRef.current) {
+      restoreEyesOpen();
+      return;
+    }
+
+    isViewActHoveringRef.current = true;
+
+    playHoverSound();
+    restoreEyesOpen();
+  };
+
   useEffect(() => {
     if (!visible || shouldRenderSpline) return;
 
@@ -90,6 +208,11 @@ export default function FloatingSocialOrb({
     return () => {
       stopBlinkLoop();
       clearResetTimeouts();
+
+      if (viewActHoverResetTimeoutRef.current) {
+        window.clearTimeout(viewActHoverResetTimeoutRef.current);
+        viewActHoverResetTimeoutRef.current = null;
+      }
     };
   }, []);
 
@@ -326,6 +449,16 @@ export default function FloatingSocialOrb({
     restoreEyesOpen();
   };
 
+  const handleOrbPointerEnter = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType !== "mouse") return;
+
+    /**
+     * No reproducimos sonido acá.
+     * El sonido queda amarrado al hover real del objeto ViewAct dentro de Spline.
+     */
+    restoreEyesOpen();
+  };
+
   const handleOrbPointerDown = () => {
     scheduleHardResetEyes();
   };
@@ -339,6 +472,13 @@ export default function FloatingSocialOrb({
   };
 
   const handleOrbLeave = () => {
+    isViewActHoveringRef.current = false;
+
+    if (viewActHoverResetTimeoutRef.current) {
+      window.clearTimeout(viewActHoverResetTimeoutRef.current);
+      viewActHoverResetTimeoutRef.current = null;
+    }
+
     scheduleHardResetEyes();
   };
 
@@ -357,6 +497,7 @@ export default function FloatingSocialOrb({
   return (
     <div
       ref={orbWrapRef}
+      onPointerEnter={handleOrbPointerEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleOrbLeave}
       onPointerLeave={handleOrbLeave}
@@ -388,6 +529,7 @@ export default function FloatingSocialOrb({
                 key={SPLINE_SCENE_URL}
                 scene={SPLINE_SCENE_URL}
                 onLoad={handleSplineLoad}
+                onSplineMouseHover={handleSplineMouseHover}
                 className="h-full w-full"
               />
             </div>
