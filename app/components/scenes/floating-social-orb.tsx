@@ -12,19 +12,11 @@ const Spline = dynamic(() => import("@splinetool/react-spline"), {
 type FloatingSocialOrbProps = {
   visible?: boolean;
   className?: string;
-
-  /**
-   * Opcional:
-   * Pásale activeScene, currentScene, selectedScene o cualquier valor que cambie
-   * cuando cambias de vista interna en la landing.
-   *
-   * Ejemplo:
-   * <FloatingSocialOrb visible={true} resetKey={activeScene} />
-   */
   resetKey?: string | number | boolean | null;
 };
 
 type SplineObject = {
+  name?: string;
   position: {
     x: number;
     y: number;
@@ -39,14 +31,20 @@ type SplineObject = {
 
 type SplineApp = {
   findObjectByName?: (name: string) => any;
+  setVariable?: (name: string, value: string | number | boolean) => void;
 };
 
 const SPLINE_SCENE_URL =
-  "https://prod.spline.design/42jS12fjmGmSM15i/scene.splinecode?=3";
+  "https://prod.spline.design/gyhTRlBZZbn7O6eL/scene.splinecode";
 
 const BLINK_INTERVAL_MS = 3200;
 const BLINK_CLOSE_MS = 70;
 const BLINK_OPEN_MS = 105;
+
+const IDLE_DANCE_DELAY_MS = 60000;
+const IDLE_DANCE_REPEAT_MS = 60000;
+
+const IDLE_DANCE_VARIABLE_NAME = "jump";
 
 export default function FloatingSocialOrb({
   visible = true,
@@ -58,7 +56,9 @@ export default function FloatingSocialOrb({
   const [shouldRenderSpline, setShouldRenderSpline] = useState(false);
 
   const orbWrapRef = useRef<HTMLDivElement | null>(null);
+  const splineAppRef = useRef<SplineApp | null>(null);
 
+  const viewActRef = useRef<SplineObject | null>(null);
   const eyesControlRef = useRef<SplineObject | null>(null);
   const eyeLeftRef = useRef<SplineObject | null>(null);
   const eyeRightRef = useRef<SplineObject | null>(null);
@@ -66,6 +66,12 @@ export default function FloatingSocialOrb({
   const centerPositionRef = useRef<{ x: number; y: number; z: number } | null>(
     null
   );
+
+  const targetEyesPositionRef = useRef<{
+    x: number;
+    y: number;
+    z: number;
+  } | null>(null);
 
   const originalEyeScalesRef = useRef<{
     left?: { x: number; y: number; z: number };
@@ -76,22 +82,12 @@ export default function FloatingSocialOrb({
   const blinkTimeoutsRef = useRef<number[]>([]);
   const resetTimeoutsRef = useRef<number[]>([]);
 
-  useEffect(() => {
-    if (!visible || shouldRenderSpline) return;
+  const idleDanceValueRef = useRef(0);
+  const idleDanceTimerRef = useRef<number | null>(null);
+  const idleDanceIntervalRef = useRef<number | null>(null);
 
-    const timeout = window.setTimeout(() => {
-      setShouldRenderSpline(true);
-    }, 100);
-
-    return () => window.clearTimeout(timeout);
-  }, [visible, shouldRenderSpline]);
-
-  useEffect(() => {
-    return () => {
-      stopBlinkLoop();
-      clearResetTimeouts();
-    };
-  }, []);
+  const eyesRafRef = useRef<number | null>(null);
+  const isPointerInsideViewActRef = useRef(false);
 
   const visibilityClasses = useMemo(() => {
     return visible
@@ -143,12 +139,28 @@ export default function FloatingSocialOrb({
     const rightScale = originalEyeScalesRef.current.right;
 
     if (eyeLeft?.scale && leftScale) {
+      eyeLeft.scale.x = leftScale.x;
       eyeLeft.scale.y = leftScale.y * 0.08;
+      eyeLeft.scale.z = leftScale.z;
     }
 
     if (eyeRight?.scale && rightScale) {
+      eyeRight.scale.x = rightScale.x;
       eyeRight.scale.y = rightScale.y * 0.08;
+      eyeRight.scale.z = rightScale.z;
     }
+  };
+
+  const setEyesTargetToCenter = () => {
+    const center = centerPositionRef.current;
+
+    if (!center) return;
+
+    targetEyesPositionRef.current = {
+      x: center.x,
+      y: center.y,
+      z: center.z,
+    };
   };
 
   const resetEyesPosition = () => {
@@ -160,6 +172,8 @@ export default function FloatingSocialOrb({
     eyesControl.position.x = center.x;
     eyesControl.position.y = center.y;
     eyesControl.position.z = center.z;
+
+    setEyesTargetToCenter();
   };
 
   const resetEyes = () => {
@@ -244,16 +258,176 @@ export default function FloatingSocialOrb({
     }, BLINK_INTERVAL_MS);
   };
 
-  const handleSplineLoad = (splineApp: SplineApp) => {
-    const eyesControl =
-      splineApp.findObjectByName?.("eyes_control") ||
-      splineApp.findObjectByName?.("eyesControl");
+  const triggerIdleDance = () => {
+    const splineApp = splineAppRef.current;
 
-    const eyeLeft = splineApp.findObjectByName?.("eye left");
-    const eyeRight = splineApp.findObjectByName?.("eye right");
+    if (!visible) return;
+
+    if (!splineApp?.setVariable) {
+      console.warn("Spline todavía no tiene disponible setVariable");
+      return;
+    }
+
+    idleDanceValueRef.current += 1;
+
+    try {
+      splineApp.setVariable(
+        IDLE_DANCE_VARIABLE_NAME,
+        idleDanceValueRef.current
+      );
+
+      console.log("Baile idle activado:", idleDanceValueRef.current);
+    } catch (error) {
+      console.warn(
+        `No se pudo activar la variable ${IDLE_DANCE_VARIABLE_NAME}:`,
+        error
+      );
+    }
+  };
+
+  const stopIdleDanceLoop = () => {
+    if (idleDanceTimerRef.current) {
+      window.clearTimeout(idleDanceTimerRef.current);
+      idleDanceTimerRef.current = null;
+    }
+
+    if (idleDanceIntervalRef.current) {
+      window.clearInterval(idleDanceIntervalRef.current);
+      idleDanceIntervalRef.current = null;
+    }
+  };
+
+  const startIdleDanceLoop = () => {
+    stopIdleDanceLoop();
+
+    if (!visible || !splineAppRef.current) return;
+
+    idleDanceTimerRef.current = window.setTimeout(() => {
+      triggerIdleDance();
+
+      idleDanceIntervalRef.current = window.setInterval(() => {
+        triggerIdleDance();
+      }, IDLE_DANCE_REPEAT_MS);
+    }, IDLE_DANCE_DELAY_MS);
+  };
+
+  const registerUserActivity = () => {
+    startIdleDanceLoop();
+  };
+
+  const updateEyesTargetFromPointer = (clientX: number, clientY: number) => {
+    const wrap = orbWrapRef.current;
+    const center = centerPositionRef.current;
+
+    if (!wrap || !center) return;
+
+    const rect = wrap.getBoundingClientRect();
+
+    /**
+     * IMPORTANTE:
+     * En Spline el hover está en el rectángulo "ViewAct".
+     * Ese ViewAct ocupa prácticamente todo el área del Spline,
+     * no solamente el cuerpo morado.
+     *
+     * Por eso usamos el contenedor completo como zona activa.
+     */
+    const viewActLeft = rect.left;
+    const viewActRight = rect.right;
+    const viewActTop = rect.top;
+    const viewActBottom = rect.bottom;
+    const viewActWidth = rect.width;
+    const viewActHeight = rect.height;
+
+    const isInside =
+      clientX >= viewActLeft &&
+      clientX <= viewActRight &&
+      clientY >= viewActTop &&
+      clientY <= viewActBottom;
+
+    isPointerInsideViewActRef.current = isInside;
+
+    if (!isInside) {
+      setEyesTargetToCenter();
+      return;
+    }
+
+    const normalizedX = ((clientX - viewActLeft) / viewActWidth - 0.5) * 2;
+    const normalizedY = ((clientY - viewActTop) / viewActHeight - 0.5) * 2;
+
+    /**
+     * Estos valores son los que hacen que se note bien el movimiento.
+     * Si queda demasiado fuerte, baja a 35 y 30.
+     */
+    const maxX = 52;
+    const maxY = 42;
+
+    targetEyesPositionRef.current = {
+      x: center.x + normalizedX * maxX,
+      y: center.y - normalizedY * maxY,
+      z: center.z,
+    };
+
+    restoreEyesOpen();
+  };
+
+  const startEyesAnimationLoop = () => {
+    if (eyesRafRef.current) {
+      window.cancelAnimationFrame(eyesRafRef.current);
+      eyesRafRef.current = null;
+    }
+
+    const animate = () => {
+      const eyesControl = eyesControlRef.current;
+      const center = centerPositionRef.current;
+      const target = targetEyesPositionRef.current;
+
+      if (eyesControl && center && target) {
+        const ease = isPointerInsideViewActRef.current ? 0.34 : 0.18;
+
+        eyesControl.position.x += (target.x - eyesControl.position.x) * ease;
+        eyesControl.position.y += (target.y - eyesControl.position.y) * ease;
+        eyesControl.position.z = center.z;
+      }
+
+      eyesRafRef.current = window.requestAnimationFrame(animate);
+    };
+
+    eyesRafRef.current = window.requestAnimationFrame(animate);
+  };
+
+  const stopEyesAnimationLoop = () => {
+    if (eyesRafRef.current) {
+      window.cancelAnimationFrame(eyesRafRef.current);
+      eyesRafRef.current = null;
+    }
+  };
+
+  const handleSplineLoad = (splineApp: SplineApp) => {
+    splineAppRef.current = splineApp;
+
+    const viewAct = splineApp.findObjectByName?.("ViewAct");
+
+    const eyesControl =
+      splineApp.findObjectByName?.("eyesControl") ||
+      splineApp.findObjectByName?.("eyes_control");
+
+    const eyeLeft =
+      splineApp.findObjectByName?.("eye left") ||
+      splineApp.findObjectByName?.("eyeLeft");
+
+    const eyeRight =
+      splineApp.findObjectByName?.("eye right") ||
+      splineApp.findObjectByName?.("eyeRight");
+
+    if (viewAct) {
+      viewActRef.current = viewAct;
+      console.log("ViewAct encontrado:", viewAct.name);
+    } else {
+      console.warn("No encontré ViewAct en Spline");
+    }
 
     if (!eyesControl) {
-      console.warn("No encontré eyes_control / eyesControl en Spline");
+      console.warn("No encontré eyesControl / eyes_control en Spline");
     }
 
     if (!eyeLeft || !eyeRight) {
@@ -268,6 +442,14 @@ export default function FloatingSocialOrb({
         y: eyesControl.position.y,
         z: eyesControl.position.z,
       };
+
+      targetEyesPositionRef.current = {
+        x: eyesControl.position.x,
+        y: eyesControl.position.y,
+        z: eyesControl.position.z,
+      };
+
+      console.log("eyesControl encontrado:", eyesControl.name);
     }
 
     if (eyeLeft) {
@@ -280,6 +462,8 @@ export default function FloatingSocialOrb({
           z: eyeLeft.scale.z,
         };
       }
+
+      console.log("eye left encontrado:", eyeLeft.name);
     }
 
     if (eyeRight) {
@@ -292,72 +476,119 @@ export default function FloatingSocialOrb({
           z: eyeRight.scale.z,
         };
       }
+
+      console.log("eye right encontrado:", eyeRight.name);
     }
 
     scheduleHardResetEyes();
     startBlinkLoop();
-  };
-
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    const wrap = orbWrapRef.current;
-    const eyesControl = eyesControlRef.current;
-    const center = centerPositionRef.current;
-
-    if (!wrap || !eyesControl || !center) return;
-
-    const rect = wrap.getBoundingClientRect();
-
-    const normalizedX =
-      ((event.clientX - rect.left) / rect.width - 0.5) * 2;
-
-    const normalizedY =
-      ((event.clientY - rect.top) / rect.height - 0.5) * 2;
-
-    const maxX = 45;
-    const maxY = 38;
-
-    const targetX = center.x + normalizedX * maxX;
-    const targetY = center.y - normalizedY * maxY;
-
-    eyesControl.position.x += (targetX - eyesControl.position.x) * 0.45;
-    eyesControl.position.y += (targetY - eyesControl.position.y) * 0.45;
-    eyesControl.position.z = center.z;
-
-    restoreEyesOpen();
+    startEyesAnimationLoop();
+    startIdleDanceLoop();
   };
 
   const handleOrbPointerDown = () => {
+    registerUserActivity();
     scheduleHardResetEyes();
   };
 
   const handleOrbPointerUp = () => {
+    registerUserActivity();
     scheduleHardResetEyes();
   };
 
   const handleOrbClick = () => {
+    registerUserActivity();
     scheduleHardResetEyes();
   };
 
   const handleOrbLeave = () => {
+    isPointerInsideViewActRef.current = false;
+    registerUserActivity();
     scheduleHardResetEyes();
   };
 
   useEffect(() => {
-    scheduleHardResetEyes();
+    if (!visible || shouldRenderSpline) return;
+
+    const timeout = window.setTimeout(() => {
+      setShouldRenderSpline(true);
+    }, 100);
+
+    return () => window.clearTimeout(timeout);
+  }, [visible, shouldRenderSpline]);
+
+  useEffect(() => {
+    return () => {
+      stopBlinkLoop();
+      clearResetTimeouts();
+      stopIdleDanceLoop();
+      stopEyesAnimationLoop();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!visible) {
+      stopIdleDanceLoop();
+      return;
+    }
+
+    startIdleDanceLoop();
   }, [visible]);
 
   useEffect(() => {
     scheduleHardResetEyes();
+    registerUserActivity();
   }, [pathname]);
 
   useEffect(() => {
     scheduleHardResetEyes();
+    registerUserActivity();
   }, [resetKey]);
+
+  useEffect(() => {
+    if (!visible) return;
+
+    const handlePointerMove = (event: PointerEvent) => {
+      registerUserActivity();
+      updateEyesTargetFromPointer(event.clientX, event.clientY);
+    };
+
+    const handleActivity = () => {
+      registerUserActivity();
+    };
+
+    const handleWindowLeave = () => {
+      isPointerInsideViewActRef.current = false;
+      setEyesTargetToCenter();
+    };
+
+    window.addEventListener("pointermove", handlePointerMove, {
+      passive: true,
+    });
+
+    window.addEventListener("mousedown", handleActivity, { passive: true });
+    window.addEventListener("touchstart", handleActivity, { passive: true });
+    window.addEventListener("keydown", handleActivity, { passive: true });
+    window.addEventListener("scroll", handleActivity, { passive: true });
+    window.addEventListener("wheel", handleActivity, { passive: true });
+    window.addEventListener("blur", handleWindowLeave);
+
+    startIdleDanceLoop();
+
+    return () => {
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("mousedown", handleActivity);
+      window.removeEventListener("touchstart", handleActivity);
+      window.removeEventListener("keydown", handleActivity);
+      window.removeEventListener("scroll", handleActivity);
+      window.removeEventListener("wheel", handleActivity);
+      window.removeEventListener("blur", handleWindowLeave);
+    };
+  }, [visible]);
 
   return (
     <div
       ref={orbWrapRef}
-      onMouseMove={handleMouseMove}
       onMouseLeave={handleOrbLeave}
       onPointerLeave={handleOrbLeave}
       onPointerDown={handleOrbPointerDown}
