@@ -12,15 +12,6 @@ const Spline = dynamic(() => import("@splinetool/react-spline"), {
 type FloatingSocialOrbProps = {
   visible?: boolean;
   className?: string;
-
-  /**
-   * Opcional:
-   * Pásale activeScene, currentScene, selectedScene o cualquier valor que cambie
-   * cuando cambias de vista interna en la landing.
-   *
-   * Ejemplo:
-   * <FloatingSocialOrb visible={true} resetKey={activeScene} />
-   */
   resetKey?: string | number | boolean | null;
 };
 
@@ -30,40 +21,31 @@ type SplineObject = {
     y: number;
     z: number;
   };
-  scale?: {
-    x: number;
-    y: number;
-    z: number;
-  };
 };
 
 type SplineApp = {
   findObjectByName?: (name: string) => any;
-};
-
-type SplineEvent = {
-  target?: {
-    name?: string;
-    id?: string;
-  };
+  setVariable?: (name: string, value: number | boolean | string) => void;
+  setVariables?: (variables: Record<string, number | boolean | string>) => void;
+  getVariable?: (name: string) => any;
 };
 
 const SPLINE_SCENE_URL =
-  "https://prod.spline.design/42jS12fjmGmSM15i/scene.splinecode?=3";
+  "https://prod.spline.design/42jS12fjmGmSM15i/scene.splinecode";
 
 const HOVER_SOUND_URL = "/sounds/openningbbpop.mp3";
 
-const BLINK_INTERVAL_MS = 3200;
-const BLINK_CLOSE_MS = 70;
-const BLINK_OPEN_MS = 105;
-
 const HOVER_SOUND_COOLDOWN_MS = 650;
-const VIEW_ACT_OBJECT_NAME = "ViewAct";
 
-/**
- * Spline dispara onSplineMouseHover muchas veces mientras el mouse está encima.
- * Este timeout permite detectar "salida" sin necesitar un onMouseLeave del objeto.
- */
+const VIEW_ACT_OBJECT_NAME = "ViewAct";
+const EYES_CONTROL_OBJECT_NAME = "eyesControl";
+
+const IDLE_DANCE_VARIABLE_NAME = "idleDanceTrigger";
+const IDLE_DANCE_EVERY_MS = 60_000;
+
+// Para probar rápido, cambia temporalmente a 5_000.
+// const IDLE_DANCE_EVERY_MS = 5_000;
+
 const VIEW_ACT_HOVER_RESET_MS = 180;
 
 export default function FloatingSocialOrb({
@@ -77,21 +59,18 @@ export default function FloatingSocialOrb({
 
   const orbWrapRef = useRef<HTMLDivElement | null>(null);
 
-  const eyesControlRef = useRef<SplineObject | null>(null);
-  const eyeLeftRef = useRef<SplineObject | null>(null);
-  const eyeRightRef = useRef<SplineObject | null>(null);
+  const splineAppRef = useRef<SplineApp | null>(null);
 
+  const idleDanceValueRef = useRef(0);
+  const idleDanceStartTimeoutRef = useRef<number | null>(null);
+  const idleDanceIntervalRef = useRef<number | null>(null);
+  const idleDanceLoopStartedRef = useRef(false);
+
+  const eyesControlRef = useRef<SplineObject | null>(null);
   const centerPositionRef = useRef<{ x: number; y: number; z: number } | null>(
     null
   );
 
-  const originalEyeScalesRef = useRef<{
-    left?: { x: number; y: number; z: number };
-    right?: { x: number; y: number; z: number };
-  }>({});
-
-  const blinkIntervalRef = useRef<number | null>(null);
-  const blinkTimeoutsRef = useRef<number[]>([]);
   const resetTimeoutsRef = useRef<number[]>([]);
 
   const hoverAudioRef = useRef<HTMLAudioElement | null>(null);
@@ -100,6 +79,12 @@ export default function FloatingSocialOrb({
 
   const isViewActHoveringRef = useRef(false);
   const viewActHoverResetTimeoutRef = useRef<number | null>(null);
+
+  const visibleRef = useRef(visible);
+
+  useEffect(() => {
+    visibleRef.current = visible;
+  }, [visible]);
 
   useEffect(() => {
     const audio = new Audio(HOVER_SOUND_URL);
@@ -130,11 +115,13 @@ export default function FloatingSocialOrb({
     window.addEventListener("pointerdown", unlockAudio, { once: true });
     window.addEventListener("click", unlockAudio, { once: true });
     window.addEventListener("touchstart", unlockAudio, { once: true });
+    window.addEventListener("keydown", unlockAudio, { once: true });
 
     return () => {
       window.removeEventListener("pointerdown", unlockAudio);
       window.removeEventListener("click", unlockAudio);
       window.removeEventListener("touchstart", unlockAudio);
+      window.removeEventListener("keydown", unlockAudio);
 
       if (hoverAudioRef.current) {
         hoverAudioRef.current.pause();
@@ -145,7 +132,7 @@ export default function FloatingSocialOrb({
   }, []);
 
   const playHoverSound = () => {
-    if (!visible) return;
+    if (!visibleRef.current) return;
 
     const now = Date.now();
 
@@ -162,15 +149,166 @@ export default function FloatingSocialOrb({
     audio.currentTime = 0;
 
     audio.play().catch(() => {
-      /**
-       * El navegador puede bloquear el audio si aún no hubo interacción.
-       * Después del primer click/pointerdown debería quedar habilitado.
-       */
+      // El navegador puede bloquear el audio si aún no hubo interacción real.
     });
   };
 
-  const handleSplineMouseHover = (event: SplineEvent) => {
-    const targetName = event?.target?.name;
+  const clearResetTimeouts = () => {
+    resetTimeoutsRef.current.forEach((timeout) => {
+      window.clearTimeout(timeout);
+    });
+
+    resetTimeoutsRef.current = [];
+  };
+
+  const resetEyesPosition = () => {
+    const eyesControl = eyesControlRef.current;
+    const center = centerPositionRef.current;
+
+    if (!eyesControl || !center) return;
+
+    eyesControl.position.x = center.x;
+    eyesControl.position.y = center.y;
+    eyesControl.position.z = center.z;
+  };
+
+  const scheduleEyesPositionReset = () => {
+    clearResetTimeouts();
+
+    resetEyesPosition();
+
+    const reset1 = window.setTimeout(() => {
+      resetEyesPosition();
+    }, 80);
+
+    const reset2 = window.setTimeout(() => {
+      resetEyesPosition();
+    }, 180);
+
+    const reset3 = window.setTimeout(() => {
+      resetEyesPosition();
+    }, 420);
+
+    resetTimeoutsRef.current = [reset1, reset2, reset3];
+  };
+
+  const clearIdleDanceTimers = () => {
+    if (idleDanceStartTimeoutRef.current) {
+      window.clearTimeout(idleDanceStartTimeoutRef.current);
+      idleDanceStartTimeoutRef.current = null;
+    }
+
+    if (idleDanceIntervalRef.current) {
+      window.clearInterval(idleDanceIntervalRef.current);
+      idleDanceIntervalRef.current = null;
+    }
+
+    idleDanceLoopStartedRef.current = false;
+  };
+
+  const setSplineVariable = (
+    name: string,
+    value: number | boolean | string
+  ) => {
+    const splineApp = splineAppRef.current;
+
+    if (!splineApp) {
+      console.warn("No existe splineAppRef para cambiar variable:", name);
+      return false;
+    }
+
+    let didSet = false;
+
+    if (typeof splineApp.setVariable === "function") {
+      splineApp.setVariable(name, value);
+      didSet = true;
+    }
+
+    if (typeof splineApp.setVariables === "function") {
+      splineApp.setVariables({
+        [name]: value,
+      });
+      didSet = true;
+    }
+
+    if (!didSet) {
+      console.warn("Spline no expone setVariable ni setVariables");
+      console.log("Métodos disponibles:", Object.keys(splineApp));
+    }
+
+    return didSet;
+  };
+
+  const triggerIdleDance = () => {
+    if (!visibleRef.current) return;
+
+    idleDanceValueRef.current += 1;
+
+    const nextValue = idleDanceValueRef.current;
+
+    console.log("Disparando idleDanceTrigger:", nextValue);
+
+    const didSet = setSplineVariable(IDLE_DANCE_VARIABLE_NAME, nextValue);
+
+    if (!didSet) return;
+
+    playHoverSound();
+    scheduleEyesPositionReset();
+  };
+
+  const startIdleDanceLoop = () => {
+    if (!visibleRef.current) return;
+    if (!shouldRenderSpline) return;
+    if (!splineAppRef.current) return;
+
+    /**
+     * Seguro principal:
+     * evita que se creen dos timeouts/intervalos al mismo tiempo.
+     */
+    if (idleDanceLoopStartedRef.current) return;
+
+    idleDanceLoopStartedRef.current = true;
+
+    idleDanceStartTimeoutRef.current = window.setTimeout(() => {
+      triggerIdleDance();
+
+      idleDanceIntervalRef.current = window.setInterval(() => {
+        triggerIdleDance();
+      }, IDLE_DANCE_EVERY_MS);
+    }, IDLE_DANCE_EVERY_MS);
+  };
+
+  const restartIdleDanceLoop = () => {
+    /**
+     * Este es el detalle nuevo:
+     * cada vez que el usuario hace hover real sobre ViewAct,
+     * se reinicia el contador del baile.
+     *
+     * Ejemplo:
+     * - Iba en segundo 45 de 60.
+     * - Usuario pasa el mouse por el orbe.
+     * - El contador vuelve a 0.
+     * - El próximo baile ocurre 60 segundos después de ese hover.
+     */
+    clearIdleDanceTimers();
+    startIdleDanceLoop();
+  };
+
+  useEffect(() => {
+    if (!visible) {
+      clearIdleDanceTimers();
+      return;
+    }
+
+    startIdleDanceLoop();
+
+    return () => {
+      clearIdleDanceTimers();
+    };
+  }, [visible, shouldRenderSpline]);
+
+  const handleSplineMouseHover = (eventRaw: any) => {
+    const targetName = eventRaw?.target?.name;
 
     if (targetName !== VIEW_ACT_OBJECT_NAME) return;
 
@@ -184,14 +322,13 @@ export default function FloatingSocialOrb({
     }, VIEW_ACT_HOVER_RESET_MS);
 
     if (isViewActHoveringRef.current) {
-      restoreEyesOpen();
       return;
     }
 
     isViewActHoveringRef.current = true;
 
     playHoverSound();
-    restoreEyesOpen();
+    restartIdleDanceLoop();
   };
 
   useEffect(() => {
@@ -206,8 +343,8 @@ export default function FloatingSocialOrb({
 
   useEffect(() => {
     return () => {
-      stopBlinkLoop();
       clearResetTimeouts();
+      clearIdleDanceTimers();
 
       if (viewActHoverResetTimeoutRef.current) {
         window.clearTimeout(viewActHoverResetTimeoutRef.current);
@@ -222,165 +359,20 @@ export default function FloatingSocialOrb({
       : "pointer-events-none opacity-0 translate-y-3 scale-95";
   }, [visible]);
 
-  const clearBlinkTimeouts = () => {
-    blinkTimeoutsRef.current.forEach((timeout) => {
-      window.clearTimeout(timeout);
-    });
+  const handleSplineLoad = (splineAppRaw: any) => {
+    const splineApp = splineAppRaw as SplineApp;
 
-    blinkTimeoutsRef.current = [];
-  };
+    splineAppRef.current = splineApp;
 
-  const clearResetTimeouts = () => {
-    resetTimeoutsRef.current.forEach((timeout) => {
-      window.clearTimeout(timeout);
-    });
+    console.log("Spline app cargado:", splineApp);
+    console.log("Métodos disponibles:", Object.keys(splineApp));
 
-    resetTimeoutsRef.current = [];
-  };
-
-  const restoreEyesOpen = () => {
-    const eyeLeft = eyeLeftRef.current;
-    const eyeRight = eyeRightRef.current;
-
-    const leftScale = originalEyeScalesRef.current.left;
-    const rightScale = originalEyeScalesRef.current.right;
-
-    if (eyeLeft?.scale && leftScale) {
-      eyeLeft.scale.x = leftScale.x;
-      eyeLeft.scale.y = leftScale.y;
-      eyeLeft.scale.z = leftScale.z;
-    }
-
-    if (eyeRight?.scale && rightScale) {
-      eyeRight.scale.x = rightScale.x;
-      eyeRight.scale.y = rightScale.y;
-      eyeRight.scale.z = rightScale.z;
-    }
-  };
-
-  const closeEyes = () => {
-    const eyeLeft = eyeLeftRef.current;
-    const eyeRight = eyeRightRef.current;
-
-    const leftScale = originalEyeScalesRef.current.left;
-    const rightScale = originalEyeScalesRef.current.right;
-
-    if (eyeLeft?.scale && leftScale) {
-      eyeLeft.scale.y = leftScale.y * 0.08;
-    }
-
-    if (eyeRight?.scale && rightScale) {
-      eyeRight.scale.y = rightScale.y * 0.08;
-    }
-  };
-
-  const resetEyesPosition = () => {
-    const eyesControl = eyesControlRef.current;
-    const center = centerPositionRef.current;
-
-    if (!eyesControl || !center) return;
-
-    eyesControl.position.x = center.x;
-    eyesControl.position.y = center.y;
-    eyesControl.position.z = center.z;
-  };
-
-  const resetEyes = () => {
-    resetEyesPosition();
-    restoreEyesOpen();
-  };
-
-  const hardResetEyes = () => {
-    clearBlinkTimeouts();
-    resetEyes();
-  };
-
-  const scheduleHardResetEyes = () => {
-    clearResetTimeouts();
-
-    hardResetEyes();
-
-    const reset1 = window.setTimeout(() => {
-      hardResetEyes();
-    }, 80);
-
-    const reset2 = window.setTimeout(() => {
-      hardResetEyes();
-    }, 180);
-
-    const reset3 = window.setTimeout(() => {
-      hardResetEyes();
-    }, 420);
-
-    const reset4 = window.setTimeout(() => {
-      hardResetEyes();
-    }, 750);
-
-    resetTimeoutsRef.current = [reset1, reset2, reset3, reset4];
-  };
-
-  const doBlink = () => {
-    clearBlinkTimeouts();
-
-    restoreEyesOpen();
-
-    const closeTimeout = window.setTimeout(() => {
-      closeEyes();
-    }, BLINK_CLOSE_MS);
-
-    const openTimeout = window.setTimeout(() => {
-      restoreEyesOpen();
-    }, BLINK_CLOSE_MS + BLINK_OPEN_MS);
-
-    const safetyOpenTimeout = window.setTimeout(() => {
-      restoreEyesOpen();
-    }, BLINK_CLOSE_MS + BLINK_OPEN_MS + 260);
-
-    blinkTimeoutsRef.current = [
-      closeTimeout,
-      openTimeout,
-      safetyOpenTimeout,
-    ];
-  };
-
-  const stopBlinkLoop = () => {
-    if (blinkIntervalRef.current) {
-      window.clearInterval(blinkIntervalRef.current);
-      blinkIntervalRef.current = null;
-    }
-
-    clearBlinkTimeouts();
-    restoreEyesOpen();
-  };
-
-  const startBlinkLoop = () => {
-    stopBlinkLoop();
-
-    const firstBlink = window.setTimeout(() => {
-      doBlink();
-    }, 900);
-
-    blinkTimeoutsRef.current.push(firstBlink);
-
-    blinkIntervalRef.current = window.setInterval(() => {
-      doBlink();
-    }, BLINK_INTERVAL_MS);
-  };
-
-  const handleSplineLoad = (splineApp: SplineApp) => {
-    const eyesControl =
-      splineApp.findObjectByName?.("eyes_control") ||
-      splineApp.findObjectByName?.("eyesControl");
-
-    const eyeLeft = splineApp.findObjectByName?.("eye left");
-    const eyeRight = splineApp.findObjectByName?.("eye right");
+    const eyesControl = splineApp.findObjectByName?.(
+      EYES_CONTROL_OBJECT_NAME
+    );
 
     if (!eyesControl) {
-      console.warn("No encontré eyes_control / eyesControl en Spline");
-    }
-
-    if (!eyeLeft || !eyeRight) {
-      console.warn("No encontré eye left / eye right en Spline");
+      console.warn(`No encontré ${EYES_CONTROL_OBJECT_NAME} en Spline`);
     }
 
     if (eyesControl) {
@@ -393,32 +385,15 @@ export default function FloatingSocialOrb({
       };
     }
 
-    if (eyeLeft) {
-      eyeLeftRef.current = eyeLeft;
+    scheduleEyesPositionReset();
 
-      if (eyeLeft.scale) {
-        originalEyeScalesRef.current.left = {
-          x: eyeLeft.scale.x,
-          y: eyeLeft.scale.y,
-          z: eyeLeft.scale.z,
-        };
-      }
-    }
-
-    if (eyeRight) {
-      eyeRightRef.current = eyeRight;
-
-      if (eyeRight.scale) {
-        originalEyeScalesRef.current.right = {
-          x: eyeRight.scale.x,
-          y: eyeRight.scale.y,
-          z: eyeRight.scale.z,
-        };
-      }
-    }
-
-    scheduleHardResetEyes();
-    startBlinkLoop();
+    /**
+     * Esperamos un poco después del onLoad para que Spline termine de estabilizar.
+     * No dispara el baile altiro; solo inicia el reloj.
+     */
+    window.setTimeout(() => {
+      startIdleDanceLoop();
+    }, 600);
   };
 
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -445,30 +420,22 @@ export default function FloatingSocialOrb({
     eyesControl.position.x += (targetX - eyesControl.position.x) * 0.45;
     eyesControl.position.y += (targetY - eyesControl.position.y) * 0.45;
     eyesControl.position.z = center.z;
-
-    restoreEyesOpen();
   };
 
   const handleOrbPointerEnter = (event: React.PointerEvent<HTMLDivElement>) => {
     if (event.pointerType !== "mouse") return;
-
-    /**
-     * No reproducimos sonido acá.
-     * El sonido queda amarrado al hover real del objeto ViewAct dentro de Spline.
-     */
-    restoreEyesOpen();
   };
 
   const handleOrbPointerDown = () => {
-    scheduleHardResetEyes();
+    scheduleEyesPositionReset();
   };
 
   const handleOrbPointerUp = () => {
-    scheduleHardResetEyes();
+    scheduleEyesPositionReset();
   };
 
   const handleOrbClick = () => {
-    scheduleHardResetEyes();
+    scheduleEyesPositionReset();
   };
 
   const handleOrbLeave = () => {
@@ -479,19 +446,19 @@ export default function FloatingSocialOrb({
       viewActHoverResetTimeoutRef.current = null;
     }
 
-    scheduleHardResetEyes();
+    scheduleEyesPositionReset();
   };
 
   useEffect(() => {
-    scheduleHardResetEyes();
+    scheduleEyesPositionReset();
   }, [visible]);
 
   useEffect(() => {
-    scheduleHardResetEyes();
+    scheduleEyesPositionReset();
   }, [pathname]);
 
   useEffect(() => {
-    scheduleHardResetEyes();
+    scheduleEyesPositionReset();
   }, [resetKey]);
 
   return (
