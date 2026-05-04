@@ -8,29 +8,6 @@ type BrandShowcaseProps = {
   onOpenBrandDetails: (brand: SelectedBrand) => void;
 };
 
-const genericWorks = [
-  {
-    image: "/img/services/MISTRAL/MISTRAL (1).png",
-    title: "Implementación visual",
-    description: "Aplicación de piezas gráficas, soportes y presencia de marca.",
-  },
-  {
-    image: "/img/services/MISTRAL/MISTRAL (2).png",
-    title: "Producción gráfica",
-    description: "Desarrollo de elementos visuales para espacios y campañas.",
-  },
-  {
-    image: "/img/services/MISTRAL/MISTRAL (3).png",
-    title: "Montaje de marca",
-    description: "Instalación y ajuste de piezas para comunicación visual.",
-  },
-  {
-    image: "/img/services/MISTRAL/MISTRAL (4).png",
-    title: "Cierre visual",
-    description: "Terminaciones, soporte e integración final de marca.",
-  },
-];
-
 const brands: SelectedBrand[] = [
   {
     brandName: "Copec",
@@ -64,31 +41,17 @@ const brands: SelectedBrand[] = [
     brandName: "Kaufmann",
     brandLogo: "/img/works/kauf.png",
     description:
-      "Activaciones desarrolladas vía agencia Complot, incluyendo estructuras metálicas para exhibición de vehículos, volumétricos en acrílico, piezas gráficas y emplacado en Trovicel.",
+      "Activaciones e implementaciones comerciales con desarrollo de estructuras, piezas gráficas, soportes visuales y recursos de exhibición para reforzar presencia de marca.",
     works: [
       {
-        image: "/img/services/KAUFMAN/kaufman (1).png",
-        title: "Visual de campaña",
-        description: "Despliegue gráfico para reforzar storytelling de marca.",
-      },
-      {
-        image: "/img/services/KAUFMAN/kaufman (2).png",
-        title: "Ambientación retail",
-        description: "Piezas y soportes para experiencia de compra.",
-      },
-      {
         image: "/img/services/KAUFMAN/kaufman (3).png",
-        title: "Soporte promocional",
-        description: "Aplicaciones visuales para exhibición y marca.",
+        title: "Kaufmann 01",
+        description: "Aplicación visual para exhibición y marca.",
       },
-      {
-        image: "/img/services/KAUFMAN/kaufman (4).png",
-        title: "Implementación comercial",
-        description: "Recursos gráficos en entorno de atención y venta.",
-      },
+      
       {
         image: "/img/services/KAUFMAN/kaufman (5).png",
-        title: "Cierre de activación",
+        title: "Kaufmann 03",
         description: "Terminaciones visuales y soporte de marca en montaje.",
       },
     ],
@@ -101,32 +64,32 @@ const brands: SelectedBrand[] = [
     works: [
       {
         image: "/img/services/LATAM/latam (1).png",
-        title: "Soporte visual",
+        title: "Latam 01",
         description: "Aplicación de piezas gráficas en entorno comercial.",
       },
       {
         image: "/img/services/LATAM/latam (2).png",
-        title: "Branding interior",
+        title: "Latam 02",
         description: "Refuerzo visual de marca en espacios de atención.",
       },
       {
         image: "/img/services/LATAM/latam (3).png",
-        title: "Actualización gráfica",
+        title: "Latam 03",
         description: "Reajuste visual y mantención de presencia de marca.",
       },
       {
         image: "/img/services/LATAM/latam (4).png",
-        title: "Volumétrico reacondicionado",
+        title: "Latam 04",
         description: "Renovación de acabados e identidad visual.",
       },
       {
         image: "/img/services/LATAM/latam (5).png",
-        title: "Mantención",
+        title: "Latam 05",
         description: "Correcciones visuales y soporte de instalación.",
       },
       {
         image: "/img/services/LATAM/latam (6).png",
-        title: "Aplicación final",
+        title: "Latam 06",
         description: "Integración de branding y terminaciones.",
       },
     ],
@@ -138,24 +101,29 @@ const brands: SelectedBrand[] = [
       "Soluciones gráficas corporativas para espacios de atención, campañas y refuerzo de identidad visual.",
     works: [
       {
+        image: "/img/services/MISTRAL/MISTRA(1).png",
+        title: "Mistral 01",
+        description: "Aplicación visual para presencia de marca.",
+      },
+      {
         image: "/img/services/MISTRAL/MISTRAL (1).png",
-        title: "Señalética corporativa",
-        description: "Aplicación de elementos visuales en entorno institucional.",
+        title: "Mistral 02",
+        description: "Pieza gráfica aplicada a implementación comercial.",
       },
       {
         image: "/img/services/MISTRAL/MISTRAL (2).png",
-        title: "Gráfica de apoyo",
-        description: "Piezas para comunicación y presencia de marca.",
+        title: "Mistral 03",
+        description: "Producción visual para espacio de marca.",
       },
       {
         image: "/img/services/MISTRAL/MISTRAL (3).png",
-        title: "Implementación visual",
-        description: "Refuerzo gráfico para espacios y campaña.",
+        title: "Mistral 04",
+        description: "Soporte gráfico para comunicación visual.",
       },
       {
         image: "/img/services/MISTRAL/MISTRAL (4).png",
-        title: "Cierre visual",
-        description: "Aplicación final de piezas y soportes.",
+        title: "Mistral 05",
+        description: "Cierre visual de implementación.",
       },
     ],
   },
@@ -167,28 +135,28 @@ const brands: SelectedBrand[] = [
     works: [
       {
         image: "/img/services/SANTANDER/santa (1).png",
-        title: "Implementación sucursal",
+        title: "Santander 01",
         description: "Aplicación gráfica en espacio comercial y comunicación visual.",
       },
       {
         image: "/img/services/SANTANDER/santa (2).png",
-        title: "Señalética corporativa",
+        title: "Santander 02",
         description: "Sistema visual para reforzar navegación y presencia de marca.",
       },
       {
         image: "/img/services/SANTANDER/santa (3).png",
-        title: "Campaña interior",
-        description: "Elementos gráficos para destacar promociones y experiencia de cliente.",
+        title: "Santander 03",
+        description: "Elementos gráficos para destacar experiencia de cliente.",
       },
       {
         image: "/img/services/SANTANDER/santa (4).png",
-        title: "Piezas de apoyo",
+        title: "Santander 04",
         description: "Producción e instalación de recursos visuales complementarios.",
       },
       {
         image: "/img/services/SANTANDER/santa (5).png",
-        title: "Activación de marca",
-        description: "Despliegue visual para reforzar presencia y experiencia de campaña.",
+        title: "Santander 05",
+        description: "Despliegue visual para reforzar presencia de marca.",
       },
     ],
   },
@@ -200,27 +168,27 @@ const brands: SelectedBrand[] = [
     works: [
       {
         image: "/img/services/CHEVROLET/che (1).png",
-        title: "Activación retail",
+        title: "Chevrolet 01",
         description: "Montaje de material visual para campaña promocional.",
       },
       {
         image: "/img/services/CHEVROLET/che (2).png",
-        title: "Display de marca",
+        title: "Chevrolet 02",
         description: "Soportes para reforzar presencia visual en punto de venta.",
       },
       {
         image: "/img/services/CHEVROLET/che (3).png",
-        title: "Piezas gráficas",
+        title: "Chevrolet 03",
         description: "Aplicaciones visuales en estructura y entorno de marca.",
       },
       {
         image: "/img/services/CHEVROLET/che (4).png",
-        title: "Implementación visual",
+        title: "Chevrolet 04",
         description: "Recursos gráficos para activación y experiencia.",
       },
       {
         image: "/img/services/CHEVROLET/che (5).png",
-        title: "Soporte promocional",
+        title: "Chevrolet 05",
         description: "Elementos para reforzar presencia en evento.",
       },
     ],
