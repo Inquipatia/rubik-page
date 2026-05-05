@@ -127,6 +127,15 @@ export default function Home() {
     return 0;
   }, [activeScene]);
 
+  const orbResetKey = useMemo(() => {
+    return [
+      `scene:${activeScene}`,
+      `cotiza:${isCotizaOpen ? "open" : "closed"}`,
+      `brand:${selectedBrand?.brandName ?? "none"}`,
+      `services:${servicesResetKey}`,
+    ].join("|");
+  }, [activeScene, isCotizaOpen, selectedBrand, servicesResetKey]);
+
   const scrollToSection = useCallback((id: string) => {
     if (typeof window === "undefined") return;
 
@@ -332,9 +341,8 @@ export default function Home() {
 
   return (
     <main
-      className={`relative w-full overflow-x-hidden text-white ${
-        isMobile ? "min-h-screen" : "h-[100svh] overflow-hidden"
-      }`}
+      className={`relative w-full overflow-x-hidden text-white ${isMobile ? "min-h-screen" : "h-[100svh] overflow-hidden"
+        }`}
     >
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,#7a4dff_0%,#4e1cbb_18%,#23114a_54%,#090912_100%)]" />
@@ -347,9 +355,8 @@ export default function Home() {
       </div>
 
       <div
-        className={`relative z-10 w-full ${
-          isMobile ? "min-h-screen" : "h-full"
-        }`}
+        className={`relative z-10 w-full ${isMobile ? "min-h-screen" : "h-full"
+          }`}
       >
         <FixedHeader
           activeScene={activeScene}
@@ -368,7 +375,7 @@ export default function Home() {
                 description="CON MÁS DE 100 TRABAJOS REALIZADOS, RUBIK CREACIONES CRECE CONTIGO, ¿QUÉ ESPERAS PARA TRABAJAR JUNTOS?"
                 primary="Cotiza con nosotros"
                 secondary="Ver nuestros trabajos"
-                onCubeHoverChange={() => {}}
+                onCubeHoverChange={() => { }}
                 onOpenCotiza={handleOpenCotiza}
                 onGoToServicios={handleGoToServicios}
               />
@@ -429,7 +436,7 @@ export default function Home() {
           </div>
         )}
 
-        {shouldMountOrb && <FloatingSocialOrb />}
+        {shouldMountOrb && <FloatingSocialOrb resetKey={orbResetKey} />}
 
         {/*
           Deja esto comentado mientras pruebas el orbe para que no aparezcan ambos.

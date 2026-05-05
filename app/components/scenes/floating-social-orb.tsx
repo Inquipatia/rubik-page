@@ -1,7 +1,6 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 const Spline = dynamic(() => import("@splinetool/react-spline"), {
@@ -21,6 +20,11 @@ type SplineObject = {
     y: number;
     z: number;
   };
+  scale?: {
+    x: number;
+    y: number;
+    z: number;
+  };
 };
 
 type SplineApp = {
@@ -31,34 +35,51 @@ type SplineApp = {
 };
 
 const SPLINE_SCENE_URL =
-  "https://prod.spline.design/42jS12fjmGmSM15i/scene.splinecode";
+  "https://prod.spline.design/42jS12fjmGmSM15i/scene.splinecode?v=soft-reset-hover-pause-1";
 
 const HOVER_SOUND_URL = "/sounds/openningbbpop.mp3";
+const BOUNCE_SOUND_URL = "/sounds/jump2_join.mp3";
 
-const HOVER_SOUND_COOLDOWN_MS = 650;
+const HOVER_SOUND_COOLDOWN_MS = 900;
+const BOUNCE_SOUND_DELAY_MS = 120;
 
 const VIEW_ACT_OBJECT_NAME = "ViewAct";
 const EYES_CONTROL_OBJECT_NAME = "eyesControl";
 
 const IDLE_DANCE_VARIABLE_NAME = "idleDanceTrigger";
+
+/**
+ * Tiempo del salto / baile.
+ * 60_000 = 60 segundos.
+ * Para probar rápido puedes usar 5_000.
+ */
 const IDLE_DANCE_EVERY_MS = 60_000;
 
-// Para probar rápido, cambia temporalmente a 5_000.
-// const IDLE_DANCE_EVERY_MS = 5_000;
+const EYES_DEAD_ZONE = 0.08;
+const EYES_MAX_X = 34;
+const EYES_MAX_Y = 28;
+const EYES_FOLLOW_SMOOTHNESS = 0.16;
+const EYES_RESET_DURATION_MS = 420;
 
-const VIEW_ACT_HOVER_RESET_MS = 180;
+const EYE_LEFT_BLINK_OBJECT_NAME = "eyeLeftBlink";
+const EYE_RIGHT_BLINK_OBJECT_NAME = "eyeRightBlink";
+
+const BLINK_MIN_DELAY_MS = 4_200;
+const BLINK_RANDOM_EXTRA_DELAY_MS = 3_800;
+const BLINK_CLOSE_MS = 55;
+const BLINK_HOLD_MS = 45;
+const BLINK_OPEN_MS = 75;
+const BLINK_CLOSED_SCALE_Y = 0.06;
 
 export default function FloatingSocialOrb({
   visible = true,
   className = "",
   resetKey = null,
 }: FloatingSocialOrbProps) {
-  const pathname = usePathname();
-
   const [shouldRenderSpline, setShouldRenderSpline] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(false);
 
   const orbWrapRef = useRef<HTMLDivElement | null>(null);
-
   const splineAppRef = useRef<SplineApp | null>(null);
 
   const idleDanceValueRef = useRef(0);
@@ -71,68 +92,193 @@ export default function FloatingSocialOrb({
     null
   );
 
-  const resetTimeoutsRef = useRef<number[]>([]);
+  const blinkObjectsRef = useRef<SplineObject[]>([]);
+  const blinkBaseScalesRef = useRef<{ x: number; y: number; z: number }[]>([]);
+  const blinkTimeoutRef = useRef<number | null>(null);
+  const blinkAnimationFrameRef = useRef<number | null>(null);
+  const blinkLoopStartedRef = useRef(false);
+
+  const resetAnimationFrameRef = useRef<number | null>(null);
+  const bounceSoundTimeoutRef = useRef<number | null>(null);
+  const softResetTimeoutRef = useRef<number | null>(null);
 
   const hoverAudioRef = useRef<HTMLAudioElement | null>(null);
+  const bounceAudioRef = useRef<HTMLAudioElement | null>(null);
+
   const lastHoverSoundAtRef = useRef(0);
   const audioUnlockedRef = useRef(false);
+  const isUnlockingAudioRef = useRef(false);
 
   const isViewActHoveringRef = useRef(false);
-  const viewActHoverResetTimeoutRef = useRef<number | null>(null);
+  const hasViewActSoundPlayedForCurrentHoverRef = useRef(false);
 
   const visibleRef = useRef(visible);
+  const soundEnabledRef = useRef(soundEnabled);
+
+  const hasInitializedResetKeyWatcherRef = useRef(false);
 
   useEffect(() => {
     visibleRef.current = visible;
   }, [visible]);
 
   useEffect(() => {
-    const audio = new Audio(HOVER_SOUND_URL);
-    audio.volume = 0.35;
-    audio.preload = "auto";
-    hoverAudioRef.current = audio;
+    soundEnabledRef.current = soundEnabled;
+  }, [soundEnabled]);
 
-    const unlockAudio = () => {
-      const currentAudio = hoverAudioRef.current;
-      if (!currentAudio || audioUnlockedRef.current) return;
+  useEffect(() => {
+    const hoverAudio = new Audio(HOVER_SOUND_URL);
+    hoverAudio.volume = 0.35;
+    hoverAudio.preload = "auto";
+    hoverAudio.load();
+    hoverAudioRef.current = hoverAudio;
 
-      currentAudio.muted = true;
-      currentAudio.currentTime = 0;
-
-      currentAudio
-        .play()
-        .then(() => {
-          currentAudio.pause();
-          currentAudio.currentTime = 0;
-          currentAudio.muted = false;
-          audioUnlockedRef.current = true;
-        })
-        .catch(() => {
-          currentAudio.muted = false;
-        });
-    };
-
-    window.addEventListener("pointerdown", unlockAudio, { once: true });
-    window.addEventListener("click", unlockAudio, { once: true });
-    window.addEventListener("touchstart", unlockAudio, { once: true });
-    window.addEventListener("keydown", unlockAudio, { once: true });
+    const bounceAudio = new Audio(BOUNCE_SOUND_URL);
+    bounceAudio.volume = 0.55;
+    bounceAudio.preload = "auto";
+    bounceAudio.load();
+    bounceAudioRef.current = bounceAudio;
 
     return () => {
-      window.removeEventListener("pointerdown", unlockAudio);
-      window.removeEventListener("click", unlockAudio);
-      window.removeEventListener("touchstart", unlockAudio);
-      window.removeEventListener("keydown", unlockAudio);
-
       if (hoverAudioRef.current) {
         hoverAudioRef.current.pause();
         hoverAudioRef.current.src = "";
+        hoverAudioRef.current.load();
         hoverAudioRef.current = null;
+      }
+
+      if (bounceAudioRef.current) {
+        bounceAudioRef.current.pause();
+        bounceAudioRef.current.src = "";
+        bounceAudioRef.current.load();
+        bounceAudioRef.current = null;
+      }
+
+      if (bounceSoundTimeoutRef.current) {
+        window.clearTimeout(bounceSoundTimeoutRef.current);
+        bounceSoundTimeoutRef.current = null;
+      }
+
+      if (softResetTimeoutRef.current) {
+        window.clearTimeout(softResetTimeoutRef.current);
+        softResetTimeoutRef.current = null;
       }
     };
   }, []);
 
+  const unlockAudio = async () => {
+    if (audioUnlockedRef.current || isUnlockingAudioRef.current) {
+      return true;
+    }
+
+    isUnlockingAudioRef.current = true;
+
+    const unlockOneAudio = async (audio: HTMLAudioElement | null) => {
+      if (!audio) return false;
+
+      try {
+        audio.muted = true;
+        audio.currentTime = 0;
+
+        await audio.play();
+
+        audio.pause();
+        audio.currentTime = 0;
+        audio.muted = false;
+
+        return true;
+      } catch {
+        audio.muted = false;
+        return false;
+      }
+    };
+
+    try {
+      const hoverUnlocked = await unlockOneAudio(hoverAudioRef.current);
+      const bounceUnlocked = await unlockOneAudio(bounceAudioRef.current);
+
+      audioUnlockedRef.current = hoverUnlocked || bounceUnlocked || true;
+
+      return true;
+    } finally {
+      isUnlockingAudioRef.current = false;
+    }
+  };
+
+  const prepareBounceAudio = async () => {
+    const audio = bounceAudioRef.current;
+    if (!audio) return;
+
+    try {
+      const previousVolume = audio.volume;
+
+      audio.muted = false;
+      audio.volume = 0.01;
+      audio.currentTime = 0;
+
+      await audio.play();
+
+      audio.pause();
+      audio.currentTime = 0;
+      audio.volume = previousVolume || 0.55;
+
+      console.log("Audio de rebote preparado correctamente");
+    } catch (error) {
+      console.warn("No se pudo preparar audio de rebote:", error);
+    }
+  };
+
+  const enableSound = async () => {
+    await unlockAudio();
+
+    audioUnlockedRef.current = true;
+    soundEnabledRef.current = true;
+    setSoundEnabled(true);
+
+    await prepareBounceAudio();
+  };
+
+  const disableSound = () => {
+    soundEnabledRef.current = false;
+    setSoundEnabled(false);
+
+    if (hoverAudioRef.current) {
+      hoverAudioRef.current.pause();
+      hoverAudioRef.current.currentTime = 0;
+    }
+
+    if (bounceAudioRef.current) {
+      bounceAudioRef.current.pause();
+      bounceAudioRef.current.currentTime = 0;
+    }
+
+    if (bounceSoundTimeoutRef.current) {
+      window.clearTimeout(bounceSoundTimeoutRef.current);
+      bounceSoundTimeoutRef.current = null;
+    }
+  };
+
+  const toggleSound = async () => {
+    if (soundEnabledRef.current) {
+      disableSound();
+      return;
+    }
+
+    await enableSound();
+  };
+
+  const handleSoundPointerDown = async (
+    event: React.PointerEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    await toggleSound();
+  };
+
   const playHoverSound = () => {
     if (!visibleRef.current) return;
+    if (!soundEnabledRef.current) return;
+    if (!audioUnlockedRef.current) return;
 
     const now = Date.now();
 
@@ -146,19 +292,63 @@ export default function FloatingSocialOrb({
     if (!audio) return;
 
     audio.muted = false;
+    audio.volume = 0.35;
     audio.currentTime = 0;
 
     audio.play().catch(() => {
-      // El navegador puede bloquear el audio si aún no hubo interacción real.
+      // Evita errores si el navegador interrumpe el audio.
     });
   };
 
-  const clearResetTimeouts = () => {
-    resetTimeoutsRef.current.forEach((timeout) => {
-      window.clearTimeout(timeout);
-    });
+  const playBounceSound = (delayMs = BOUNCE_SOUND_DELAY_MS) => {
+    if (bounceSoundTimeoutRef.current) {
+      window.clearTimeout(bounceSoundTimeoutRef.current);
+      bounceSoundTimeoutRef.current = null;
+    }
 
-    resetTimeoutsRef.current = [];
+    bounceSoundTimeoutRef.current = window.setTimeout(() => {
+      if (!visibleRef.current) {
+        console.log("Rebote sin sonido: orbe no visible");
+        return;
+      }
+
+      if (!soundEnabledRef.current) {
+        console.log("Rebote sin sonido: sonido desactivado");
+        return;
+      }
+
+      if (!audioUnlockedRef.current) {
+        console.log("Rebote sin sonido: audio no desbloqueado");
+        return;
+      }
+
+      const audio = bounceAudioRef.current;
+
+      if (!audio) {
+        console.log("Rebote sin sonido: bounceAudioRef vacío");
+        return;
+      }
+
+      audio.muted = false;
+      audio.volume = 0.55;
+      audio.currentTime = 0;
+
+      audio
+        .play()
+        .then(() => {
+          console.log("Sonido de rebote reproducido");
+        })
+        .catch((error) => {
+          console.warn("No se pudo reproducir sonido de rebote:", error);
+        });
+    }, delayMs);
+  };
+
+  const cancelEyesResetAnimation = () => {
+    if (resetAnimationFrameRef.current) {
+      window.cancelAnimationFrame(resetAnimationFrameRef.current);
+      resetAnimationFrameRef.current = null;
+    }
   };
 
   const resetEyesPosition = () => {
@@ -172,24 +362,172 @@ export default function FloatingSocialOrb({
     eyesControl.position.z = center.z;
   };
 
+  const animateEyesToCenter = () => {
+    const eyesControl = eyesControlRef.current;
+    const center = centerPositionRef.current;
+
+    if (!eyesControl || !center) return;
+
+    cancelEyesResetAnimation();
+
+    const startX = eyesControl.position.x;
+    const startY = eyesControl.position.y;
+    const startZ = eyesControl.position.z;
+    const startTime = performance.now();
+
+    const animate = (time: number) => {
+      const rawProgress = Math.min(
+        (time - startTime) / EYES_RESET_DURATION_MS,
+        1
+      );
+
+      const easedProgress = 1 - Math.pow(1 - rawProgress, 3);
+
+      eyesControl.position.x =
+        startX + (center.x - startX) * easedProgress;
+      eyesControl.position.y =
+        startY + (center.y - startY) * easedProgress;
+      eyesControl.position.z =
+        startZ + (center.z - startZ) * easedProgress;
+
+      if (rawProgress < 1) {
+        resetAnimationFrameRef.current = window.requestAnimationFrame(animate);
+      } else {
+        resetAnimationFrameRef.current = null;
+        resetEyesPosition();
+      }
+    };
+
+    resetAnimationFrameRef.current = window.requestAnimationFrame(animate);
+  };
+
   const scheduleEyesPositionReset = () => {
-    clearResetTimeouts();
+    animateEyesToCenter();
+  };
 
-    resetEyesPosition();
+  const cancelBlinkAnimation = () => {
+    if (blinkAnimationFrameRef.current) {
+      window.cancelAnimationFrame(blinkAnimationFrameRef.current);
+      blinkAnimationFrameRef.current = null;
+    }
+  };
 
-    const reset1 = window.setTimeout(() => {
-      resetEyesPosition();
-    }, 80);
+  const resetBlinkScale = () => {
+    blinkObjectsRef.current.forEach((blinkObject, index) => {
+      const baseScale = blinkBaseScalesRef.current[index];
 
-    const reset2 = window.setTimeout(() => {
-      resetEyesPosition();
-    }, 180);
+      if (!blinkObject?.scale || !baseScale) return;
 
-    const reset3 = window.setTimeout(() => {
-      resetEyesPosition();
-    }, 420);
+      blinkObject.scale.x = baseScale.x;
+      blinkObject.scale.y = baseScale.y;
+      blinkObject.scale.z = baseScale.z;
+    });
+  };
 
-    resetTimeoutsRef.current = [reset1, reset2, reset3];
+  const clearEyeBlinkTimers = () => {
+    if (blinkTimeoutRef.current) {
+      window.clearTimeout(blinkTimeoutRef.current);
+      blinkTimeoutRef.current = null;
+    }
+
+    cancelBlinkAnimation();
+    resetBlinkScale();
+
+    blinkLoopStartedRef.current = false;
+  };
+
+  const easeOutCubic = (value: number) => {
+    return 1 - Math.pow(1 - value, 3);
+  };
+
+  const getNextBlinkDelay = () => {
+    return BLINK_MIN_DELAY_MS + Math.random() * BLINK_RANDOM_EXTRA_DELAY_MS;
+  };
+
+  const scheduleNextBlink = () => {
+    if (!visibleRef.current) return;
+    if (!shouldRenderSpline) return;
+    if (blinkObjectsRef.current.length === 0) return;
+
+    if (blinkTimeoutRef.current) {
+      window.clearTimeout(blinkTimeoutRef.current);
+      blinkTimeoutRef.current = null;
+    }
+
+    blinkTimeoutRef.current = window.setTimeout(() => {
+      blinkTimeoutRef.current = null;
+      animateBlink();
+    }, getNextBlinkDelay());
+  };
+
+  const animateBlink = () => {
+    const blinkObjects = blinkObjectsRef.current;
+    const baseScales = blinkBaseScalesRef.current;
+
+    if (!visibleRef.current) return;
+    if (blinkObjects.length === 0) return;
+
+    cancelBlinkAnimation();
+
+    const startTime = performance.now();
+    const totalDuration = BLINK_CLOSE_MS + BLINK_HOLD_MS + BLINK_OPEN_MS;
+
+    const animate = (time: number) => {
+      const elapsed = time - startTime;
+
+      blinkObjects.forEach((blinkObject, index) => {
+        const baseScale = baseScales[index];
+
+        if (!blinkObject?.scale || !baseScale) return;
+
+        const baseY = baseScale.y;
+        const closedY = baseY * BLINK_CLOSED_SCALE_Y;
+
+        if (elapsed <= BLINK_CLOSE_MS) {
+          const progress = Math.min(elapsed / BLINK_CLOSE_MS, 1);
+          const eased = easeOutCubic(progress);
+
+          blinkObject.scale.y = baseY + (closedY - baseY) * eased;
+        } else if (elapsed <= BLINK_CLOSE_MS + BLINK_HOLD_MS) {
+          blinkObject.scale.y = closedY;
+        } else if (elapsed <= totalDuration) {
+          const openElapsed = elapsed - BLINK_CLOSE_MS - BLINK_HOLD_MS;
+          const progress = Math.min(openElapsed / BLINK_OPEN_MS, 1);
+          const eased = easeOutCubic(progress);
+
+          blinkObject.scale.y = closedY + (baseY - closedY) * eased;
+        } else {
+          blinkObject.scale.x = baseScale.x;
+          blinkObject.scale.y = baseScale.y;
+          blinkObject.scale.z = baseScale.z;
+        }
+
+        blinkObject.scale.x = baseScale.x;
+        blinkObject.scale.z = baseScale.z;
+      });
+
+      if (elapsed <= totalDuration) {
+        blinkAnimationFrameRef.current = window.requestAnimationFrame(animate);
+      } else {
+        blinkAnimationFrameRef.current = null;
+        resetBlinkScale();
+        scheduleNextBlink();
+      }
+    };
+
+    blinkAnimationFrameRef.current = window.requestAnimationFrame(animate);
+  };
+
+  const startEyeBlinkLoop = () => {
+    if (!visibleRef.current) return;
+    if (!shouldRenderSpline) return;
+    if (blinkObjectsRef.current.length === 0) return;
+
+    if (blinkLoopStartedRef.current) return;
+
+    blinkLoopStartedRef.current = true;
+    resetBlinkScale();
+    scheduleNextBlink();
   };
 
   const clearIdleDanceTimers = () => {
@@ -239,8 +577,63 @@ export default function FloatingSocialOrb({
     return didSet;
   };
 
+  const resetOrbAnimationState = () => {
+    clearIdleDanceTimers();
+    clearEyeBlinkTimers();
+    cancelEyesResetAnimation();
+
+    if (softResetTimeoutRef.current) {
+      window.clearTimeout(softResetTimeoutRef.current);
+      softResetTimeoutRef.current = null;
+    }
+
+    if (bounceSoundTimeoutRef.current) {
+      window.clearTimeout(bounceSoundTimeoutRef.current);
+      bounceSoundTimeoutRef.current = null;
+    }
+
+    if (bounceAudioRef.current) {
+      bounceAudioRef.current.pause();
+      bounceAudioRef.current.currentTime = 0;
+    }
+
+    setSplineVariable(IDLE_DANCE_VARIABLE_NAME, 0);
+
+    idleDanceValueRef.current = 0;
+
+    resetEyesPosition();
+    resetBlinkScale();
+
+    isViewActHoveringRef.current = false;
+    hasViewActSoundPlayedForCurrentHoverRef.current = false;
+
+    softResetTimeoutRef.current = window.setTimeout(() => {
+      if (!visibleRef.current) return;
+
+      startIdleDanceLoop();
+      startEyeBlinkLoop();
+
+      softResetTimeoutRef.current = null;
+    }, 120);
+  };
+
+  useEffect(() => {
+    if (!hasInitializedResetKeyWatcherRef.current) {
+      hasInitializedResetKeyWatcherRef.current = true;
+      return;
+    }
+
+    resetOrbAnimationState();
+  }, [resetKey]);
+
   const triggerIdleDance = () => {
     if (!visibleRef.current) return;
+
+    /**
+     * Safety:
+     * Nunca debe saltar mientras el hover real sobre ViewAct está activo.
+     */
+    if (isViewActHoveringRef.current) return;
 
     idleDanceValueRef.current += 1;
 
@@ -252,7 +645,7 @@ export default function FloatingSocialOrb({
 
     if (!didSet) return;
 
-    playHoverSound();
+    playBounceSound(BOUNCE_SOUND_DELAY_MS);
     scheduleEyesPositionReset();
   };
 
@@ -262,48 +655,60 @@ export default function FloatingSocialOrb({
     if (!splineAppRef.current) return;
 
     /**
-     * Seguro principal:
-     * evita que se creen dos timeouts/intervalos al mismo tiempo.
+     * Mientras el usuario está encima del ViewAct,
+     * el contador NO debe empezar.
      */
+    if (isViewActHoveringRef.current) return;
+
     if (idleDanceLoopStartedRef.current) return;
 
     idleDanceLoopStartedRef.current = true;
 
     idleDanceStartTimeoutRef.current = window.setTimeout(() => {
+      if (isViewActHoveringRef.current) {
+        clearIdleDanceTimers();
+        return;
+      }
+
       triggerIdleDance();
 
       idleDanceIntervalRef.current = window.setInterval(() => {
+        if (isViewActHoveringRef.current) {
+          clearIdleDanceTimers();
+          return;
+        }
+
         triggerIdleDance();
       }, IDLE_DANCE_EVERY_MS);
     }, IDLE_DANCE_EVERY_MS);
   };
 
   const restartIdleDanceLoop = () => {
-    /**
-     * Este es el detalle nuevo:
-     * cada vez que el usuario hace hover real sobre ViewAct,
-     * se reinicia el contador del baile.
-     *
-     * Ejemplo:
-     * - Iba en segundo 45 de 60.
-     * - Usuario pasa el mouse por el orbe.
-     * - El contador vuelve a 0.
-     * - El próximo baile ocurre 60 segundos después de ese hover.
-     */
     clearIdleDanceTimers();
+
+    /**
+     * Si todavía está encima de ViewAct,
+     * solo limpiamos el contador.
+     * No lo iniciamos hasta que salga del orbe.
+     */
+    if (isViewActHoveringRef.current) return;
+
     startIdleDanceLoop();
   };
 
   useEffect(() => {
     if (!visible) {
       clearIdleDanceTimers();
+      clearEyeBlinkTimers();
       return;
     }
 
     startIdleDanceLoop();
+    startEyeBlinkLoop();
 
     return () => {
       clearIdleDanceTimers();
+      clearEyeBlinkTimers();
     };
   }, [visible, shouldRenderSpline]);
 
@@ -312,23 +717,24 @@ export default function FloatingSocialOrb({
 
     if (targetName !== VIEW_ACT_OBJECT_NAME) return;
 
-    if (viewActHoverResetTimeoutRef.current) {
-      window.clearTimeout(viewActHoverResetTimeoutRef.current);
-    }
+    /**
+     * Hover real sobre ViewAct detectado.
+     * Desde este momento el contador del salto se detiene.
+     */
+    isViewActHoveringRef.current = true;
 
-    viewActHoverResetTimeoutRef.current = window.setTimeout(() => {
-      isViewActHoveringRef.current = false;
-      viewActHoverResetTimeoutRef.current = null;
-    }, VIEW_ACT_HOVER_RESET_MS);
+    /**
+     * Se limpia el contador y NO se reinicia mientras siga encima.
+     */
+    clearIdleDanceTimers();
 
-    if (isViewActHoveringRef.current) {
+    if (hasViewActSoundPlayedForCurrentHoverRef.current) {
       return;
     }
 
-    isViewActHoveringRef.current = true;
+    hasViewActSoundPlayedForCurrentHoverRef.current = true;
 
     playHoverSound();
-    restartIdleDanceLoop();
   };
 
   useEffect(() => {
@@ -343,12 +749,18 @@ export default function FloatingSocialOrb({
 
   useEffect(() => {
     return () => {
-      clearResetTimeouts();
+      cancelEyesResetAnimation();
+      clearEyeBlinkTimers();
       clearIdleDanceTimers();
 
-      if (viewActHoverResetTimeoutRef.current) {
-        window.clearTimeout(viewActHoverResetTimeoutRef.current);
-        viewActHoverResetTimeoutRef.current = null;
+      if (bounceSoundTimeoutRef.current) {
+        window.clearTimeout(bounceSoundTimeoutRef.current);
+        bounceSoundTimeoutRef.current = null;
+      }
+
+      if (softResetTimeoutRef.current) {
+        window.clearTimeout(softResetTimeoutRef.current);
+        softResetTimeoutRef.current = null;
       }
     };
   }, []);
@@ -385,14 +797,42 @@ export default function FloatingSocialOrb({
       };
     }
 
+    const eyeLeftBlink = splineApp.findObjectByName?.(
+      EYE_LEFT_BLINK_OBJECT_NAME
+    );
+
+    const eyeRightBlink = splineApp.findObjectByName?.(
+      EYE_RIGHT_BLINK_OBJECT_NAME
+    );
+
+    const blinkObjects = [eyeLeftBlink, eyeRightBlink].filter(
+      (object) => object?.scale
+    ) as SplineObject[];
+
+    if (blinkObjects.length !== 2) {
+      console.warn(
+        "No encontré ambos objetos de parpadeo. Revisa que se llamen eyeLeftBlink y eyeRightBlink."
+      );
+    } else {
+      blinkObjectsRef.current = blinkObjects;
+
+      blinkBaseScalesRef.current = blinkObjects.map((object) => ({
+        x: object.scale!.x,
+        y: object.scale!.y,
+        z: object.scale!.z,
+      }));
+
+      resetBlinkScale();
+    }
+
+    isViewActHoveringRef.current = false;
+    hasViewActSoundPlayedForCurrentHoverRef.current = false;
+
     scheduleEyesPositionReset();
 
-    /**
-     * Esperamos un poco después del onLoad para que Spline termine de estabilizar.
-     * No dispara el baile altiro; solo inicia el reloj.
-     */
     window.setTimeout(() => {
       startIdleDanceLoop();
+      startEyeBlinkLoop();
     }, 600);
   };
 
@@ -403,6 +843,8 @@ export default function FloatingSocialOrb({
 
     if (!wrap || !eyesControl || !center) return;
 
+    cancelEyesResetAnimation();
+
     const rect = wrap.getBoundingClientRect();
 
     const normalizedX =
@@ -411,55 +853,47 @@ export default function FloatingSocialOrb({
     const normalizedY =
       ((event.clientY - rect.top) / rect.height - 0.5) * 2;
 
-    const maxX = 45;
-    const maxY = 38;
+    const safeX = Math.abs(normalizedX) < EYES_DEAD_ZONE ? 0 : normalizedX;
+    const safeY = Math.abs(normalizedY) < EYES_DEAD_ZONE ? 0 : normalizedY;
 
-    const targetX = center.x + normalizedX * maxX;
-    const targetY = center.y - normalizedY * maxY;
+    const targetX = center.x + safeX * EYES_MAX_X;
+    const targetY = center.y - safeY * EYES_MAX_Y;
 
-    eyesControl.position.x += (targetX - eyesControl.position.x) * 0.45;
-    eyesControl.position.y += (targetY - eyesControl.position.y) * 0.45;
+    eyesControl.position.x +=
+      (targetX - eyesControl.position.x) * EYES_FOLLOW_SMOOTHNESS;
+
+    eyesControl.position.y +=
+      (targetY - eyesControl.position.y) * EYES_FOLLOW_SMOOTHNESS;
+
     eyesControl.position.z = center.z;
   };
 
   const handleOrbPointerEnter = (event: React.PointerEvent<HTMLDivElement>) => {
     if (event.pointerType !== "mouse") return;
-  };
 
-  const handleOrbPointerDown = () => {
-    scheduleEyesPositionReset();
-  };
-
-  const handleOrbPointerUp = () => {
-    scheduleEyesPositionReset();
-  };
-
-  const handleOrbClick = () => {
-    scheduleEyesPositionReset();
+    hasViewActSoundPlayedForCurrentHoverRef.current = false;
   };
 
   const handleOrbLeave = () => {
     isViewActHoveringRef.current = false;
-
-    if (viewActHoverResetTimeoutRef.current) {
-      window.clearTimeout(viewActHoverResetTimeoutRef.current);
-      viewActHoverResetTimeoutRef.current = null;
-    }
+    hasViewActSoundPlayedForCurrentHoverRef.current = false;
 
     scheduleEyesPositionReset();
+
+    /**
+     * El mouse salió del orbe:
+     * recién ahora se reinicia el contador desde cero.
+     */
+    restartIdleDanceLoop();
   };
 
   useEffect(() => {
+    if (!visible) return;
+
     scheduleEyesPositionReset();
+    resetBlinkScale();
+    startEyeBlinkLoop();
   }, [visible]);
-
-  useEffect(() => {
-    scheduleEyesPositionReset();
-  }, [pathname]);
-
-  useEffect(() => {
-    scheduleEyesPositionReset();
-  }, [resetKey]);
 
   return (
     <div
@@ -468,9 +902,6 @@ export default function FloatingSocialOrb({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleOrbLeave}
       onPointerLeave={handleOrbLeave}
-      onPointerDown={handleOrbPointerDown}
-      onPointerUp={handleOrbPointerUp}
-      onClick={handleOrbClick}
       className={[
         "fixed bottom-2 right-2 z-[9999] hidden md:block",
         "h-[320px] w-[320px]",
@@ -493,7 +924,6 @@ export default function FloatingSocialOrb({
           <div className="absolute inset-0 flex items-center justify-center overflow-visible">
             <div className="h-[260px] w-[260px] overflow-visible">
               <Spline
-                key={SPLINE_SCENE_URL}
                 scene={SPLINE_SCENE_URL}
                 onLoad={handleSplineLoad}
                 onSplineMouseHover={handleSplineMouseHover}
@@ -503,6 +933,32 @@ export default function FloatingSocialOrb({
           </div>
         )}
       </div>
+
+      <button
+        type="button"
+        onPointerDown={handleSoundPointerDown}
+        onClick={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+        }}
+        className={[
+          "absolute bottom-9 right-7 z-[10050]",
+          "flex h-10 w-10 items-center justify-center rounded-full",
+          "border border-white/15 bg-black/55 text-base text-white shadow-lg backdrop-blur-md",
+          "transition duration-200 ease-out",
+          "hover:scale-105 hover:bg-white/10",
+          "active:scale-95",
+          "pointer-events-auto select-none",
+          soundEnabled ? "opacity-100" : "opacity-85",
+        ].join(" ")}
+        style={{
+          touchAction: "manipulation",
+        }}
+        aria-label={soundEnabled ? "Desactivar sonido" : "Activar sonido"}
+        title={soundEnabled ? "Desactivar sonido" : "Activar sonido"}
+      >
+        {soundEnabled ? "🔊" : "🔇"}
+      </button>
     </div>
   );
 }
