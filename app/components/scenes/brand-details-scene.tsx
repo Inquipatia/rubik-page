@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type ComponentProps } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { createPortal } from "react-dom";
 
 type BrandWorkItem = {
   image: string;
+  zoomImage?: string;
   title?: string;
   description?: string;
 };
@@ -25,6 +26,54 @@ type BrandDetailsSceneProps = {
 };
 
 const WORKS_PER_PAGE = 4;
+
+function toHdImagePath(src: string) {
+  const lastSlashIndex = src.lastIndexOf("/");
+
+  if (lastSlashIndex === -1) {
+    return src;
+  }
+
+  const folder = src.slice(0, lastSlashIndex);
+  const fileName = src.slice(lastSlashIndex + 1);
+
+  return `${folder}/HD/${fileName}`;
+}
+
+function getBrandZoomImage(work: BrandWorkItem) {
+  return work.zoomImage ?? toHdImagePath(work.image);
+}
+
+type ZoomFallbackImageProps = Omit<ComponentProps<typeof Image>, "src"> & {
+  src: string;
+  fallbackSrc: string;
+};
+
+function ZoomFallbackImage({
+  src,
+  fallbackSrc,
+  alt,
+  ...props
+}: ZoomFallbackImageProps) {
+  const [currentSrc, setCurrentSrc] = useState(src);
+
+  useEffect(() => {
+    setCurrentSrc(src);
+  }, [src]);
+
+  return (
+    <Image
+      {...props}
+      src={currentSrc}
+      alt={alt}
+      onError={() => {
+        if (currentSrc !== fallbackSrc) {
+          setCurrentSrc(fallbackSrc);
+        }
+      }}
+    />
+  );
+}
 
 export default function BrandDetailsScene({
   brandName,
@@ -84,6 +133,8 @@ export default function BrandDetailsScene({
     return safeWorks[Math.min(activeIndex, safeWorks.length - 1)];
   }, [safeWorks, activeIndex]);
 
+  const activeWorkZoomImage = getBrandZoomImage(activeWork);
+
   const goToPage = (page: number) => {
     if (!safeWorks.length) return;
 
@@ -139,8 +190,9 @@ export default function BrandDetailsScene({
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="absolute inset-0">
-                  <Image
-                    src={activeWork.image}
+                  <ZoomFallbackImage
+                    src={activeWorkZoomImage}
+                    fallbackSrc={activeWork.image}
                     alt={activeWork.title || brandName}
                     fill
                     className="object-cover scale-110 opacity-20 blur-3xl"
@@ -189,15 +241,16 @@ export default function BrandDetailsScene({
                 <div className="relative z-20 flex h-full w-full items-center justify-center px-4 py-20 sm:px-8 lg:px-12">
                   <AnimatePresence mode="wait">
                     <motion.div
-                      key={activeWork.image}
+                      key={activeWorkZoomImage}
                       initial={{ opacity: 0, scale: 1.01 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.99 }}
                       transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                       className="relative h-[78vh] w-[90vw] max-w-[1360px] overflow-hidden rounded-[24px]"
                     >
-                      <Image
-                        src={activeWork.image}
+                      <ZoomFallbackImage
+                        src={activeWorkZoomImage}
+                        fallbackSrc={activeWork.image}
                         alt={activeWork.title || brandName}
                         fill
                         className="object-cover"

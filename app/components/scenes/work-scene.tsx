@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type ComponentProps } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { createPortal } from "react-dom";
@@ -21,6 +21,7 @@ type ProjectVariant = {
   longDescription?: string;
   image: string;
   gallery?: string[];
+  zoomGallery?: string[];
 };
 
 type ProjectItem = {
@@ -33,10 +34,55 @@ type ProjectItem = {
   longDescription?: string;
   image: string;
   gallery?: string[];
+  zoomGallery?: string[];
   variants?: ProjectVariant[];
 };
 
 const DETAIL_ITEMS_PER_PAGE = 4;
+
+function toHdImagePath(src: string) {
+  const lastSlashIndex = src.lastIndexOf("/");
+
+  if (lastSlashIndex === -1) {
+    return src;
+  }
+
+  const folder = src.slice(0, lastSlashIndex);
+  const fileName = src.slice(lastSlashIndex + 1);
+
+  return `${folder}/HD/${fileName}`;
+}
+
+type ZoomFallbackImageProps = Omit<ComponentProps<typeof Image>, "src"> & {
+  src: string;
+  fallbackSrc: string;
+};
+
+function ZoomFallbackImage({
+  src,
+  fallbackSrc,
+  alt,
+  ...props
+}: ZoomFallbackImageProps) {
+  const [currentSrc, setCurrentSrc] = useState(src);
+
+  useEffect(() => {
+    setCurrentSrc(src);
+  }, [src]);
+
+  return (
+    <Image
+      {...props}
+      src={currentSrc}
+      alt={alt}
+      onError={() => {
+        if (currentSrc !== fallbackSrc) {
+          setCurrentSrc(fallbackSrc);
+        }
+      }}
+    />
+  );
+}
 
 const servicesIntroVariants: Variants = {
   hidden: {},
@@ -189,6 +235,10 @@ export default function WorkScene({
             activeVariant.gallery && activeVariant.gallery.length > 0
               ? activeVariant.gallery
               : [activeVariant.image],
+          zoomGallery:
+            activeVariant.zoomGallery && activeVariant.zoomGallery.length > 0
+              ? activeVariant.zoomGallery
+              : undefined,
         }
       : activeProject;
 
@@ -358,6 +408,15 @@ export default function WorkScene({
       ? resolvedProject.gallery
       : [resolvedProject.image];
 
+  const zoomDetailGallery =
+    resolvedProject?.zoomGallery && resolvedProject.zoomGallery.length > 0
+      ? resolvedProject.zoomGallery
+      : detailGallery.map((image) => toHdImagePath(image));
+
+  const activeDetailImage = detailGallery[detailImageIndex];
+  const activeZoomDetailImage =
+    zoomDetailGallery[detailImageIndex] ?? activeDetailImage;
+
   const detailTotalPages = Math.max(
     1,
     Math.ceil(detailGallery.length / DETAIL_ITEMS_PER_PAGE)
@@ -425,8 +484,9 @@ export default function WorkScene({
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="absolute inset-0">
-                  <Image
-                    src={detailGallery[detailImageIndex]}
+                  <ZoomFallbackImage
+                    src={activeZoomDetailImage}
+                    fallbackSrc={activeDetailImage}
                     alt={`${resolvedProject.title} ampliada ${
                       detailImageIndex + 1
                     }`}
@@ -477,7 +537,7 @@ export default function WorkScene({
                 <div className="relative z-20 flex h-full w-full items-center justify-center px-4 py-20 sm:px-8 lg:px-12">
                   <AnimatePresence mode="wait">
                     <motion.div
-                      key={detailGallery[detailImageIndex]}
+                      key={activeZoomDetailImage}
                       initial={{ opacity: 0, scale: 1.01 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.99 }}
@@ -487,8 +547,9 @@ export default function WorkScene({
                       }}
                       className="relative h-[78vh] w-[90vw] max-w-[1360px] overflow-hidden rounded-[24px]"
                     >
-                      <Image
-                        src={detailGallery[detailImageIndex]}
+                      <ZoomFallbackImage
+                        src={activeZoomDetailImage}
+                        fallbackSrc={activeDetailImage}
                         alt={`${resolvedProject.title} ampliada ${
                           detailImageIndex + 1
                         }`}

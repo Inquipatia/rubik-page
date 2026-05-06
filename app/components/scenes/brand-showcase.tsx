@@ -39,7 +39,7 @@ const brands: SelectedBrand[] = [
       "Activación de verano en playa con fabricación integral de estructura, combinación de MDF y madera nativa, full branding, banderas vela y volumétricos.",
     works: [
       {
-        image: "/img/services/COPEC/s.png",
+        image: "/img/services/COPEC/COPEC (1).png",
         title: "Copec 01",
         description: "Piezas para destacar oferta y experiencia en tienda.",
       },
@@ -54,8 +54,13 @@ const brands: SelectedBrand[] = [
         description: "Aplicación visual para presencia de marca.",
       },
       {
-        image: "/img/services/COPEC/COPEC (4).jpg",
+        image: "/img/services/COPEC/COPEC (4).png",
         title: "Copec 04",
+        description: "Cierre visual y refuerzo de experiencia de campaña.",
+      },
+      {
+        image: "/img/services/COPEC/COPEC (5).png",
+        title: "Copec 05",
         description: "Cierre visual y refuerzo de experiencia de campaña.",
       },
     ],
@@ -67,14 +72,29 @@ const brands: SelectedBrand[] = [
       "Activaciones e implementaciones comerciales con desarrollo de estructuras, piezas gráficas, soportes visuales y recursos de exhibición para reforzar presencia de marca.",
     works: [
       {
-        image: "/img/services/KAUFMAN/kaufman (3).png",
+        image: "/img/services/COPEC/s.png",
         title: "Kaufmann 01",
-        description: "Aplicación visual para exhibición y marca.",
+        description: "Piezas para destacar oferta y experiencia en tienda.",
+      },
+      {
+        image: "/img/services/KAUFMAN/kaufman (2).png",
+        title: "Kaufmann 02",
+        description: "Recursos gráficos orientados a visibilidad de producto.",
+      },
+      {
+        image: "/img/services/KAUFMAN/kaufman (3).png",
+        title: "Kaufmann 03",
+        description: "Aplicación visual para presencia de marca.",
+      },
+      {
+        image: "/img/services/KAUFMAN/kaufman (4).png",
+        title: "Kaufmann 04",
+        description: "Cierre visual y refuerzo de experiencia de campaña.",
       },
       {
         image: "/img/services/KAUFMAN/kaufman (5).png",
-        title: "Kaufmann 02",
-        description: "Terminaciones visuales y soporte de marca en montaje.",
+        title: "Kaufmann 04",
+        description: "Cierre visual y refuerzo de experiencia de campaña.",
       },
     ],
   },
@@ -104,16 +124,7 @@ const brands: SelectedBrand[] = [
         title: "Latam 04",
         description: "Renovación de acabados e identidad visual.",
       },
-      {
-        image: "/img/services/LATAM/latam (5).png",
-        title: "Latam 05",
-        description: "Correcciones visuales y soporte de instalación.",
-      },
-      {
-        image: "/img/services/LATAM/latam (6).png",
-        title: "Latam 06",
-        description: "Integración de branding y terminaciones.",
-      },
+    
     ],
   },
   {
@@ -123,27 +134,27 @@ const brands: SelectedBrand[] = [
       "Soluciones gráficas corporativas para espacios de atención, campañas y refuerzo de identidad visual.",
     works: [
       {
-        image: "/img/services/MISTRAL/MISTRA(1).png",
+        image: "/img/services/MISTRAL/MISTRAL (1).png",
         title: "Mistral 01",
         description: "Aplicación visual para presencia de marca.",
       },
       {
-        image: "/img/services/MISTRAL/MISTRAL (1).png",
+        image: "/img/services/MISTRAL/MISTRAL (2).png",
         title: "Mistral 02",
         description: "Pieza gráfica aplicada a implementación comercial.",
       },
       {
-        image: "/img/services/MISTRAL/MISTRAL (2).png",
+        image: "/img/services/MISTRAL/MISTRAL (3).png",
         title: "Mistral 03",
         description: "Producción visual para espacio de marca.",
       },
       {
-        image: "/img/services/MISTRAL/MISTRAL (3).png",
+        image: "/img/services/MISTRAL/MISTRAL (4).png",
         title: "Mistral 04",
         description: "Soporte gráfico para comunicación visual.",
       },
       {
-        image: "/img/services/MISTRAL/MISTRAL (4).png",
+        image: "/img/services/MISTRAL/MISTRAL (5).png",
         title: "Mistral 05",
         description: "Cierre visual de implementación.",
       },
@@ -329,7 +340,7 @@ const brands: SelectedBrand[] = [
     works: [
       {
         image: "/img/services/FORD/FORD (1).png",
-        title: "Canada Dry 01",
+        title: "Ford 01",
         description: "Montaje de material visual para campaña promocional.",
       },
       {
