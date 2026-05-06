@@ -35,7 +35,7 @@ type SplineApp = {
 };
 
 const SPLINE_SCENE_URL =
-  "https://prod.spline.design/42jS12fjmGmSM15i/scene.splinecode?v=soft-reset-hover-pause-1";
+  "https://prod.spline.design/f2B0MjowLgdWoRlW/scene.splinecode";
 
 const HOVER_SOUND_URL = "/sounds/openningbbpop.mp3";
 const BOUNCE_SOUND_URL = "/sounds/jump2_join.mp3";

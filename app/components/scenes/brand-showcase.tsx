@@ -8,6 +8,29 @@ type BrandShowcaseProps = {
   onOpenBrandDetails: (brand: SelectedBrand) => void;
 };
 
+const genericWorks = [
+  {
+    image: "/img/services/MISTRAL/MISTRA(1).png",
+    title: "Implementación visual",
+    description: "Aplicación de piezas gráficas, soportes y presencia de marca.",
+  },
+  {
+    image: "/img/services/MISTRAL/MISTRAL (1).png",
+    title: "Producción gráfica",
+    description: "Desarrollo de elementos visuales para espacios y campañas.",
+  },
+  {
+    image: "/img/services/MISTRAL/MISTRAL (2).png",
+    title: "Montaje de marca",
+    description: "Instalación y ajuste de piezas para comunicación visual.",
+  },
+  {
+    image: "/img/services/MISTRAL/MISTRAL (3).png",
+    title: "Cierre visual",
+    description: "Terminaciones, soporte e integración final de marca.",
+  },
+];
+
 const brands: SelectedBrand[] = [
   {
     brandName: "Copec",
@@ -16,7 +39,7 @@ const brands: SelectedBrand[] = [
       "Activación de verano en playa con fabricación integral de estructura, combinación de MDF y madera nativa, full branding, banderas vela y volumétricos.",
     works: [
       {
-        image: "/img/services/COPEC/COPEC (1).png",
+        image: "/img/services/COPEC/s.png",
         title: "Copec 01",
         description: "Piezas para destacar oferta y experiencia en tienda.",
       },
@@ -48,10 +71,9 @@ const brands: SelectedBrand[] = [
         title: "Kaufmann 01",
         description: "Aplicación visual para exhibición y marca.",
       },
-      
       {
         image: "/img/services/KAUFMAN/kaufman (5).png",
-        title: "Kaufmann 03",
+        title: "Kaufmann 02",
         description: "Terminaciones visuales y soporte de marca en montaje.",
       },
     ],
@@ -193,6 +215,192 @@ const brands: SelectedBrand[] = [
       },
     ],
   },
+  {
+    brandName: "Novovet",
+    brandLogo: "/img/works/novovet.png",
+    description:
+      "Soluciones visuales para marca veterinaria, incluyendo aplicaciones gráficas, señalética, merchandising y soporte comercial.",
+    works: genericWorks,
+  },
+  {
+    brandName: "BOX",
+    brandLogo: "/img/works/box.png",
+    description:
+      "Producción e implementación de piezas gráficas para presencia de marca, comunicación visual y soporte comercial.",
+    works: [
+      {
+        image: "/img/services/BOX/BOX (1).png",
+        title: "BOX 01",
+        description: "Montaje de material visual para campaña promocional.",
+      },
+      {
+        image: "/img/services/BOX/BOX (2).png",
+        title: "BOX 02",
+        description: "Soportes para reforzar presencia visual en punto de venta.",
+      },
+      {
+        image: "/img/services/BOX/BOX (3).png",
+        title: "BOX 03",
+        description: "Aplicaciones visuales en estructura y entorno de marca.",
+      },
+      {
+        image: "/img/services/BOX/BOX (4).png",
+        title: "BOX 04",
+        description: "Recursos gráficos para activación y experiencia.",
+      },
+      {
+        image: "/img/services/BOX/BOX (5).png",
+        title: "BOX 05",
+        description: "Elementos para reforzar presencia en evento.",
+      },
+    ],
+  },
+  {
+    brandName: "ASI",
+    brandLogo: "/img/works/asi.png",
+    description:
+      "Soluciones de impresión, instalación y comunicación visual para requerimientos corporativos.",
+    works: [
+      {
+        image: "/img/services/ASI/ASI (1).png",
+        title: "ASI 01",
+        description: "Montaje de material visual para campaña promocional.",
+      },
+      {
+        image: "/img/services/ASI/ASI (2).png",
+        title: "ASI 02",
+        description: "Soportes para reforzar presencia visual en punto de venta.",
+      },
+      {
+        image: "/img/services/ASI/ASI (3).png",
+        title: "ASI 03",
+        description: "Aplicaciones visuales en estructura y entorno de marca.",
+      },
+      {
+        image: "/img/services/ASI/ASI (4).png",
+        title: "ASI 04",
+        description: "Recursos gráficos para activación y experiencia.",
+      },
+      {
+        image: "/img/services/ASI/ASI (5).png",
+        title: "ASI 05",
+        description: "Elementos para reforzar presencia en evento.",
+      },
+    ],
+  },
+  {
+    brandName: "Canada Dry",
+    brandLogo: "/img/works/canada dry.png",
+    description:
+      "Producción de piezas gráficas y soportes visuales para activaciones, campañas y presencia de producto.",
+    works: [
+      {
+        image: "/img/services/CANADA/CANADA (1).png",
+        title: "Canada Dry 01",
+        description: "Montaje de material visual para campaña promocional.",
+      },
+      {
+        image: "/img/services/CANADA/CANADA (2).png",
+        title: "Canada Dry 02",
+        description: "Soportes para reforzar presencia visual en punto de venta.",
+      },
+      {
+        image: "/img/services/CANADA/CANADA (3).png",
+        title: "Canada Dry 03",
+        description: "Aplicaciones visuales en estructura y entorno de marca.",
+      },
+      {
+        image: "/img/services/CANADA/CANADA (4).png",
+        title: "Canada Dry 04",
+        description: "Recursos gráficos para activación y experiencia.",
+      },
+      {
+        image: "/img/services/CANADA/CANADA (5).png",
+        title: "Canada Dry 05",
+        description: "Elementos para reforzar presencia en evento.",
+      },
+    ],
+  },
+  {
+    brandName: "Ford",
+    brandLogo: "/img/works/ford.png",
+    description:
+      "Producción gráfica y elementos de apoyo visual para presencia de marca automotriz, eventos y espacios comerciales.",
+    works: [
+      {
+        image: "/img/services/FORD/FORD (1).png",
+        title: "Canada Dry 01",
+        description: "Montaje de material visual para campaña promocional.",
+      },
+      {
+        image: "/img/services/FORD/FORD (2).png",
+        title: "Ford 02",
+        description: "Soportes para reforzar presencia visual en punto de venta.",
+      },
+      {
+        image: "/img/services/FORD/FORD (3).png",
+        title: "Ford 03",
+        description: "Aplicaciones visuales en estructura y entorno de marca.",
+      },
+      {
+        image: "/img/services/FORD/FORD (4).png",
+        title: "Ford 04",
+        description: "Recursos gráficos para activación y experiencia.",
+      },
+      {
+        image: "/img/services/FORD/FORD (5).png",
+        title: "Ford 05",
+        description: "Elementos para reforzar presencia en evento.",
+      },
+    ],
+  },
+  {
+    brandName: "Kersting",
+    brandLogo: "/img/works/kersting.png",
+    description:
+      "Desarrollo de elementos visuales para comunicación comercial, presencia corporativa y soporte de marca.",
+    works: [
+      {
+        image: "/img/services/KERSTING/KERSTING (1).png",
+        title: "KERSTING 01",
+        description: "Montaje de material visual para campaña promocional.",
+      },
+      {
+        image: "/img/services/KERSTING/KERSTING (2).png",
+        title: "KERSTING 02",
+        description: "Soportes para reforzar presencia visual en punto de venta.",
+      },
+      {
+        image: "/img/services/KERSTING/KERSTING (3).png",
+        title: "KERSTING 03",
+        description: "Aplicaciones visuales en estructura y entorno de marca.",
+      },
+      {
+        image: "/img/services/KERSTING/KERSTING (4).png",
+        title: "KERSTING 04",
+        description: "Recursos gráficos para activación y experiencia.",
+      },
+      {
+        image: "/img/services/KERSTING/KERSTING (5).png",
+        title: "KERSTING 05",
+        description: "Elementos para reforzar presencia en evento.",
+      },
+    ],
+  },
+  {
+    brandName: "Glam & Co",
+    brandLogo: "/img/works/glam y co.png",
+    description:
+      "Implementaciones gráficas para espacios de atención, retail y comunicación visual de marca.",
+    works: genericWorks,
+  },
+  {
+    brandName: "Otros",
+    brandLogo: "/img/works/otras.png",
+    description:
+      "Otros proyectos desarrollados para marcas, campañas, activaciones y soluciones gráficas especiales.",
+    works: genericWorks,
+  },
 ];
 
 export default function BrandShowcase({
@@ -201,7 +409,7 @@ export default function BrandShowcase({
   return (
     <section
       id="brands"
-      className="relative mx-auto flex h-full w-full max-w-[1320px] items-center px-4 sm:px-5 lg:px-6 2xl:max-w-[1380px] 2xl:px-8"
+      className="relative mx-auto flex h-full w-full max-w-[1460px] items-center px-4 sm:px-5 lg:px-6 2xl:max-w-[1520px] 2xl:px-8"
     >
       <div className="w-full -translate-y-2 sm:-translate-y-1 lg:-translate-y-3 xl:-translate-y-4">
         <motion.div
@@ -266,7 +474,7 @@ export default function BrandShowcase({
             delay: 0.5,
             ease: [0.16, 1, 0.3, 1],
           }}
-          className="relative mx-auto mt-4 max-w-[1180px] rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-[1px] shadow-[0_14px_34px_rgba(0,0,0,0.2)] xl:max-w-[1220px] 2xl:max-w-[1280px]"
+          className="relative mx-auto mt-4 max-w-[1380px] rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-[1px] shadow-[0_14px_34px_rgba(0,0,0,0.2)] xl:max-w-[1420px] 2xl:max-w-[1480px]"
         >
           <div className="relative overflow-hidden rounded-[21px] bg-[linear-gradient(180deg,#181028_0%,#120b20_45%,#0d0818_100%)] px-3 py-3 sm:px-3.5 sm:py-3.5 lg:px-4 lg:py-4">
             <div
@@ -284,7 +492,7 @@ export default function BrandShowcase({
 
             <div className="pointer-events-none absolute inset-2 rounded-[18px] border border-white/[0.05]" />
 
-            <div className="relative grid grid-cols-3 gap-2.5 sm:gap-3 lg:gap-3 xl:gap-3.5 2xl:gap-4">
+            <div className="relative grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-2.5 lg:grid-cols-7 lg:gap-2.5 xl:gap-3 2xl:gap-3.5">
               {brands.map((brand, index) => (
                 <motion.button
                   key={brand.brandName}
@@ -307,10 +515,10 @@ export default function BrandShowcase({
                     delay: 0.65 + index * 0.035,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className="group relative min-h-[58px] overflow-hidden rounded-[14px] border border-white/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.015))] p-[1px] text-left transition duration-300 hover:-translate-y-[2px] hover:border-white/[0.18] hover:shadow-[0_10px_20px_rgba(0,0,0,0.18)] focus:outline-none focus:ring-2 focus:ring-white/20 sm:min-h-[64px] lg:min-h-[70px] xl:min-h-[76px] 2xl:min-h-[82px]"
+                  className="group relative min-h-[54px] overflow-hidden rounded-[13px] border border-white/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.015))] p-[1px] text-left transition duration-300 hover:-translate-y-[2px] hover:border-white/[0.18] hover:shadow-[0_10px_20px_rgba(0,0,0,0.18)] focus:outline-none focus:ring-2 focus:ring-white/20 sm:min-h-[58px] lg:min-h-[62px] xl:min-h-[66px] 2xl:min-h-[72px]"
                   aria-label={`Ver detalles de ${brand.brandName}`}
                 >
-                  <div className="relative flex h-full min-h-[56px] items-center justify-center overflow-hidden rounded-[13px] bg-[linear-gradient(180deg,#0c0914_0%,#110d1b_40%,#151024_100%)] px-2 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),inset_0_-8px_20px_rgba(0,0,0,0.45)] transition duration-300 group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-10px_24px_rgba(0,0,0,0.52),0_8px_18px_rgba(0,0,0,0.12)] sm:min-h-[62px] lg:min-h-[68px] xl:min-h-[74px] 2xl:min-h-[80px]">
+                  <div className="relative flex h-full min-h-[52px] items-center justify-center overflow-hidden rounded-[12px] bg-[linear-gradient(180deg,#0c0914_0%,#110d1b_40%,#151024_100%)] px-2 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),inset_0_-8px_20px_rgba(0,0,0,0.45)] transition duration-300 group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-10px_24px_rgba(0,0,0,0.52),0_8px_18px_rgba(0,0,0,0.12)] sm:min-h-[56px] lg:min-h-[60px] xl:min-h-[64px] 2xl:min-h-[70px]">
                     <div className="pointer-events-none absolute inset-[5px] rounded-[10px] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.04),transparent_48%),linear-gradient(180deg,rgba(255,255,255,0.015),rgba(255,255,255,0.005))]" />
                     <div className="pointer-events-none absolute inset-[2px] rounded-[12px] bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0.028)_38%,rgba(255,255,255,0.012)_100%)] backdrop-blur-[3px]" />
                     <div className="pointer-events-none absolute inset-[2px] rounded-[12px] border border-white/[0.12]" />
@@ -319,12 +527,12 @@ export default function BrandShowcase({
                     <div className="pointer-events-none absolute inset-x-5 top-[8px] h-px bg-white/22 opacity-70" />
                     <div className="pointer-events-none absolute -left-[28%] top-[-12%] h-[140%] w-[34%] rotate-[18deg] bg-[linear-gradient(180deg,rgba(255,255,255,0.24),rgba(255,255,255,0.05)_45%,rgba(255,255,255,0))] opacity-30 blur-md transition duration-300 group-hover:translate-x-2" />
 
-                    <div className="relative h-[24px] w-[72%] max-w-[150px] sm:h-[26px] lg:h-[28px] xl:h-[30px] 2xl:h-[32px]">
+                    <div className="relative h-[22px] w-[78%] max-w-[132px] sm:h-[24px] lg:h-[25px] xl:h-[27px] 2xl:h-[29px]">
                       <Image
                         src={brand.brandLogo || "/img/works/3.png"}
                         alt={brand.brandName}
                         fill
-                        sizes="(max-width: 640px) 20vw, (max-width: 1024px) 18vw, 160px"
+                        sizes="(max-width: 640px) 38vw, (max-width: 1024px) 22vw, 130px"
                         className="object-contain opacity-[0.96] drop-shadow-[0_1px_8px_rgba(255,255,255,0.08)] transition duration-300 group-hover:scale-[1.02] group-hover:opacity-100"
                       />
                     </div>

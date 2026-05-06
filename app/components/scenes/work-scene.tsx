@@ -95,18 +95,20 @@ export default function WorkScene({
 }: WorkSceneProps) {
   const typedProjects = projects as ProjectItem[];
 
-  const [hoveredIndex, setHoveredIndex] = useState(activeWorkCard);
+  const safeInitialIndex = Math.min(
+    Math.max(activeWorkCard, 0),
+    Math.max(typedProjects.length - 1, 0)
+  );
+
+  const [hoveredIndex, setHoveredIndex] = useState(safeInitialIndex);
   const [direction, setDirection] = useState(1);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const [detailImageIndex, setDetailImageIndex] = useState(0);
   const [otherVariantIndex, setOtherVariantIndex] = useState(0);
   const [isImageZoomOpen, setIsImageZoomOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
-  const [previewMode, setPreviewMode] = useState<"cover" | "contain">(
-    "contain"
-  );
 
-  const activeProject = typedProjects[hoveredIndex];
+  const activeProject = typedProjects[hoveredIndex] ?? typedProjects[0];
   const isOtrosProject = activeProject?.slug === "otros";
   const projectVariants = isOtrosProject ? activeProject.variants ?? [] : [];
 
@@ -115,10 +117,25 @@ export default function WorkScene({
   }, []);
 
   useEffect(() => {
+    if (!typedProjects.length) return;
+
+    const nextIndex = Math.min(
+      Math.max(activeWorkCard, 0),
+      typedProjects.length - 1
+    );
+
+    setHoveredIndex(nextIndex);
+    setDirection(1);
+    setIsDetailOpen(false);
+    setIsImageZoomOpen(false);
+    setDetailImageIndex(0);
+    setOtherVariantIndex(0);
+  }, [activeWorkCard, servicesResetKey, typedProjects.length]);
+
+  useEffect(() => {
     setOtherVariantIndex(0);
     setDetailImageIndex(0);
     setIsImageZoomOpen(false);
-    setPreviewMode("contain");
   }, [hoveredIndex]);
 
   useEffect(() => {
@@ -126,7 +143,6 @@ export default function WorkScene({
     setIsImageZoomOpen(false);
     setDetailImageIndex(0);
     setOtherVariantIndex(0);
-    setPreviewMode("contain");
   }, [servicesResetKey]);
 
   useEffect(() => {
@@ -142,6 +158,16 @@ export default function WorkScene({
       document.body.style.overflow = previousOverflow;
     };
   }, [isClient, isImageZoomOpen]);
+
+  if (!activeProject) {
+    return (
+      <section className="relative flex min-h-[66vh] items-center justify-center">
+        <div className="omnes-text rounded-[24px] border border-white/10 bg-white/[0.04] px-6 py-5 text-center text-white/72">
+          No hay servicios cargados.
+        </div>
+      </section>
+    );
+  }
 
   const activeVariant =
     isOtrosProject && projectVariants.length > 0
@@ -174,7 +200,6 @@ export default function WorkScene({
     setDetailImageIndex(0);
     setOtherVariantIndex(0);
     setIsImageZoomOpen(false);
-    setPreviewMode("contain");
   };
 
   const openDetail = (index?: number) => {
@@ -186,14 +211,12 @@ export default function WorkScene({
 
     setDetailImageIndex(0);
     setIsImageZoomOpen(false);
-    setPreviewMode("contain");
     setIsDetailOpen(true);
   };
 
   const closeDetail = () => {
     setIsDetailOpen(false);
     setIsImageZoomOpen(false);
-    setPreviewMode("contain");
   };
 
   const openZoom = (index?: number) => {
@@ -201,13 +224,11 @@ export default function WorkScene({
       setDetailImageIndex(index);
     }
 
-    setPreviewMode("contain");
     setIsImageZoomOpen(true);
   };
 
   const closeZoom = () => {
     setIsImageZoomOpen(false);
-    setPreviewMode("contain");
   };
 
   const previewVariants: Variants = {
@@ -422,29 +443,13 @@ export default function WorkScene({
                     Vista ampliada
                   </div>
 
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setPreviewMode((prev) =>
-                          prev === "cover" ? "contain" : "cover"
-                        )
-                      }
-                      className="omnes-text rounded-full border border-white/15 bg-black/28 px-4 py-2 text-sm text-white/88 backdrop-blur transition hover:bg-black/40"
-                    >
-                      {previewMode === "cover"
-                        ? "Ver completa"
-                        : "Llenar pantalla"}
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={closeZoom}
-                      className="omnes-text rounded-full border border-white/15 bg-black/28 px-4 py-2 text-sm text-white/88 backdrop-blur transition hover:bg-black/40"
-                    >
-                      Cerrar
-                    </button>
-                  </div>
+                  <button
+                    type="button"
+                    onClick={closeZoom}
+                    className="omnes-text rounded-full border border-white/15 bg-black/28 px-4 py-2 text-sm text-white/88 backdrop-blur transition hover:bg-black/40"
+                  >
+                    Cerrar
+                  </button>
                 </div>
 
                 {detailGallery.length > 1 && (
@@ -472,7 +477,7 @@ export default function WorkScene({
                 <div className="relative z-20 flex h-full w-full items-center justify-center px-4 py-20 sm:px-8 lg:px-12">
                   <AnimatePresence mode="wait">
                     <motion.div
-                      key={`${detailGallery[detailImageIndex]}-${previewMode}`}
+                      key={detailGallery[detailImageIndex]}
                       initial={{ opacity: 0, scale: 1.01 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.99 }}
@@ -480,11 +485,7 @@ export default function WorkScene({
                         duration: 0.22,
                         ease: [0.22, 1, 0.36, 1],
                       }}
-                      className={
-                        previewMode === "cover"
-                          ? "relative h-full w-full overflow-hidden rounded-[24px]"
-                          : "relative h-[78vh] w-[90vw] max-w-[1360px] overflow-hidden rounded-[24px]"
-                      }
+                      className="relative h-[78vh] w-[90vw] max-w-[1360px] overflow-hidden rounded-[24px]"
                     >
                       <Image
                         src={detailGallery[detailImageIndex]}
@@ -492,11 +493,7 @@ export default function WorkScene({
                           detailImageIndex + 1
                         }`}
                         fill
-                        className={
-                          previewMode === "cover"
-                            ? "object-cover"
-                            : "object-contain drop-shadow-[0_18px_48px_rgba(0,0,0,0.38)]"
-                        }
+                        className="object-contain drop-shadow-[0_18px_48px_rgba(0,0,0,0.38)]"
                         sizes="100vw"
                         priority
                       />
@@ -941,59 +938,41 @@ export default function WorkScene({
                           variants={detailSideItemVariants}
                           className="absolute bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-black/70 via-black/18 to-transparent p-5"
                         >
-                          <div className="omnes-title text-[1.85rem] tracking-[-0.03em] text-white sm:text-[2rem]">
+                          <div className="omnes-title text-[1.75rem] tracking-[-0.03em] text-white sm:text-[1.95rem]">
                             {resolvedProject.title}
                           </div>
 
-                          <div className="omnes-text mt-1.5 text-[13px] text-white/84 sm:text-[14px] min-[1700px]:text-[14.5px]">
+                          <p className="omnes-text mt-1.5 text-[13px] text-white/82 sm:text-[13.5px]">
                             {resolvedProject.subtitle}
-                          </div>
+                          </p>
                         </motion.div>
                       </button>
 
                       {detailGallery.length > 1 && (
                         <>
-                          <motion.button
+                          <button
                             type="button"
                             onClick={(e) => {
                               e.stopPropagation();
                               prevDetailImage();
                             }}
-                            initial={{ opacity: 0, x: -12, scale: 0.9 }}
-                            animate={{ opacity: 1, x: 0, scale: 1 }}
-                            transition={{
-                              duration: 0.45,
-                              delay: 0.58,
-                              ease: [0.16, 1, 0.3, 1],
-                            }}
-                            whileHover={{ scale: 1.08, x: -2 }}
-                            whileTap={{ scale: 0.94 }}
-                            className="absolute left-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/14 bg-black/30 text-lg text-white/88 backdrop-blur-md transition duration-300 hover:bg-black/45 sm:h-11 sm:w-11"
+                            className="absolute left-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/14 bg-black/30 text-lg text-white/88 backdrop-blur-md transition duration-300 hover:scale-[1.03] hover:bg-black/45"
                             aria-label="Imagen anterior"
                           >
                             ←
-                          </motion.button>
+                          </button>
 
-                          <motion.button
+                          <button
                             type="button"
                             onClick={(e) => {
                               e.stopPropagation();
                               nextDetailImage();
                             }}
-                            initial={{ opacity: 0, x: 12, scale: 0.9 }}
-                            animate={{ opacity: 1, x: 0, scale: 1 }}
-                            transition={{
-                              duration: 0.45,
-                              delay: 0.58,
-                              ease: [0.16, 1, 0.3, 1],
-                            }}
-                            whileHover={{ scale: 1.08, x: 2 }}
-                            whileTap={{ scale: 0.94 }}
-                            className="absolute right-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/14 bg-black/30 text-lg text-white/88 backdrop-blur-md transition duration-300 hover:bg-black/45 sm:h-11 sm:w-11"
+                            className="absolute right-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/14 bg-black/30 text-lg text-white/88 backdrop-blur-md transition duration-300 hover:scale-[1.03] hover:bg-black/45"
                             aria-label="Imagen siguiente"
                           >
                             →
-                          </motion.button>
+                          </button>
                         </>
                       )}
                     </motion.div>
@@ -1002,84 +981,42 @@ export default function WorkScene({
                       variants={detailSideContainerVariants}
                       initial="hidden"
                       animate="show"
-                      className="grid gap-4 bg-transparent lg:h-[689px] lg:min-h-0 lg:grid-rows-[322px_minmax(0,1fr)] lg:overflow-hidden"
+                      className="grid h-auto gap-4 lg:h-[689px] lg:grid-rows-[260px_minmax(0,1fr)]"
                     >
                       <motion.div
                         variants={detailSideItemVariants}
-                        className="flex min-h-0 flex-col rounded-[22px] border border-white/10 bg-white/[0.04] p-4 backdrop-blur-xl min-[1700px]:p-5"
+                        className="flex flex-col rounded-[22px] border border-white/10 bg-white/[0.04] p-4 backdrop-blur-xl min-[1700px]:p-5"
                       >
-                        <div className="flex items-start justify-between gap-3">
+                        <div className="mb-4 flex items-start justify-between gap-4">
                           <div>
-                            <motion.div
-                              variants={detailSideItemVariants}
-                              className="omnes-text text-[10px] uppercase tracking-[0.14em] text-white/52 sm:text-[11px]"
-                            >
+                            <div className="omnes-text text-[10px] uppercase tracking-[0.14em] text-white/48 sm:text-[11px]">
                               {resolvedProject.tag}
-                            </motion.div>
+                            </div>
 
-                            <motion.div
-                              variants={detailSideItemVariants}
-                              className="omnes-title mt-2 text-[1.65rem] tracking-[-0.03em] text-white sm:text-[1.9rem] lg:text-[1.98rem]"
-                            >
+                            <h2 className="omnes-title mt-3 text-[2.1rem] leading-none tracking-[-0.04em] text-white sm:text-[2.6rem]">
                               {resolvedProject.title}
-                            </motion.div>
+                            </h2>
 
-                            <motion.div
-                              variants={detailSideItemVariants}
-                              className="omnes-text mt-1.5 text-[13px] text-white/84 sm:text-[14px]"
-                            >
+                            <div className="omnes-text mt-2 text-[14px] text-white/72 sm:text-[15px]">
                               {resolvedProject.subtitle}
-                            </motion.div>
+                            </div>
                           </div>
 
                           <button
                             type="button"
                             onClick={closeDetail}
-                            className="omnes-text shrink-0 rounded-full border border-white/12 bg-white/[0.04] px-3 py-1.5 text-[12px] text-white/70 transition hover:bg-white/[0.08] hover:text-white sm:px-4 sm:py-2 sm:text-[13px]"
+                            className="omnes-text shrink-0 rounded-full border border-white/12 bg-white/[0.04] px-4 py-2 text-[13px] text-white/82 transition hover:bg-white/[0.08]"
                           >
-                            Cerrar
+                            Volver
                           </button>
                         </div>
 
-                        {isOtrosProject && projectVariants.length > 0 && (
-                          <motion.div
-                            variants={detailSideItemVariants}
-                            className="mt-4 flex flex-wrap gap-2"
-                          >
-                            {projectVariants.map((variant, index) => {
-                              const isActiveVariant =
-                                index === otherVariantIndex;
-
-                              return (
-                                <motion.button
-                                  key={variant.key}
-                                  type="button"
-                                  onClick={() => {
-                                    setOtherVariantIndex(index);
-                                    setDetailImageIndex(0);
-                                  }}
-                                  whileHover={{ scale: 1.04 }}
-                                  whileTap={{ scale: 0.96 }}
-                                  className={`omnes-text rounded-full border px-3 py-1.5 text-[12px] transition ${
-                                    isActiveVariant
-                                      ? "border-white/22 bg-white/12 text-white"
-                                      : "border-white/10 bg-white/[0.04] text-white/68 hover:bg-white/[0.08]"
-                                  }`}
-                                >
-                                  {variant.label}
-                                </motion.button>
-                              );
-                            })}
-                          </motion.div>
-                        )}
-
-                        <motion.p
-                          variants={detailSideItemVariants}
-                          className="omnes-text mt-4 text-[13px] leading-7 text-white/84 sm:mt-5 sm:text-[14px]"
-                        >
-                          {resolvedProject.longDescription ??
-                            resolvedProject.description}
-                        </motion.p>
+                        <div className="min-h-0 overflow-hidden">
+                          <p className="omnes-text text-[13px] leading-7 text-white/82 sm:text-[13.5px]">
+                            {resolvedProject.longDescription ??
+                              resolvedProject.description}
+                          </p>
+                        </div>
                       </motion.div>
 
                       {detailGallery.length > 1 ? (

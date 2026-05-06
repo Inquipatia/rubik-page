@@ -17,6 +17,11 @@ type BrandDetailsSceneProps = {
   description: string;
   works: BrandWorkItem[];
   onBack: () => void;
+
+  // Props que pueden venir desde page.tsx.
+  // Este componente no las usa, pero se aceptan para evitar error de TypeScript.
+  activeWorkCard?: number;
+  servicesResetKey?: number;
 };
 
 const WORKS_PER_PAGE = 4;
@@ -35,7 +40,6 @@ export default function BrandDetailsScene({
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
-  const [previewMode, setPreviewMode] = useState<"cover" | "contain">("cover");
 
   useEffect(() => {
     setIsClient(true);
@@ -44,7 +48,6 @@ export default function BrandDetailsScene({
   useEffect(() => {
     setActiveIndex(0);
     setIsPreviewOpen(false);
-    setPreviewMode("cover");
   }, [brandName]);
 
   useEffect(() => {
@@ -111,7 +114,6 @@ export default function BrandDetailsScene({
   };
 
   const openPreview = () => {
-    setPreviewMode("cover");
     setIsPreviewOpen(true);
   };
 
@@ -153,27 +155,13 @@ export default function BrandDetailsScene({
                     Vista ampliada
                   </div>
 
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setPreviewMode((prev) =>
-                          prev === "cover" ? "contain" : "cover"
-                        )
-                      }
-                      className="omnes-text rounded-full border border-white/15 bg-black/28 px-4 py-2 text-sm text-white/88 backdrop-blur transition hover:bg-black/40"
-                    >
-                      {previewMode === "cover" ? "Ver completa" : "Llenar pantalla"}
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setIsPreviewOpen(false)}
-                      className="omnes-text rounded-full border border-white/15 bg-black/28 px-4 py-2 text-sm text-white/88 backdrop-blur transition hover:bg-black/40"
-                    >
-                      Cerrar
-                    </button>
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsPreviewOpen(false)}
+                    className="omnes-text rounded-full border border-white/15 bg-black/28 px-4 py-2 text-sm text-white/88 backdrop-blur transition hover:bg-black/40"
+                  >
+                    Cerrar
+                  </button>
                 </div>
 
                 {safeWorks.length > 1 && (
@@ -201,26 +189,18 @@ export default function BrandDetailsScene({
                 <div className="relative z-20 flex h-full w-full items-center justify-center px-4 py-20 sm:px-8 lg:px-12">
                   <AnimatePresence mode="wait">
                     <motion.div
-                      key={`${activeWork.image}-${previewMode}`}
+                      key={activeWork.image}
                       initial={{ opacity: 0, scale: 1.01 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.99 }}
                       transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                      className={
-                        previewMode === "cover"
-                          ? "relative h-[78vh] w-[90vw] max-w-[1360px] overflow-hidden rounded-[24px]"
-                          : "relative h-[78vh] w-[90vw] max-w-[1360px] overflow-hidden rounded-[24px] bg-[#05070d]"
-                      }
+                      className="relative h-[78vh] w-[90vw] max-w-[1360px] overflow-hidden rounded-[24px]"
                     >
                       <Image
                         src={activeWork.image}
                         alt={activeWork.title || brandName}
                         fill
-                        className={
-                          previewMode === "cover"
-                            ? "object-cover"
-                            : "object-contain drop-shadow-[0_18px_48px_rgba(0,0,0,0.38)]"
-                        }
+                        className="object-cover"
                         sizes="100vw"
                         priority
                       />
@@ -423,8 +403,12 @@ export default function BrandDetailsScene({
 
                     {safeWorks.length > 0 && (
                       <div className="omnes-text mt-2 flex items-center justify-between text-[10px] text-white/48">
-                        <span>{activeIndex + 1}/{safeWorks.length}</span>
-                        <span>Página {currentPage + 1}/{totalPages}</span>
+                        <span>
+                          {activeIndex + 1}/{safeWorks.length}
+                        </span>
+                        <span>
+                          Página {currentPage + 1}/{totalPages}
+                        </span>
                       </div>
                     )}
                   </div>
