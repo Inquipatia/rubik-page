@@ -10,11 +10,6 @@ type BrandShowcaseProps = {
 
 const genericWorks = [
   {
-    image: "/img/services/MISTRAL/MISTRA(1).png",
-    title: "Implementación visual",
-    description: "Aplicación de piezas gráficas, soportes y presencia de marca.",
-  },
-  {
     image: "/img/services/MISTRAL/MISTRAL (1).png",
     title: "Producción gráfica",
     description: "Desarrollo de elementos visuales para espacios y campañas.",
@@ -131,7 +126,7 @@ const brands: SelectedBrand[] = [
     brandName: "Mistral",
     brandLogo: "/img/works/mistral.png",
     description:
-      "Soluciones gráficas corporativas para espacios de atención, campañas y refuerzo de identidad visual.",
+      "Desarrollo de activaciones con foco en carpintería, especialmente en eventos masivos como Lollapalooza, complementadas con una alta presencia de aplicaciones en Neon Flex.",
     works: [
       {
         image: "/img/services/MISTRAL/MISTRAL (1).png",
@@ -234,27 +229,27 @@ const brands: SelectedBrand[] = [
     works: [
       {
         image: "/img/services/NOVOVET/novo (1).png",
-        title: "BOX 01",
+        title: "NOVOVET 01",
         description: "Montaje de material visual para campaña promocional.",
       },
       {
         image: "/img/services/NOVOVET/novo (2).png",
-        title: "BOX 02",
+        title: "NOVOVET 02",
         description: "Soportes para reforzar presencia visual en punto de venta.",
       },
       {
         image: "/img/services/NOVOVET/novo (3).png",
-        title: "BOX 03",
+        title: "NOVOVET 03",
         description: "Aplicaciones visuales en estructura y entorno de marca.",
       },
       {
         image: "/img/services/NOVOVET/novo (4).png",
-        title: "BOX 04",
+        title: "NOVOVET 04",
         description: "Recursos gráficos para activación y experiencia.",
       },
       {
         image: "/img/services/NOVOVET/novo (5).png",
-        title: "BOX 05",
+        title: "NOVOVET 05",
         description: "Elementos para reforzar presencia en evento.",
       },
     ],
@@ -429,7 +424,33 @@ const brands: SelectedBrand[] = [
     brandLogo: "/img/works/glam y co.png",
     description:
       "Implementaciones gráficas para espacios de atención, retail y comunicación visual de marca.",
-    works: genericWorks,
+    works: [
+      {
+        image: "/img/services/GLAM/GLAM (1).png",
+        title: "GLAM & CO 01",
+        description: "Montaje de material visual para campaña promocional.",
+      },
+      {
+        image: "/img/services/GLAM/GLAM (2).png",
+        title: "GLAM & CO 02",
+        description: "Soportes para reforzar presencia visual en punto de venta.",
+      },
+      {
+        image: "/img/services/GLAM/GLAM (3).png",
+        title: "GLAM & CO 03",
+        description: "Aplicaciones visuales en estructura y entorno de marca.",
+      },
+      {
+        image: "/img/services/GLAM/GLAM (4).png",
+        title: "GLAM & CO 04",
+        description: "Recursos gráficos para activación y experiencia.",
+      },
+      {
+        image: "/img/services/GLAM/GLAM (5).png",
+        title: "GLAM & CO 05",
+        description: "Elementos para reforzar presencia en evento.",
+      },
+    ],
   },
   {
     brandName: "Otros",
