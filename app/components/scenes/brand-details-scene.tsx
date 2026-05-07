@@ -27,21 +27,8 @@ type BrandDetailsSceneProps = {
 
 const WORKS_PER_PAGE = 4;
 
-function toHdImagePath(src: string) {
-  const lastSlashIndex = src.lastIndexOf("/");
-
-  if (lastSlashIndex === -1) {
-    return src;
-  }
-
-  const folder = src.slice(0, lastSlashIndex);
-  const fileName = src.slice(lastSlashIndex + 1);
-
-  return `${folder}/HD/${fileName}`;
-}
-
 function getBrandZoomImage(work: BrandWorkItem) {
-  return work.zoomImage ?? toHdImagePath(work.image);
+  return work.zoomImage ?? work.image;
 }
 
 type ZoomFallbackImageProps = Omit<ComponentProps<typeof Image>, "src"> & {
@@ -185,31 +172,34 @@ export default function BrandDetailsScene({
               className="fixed inset-0 z-[220] bg-[rgba(6,3,18,0.9)]"
               onClick={() => setIsPreviewOpen(false)}
             >
-              <div
-                className="relative h-screen w-screen overflow-hidden"
-                onClick={(e) => e.stopPropagation()}
-              >
+              <div className="relative h-screen w-screen overflow-hidden">
                 <div className="absolute inset-0">
                   <ZoomFallbackImage
                     src={activeWorkZoomImage}
                     fallbackSrc={activeWork.image}
                     alt={activeWork.title || brandName}
                     fill
-                    className="object-cover scale-110 opacity-20 blur-3xl"
+                    className="scale-110 object-cover opacity-20 blur-3xl"
                     sizes="100vw"
                     priority
                   />
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(32,18,60,0.12)_0%,rgba(12,7,24,0.62)_58%,rgba(4,2,10,0.92)_100%)]" />
                 </div>
 
-                <div className="absolute inset-x-0 top-0 z-30 flex items-center justify-between p-4 sm:p-5 lg:p-6">
+                <div
+                  className="absolute inset-x-0 top-0 z-30 flex items-center justify-between p-4 sm:p-5 lg:p-6"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <div className="omnes-text rounded-full border border-white/12 bg-black/20 px-4 py-2 text-sm text-white/82 backdrop-blur">
                     Vista ampliada
                   </div>
 
                   <button
                     type="button"
-                    onClick={() => setIsPreviewOpen(false)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsPreviewOpen(false);
+                    }}
                     className="omnes-text rounded-full border border-white/15 bg-black/28 px-4 py-2 text-sm text-white/88 backdrop-blur transition hover:bg-black/40"
                   >
                     Cerrar
@@ -220,7 +210,10 @@ export default function BrandDetailsScene({
                   <>
                     <button
                       type="button"
-                      onClick={handlePrevImage}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handlePrevImage();
+                      }}
                       className="absolute left-4 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/28 text-xl text-white/85 backdrop-blur transition hover:bg-black/40"
                       aria-label="Imagen anterior"
                     >
@@ -229,7 +222,10 @@ export default function BrandDetailsScene({
 
                     <button
                       type="button"
-                      onClick={handleNextImage}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleNextImage();
+                      }}
                       className="absolute right-4 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/28 text-xl text-white/85 backdrop-blur transition hover:bg-black/40"
                       aria-label="Imagen siguiente"
                     >
@@ -246,15 +242,17 @@ export default function BrandDetailsScene({
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.99 }}
                       transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                      className="relative h-[78vh] w-[90vw] max-w-[1360px] overflow-hidden rounded-[24px]"
+                      onClick={(e) => e.stopPropagation()}
+                      className="relative flex items-center justify-center"
                     >
                       <ZoomFallbackImage
                         src={activeWorkZoomImage}
                         fallbackSrc={activeWork.image}
                         alt={activeWork.title || brandName}
-                        fill
-                        className="object-cover"
-                        sizes="100vw"
+                        width={1172}
+                        height={1246}
+                        className="h-[min(calc(100vh-170px),1246px)] w-auto max-w-[calc(100vw-64px)] rounded-[24px] object-contain object-center"
+                        sizes="(max-width: 1024px) calc(100vw - 64px), 1172px"
                         priority
                       />
                     </motion.div>

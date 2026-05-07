@@ -72,7 +72,7 @@ const brands: SelectedBrand[] = [
       "Activaciones e implementaciones comerciales con desarrollo de estructuras, piezas gráficas, soportes visuales y recursos de exhibición para reforzar presencia de marca.",
     works: [
       {
-        image: "/img/services/COPEC/s.png",
+        image: "/img/services/KAUFMAN/kaufman (1).png",
         title: "Kaufmann 01",
         description: "Piezas para destacar oferta y experiencia en tienda.",
       },
@@ -231,7 +231,33 @@ const brands: SelectedBrand[] = [
     brandLogo: "/img/works/novovet.png",
     description:
       "Soluciones visuales para marca veterinaria, incluyendo aplicaciones gráficas, señalética, merchandising y soporte comercial.",
-    works: genericWorks,
+    works: [
+      {
+        image: "/img/services/NOVOVET/novo (1).png",
+        title: "BOX 01",
+        description: "Montaje de material visual para campaña promocional.",
+      },
+      {
+        image: "/img/services/NOVOVET/novo (2).png",
+        title: "BOX 02",
+        description: "Soportes para reforzar presencia visual en punto de venta.",
+      },
+      {
+        image: "/img/services/NOVOVET/novo (3).png",
+        title: "BOX 03",
+        description: "Aplicaciones visuales en estructura y entorno de marca.",
+      },
+      {
+        image: "/img/services/NOVOVET/novo (4).png",
+        title: "BOX 04",
+        description: "Recursos gráficos para activación y experiencia.",
+      },
+      {
+        image: "/img/services/NOVOVET/novo (5).png",
+        title: "BOX 05",
+        description: "Elementos para reforzar presencia en evento.",
+      },
+    ],
   },
   {
     brandName: "BOX",
