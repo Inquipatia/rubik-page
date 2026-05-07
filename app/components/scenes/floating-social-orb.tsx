@@ -65,7 +65,7 @@ const VIEW_ACT_OBJECT_NAME = "ViewAct";
 const EYES_CONTROL_OBJECT_NAME = "eyesControl";
 const ORB_ROOT_OBJECT_NAME = "orbRoot";
 
-const IDLE_DANCE_EVERY_MS = 5_000;
+const IDLE_DANCE_EVERY_MS = 60_000;
 
 const EYES_DEAD_ZONE = 0.08;
 const EYES_MAX_X = 34;

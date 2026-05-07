@@ -1,62 +1,40 @@
 const neonGallery = [
   "/img/neon/neon (1).png",
-  "/img/neon/neon (2).jpg",
-  "/img/neon/neon (3).jpg",
-  "/img/neon/neon (4).jpg",
-  "/img/neon/neon (5).jpg",
-  "/img/neon/neon (6).jpg",
-  "/img/neon/neon (7).jpg",
-  "/img/neon/neon (8).jpg",
+  "/img/neon/neon (2).png",
+  "/img/neon/neon (3).png",
+  "/img/neon/neon (4).png",
 ];
 
 const standsGallery = [
   "/img/stands/stand (1).png",
-  "/img/stands/stand (2).jpg",
-  "/img/stands/stand (3).jpg",
-  "/img/stands/stand (4).jpg",
+  "/img/stands/stand (2).png",
+  "/img/stands/stand (3).png",
   "/img/stands/stand (4).png",
-  "/img/stands/stand (5).jpg",
   "/img/stands/stand (5).png",
-  "/img/stands/stand (6).jpg",
-  "/img/stands/stand (7).jpg",
-  "/img/stands/stand (8).jpg",
-  "/img/stands/stand (9).jpg",
-  "/img/stands/stand (10).jpg",
-  "/img/stands/stand (11).jpg",
-  "/img/stands/stand (12).jpg",
-  "/img/stands/stand (13).jpg",
-  "/img/stands/stand (14).jpg",
-  "/img/stands/stand (15).jpg",
+  "/img/stands/stand (6).png",
 ];
 
 const impresionGallery = [
-  "/img/impresion/impre (1).jpg",
-  "/img/impresion/impre (2).jpg",
-  "/img/impresion/impre (3).jpg",
-  "/img/impresion/impre (4).jpg",
+  "/img/impresion/impre (1).png",
+  "/img/impresion/impre (2).png",
+  "/img/impresion/impre (3).png",
 ];
 
 const volumetricasGallery = [
-  "/img/Volumetricos/volu (1).jpg",
-  "/img/Volumetricos/volu (2).jpg",
-  "/img/Volumetricos/volu (3).jpg",
-  "/img/Volumetricos/volu (4).jpg",
-  "/img/Volumetricos/volu (5).jpg",
+  "/img/Volumetricos/volu (1).png",
+  "/img/Volumetricos/volu (2).png",
+  "/img/Volumetricos/volu (3).png",
+  "/img/Volumetricos/volu (4).png",
+  "/img/Volumetricos/volu (5).png",
+  "/img/Volumetricos/volu (6).png",
 ];
 
 const otrosPublicitariosGallery = [
-  "/img/otros/otros (1).jpeg",
-  "/img/otros/otros (2).jpeg",
-  "/img/otros/otros (3).jpeg",
+  "/img/otros/otros.png",
 ];
 
 const otrosActivacionesGallery = [
-  "/img/otros/otros (1).jpeg",
-  "/img/otros/otros (2).jpeg",
-  "/img/otros/otros (3).jpeg",
-  "/img/otros/otros (4).jpeg",
-  "/img/otros/otros (5).jpeg",
-  "/img/otros/otros (6).jpeg",
+  "/img/otros/otros.png",
 ];
 
 export const projects = [
