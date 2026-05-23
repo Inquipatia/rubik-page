@@ -1,21 +1,9 @@
 @import "tailwindcss";
 
-/*Rese global de la página*/
 /* ================================
-   RUBIK GLOBAL RESET
-   Control base de navegador
+   RESET GLOBAL SUAVE RUBIK
+   No altera posiciones ya trabajadas
 ================================ */
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-}
 
 html {
   width: 100%;
@@ -31,6 +19,12 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 img,
@@ -50,8 +44,6 @@ select {
 }
 
 button {
-  border: none;
-  background: none;
   cursor: pointer;
 }
 
@@ -59,18 +51,6 @@ a {
   color: inherit;
   text-decoration: none;
 }
-
-ul,
-ol {
-  list-style: none;
-}
-
-#__next,
-main {
-  min-height: 100%;
-}
-
-
 /*Fuentes*/
 
 @font-face {
@@ -139,6 +119,7 @@ main {
 
 html,
 body {
+  width: 100%;
   min-height: 100%;
 }
 
@@ -147,8 +128,8 @@ body {
   font-weight: 100;
   background: #0a0a14;
   color: white;
+  overflow-x: hidden;
 }
-
 h1,
 h2,
 h3,
