@@ -600,13 +600,13 @@ export default function WorkScene({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-              className="grid min-h-0 grid-cols-1 gap-4 lg:grid-cols-[0.84fr_1.16fr] min-[1700px]:gap-5 2xl:gap-6"
+              className="grid min-h-0 grid-cols-1 gap-4 lg:grid-cols-[minmax(0,40%)_minmax(0,60%)] min-[1700px]:gap-5 2xl:gap-6"
             >
               <motion.div
                 variants={servicesIntroVariants}
                 initial="hidden"
                 animate="show"
-                className="max-w-[500px] justify-self-start min-[1700px]:max-w-[530px] 2xl:max-w-[560px]"
+                className="w-full max-w-[500px] justify-self-start min-[1700px]:max-w-[530px] 2xl:max-w-[560px]"
               >
                 <motion.div
                   variants={servicesItemVariants}
@@ -721,7 +721,7 @@ export default function WorkScene({
                 variants={servicesPreviewVariants}
                 initial="hidden"
                 animate="show"
-                className="relative w-full max-w-[680px] justify-self-center pt-4 min-[1700px]:max-w-[760px] min-[1700px]:pt-5 2xl:max-w-[840px] 2xl:pt-5"
+                className="relative w-full max-w-[680px] justify-self-center pt-4 lg:max-w-none min-[1700px]:max-w-[760px] min-[1700px]:pt-5 2xl:max-w-[840px] 2xl:pt-5"
                 style={{ perspective: "1600px" }}
               >
                 {stackedProjects.map((project, i) => {

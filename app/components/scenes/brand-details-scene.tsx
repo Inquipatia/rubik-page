@@ -279,7 +279,7 @@ export default function BrandDetailsScene({
 
   return (
     <>
-      <div className="relative h-full w-full">
+      <div className="rubik-contained-soft relative h-full w-full">
         <button
           type="button"
           aria-label="Volver a marcas"
@@ -288,7 +288,7 @@ export default function BrandDetailsScene({
         />
 
         <section
-          className="relative z-10 mx-auto w-full max-w-[1040px] rounded-[28px] border border-white/12 bg-white/[0.045] px-4 pb-4 pt-4 backdrop-blur-xl sm:px-5 sm:pb-5 sm:pt-5 lg:px-5 lg:pb-5 lg:pt-5"
+          className="rubik-contained relative z-10 mx-auto w-full max-w-[1120px] rounded-[28px] border border-white/12 bg-white/[0.045] px-4 pb-4 pt-4 backdrop-blur-xl sm:px-5 sm:pb-5 sm:pt-5 lg:px-5 lg:pb-5 lg:pt-5"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[28px]">
@@ -334,8 +334,8 @@ export default function BrandDetailsScene({
               )}
             </div>
 
-            <div className="grid items-stretch gap-4 lg:grid-cols-[580px_minmax(0,1fr)] lg:justify-between">
-              <div className="relative h-[390px] overflow-hidden rounded-[22px] border border-white/12 bg-black/20 lg:h-[620px] lg:w-[580px]">
+            <div className="grid items-stretch gap-4 lg:grid-cols-[minmax(0,60%)_minmax(0,40%)] lg:justify-between">
+              <div className="relative h-[390px] overflow-hidden rounded-[22px] border border-white/12 bg-black/20 lg:h-[620px] lg:w-full">
                 <button
                   type="button"
                   onClick={openPreview}

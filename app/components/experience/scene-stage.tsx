@@ -115,11 +115,34 @@ function StageFrame({
   allowOverflow?: boolean;
 }) {
   return (
-    <div className="mx-auto box-border flex h-full w-full max-w-[1220px] flex-col px-3 pb-3 pt-[96px] sm:px-4 sm:pb-4 sm:pt-[102px] md:px-5 md:pt-[108px] lg:px-6 lg:pt-[114px] xl:px-8 xl:pt-[120px]">
+    <div
+      className="
+        mx-auto
+        box-border
+        flex
+        h-full
+        w-full
+        max-w-[1220px]
+        flex-col
+        px-3
+        pb-3
+        pt-[96px]
+        sm:px-4
+        sm:pb-4
+        sm:pt-[102px]
+        md:px-5
+        md:pt-[108px]
+        lg:px-6
+        lg:pt-[114px]
+        xl:max-w-[1320px]
+        xl:px-8
+        xl:pt-[120px]
+        2xl:max-w-[1460px]
+      "
+    >
       <div
-        className={`relative h-full w-full ${
-          allowOverflow ? "overflow-visible" : "overflow-hidden"
-        }`}
+        className={`relative h-full w-full ${allowOverflow ? "overflow-visible" : "overflow-hidden"
+          }`}
       >
         {children}
       </div>
@@ -161,20 +184,12 @@ export default function SceneStage({
   const shouldUseFaqStage =
     !isCotizaOpen && !selectedBrand && activeScene === 4;
 
-  /**
-   * Importante:
-   * Contacto y Cotiza usan animaciones con y / scale / blur.
-   * Si el wrapper queda con overflow-hidden, durante la transición se corta texto,
-   * botones o cards. Por eso ahora también permitimos overflow en Contacto y Cotiza.
-   */
   const allowWideInteraction =
     isIntroStage ||
     isBrandsStage ||
-    isWorkStage ||
     isContactStage ||
     isBrandDetailsStage ||
     isCotizaOpen;
-
   if (shouldUseFaqStage) {
     return (
       <section className="relative z-20 h-[100svh] w-full overflow-hidden">
@@ -194,9 +209,8 @@ export default function SceneStage({
 
   return (
     <section
-      className={`relative z-20 h-[100svh] w-full ${
-        allowWideInteraction ? "overflow-visible" : "overflow-hidden"
-      }`}
+      className={`relative z-20 h-[100svh] w-full ${allowWideInteraction ? "overflow-visible" : "overflow-hidden"
+        }`}
     >
       <StageFrame allowOverflow={allowWideInteraction}>
         <AnimatePresence mode="wait">
@@ -206,9 +220,8 @@ export default function SceneStage({
             initial={isIntroStage ? false : "initial"}
             animate="animate"
             exit="exit"
-            className={`relative h-full w-full [transform:translateZ(0)] [transform-style:preserve-3d] will-change-transform ${
-              allowWideInteraction ? "overflow-visible" : "overflow-hidden"
-            }`}
+            className={`relative h-full w-full [transform:translateZ(0)] [transform-style:preserve-3d] will-change-transform ${allowWideInteraction ? "overflow-visible" : "overflow-hidden"
+              }`}
           >
             {isCotizaOpen && (
               <motion.div
@@ -232,15 +245,14 @@ export default function SceneStage({
               transition={
                 isCotizaOpen
                   ? {
-                      duration: 0.34,
-                      delay: 0.08,
-                      ease: [0.16, 1, 0.3, 1],
-                    }
+                    duration: 0.34,
+                    delay: 0.08,
+                    ease: [0.16, 1, 0.3, 1],
+                  }
                   : undefined
               }
-              className={`h-full w-full ${
-                allowWideInteraction ? "overflow-visible" : "overflow-hidden"
-              }`}
+              className={`h-full w-full ${allowWideInteraction ? "overflow-visible" : "overflow-hidden"
+                }`}
             >
               {isCotizaOpen ? (
                 <CotizaScene onClose={onCloseCotiza} />

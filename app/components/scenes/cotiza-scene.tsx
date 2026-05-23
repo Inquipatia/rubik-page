@@ -180,7 +180,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
   };
 
   return (
-    <section className="relative flex min-h-[calc(100vh-118px)] w-full items-start justify-center overflow-hidden px-4 pt-3 sm:pt-4 lg:px-6 lg:pt-5">
+    <section className="rubik-contained relative flex min-h-[calc(100vh-118px)] w-full items-start justify-center px-4 pt-3 sm:pt-4 lg:px-6 lg:pt-5">
       <motion.div
         initial={{ opacity: 0, y: 28, scale: 0.98, filter: "blur(10px)" }}
         animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
@@ -260,7 +260,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
           </motion.div>
         </div>
 
-        <div className="grid gap-3 lg:grid-cols-[1.04fr_0.96fr] lg:gap-4">
+        <div className="grid gap-3 lg:grid-cols-[minmax(0,60%)_minmax(0,40%)] lg:gap-4">
           <motion.div
             initial={{ opacity: 0, x: -20, y: 8, scale: 0.992 }}
             animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}

@@ -27,7 +27,12 @@ body {
   box-sizing: border-box;
 }
 
-img,
+/* Imágenes y elementos visuales responsivos */
+img {
+  display: block;
+  max-width: 100%;
+}
+
 picture,
 video,
 canvas,
@@ -51,6 +56,47 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+/*Reseteo de floatings para que se ajusten bien al contenedor*/
+/* ========= RUBIK CONTAINMENT SYSTEM ========= */
+
+/* Para contenedores que de verdad deben recortar contenido interno */
+.rubik-contained {
+  position: relative;
+  display: flow-root;
+  overflow: hidden;
+}
+
+/* Limpia floats sin cortar textos, animaciones ni elementos desplazados */
+.rubik-contained-soft {
+  position: relative;
+  display: flow-root;
+  overflow: visible;
+}
+
+/* Solo para pantallas donde realmente quieres bloquear todo */
+.rubik-stable-screen {
+  min-height: 100svh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Solo para secciones cerradas, no para Inicio ni Servicios */
+.rubik-stable-section {
+  position: relative;
+  display: flow-root;
+  width: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Para cards, galerías, thumbnails e imágenes */
+.rubik-clip-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
 /*Fuentes*/
 
 @font-face {
@@ -130,6 +176,7 @@ body {
   color: white;
   overflow-x: hidden;
 }
+
 h1,
 h2,
 h3,
@@ -171,6 +218,48 @@ h6 {
 .omnes-hairline {
   font-family: "Omnes", sans-serif;
   font-weight: 100;
+}
+
+/*Regla general de pagina responsive agregar principal 60% y secundario 40%*/
+/* ========= RUBIK RESPONSIVE WIDTH SYSTEM ========= */
+
+/* ========= RUBIK RESPONSIVE WIDTH SYSTEM ========= */
+
+.rubik-page-split {
+  display: grid;
+  width: 100%;
+  align-items: center;
+  gap: clamp(24px, 4vw, 72px);
+}
+
+@media (min-width: 1024px) {
+  .rubik-page-split {
+    grid-template-columns: minmax(0, 60%) minmax(0, 40%);
+  }
+}
+
+@media (max-width: 1023px) {
+  .rubik-page-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rubik-main-panel,
+.rubik-secondary-panel {
+  min-width: 0;
+  width: 100%;
+}
+
+.rubik-secondary-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .rubik-secondary-panel {
+    justify-content: flex-end;
+  }
 }
 
 /* ========= FLOATING MENU ========= */
@@ -276,11 +365,9 @@ h6 {
   height: 100%;
   overflow: hidden;
   border-radius: 36px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.08),
-    rgba(255, 255, 255, 0.02)
-  );
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.08),
+      rgba(255, 255, 255, 0.02));
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
@@ -347,6 +434,7 @@ h6 {
 }
 
 @keyframes cubeHeroFloat {
+
   0%,
   100% {
     transform: translateY(0px);
@@ -455,12 +543,10 @@ h6 {
   height: 100%;
   transform-origin: left center;
   border-radius: 999px;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.95),
-    rgba(173, 117, 255, 0.95),
-    rgba(109, 60, 255, 0.95)
-  );
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0.95),
+      rgba(173, 117, 255, 0.95),
+      rgba(109, 60, 255, 0.95));
   transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 

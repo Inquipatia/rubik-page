@@ -58,8 +58,8 @@ export default function IntroScene({
   return (
     <section className="relative h-full w-full overflow-visible">
       <div className="mx-auto flex h-full w-full max-w-[1560px] items-center px-1 sm:px-2 lg:px-2 xl:px-3">
-        <div className="grid w-full items-center gap-6 lg:grid-cols-[0.88fr_1.12fr] xl:grid-cols-[1.02fr_0.98fr] xl:gap-8">
-          <div className="relative z-20 max-w-[760px] md:max-w-[520px] lg:max-w-[640px] lg:-translate-x-8 lg:origin-left lg:scale-[0.84] xl:max-w-[620px] xl:-translate-x-12 xl:scale-100 2xl:max-w-[680px] 2xl:-translate-x-14">
+        <div className="rubik-page-split">
+          <div className="rubik-main-panel relative z-20 max-w-[760px] md:max-w-[520px] lg:max-w-[640px] lg:-translate-x-8 lg:origin-left lg:scale-[0.84] xl:max-w-[620px] xl:-translate-x-12 xl:scale-100 2xl:max-w-[680px] 2xl:-translate-x-14">
             <motion.div
               initial={{ opacity: 0, y: 18, scale: 0.94 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -151,7 +151,7 @@ export default function IntroScene({
           <div
             onMouseEnter={() => onCubeHoverChange?.(true)}
             onMouseLeave={() => onCubeHoverChange?.(false)}
-            className="relative z-10 flex justify-center lg:justify-end"
+            className="rubik-secondary-panel relative z-10"
           >
             <div
               className="

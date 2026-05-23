@@ -119,7 +119,7 @@ const brands: SelectedBrand[] = [
         title: "Latam 04",
         description: "Renovación de acabados e identidad visual.",
       },
-    
+
     ],
   },
   {
@@ -467,13 +467,39 @@ export default function BrandShowcase({
   return (
     <section
       id="brands"
-      className="relative mx-auto flex h-full w-full max-w-[1460px] items-center px-4 sm:px-5 lg:px-6 2xl:max-w-[1520px] 2xl:px-8"
+      className="
+        relative
+        mx-auto
+        flex
+        h-full
+        w-full
+        items-start
+        justify-center
+        px-4
+        sm:px-5
+        lg:px-6
+      "
     >
-      <div className="w-full -translate-y-2 sm:-translate-y-1 lg:-translate-y-3 xl:-translate-y-4">
+      <div
+        className="
+          w-full
+          pt-[8px]
+          sm:pt-[10px]
+          md:pt-[12px]
+          lg:pt-[14px]
+          xl:pt-[10px]
+          2xl:pt-[20px]
+        "
+      >
         <motion.div
           initial="hidden"
           animate="visible"
-          className="mx-auto max-w-[760px] text-center xl:max-w-[800px] 2xl:max-w-[840px]"
+          className="
+            mx-auto
+            max-w-[760px]
+            text-center
+            xl:max-w-[820px]
+          "
         >
           <motion.div
             variants={{
@@ -488,12 +514,35 @@ export default function BrandShowcase({
                 },
               },
             }}
-            className="omnes-text inline-flex rounded-full border border-white/12 bg-white/[0.04] px-3.5 py-1.5 text-[12px] text-white/78 backdrop-blur sm:text-[13px]"
+            className="
+              omnes-text
+              inline-flex
+              rounded-full
+              border
+              border-white/12
+              bg-white/[0.04]
+              px-3.5
+              py-1.5
+              text-[12px]
+              text-white/78
+              backdrop-blur
+              sm:text-[13px]
+            "
           >
             Marcas
           </motion.div>
 
-          <h2 className="omnes-title mt-3 overflow-hidden text-[clamp(2rem,3.4vw,3.8rem)] leading-[1.03] tracking-[-0.05em] text-white">
+          <h2
+            className="
+              omnes-title
+              mt-5
+              overflow-hidden
+              text-[clamp(2.5rem,4.35vw,4.35rem)]
+              leading-[0.95]
+              tracking-[-0.07em]
+              text-white
+            "
+          >
             <motion.span
               className="inline-block"
               initial={{ y: "115%", opacity: 0, filter: "blur(12px)" }}
@@ -516,7 +565,17 @@ export default function BrandShowcase({
               delay: 0.42,
               ease: [0.16, 1, 0.3, 1],
             }}
-            className="omnes-text mx-auto mt-3 max-w-[680px] text-[13px] leading-6 text-white/72 sm:text-[14px]"
+            className="
+              omnes-text
+              mx-auto
+              mt-5
+              max-w-[700px]
+              text-[13px]
+              leading-6
+              text-white/72
+              sm:text-[14px]
+              xl:text-[15px]
+            "
           >
             Clientes, colaboraciones y proyectos desarrollados junto a marcas que
             buscan impacto visual real, producción cuidada y soluciones pensadas
@@ -532,9 +591,35 @@ export default function BrandShowcase({
             delay: 0.5,
             ease: [0.16, 1, 0.3, 1],
           }}
-          className="relative mx-auto mt-4 max-w-[1380px] rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-[1px] shadow-[0_14px_34px_rgba(0,0,0,0.2)] xl:max-w-[1420px] 2xl:max-w-[1480px]"
+          className="
+            relative
+            mx-auto
+            mt-7
+            max-w-[1090px]
+            rounded-[22px]
+            border
+            border-white/10
+            bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))]
+            p-[1px]
+            shadow-[0_14px_34px_rgba(0,0,0,0.2)]
+            xl:max-w-[1120px]
+            2xl:max-w-[1160px]
+          "
         >
-          <div className="relative overflow-hidden rounded-[21px] bg-[linear-gradient(180deg,#181028_0%,#120b20_45%,#0d0818_100%)] px-3 py-3 sm:px-3.5 sm:py-3.5 lg:px-4 lg:py-4">
+          <div
+            className="
+              relative
+              overflow-hidden
+              rounded-[21px]
+              bg-[linear-gradient(180deg,#181028_0%,#120b20_45%,#0d0818_100%)]
+              px-3
+              py-3
+              sm:px-3.5
+              sm:py-3.5
+              lg:px-4
+              lg:py-4
+            "
+          >
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-0 opacity-[0.055]"
@@ -550,7 +635,18 @@ export default function BrandShowcase({
 
             <div className="pointer-events-none absolute inset-2 rounded-[18px] border border-white/[0.05]" />
 
-            <div className="relative grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-2.5 lg:grid-cols-7 lg:gap-2.5 xl:gap-3 2xl:gap-3.5">
+            <div
+              className="
+                relative
+                grid
+                grid-cols-2
+                gap-2
+                sm:grid-cols-4
+                sm:gap-2.5
+                lg:grid-cols-7
+                lg:gap-3
+              "
+            >
               {brands.map((brand, index) => (
                 <motion.button
                   key={brand.brandName}
@@ -573,10 +669,53 @@ export default function BrandShowcase({
                     delay: 0.65 + index * 0.035,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className="group relative min-h-[54px] overflow-hidden rounded-[13px] border border-white/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.015))] p-[1px] text-left transition duration-300 hover:-translate-y-[2px] hover:border-white/[0.18] hover:shadow-[0_10px_20px_rgba(0,0,0,0.18)] focus:outline-none focus:ring-2 focus:ring-white/20 sm:min-h-[58px] lg:min-h-[62px] xl:min-h-[66px] 2xl:min-h-[72px]"
+                  className="
+                    group
+                    relative
+                    min-h-[54px]
+                    overflow-hidden
+                    rounded-[13px]
+                    border
+                    border-white/[0.08]
+                    bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.015))]
+                    p-[1px]
+                    text-left
+                    transition
+                    duration-300
+                    hover:-translate-y-[2px]
+                    hover:border-white/[0.18]
+                    hover:shadow-[0_10px_20px_rgba(0,0,0,0.18)]
+                    focus:outline-none
+                    focus:ring-2
+                    focus:ring-white/20
+                    sm:min-h-[58px]
+                    lg:min-h-[64px]
+                    xl:min-h-[68px]
+                  "
                   aria-label={`Ver detalles de ${brand.brandName}`}
                 >
-                  <div className="relative flex h-full min-h-[52px] items-center justify-center overflow-hidden rounded-[12px] bg-[linear-gradient(180deg,#0c0914_0%,#110d1b_40%,#151024_100%)] px-2 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),inset_0_-8px_20px_rgba(0,0,0,0.45)] transition duration-300 group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-10px_24px_rgba(0,0,0,0.52),0_8px_18px_rgba(0,0,0,0.12)] sm:min-h-[56px] lg:min-h-[60px] xl:min-h-[64px] 2xl:min-h-[70px]">
+                  <div
+                    className="
+                      relative
+                      flex
+                      h-full
+                      min-h-[52px]
+                      items-center
+                      justify-center
+                      overflow-hidden
+                      rounded-[12px]
+                      bg-[linear-gradient(180deg,#0c0914_0%,#110d1b_40%,#151024_100%)]
+                      px-2
+                      py-2
+                      shadow-[inset_0_1px_0_rgba(255,255,255,0.06),inset_0_-8px_20px_rgba(0,0,0,0.45)]
+                      transition
+                      duration-300
+                      group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-10px_24px_rgba(0,0,0,0.52),0_8px_18px_rgba(0,0,0,0.12)]
+                      sm:min-h-[56px]
+                      lg:min-h-[62px]
+                      xl:min-h-[66px]
+                    "
+                  >
                     <div className="pointer-events-none absolute inset-[5px] rounded-[10px] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.04),transparent_48%),linear-gradient(180deg,rgba(255,255,255,0.015),rgba(255,255,255,0.005))]" />
                     <div className="pointer-events-none absolute inset-[2px] rounded-[12px] bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0.028)_38%,rgba(255,255,255,0.012)_100%)] backdrop-blur-[3px]" />
                     <div className="pointer-events-none absolute inset-[2px] rounded-[12px] border border-white/[0.12]" />
@@ -585,13 +724,21 @@ export default function BrandShowcase({
                     <div className="pointer-events-none absolute inset-x-5 top-[8px] h-px bg-white/22 opacity-70" />
                     <div className="pointer-events-none absolute -left-[28%] top-[-12%] h-[140%] w-[34%] rotate-[18deg] bg-[linear-gradient(180deg,rgba(255,255,255,0.24),rgba(255,255,255,0.05)_45%,rgba(255,255,255,0))] opacity-30 blur-md transition duration-300 group-hover:translate-x-2" />
 
-                    <div className="relative h-[22px] w-[78%] max-w-[132px] sm:h-[24px] lg:h-[25px] xl:h-[27px] 2xl:h-[29px]">
+                    <div className="relative h-[23px] w-[78%] max-w-[124px] sm:h-[24px] lg:h-[26px] xl:h-[28px]">
                       <Image
                         src={brand.brandLogo || "/img/works/3.png"}
                         alt={brand.brandName}
                         fill
-                        sizes="(max-width: 640px) 38vw, (max-width: 1024px) 22vw, 130px"
-                        className="object-contain opacity-[0.96] drop-shadow-[0_1px_8px_rgba(255,255,255,0.08)] transition duration-300 group-hover:scale-[1.02] group-hover:opacity-100"
+                        sizes="(max-width: 640px) 38vw, (max-width: 1024px) 22vw, 124px"
+                        className="
+                          object-contain
+                          opacity-[0.96]
+                          drop-shadow-[0_1px_8px_rgba(255,255,255,0.08)]
+                          transition
+                          duration-300
+                          group-hover:scale-[1.02]
+                          group-hover:opacity-100
+                        "
                       />
                     </div>
                   </div>
