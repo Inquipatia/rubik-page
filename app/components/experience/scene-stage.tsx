@@ -115,7 +115,7 @@ function StageFrame({
   allowOverflow?: boolean;
 }) {
   return (
-    <div className="mx-auto box-border flex h-full w-full max-w-[1220px] flex-col px-3 pb-3 pt-[96px] sm:px-4 sm:pb-4 sm:pt-[102px] md:px-5 md:pt-[108px] lg:px-6 lg:pt-[114px] xl:px-8 xl:pt-[120px]">
+    <div className="scene-stage-frame mx-auto box-border flex h-full w-full max-w-[1220px] flex-col px-3 pb-3 pt-[96px] sm:px-4 sm:pb-4 sm:pt-[102px] md:px-5 md:pt-[108px] lg:px-6 lg:pt-[114px] xl:px-8 xl:pt-[120px]">
       <div
         className={`relative h-full w-full ${
           allowOverflow ? "overflow-visible" : "overflow-hidden"

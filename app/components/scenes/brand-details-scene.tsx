@@ -172,7 +172,7 @@ export default function BrandDetailsScene({
               className="fixed inset-0 z-[220] bg-[rgba(6,3,18,0.9)]"
               onClick={() => setIsPreviewOpen(false)}
             >
-              <div className="relative h-screen w-screen overflow-hidden">
+               <div className="brand-preview-screen relative h-screen w-screen overflow-hidden">
                 <div className="absolute inset-0">
                   <ZoomFallbackImage
                     src={activeWorkZoomImage}

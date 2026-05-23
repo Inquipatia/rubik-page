@@ -10,11 +10,6 @@ type BrandShowcaseProps = {
 
 const genericWorks = [
   {
-    image: "/img/services/MISTRAL/MISTRA(1).png",
-    title: "Implementación visual",
-    description: "Aplicación de piezas gráficas, soportes y presencia de marca.",
-  },
-  {
     image: "/img/services/MISTRAL/MISTRAL (1).png",
     title: "Producción gráfica",
     description: "Desarrollo de elementos visuales para espacios y campañas.",
@@ -124,7 +119,7 @@ const brands: SelectedBrand[] = [
         title: "Latam 04",
         description: "Renovación de acabados e identidad visual.",
       },
-    
+
     ],
   },
   {
@@ -425,11 +420,92 @@ const brands: SelectedBrand[] = [
     ],
   },
   {
+    brandName: "UTEM",
+    brandLogo: "/img/works/utem.png",
+    description:
+      "Desarrollo e implementación de piezas gráficas institucionales para UTEM, contemplando producción, instalación y terminaciones visuales aplicadas a espacios universitarios, comunicación interna y presencia de marca.",
+    works: [
+      {
+        image: "/img/services/UTEM/UTEM (1).png",
+        title: "UTEM 01",
+        description:
+          "Implementación gráfica institucional aplicada en espacio universitario.",
+      },
+      {
+        image: "/img/services/UTEM/UTEM (2).png",
+        title: "UTEM 02",
+        description:
+          "Producción e instalación de piezas visuales para comunicación institucional.",
+      },
+      {
+        image: "/img/services/UTEM/UTEM (3).png",
+        title: "UTEM 03",
+        description:
+          "Aplicación de gráfica corporativa para reforzar identidad visual.",
+      },
+      {
+        image: "/img/services/UTEM/UTEM (4).png",
+        title: "UTEM 04",
+        description:
+          "Montaje de elementos gráficos con terminaciones para entorno institucional.",
+      },
+      {
+        image: "/img/services/UTEM/UTEM (5).png",
+        title: "UTEM 05",
+        description:
+          "Despliegue visual de piezas gráficas para soporte comunicacional.",
+      },
+      {
+        image: "/img/services/UTEM/UTEM (6).png",
+        title: "UTEM 06",
+        description:
+          "Instalación de recursos gráficos para identidad y comunicación de marca.",
+      },
+      {
+        image: "/img/services/UTEM/UTEM (7).png",
+        title: "UTEM 07",
+        description:
+          "Cierre visual de implementación gráfica institucional.",
+      },
+    ],
+  },
+  {
     brandName: "Glam & Co",
     brandLogo: "/img/works/glam y co.png",
     description:
-      "Implementaciones gráficas para espacios de atención, retail y comunicación visual de marca.",
-    works: genericWorks,
+      "Implementaciones gráficas para espacios de atención, retail y comunicación visual de marca, integrando producción, instalación y terminaciones visuales pensadas para reforzar presencia comercial y experiencia de cliente.",
+    works: [
+      {
+        image: "/img/services/GLAM/GLAM (1).png",
+        title: "Glam & Co 01",
+        description:
+          "Implementación gráfica aplicada en espacio comercial para reforzar presencia de marca.",
+      },
+      {
+        image: "/img/services/GLAM/GLAM (2).png",
+        title: "Glam & Co 02",
+        description:
+          "Producción e instalación de piezas visuales para entorno de atención y retail.",
+      },
+      {
+        image: "/img/services/GLAM/GLAM (3).png",
+        title: "Glam & Co 03",
+        description:
+          "Aplicación de recursos gráficos orientados a comunicación visual de marca.",
+      },
+      {
+        image: "/img/services/GLAM/GLAM (4).png",
+        title: "Glam & Co 04",
+        description:
+          "Montaje de elementos gráficos con terminaciones para espacio comercial.",
+      },
+      {
+        image: "/img/services/GLAM/GLAM (5).png",
+        title: "Glam & Co 05",
+        description:
+          "Cierre visual de implementación gráfica para reforzar identidad y experiencia.",
+      },
+    ],
   },
   {
     brandName: "Otros",
@@ -529,7 +605,7 @@ export default function BrandShowcase({
 
             <div className="pointer-events-none absolute inset-2 rounded-[18px] border border-white/[0.05]" />
 
-            <div className="relative grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-2.5 lg:grid-cols-7 lg:gap-2.5 xl:gap-3 2xl:gap-3.5">
+            <div className="relative grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-2.5 lg:grid-cols-5 lg:gap-2.5 xl:gap-3 2xl:gap-3.5">
               {brands.map((brand, index) => (
                 <motion.button
                   key={brand.brandName}
@@ -552,10 +628,11 @@ export default function BrandShowcase({
                     delay: 0.65 + index * 0.035,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className="group relative min-h-[54px] overflow-hidden rounded-[13px] border border-white/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.015))] p-[1px] text-left transition duration-300 hover:-translate-y-[2px] hover:border-white/[0.18] hover:shadow-[0_10px_20px_rgba(0,0,0,0.18)] focus:outline-none focus:ring-2 focus:ring-white/20 sm:min-h-[58px] lg:min-h-[62px] xl:min-h-[66px] 2xl:min-h-[72px]"
+                  /*Acá comienza el contenedor de las marcas*/
+                  className="group relative min-h-[54px] overflow-hidden rounded-[13px] border border-white/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.015))] p-[1px] text-left transition duration-300 hover:-translate-y-[2px] hover:border-white/[0.18] hover:shadow-[0_10px_20px_rgba(0,0,0,0.18)] focus:outline-none focus:ring-2 focus:ring-white/20 sm:min-h-[56px] lg:min-h-[58px] xl:min-h-[62px] 2xl:min-h-[66px]"
                   aria-label={`Ver detalles de ${brand.brandName}`}
                 >
-                  <div className="relative flex h-full min-h-[52px] items-center justify-center overflow-hidden rounded-[12px] bg-[linear-gradient(180deg,#0c0914_0%,#110d1b_40%,#151024_100%)] px-2 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),inset_0_-8px_20px_rgba(0,0,0,0.45)] transition duration-300 group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-10px_24px_rgba(0,0,0,0.52),0_8px_18px_rgba(0,0,0,0.12)] sm:min-h-[56px] lg:min-h-[60px] xl:min-h-[64px] 2xl:min-h-[70px]">
+                  <div className="relative flex h-full min-h-[52px] items-center justify-center overflow-hidden rounded-[12px] bg-[linear-gradient(180deg,#0c0914_0%,#110d1b_40%,#151024_100%)] px-2 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),inset_0_-8px_20px_rgba(0,0,0,0.45)] transition duration-300 group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-10px_24px_rgba(0,0,0,0.52),0_8px_18px_rgba(0,0,0,0.12)] sm:min-h-[54px] lg:min-h-[56px] xl:min-h-[60px] 2xl:min-h-[64px]">
                     <div className="pointer-events-none absolute inset-[5px] rounded-[10px] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.04),transparent_48%),linear-gradient(180deg,rgba(255,255,255,0.015),rgba(255,255,255,0.005))]" />
                     <div className="pointer-events-none absolute inset-[2px] rounded-[12px] bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0.028)_38%,rgba(255,255,255,0.012)_100%)] backdrop-blur-[3px]" />
                     <div className="pointer-events-none absolute inset-[2px] rounded-[12px] border border-white/[0.12]" />
