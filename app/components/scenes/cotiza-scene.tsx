@@ -180,13 +180,13 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
   };
 
   return (
-    <section className="relative flex min-h-[calc(100vh-118px)] w-full items-start justify-center overflow-hidden px-4 pt-3 sm:pt-4 lg:px-6 lg:pt-5">
+    <section className="rubik-cotiza-scene relative flex min-h-[calc(100vh-118px)] w-full items-start justify-center overflow-hidden px-4 pt-3 sm:pt-4 lg:px-6 lg:pt-5">
       <motion.div
         initial={{ opacity: 0, y: 28, scale: 0.98, filter: "blur(10px)" }}
         animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
         exit={{ opacity: 0, y: -14, scale: 0.985, filter: "blur(8px)" }}
         transition={shellTransition}
-        className="relative mx-auto w-full max-w-[980px] transform-gpu will-change-transform lg:max-w-[1060px] xl:max-w-[1120px]"
+        className="rubik-cotiza-content relative mx-auto w-full max-w-[980px] transform-gpu will-change-transform lg:max-w-[1060px] xl:max-w-[1120px]"
       >
         <div className="pointer-events-none absolute inset-0 -z-10">
           <motion.div
@@ -206,7 +206,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
           />
         </div>
 
-        <div className="mb-5 flex items-start justify-between gap-4 lg:mb-6">
+        <div className="rubik-cotiza-header mb-5 flex items-start justify-between gap-4 lg:mb-6">
           <motion.div
             initial={{ opacity: 0, x: -16 }}
             animate={{ opacity: 1, x: 0 }}
@@ -260,13 +260,13 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
           </motion.div>
         </div>
 
-        <div className="grid gap-3 lg:grid-cols-[1.04fr_0.96fr] lg:gap-4">
+        <div className="rubik-cotiza-grid grid gap-3 lg:grid-cols-[1.04fr_0.96fr] lg:gap-4">
           <motion.div
             initial={{ opacity: 0, x: -20, y: 8, scale: 0.992 }}
             animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
             exit={{ opacity: 0, x: -10, y: -4, scale: 0.995 }}
             transition={{ delay: 0.08, ...cardTransition }}
-            className="group relative overflow-hidden rounded-[22px] border border-white/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.09),rgba(255,255,255,0.032))] p-4 shadow-[0_18px_40px_rgba(0,0,0,0.24),inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-md lg:p-5"
+            className="rubik-cotiza-card rubik-cotiza-form-card group relative overflow-hidden rounded-[22px] border border-white/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.09),rgba(255,255,255,0.032))] p-4 shadow-[0_18px_40px_rgba(0,0,0,0.24),inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-md lg:p-5"
           >
             <div className="pointer-events-none absolute inset-0">
               <div className="absolute -left-8 top-8 h-20 w-20 rounded-full bg-violet-400/10 blur-3xl transition duration-500 group-hover:bg-violet-400/16" />
@@ -417,7 +417,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
             animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
             exit={{ opacity: 0, x: 10, y: -4, scale: 0.995 }}
             transition={{ delay: 0.12, ...cardTransition }}
-            className="group relative overflow-hidden rounded-[22px] border border-white/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.085),rgba(255,255,255,0.03))] p-4 shadow-[0_18px_40px_rgba(0,0,0,0.24),inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-md lg:p-5"
+            className="rubik-cotiza-card rubik-cotiza-service-card group relative overflow-hidden rounded-[22px] border border-white/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.085),rgba(255,255,255,0.03))] p-4 shadow-[0_18px_40px_rgba(0,0,0,0.24),inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-md lg:p-5"
           >
             <div className="pointer-events-none absolute inset-0">
               <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-fuchsia-400/10 blur-3xl transition duration-500 group-hover:bg-fuchsia-400/16" />

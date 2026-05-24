@@ -211,9 +211,8 @@ function NeonCard({ children, accent, hoverBorder }: NeonCardProps) {
       />
 
       <motion.div
-        className={`pointer-events-none absolute top-0 h-16 w-16 rounded-full ${theme.orb} blur-3xl ${
-          accent === "violet" ? "-left-5" : "right-0"
-        }`}
+        className={`pointer-events-none absolute top-0 h-16 w-16 rounded-full ${theme.orb} blur-3xl ${accent === "violet" ? "-left-5" : "right-0"
+          }`}
         animate={{
           x: accent === "violet" ? [0, 4, 0] : [0, -4, 0],
           y: [0, -3, 0],
@@ -252,8 +251,8 @@ function NeonCard({ children, accent, hoverBorder }: NeonCardProps) {
             accent === "violet"
               ? "inset 0 0 10px rgba(196,181,253,0.06)"
               : accent === "white"
-              ? "inset 0 0 10px rgba(255,255,255,0.04)"
-              : "inset 0 0 10px rgba(251,207,232,0.05)",
+                ? "inset 0 0 10px rgba(255,255,255,0.04)"
+                : "inset 0 0 10px rgba(251,207,232,0.05)",
         }}
       />
 
@@ -264,8 +263,8 @@ function NeonCard({ children, accent, hoverBorder }: NeonCardProps) {
 
 export default function ContactScene() {
   return (
-    <section className="relative flex min-h-[58vh] items-center justify-center py-4 xl:min-h-[68vh] 2xl:min-h-[72vh]">
-      <div className="w-full max-w-[1380px] px-4 sm:px-5 xl:px-8">
+    <section className="rubik-contact-scene relative flex min-h-[58vh] items-center justify-center py-4 xl:min-h-[68vh] 2xl:min-h-[72vh]">
+      <div className="rubik-contact-content w-full max-w-[1380px] px-4 sm:px-5 xl:px-8">
         <motion.div
           variants={headerContainerVariants}
           initial="hidden"
@@ -301,7 +300,7 @@ export default function ContactScene() {
           variants={containerVariants}
           initial="hidden"
           animate="show"
-          className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3 xl:gap-5"
+          className="rubik-contact-grid grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3 xl:gap-5"
         >
           <motion.div
             custom="left"

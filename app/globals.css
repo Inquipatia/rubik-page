@@ -689,13 +689,455 @@ h6 {
 }
 
 /* =========================================================
+   RUBIK FIX — LAPTOP COMPRIMIDA / WINDOWS 150%
+   Rango crítico: 760px–1030px de ancho y altura baja.
+   Ajuste: dos columnas compactas + cubo centrado hacia la izquierda.
+========================================================= */
+
+@media screen and (min-width: 760px) and (max-width: 1030px) and (min-height: 500px) and (max-height: 720px) and (pointer: fine) {
+
+  main {
+    height: 100svh !important;
+    overflow: hidden !important;
+  }
+
+  /* Header compacto */
+  header>div {
+    padding-top: 5px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  header [class*="md:h-[82px]"],
+  header [class*="lg:h-[108px]"],
+  header [class*="xl:h-[126px]"],
+  header [class*="2xl:h-[136px]"] {
+    height: 58px !important;
+    width: 180px !important;
+  }
+
+  header img {
+    transform: scale(0.78) !important;
+    transform-origin: left center !important;
+  }
+
+  .menu-shell {
+    transform: scale(0.78) !important;
+    transform-origin: center !important;
+    padding: 0.18rem !important;
+  }
+
+  .menu-pill {
+    padding: 0.4rem 0.62rem !important;
+    font-size: 0.67rem !important;
+  }
+
+  .cotiza-pill {
+    min-width: 82px !important;
+    padding-inline: 0.8rem !important;
+  }
+
+  /* Escenario general */
+  .scene-stage-frame {
+    max-width: 980px !important;
+    padding-top: 62px !important;
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+    padding-bottom: 8px !important;
+  }
+
+  /* Intro: dos columnas, pero menos espacio para el cubo */
+  .rubik-intro-shell {
+    align-items: center !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .rubik-intro-layout {
+    grid-template-columns: minmax(0, 63%) minmax(0, 37%) !important;
+    align-items: center !important;
+    gap: 0 !important;
+  }
+
+  .rubik-intro-copy {
+    max-width: 560px !important;
+    transform: translateX(0) scale(0.76) !important;
+    transform-origin: left center !important;
+  }
+
+  .rubik-intro-copy h1 {
+    font-size: clamp(3.2rem, 6.2vw, 4.6rem) !important;
+    line-height: 0.88 !important;
+    letter-spacing: -0.055em !important;
+  }
+
+  .rubik-intro-copy p {
+    max-width: 520px !important;
+    font-size: 0.82rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .rubik-intro-copy button {
+    font-size: 0.78rem !important;
+  }
+
+  .rubik-intro-copy button[class*="rounded-full"] {
+    padding: 0.68rem 1rem !important;
+  }
+
+  /* Cubo: lo traemos hacia el centro, no a la derecha */
+  .rubik-intro-cube-wrap {
+    justify-content: flex-start !important;
+    transform: translateX(-90px) !important;
+  }
+
+  .rubik-intro-cube {
+    height: 310px !important;
+    max-width: 330px !important;
+    transform: translateX(-24px) !important;
+  }
+
+  /* Evita que translate-x de Tailwind vuelva a empujarlo */
+  .rubik-intro-cube[class*="xl:translate-x-8"],
+  .rubik-intro-cube[class*="2xl:translate-x-12"] {
+    transform: translateX(-24px) !important;
+  }
+
+  /* Marcas / contacto / cotiza también respiran dentro del stage */
+  .scene-stage-frame h2 {
+    font-size: clamp(1.9rem, 3.6vw, 2.6rem) !important;
+    line-height: 1.02 !important;
+  }
+
+  .scene-stage-frame p {
+    font-size: 0.78rem !important;
+    line-height: 1.45 !important;
+  }
+
+  #brands>div {
+    transform: translateY(-4px) scale(0.86) !important;
+    transform-origin: center center !important;
+  }
+
+  .scroll-progress-wrap {
+    bottom: 6px !important;
+    width: min(420px, calc(100% - 28px)) !important;
+  }
+
+  .scroll-progress-track {
+    height: 5px !important;
+  }
+}
+
+/* Rango 560px–759px con mouse: evita que parezca mobile gigante pegado arriba */
+@media screen and (min-width: 560px) and (max-width: 759px) and (min-height: 520px) and (max-height: 720px) and (pointer: fine) {
+
+  main {
+    overflow-x: hidden !important;
+  }
+
+  header>div {
+    padding-top: 6px !important;
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+
+  header [class*="h-[62px]"],
+  header [class*="sm:h-[70px]"],
+  header [class*="md:h-[82px]"] {
+    height: 54px !important;
+    width: 165px !important;
+  }
+
+  header img {
+    transform: scale(0.8) !important;
+    transform-origin: left center !important;
+  }
+
+  .rubik-intro-shell {
+    align-items: center !important;
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+  }
+
+  .rubik-intro-layout {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  .rubik-intro-copy {
+    max-width: 560px !important;
+    transform: none !important;
+  }
+
+  .rubik-intro-copy h1 {
+    font-size: clamp(2.55rem, 7.4vw, 3.35rem) !important;
+    line-height: 0.92 !important;
+    letter-spacing: -0.055em !important;
+  }
+
+  .rubik-intro-copy p {
+    max-width: 560px !important;
+    font-size: 0.8rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .rubik-intro-copy button[class*="rounded-full"] {
+    padding: 0.7rem 1rem !important;
+    font-size: 0.8rem !important;
+  }
+
+  .rubik-intro-cube {
+    height: 230px !important;
+    max-width: 260px !important;
+  }
+
+  #brands>div {
+    transform: translateY(0) scale(0.9) !important;
+    transform-origin: center top !important;
+  }
+
+  .scroll-progress-wrap {
+    bottom: 6px !important;
+    width: min(420px, calc(100% - 28px)) !important;
+  }
+
+  .scroll-progress-track {
+    height: 5px !important;
+  }
+}
+
+/*Media QUERY LAPTOP 150%*/
+/* =========================================================
+   RUBIK FIX — DESKTOP CON ALTURA MUY BAJA
+   Caso: 1280px ancho aprox + DevTools abajo / alto 480px o menor
+========================================================= */
+
+@media screen and (min-width: 1180px) and (max-width: 1320px) and (max-height: 520px) and (pointer: fine) {
+
+  main {
+    height: 100svh !important;
+    overflow: hidden !important;
+  }
+
+  /* Header mucho más compacto */
+  header>div {
+    padding-top: 2px !important;
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+
+  header [class*="lg:h-[108px]"],
+  header [class*="xl:h-[126px]"],
+  header [class*="2xl:h-[136px]"] {
+    height: 56px !important;
+    width: 180px !important;
+  }
+
+  header img {
+    transform: scale(0.72) !important;
+    transform-origin: left center !important;
+  }
+
+  .menu-shell {
+    transform: scale(0.72) !important;
+    transform-origin: center !important;
+    padding: 0.14rem !important;
+  }
+
+  .menu-pill {
+    padding: 0.34rem 0.58rem !important;
+    font-size: 0.62rem !important;
+  }
+
+  .cotiza-pill {
+    min-width: 74px !important;
+    padding-inline: 0.7rem !important;
+  }
+
+  /* Stage general */
+  .scene-stage-frame {
+    max-width: 1120px !important;
+    padding-top: 42px !important;
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+    padding-bottom: 4px !important;
+  }
+
+  /* Compactar todas las escenas sin destruir orientación */
+  .scene-stage-frame>div {
+    transform: scale(0.72) !important;
+    transform-origin: center top !important;
+    width: calc(100% / 0.72) !important;
+    margin-left: calc((100% - (100% / 0.72)) / 2) !important;
+  }
+
+  /* Intro */
+  .rubik-intro-layout {
+    grid-template-columns: minmax(0, 58%) minmax(0, 42%) !important;
+    gap: 8px !important;
+    align-items: center !important;
+  }
+
+  .rubik-intro-copy {
+    transform: translateX(0) scale(0.72) !important;
+    transform-origin: left center !important;
+  }
+
+  .rubik-intro-copy h1 {
+    font-size: clamp(2.8rem, 5.1vw, 4rem) !important;
+    line-height: 0.86 !important;
+    letter-spacing: -0.055em !important;
+  }
+
+  .rubik-intro-copy p {
+    max-width: 520px !important;
+    font-size: 0.74rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .rubik-intro-copy button[class*="rounded-full"] {
+    padding: 0.55rem 0.9rem !important;
+    font-size: 0.72rem !important;
+  }
+
+  .rubik-intro-cube-wrap {
+    justify-content: center !important;
+    transform: translateX(-40px) !important;
+  }
+
+  .rubik-intro-cube {
+    height: 250px !important;
+    max-width: 290px !important;
+    transform: translateX(0) !important;
+  }
+
+  /* Marcas */
+  #brands>div {
+    transform: translateY(-10px) scale(0.72) !important;
+    transform-origin: center top !important;
+  }
+
+  #brands h2 {
+    font-size: clamp(1.7rem, 2.6vw, 2.2rem) !important;
+  }
+
+  #brands p {
+    font-size: 0.72rem !important;
+    line-height: 1.35 !important;
+  }
+
+  /* Contacto / cards */
+  .scene-stage-frame [class*="xl:min-h-[360px]"],
+  .scene-stage-frame [class*="2xl:min-h-[390px]"] {
+    min-height: 220px !important;
+  }
+
+  /* Cotiza */
+  .scene-stage-frame input {
+    height: 32px !important;
+    font-size: 12px !important;
+  }
+
+  .scene-stage-frame textarea {
+    min-height: 70px !important;
+    font-size: 12px !important;
+  }
+
+  /* Barra inferior */
+  .scroll-progress-wrap {
+    bottom: 4px !important;
+    width: min(420px, calc(100% - 28px)) !important;
+  }
+
+  .scroll-progress-track {
+    height: 4px !important;
+  }
+}
+
+
+/* =========================================================
+   RUBIK FIX — ALTURA EXTREMA
+   Si el alto baja de 380px, se prioriza que no se rompa.
+========================================================= */
+
+@media screen and (min-width: 1180px) and (max-width: 1320px) and (max-height: 380px) and (pointer: fine) {
+
+  header [class*="lg:h-[108px]"],
+  header [class*="xl:h-[126px]"],
+  header [class*="2xl:h-[136px]"] {
+    height: 44px !important;
+    width: 145px !important;
+  }
+
+  header img {
+    transform: scale(0.62) !important;
+  }
+
+  .menu-shell {
+    transform: scale(0.64) !important;
+  }
+
+  .scene-stage-frame {
+    padding-top: 32px !important;
+  }
+
+  .scene-stage-frame>div {
+    transform: scale(0.58) !important;
+    width: calc(100% / 0.58) !important;
+    margin-left: calc((100% - (100% / 0.58)) / 2) !important;
+  }
+
+  .rubik-intro-copy h1 {
+    font-size: clamp(2.2rem, 4.4vw, 3.1rem) !important;
+  }
+
+  .rubik-intro-cube {
+    height: 190px !important;
+    max-width: 220px !important;
+  }
+
+  .scroll-progress-wrap {
+    display: none !important;
+  }
+}
+
+
+/* =========================================================
+   RUBIK FIX — ALTURA CASI IMPOSIBLE
+   Bajo 260px no cabe una escena completa. Se limpia lo accesorio.
+========================================================= */
+
+@media screen and (min-width: 1180px) and (max-width: 1320px) and (max-height: 260px) and (pointer: fine) {
+
+  header {
+    display: none !important;
+  }
+
+  .scroll-progress-wrap {
+    display: none !important;
+  }
+
+  .rubik-intro-cube-wrap {
+    display: none !important;
+  }
+
+  .scene-stage-frame {
+    padding-top: 8px !important;
+  }
+
+  .scene-stage-frame>div {
+    transform: scale(0.5) !important;
+    width: calc(100% / 0.5) !important;
+    margin-left: calc((100% - (100% / 0.5)) / 2) !important;
+  }
+}
+
+
+/* =========================================================
    RUBIK RESPONSIVE PATCH — SOLO 1280x585 / DPR 1.5
    Laptop 1920x1080 con Windows 150% / Chrome 100%
-
-   Versión balanceada:
-   - Texto más chico que la vista original, pero no miniatura.
-   - Cubo más chico y más a la izquierda.
-   - Botones visibles.
+   Base estable: no escalar toda la escena completa.
 ========================================================= */
 
 @media screen and (min-width: 1270px) and (max-width: 1290px) and (min-height: 575px) and (max-height: 595px) and (min-resolution: 1.4dppx) and (pointer: fine) {
@@ -705,7 +1147,6 @@ h6 {
     overflow: hidden !important;
   }
 
-  /* Header */
   header>div {
     max-width: 1280px !important;
     padding-top: 4px !important;
@@ -740,7 +1181,6 @@ h6 {
     padding-inline: 0.78rem !important;
   }
 
-  /* Frame global */
   .scene-stage-frame {
     max-width: 1180px !important;
     padding-top: 68px !important;
@@ -749,7 +1189,7 @@ h6 {
     padding-bottom: 18px !important;
   }
 
-  /* Layout inicio */
+  /* Inicio */
   .rubik-intro-shell {
     align-items: center !important;
   }
@@ -760,7 +1200,6 @@ h6 {
     gap: 0 !important;
   }
 
-  /* Bloque izquierdo */
   .rubik-intro-copy {
     max-width: 620px !important;
     transform: translateX(0) translateY(-4px) scale(1) !important;
@@ -800,7 +1239,6 @@ h6 {
     margin-top: 1.15rem !important;
   }
 
-  /* Cubo */
   .rubik-intro-cube-wrap {
     justify-content: flex-start !important;
     transform: translateX(-60px) translateY(-4px) !important;
@@ -812,23 +1250,7 @@ h6 {
     transform: translateX(-35px) !important;
   }
 
-  /* Marcas */
-  #brands>div {
-    transform: translateY(-10px) scale(0.84) !important;
-    transform-origin: center center !important;
-  }
-
-  #brands h2 {
-    font-size: clamp(1.9rem, 2.8vw, 2.45rem) !important;
-    line-height: 1.02 !important;
-  }
-
-  #brands p {
-    font-size: 0.74rem !important;
-    line-height: 1.4 !important;
-  }
-
-  /* Ajustes generales suaves para otras vistas */
+  /* Ajustes generales suaves */
   .scene-stage-frame h2 {
     font-size: clamp(1.75rem, 2.6vw, 2.25rem) !important;
     line-height: 1.02 !important;
@@ -857,14 +1279,6 @@ h6 {
     font-size: 12px !important;
   }
 
-  .scene-stage-frame [class*="xl:min-h-[360px]"] {
-    min-height: 250px !important;
-  }
-
-  .scene-stage-frame [class*="2xl:min-h-[390px]"] {
-    min-height: 265px !important;
-  }
-
   .scroll-progress-wrap {
     bottom: 6px !important;
     width: min(420px, calc(100% - 32px)) !important;
@@ -872,5 +1286,724 @@ h6 {
 
   .scroll-progress-track {
     height: 5px !important;
+  }
+}
+
+
+/* =========================================================
+   RUBIK PATCH — MARCAS + DETALLE DE MARCA
+   SOLO 1280x585 / DPR 1.5
+   Objetivo: modo diapositiva, sin salirse de los bordes.
+========================================================= */
+
+@media screen and (min-width: 1270px) and (max-width: 1290px) and (min-height: 575px) and (max-height: 595px) and (min-resolution: 1.4dppx) and (pointer: fine) {
+
+  #brands {
+    max-width: 1120px !important;
+    height: 100% !important;
+    align-items: center !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  #brands>div {
+    width: 100% !important;
+    transform: translateY(-8px) scale(0.88) !important;
+    transform-origin: center center !important;
+  }
+
+  #brands [class*="max-w-[760px]"] {
+    max-width: 680px !important;
+  }
+
+  #brands .omnes-text.inline-flex {
+    padding: 0.36rem 0.78rem !important;
+    font-size: 0.68rem !important;
+  }
+
+  #brands h2 {
+    margin-top: 0.55rem !important;
+    font-size: clamp(1.95rem, 2.8vw, 2.55rem) !important;
+    line-height: 1 !important;
+  }
+
+  #brands p {
+    margin-top: 0.5rem !important;
+    max-width: 620px !important;
+    font-size: 0.74rem !important;
+    line-height: 1.35 !important;
+  }
+
+  #brands [class*="max-w-[1380px]"],
+  #brands [class*="xl:max-w-[1420px]"],
+  #brands [class*="2xl:max-w-[1480px]"] {
+    max-width: 1040px !important;
+    margin-top: 1rem !important;
+    border-radius: 20px !important;
+  }
+
+  #brands [class*="rounded-[21px]"] {
+    padding: 0.7rem !important;
+    border-radius: 19px !important;
+  }
+
+  #brands .grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    gap: 0.55rem !important;
+  }
+
+  #brands button.group {
+    min-height: 48px !important;
+    border-radius: 12px !important;
+  }
+
+  #brands button.group>div {
+    min-height: 46px !important;
+    padding: 0.45rem 0.6rem !important;
+    border-radius: 11px !important;
+  }
+
+  #brands button.group [class*="h-[22px]"] {
+    height: 20px !important;
+    max-width: 118px !important;
+  }
+
+  /* Detalle de marca */
+  .scene-stage-frame section[class*="max-w-[1040px]"] {
+    max-width: 1120px !important;
+    max-height: calc(100svh - 92px) !important;
+    overflow: hidden !important;
+    padding: 0.85rem !important;
+    border-radius: 24px !important;
+    transform: translateY(-6px) scale(0.94) !important;
+    transform-origin: center top !important;
+  }
+
+  .scene-stage-frame section[class*="max-w-[1040px]"]>div.relative.z-10 {
+    gap: 0.65rem !important;
+  }
+
+  .scene-stage-frame section[class*="max-w-[1040px]"] h2 {
+    margin-top: 0.35rem !important;
+    font-size: 2rem !important;
+    line-height: 0.95 !important;
+  }
+
+  .scene-stage-frame section[class*="max-w-[1040px]"] button {
+    font-size: 0.72rem !important;
+  }
+
+  .scene-stage-frame section[class*="max-w-[1040px]"] button[class*="px-3"] {
+    padding: 0.4rem 0.72rem !important;
+  }
+
+  .scene-stage-frame section[class*="max-w-[1040px]"] [class*="h-8"][class*="w-24"] {
+    height: 28px !important;
+    width: 88px !important;
+  }
+
+  .scene-stage-frame section[class*="max-w-[1040px]"] [class*="lg:grid-cols-[580px_minmax"] {
+    grid-template-columns: 550px minmax(0, 1fr) !important;
+    gap: 0.9rem !important;
+  }
+
+  .scene-stage-frame section[class*="max-w-[1040px]"] [class*="lg:h-[620px]"][class*="lg:w-[580px]"] {
+    width: 550px !important;
+    height: 415px !important;
+    border-radius: 20px !important;
+  }
+
+  .scene-stage-frame section[class*="max-w-[1040px]"] [class*="lg:h-[620px]"][class*="lg:w-[580px]"] h3 {
+    font-size: 1.45rem !important;
+  }
+
+  .scene-stage-frame section[class*="max-w-[1040px]"] [class*="lg:h-[620px]"][class*="lg:w-[580px]"] p {
+    font-size: 0.72rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .scene-stage-frame section[class*="max-w-[1040px]"] [class*="lg:h-[620px]"][class*="lg:grid-rows"] {
+    height: 415px !important;
+    grid-template-rows: 165px minmax(0, 1fr) !important;
+    gap: 0.9rem !important;
+  }
+
+  .scene-stage-frame section[class*="max-w-[1040px]"] [class*="lg:grid-rows"]>div:first-child {
+    padding: 0.9rem !important;
+    border-radius: 18px !important;
+  }
+
+  .scene-stage-frame section[class*="max-w-[1040px]"] [class*="lg:grid-rows"]>div:first-child p {
+    font-size: 0.74rem !important;
+    line-height: 1.38 !important;
+  }
+
+  .scene-stage-frame section[class*="max-w-[1040px]"] [class*="lg:grid-rows"]>div:last-child {
+    padding: 0.75rem !important;
+    border-radius: 18px !important;
+  }
+
+  .scene-stage-frame section[class*="max-w-[1040px]"] [class*="lg:grid-rows"]>div:last-child .grid {
+    gap: 0.45rem !important;
+  }
+
+  .scene-stage-frame section[class*="max-w-[1040px]"] [aria-label="Imagen anterior"],
+  .scene-stage-frame section[class*="max-w-[1040px]"] [aria-label="Imagen siguiente"],
+  .scene-stage-frame section[class*="max-w-[1040px]"] [aria-label="Página anterior"],
+  .scene-stage-frame section[class*="max-w-[1040px]"] [aria-label="Página siguiente"] {
+    width: 2rem !important;
+    height: 2rem !important;
+    font-size: 0.85rem !important;
+  }
+}
+
+
+/* =========================================================
+   RUBIK ORB PATCH — SOLO 1280x585 / DPR 1.5
+========================================================= */
+
+@media screen and (min-width: 1270px) and (max-width: 1290px) and (min-height: 575px) and (max-height: 595px) and (min-resolution: 1.4dppx) and (pointer: fine) {
+
+  .rubik-orb-wrap {
+    right: 0.35rem !important;
+    bottom: 0.25rem !important;
+    width: 250px !important;
+    height: 250px !important;
+    transform: scale(0.82) !important;
+    transform-origin: right bottom !important;
+  }
+
+  .rubik-orb-spline {
+    width: 210px !important;
+    height: 210px !important;
+  }
+
+  .rubik-orb-wrap button[aria-label="Activar sonido"],
+  .rubik-orb-wrap button[aria-label="Desactivar sonido"] {
+    right: 1.3rem !important;
+    bottom: 1.6rem !important;
+    width: 2rem !important;
+    height: 2rem !important;
+    font-size: 0.78rem !important;
+  }
+}
+
+
+/* =========================================================
+   RUBIK PATCH — SERVICIOS SEGURO
+   SOLO 1280x585 / DPR 1.5
+   Requiere clases en work-scene.tsx:
+   rubik-work-frame / rubik-work-overview / rubik-work-detail-overlay
+========================================================= */
+
+@media screen and (min-width: 1270px) and (max-width: 1290px) and (min-height: 575px) and (max-height: 595px) and (min-resolution: 1.4dppx) and (pointer: fine) {
+
+  .rubik-work-frame {
+    max-width: 1120px !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    padding-bottom: 0 !important;
+    overflow: visible !important;
+  }
+
+  .rubik-work-frame.is-overview {
+    transform: translateY(12px) scale(0.86) !important;
+    transform-origin: center top !important;
+  }
+
+  .rubik-work-frame.is-detail {
+    transform: none !important;
+    max-width: 1180px !important;
+  }
+
+  .rubik-work-overview {
+    grid-template-columns: 380px minmax(0, 1fr) !important;
+    gap: 1rem !important;
+    align-items: start !important;
+  }
+
+  .rubik-work-overview [class*="max-w-[500px]"] {
+    max-width: 380px !important;
+  }
+
+  .rubik-work-overview [class*="mb-3"][class*="inline-flex"] {
+    margin-bottom: 0.6rem !important;
+    padding: 0.52rem 0.95rem !important;
+    font-size: 0.74rem !important;
+  }
+
+  .rubik-work-overview [class*="space-y-3"]>*+* {
+    margin-top: 0.62rem !important;
+  }
+
+  .rubik-work-overview button.group[class*="rounded-[18px]"] {
+    min-height: 82px !important;
+    padding: 0.78rem 1rem !important;
+    border-radius: 15px !important;
+  }
+
+  .rubik-work-overview button.group[class*="rounded-[18px]"] [class*="uppercase"] {
+    font-size: 0.6rem !important;
+    letter-spacing: 0.12em !important;
+  }
+
+  .rubik-work-overview button.group[class*="rounded-[18px]"] .omnes-title {
+    margin-top: 0.35rem !important;
+    font-size: 1.42rem !important;
+    line-height: 0.98 !important;
+  }
+
+  .rubik-work-overview button.group[class*="rounded-[18px]"] .omnes-text {
+    font-size: 0.74rem !important;
+    line-height: 1.28 !important;
+  }
+
+  .rubik-work-overview [class*="max-w-[680px]"] {
+    max-width: 630px !important;
+    padding-top: 0.45rem !important;
+    transform: translateX(-4px) scale(0.94) !important;
+    transform-origin: left top !important;
+  }
+
+  .rubik-work-overview [class*="rounded-[24px]"][class*="bg-[#24124d]"] {
+    border-radius: 20px !important;
+    padding: 3px !important;
+  }
+
+  .rubik-work-overview [class*="rounded-[20px]"][class*="bg-[#2c1760]"] {
+    border-radius: 18px !important;
+    padding: 0.6rem !important;
+  }
+
+  .rubik-work-overview [class*="bg-[#3a1f7b]"] {
+    margin-bottom: 0.5rem !important;
+    border-radius: 15px !important;
+    padding: 0.78rem !important;
+  }
+
+  .rubik-work-overview [class*="bg-[#3a1f7b]"] p {
+    margin-top: 0.45rem !important;
+    font-size: 0.74rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .rubik-work-overview [class*="bg-[#3a1f7b]"] [class*="mt-2.5"] {
+    margin-top: 0.45rem !important;
+    font-size: 0.72rem !important;
+  }
+
+  .rubik-work-overview button[class*="mt-3.5"] {
+    margin-top: 0.55rem !important;
+    border-radius: 16px !important;
+  }
+
+  .rubik-work-overview button[class*="mt-3.5"] [class*="aspect-[16/9.15]"] {
+    aspect-ratio: 16 / 8.6 !important;
+    border-radius: 15px !important;
+  }
+
+  .rubik-work-overview button[class*="mt-3.5"] .omnes-title {
+    font-size: 1.45rem !important;
+    line-height: 1 !important;
+  }
+
+  .rubik-work-overview button[class*="mt-3.5"] .omnes-text {
+    font-size: 0.74rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .rubik-work-overview button[class*="mt-3.5"] [class*="bottom-0"] {
+    padding: 0.8rem !important;
+  }
+
+  .rubik-work-detail-overlay {
+    overflow: hidden !important;
+    padding: 70px 22px 28px !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Achica levemente la card interna del detalle de servicios */
+  .rubik-work-detail-overlay > div {
+  transform: scale(0.62) !important;
+  transform-origin: center center !important;
+}
+}
+
+
+
+/* =========================================================
+   RUBIK PATCH — CONTACTO
+   SOLO 1280x585 / DPR 1.5
+   No toca WorkScene, BrandShowcase ni servicios.
+   Objetivo: que el título + las 3 cards entren como diapositiva.
+========================================================= */
+
+@media screen
+  and (min-width: 1270px)
+  and (max-width: 1290px)
+  and (min-height: 575px)
+  and (max-height: 595px)
+  and (min-resolution: 1.4dppx)
+  and (pointer: fine) {
+
+  .rubik-contact-scene {
+    height: 100% !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .rubik-contact-content {
+    max-width: 1120px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    transform: translateY(10px) scale(0.72) !important;
+    transform-origin: center top !important;
+  }
+
+  /* Header contacto */
+  .rubik-contact-content > div:first-child {
+    margin-bottom: 0.9rem !important;
+  }
+
+  .rubik-contact-scene .omnes-text.inline-flex {
+    padding: 0.34rem 0.8rem !important;
+    font-size: 0.62rem !important;
+    line-height: 1 !important;
+  }
+
+  .rubik-contact-scene h2 {
+    margin-top: 0 !important;
+    font-size: clamp(1.95rem, 3vw, 2.55rem) !important;
+    line-height: 0.98 !important;
+    letter-spacing: -0.052em !important;
+  }
+
+  .rubik-contact-scene p {
+    max-width: 620px !important;
+    margin-top: 0.55rem !important;
+    font-size: 0.72rem !important;
+    line-height: 1.32 !important;
+  }
+
+  /* Grid de las 3 cards */
+  .rubik-contact-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 0.85rem !important;
+    align-items: stretch !important;
+  }
+
+  /* Cards generales */
+  .rubik-contact-grid > div {
+    min-width: 0 !important;
+  }
+
+  .rubik-contact-scene [class*="min-h-[260px]"],
+  .rubik-contact-scene [class*="xl:min-h-[360px]"],
+  .rubik-contact-scene [class*="2xl:min-h-[390px]"] {
+    min-height: 300px !important;
+  }
+
+  .rubik-contact-scene [class*="rounded-[20px]"],
+  .rubik-contact-scene [class*="rounded-[24px]"],
+  .rubik-contact-scene [class*="rounded-[28px]"],
+  .rubik-contact-scene [class*="rounded-[30px]"],
+  .rubik-contact-scene [class*="rounded-[32px]"] {
+    border-radius: 20px !important;
+  }
+
+  .rubik-contact-scene [class*="p-5"],
+  .rubik-contact-scene [class*="p-6"],
+  .rubik-contact-scene [class*="p-8"],
+  .rubik-contact-scene [class*="xl:p-6"],
+  .rubik-contact-scene [class*="xl:p-8"],
+  .rubik-contact-scene [class*="2xl:p-10"] {
+    padding: 1.15rem !important;
+  }
+
+  /* Labels superiores */
+  .rubik-contact-scene [class*="uppercase"][class*="tracking"] {
+    font-size: 0.52rem !important;
+    line-height: 1 !important;
+    letter-spacing: 0.13em !important;
+  }
+
+  /* Títulos internos: Ubicación, Horario, Celular, Email, Redes */
+  .rubik-contact-scene h3,
+  .rubik-contact-scene .omnes-title {
+    font-size: 1.18rem !important;
+    line-height: 1.02 !important;
+  }
+
+  /* Textos internos */
+  .rubik-contact-scene .omnes-text {
+    font-size: 0.68rem !important;
+    line-height: 1.32 !important;
+  }
+
+  .rubik-contact-scene a,
+  .rubik-contact-scene button {
+    font-size: 0.68rem !important;
+  }
+
+  /* Iconos circulares grandes */
+  .rubik-contact-scene [class*="h-9"][class*="w-9"],
+  .rubik-contact-scene [class*="h-10"][class*="w-10"],
+  .rubik-contact-scene [class*="h-11"][class*="w-11"],
+  .rubik-contact-scene [class*="h-12"][class*="w-12"],
+  .rubik-contact-scene [class*="h-14"][class*="w-14"],
+  .rubik-contact-scene [class*="h-16"][class*="w-16"] {
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+    min-width: 2.25rem !important;
+    min-height: 2.25rem !important;
+  }
+
+  /* Separaciones internas */
+  .rubik-contact-scene [class*="mt-4"],
+  .rubik-contact-scene [class*="xl:mt-4.5"] {
+    margin-top: 0.75rem !important;
+  }
+
+  .rubik-contact-scene [class*="mt-3"] {
+    margin-top: 0.55rem !important;
+  }
+
+  .rubik-contact-scene [class*="mt-2.5"] {
+    margin-top: 0.45rem !important;
+  }
+
+  .rubik-contact-scene [class*="gap-3"],
+  .rubik-contact-scene [class*="gap-4"],
+  .rubik-contact-scene [class*="gap-5"],
+  .rubik-contact-scene [class*="gap-6"] {
+    gap: 0.65rem !important;
+  }
+
+  .rubik-contact-scene [class*="space-y-4"] > * + *,
+  .rubik-contact-scene [class*="xl:space-y-4.5"] > * + * {
+    margin-top: 0.65rem !important;
+  }
+
+  .rubik-contact-scene [class*="space-y-5"] > * + * {
+    margin-top: 0.7rem !important;
+  }
+
+  /* Cajas de horario */
+  .rubik-contact-scene [class*="rounded-[13px]"],
+  .rubik-contact-scene [class*="rounded-[14px]"],
+  .rubik-contact-scene [class*="rounded-[16px]"] {
+    border-radius: 13px !important;
+  }
+
+  .rubik-contact-scene [class*="py-2.5"],
+  .rubik-contact-scene [class*="py-3"],
+  .rubik-contact-scene [class*="py-4"] {
+    padding-top: 0.58rem !important;
+    padding-bottom: 0.58rem !important;
+  }
+
+  .rubik-contact-scene [class*="px-3.5"],
+  .rubik-contact-scene [class*="px-4"],
+  .rubik-contact-scene [class*="px-5"],
+  .rubik-contact-scene [class*="px-6"] {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  /* Links de redes sociales */
+  .rubik-contact-scene a[href*="instagram"],
+  .rubik-contact-scene a[href*="facebook"],
+  .rubik-contact-scene a[href*="tiktok"],
+  .rubik-contact-scene a[href*="linkedin"],
+  .rubik-contact-scene a[href*="wa.me"] {
+    min-height: 42px !important;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  /* Evita que el orbe tape demasiado la card derecha */
+  .rubik-contact-scene ~ .rubik-orb-wrap,
+  .rubik-orb-wrap {
+    transform: scale(0.76) !important;
+    transform-origin: right bottom !important;
+  }
+}
+/* =========================================================
+   RUBIK PATCH — COTIZA
+   SOLO 1280x585 / DPR 1.5
+   No toca WorkScene, Contacto ni BrandShowcase.
+   Objetivo: que Cotiza entre como diapositiva.
+========================================================= */
+
+@media screen
+  and (min-width: 1270px)
+  and (max-width: 1290px)
+  and (min-height: 575px)
+  and (max-height: 595px)
+  and (min-resolution: 1.4dppx)
+  and (pointer: fine) {
+
+  .rubik-cotiza-scene {
+    height: 100% !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    align-items: center !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .rubik-cotiza-content {
+    max-width: 1080px !important;
+    transform: translateY(0px) scale(0.78) !important;
+    transform-origin: center top !important;
+  }
+
+  .rubik-cotiza-header {
+    margin-bottom: 0.9rem !important;
+    gap: 0.9rem !important;
+  }
+
+  .rubik-cotiza-header h2 {
+    font-size: clamp(1.9rem, 3vw, 2.45rem) !important;
+    line-height: 1 !important;
+    letter-spacing: -0.05em !important;
+  }
+
+  .rubik-cotiza-header p {
+    margin-top: 0.45rem !important;
+    font-size: 0.72rem !important;
+    line-height: 1.32 !important;
+  }
+
+  .rubik-cotiza-header > div:last-child {
+    min-width: 150px !important;
+    padding: 0.75rem !important;
+    border-radius: 15px !important;
+  }
+
+  .rubik-cotiza-header > div:last-child span {
+    font-size: 0.64rem !important;
+  }
+
+  .rubik-cotiza-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr) !important;
+    gap: 0.9rem !important;
+  }
+
+  .rubik-cotiza-card {
+    border-radius: 19px !important;
+    padding: 1rem !important;
+  }
+
+  .rubik-cotiza-card p[class*="uppercase"] {
+    margin-bottom: 0.65rem !important;
+    font-size: 0.6rem !important;
+    line-height: 1 !important;
+  }
+
+  .rubik-cotiza-form-card form {
+    gap: 0.55rem !important;
+  }
+
+  .rubik-cotiza-form-card input {
+    height: 32px !important;
+    border-radius: 12px !important;
+    padding-left: 0.85rem !important;
+    padding-right: 0.85rem !important;
+    font-size: 0.72rem !important;
+  }
+
+  .rubik-cotiza-form-card textarea {
+    min-height: 82px !important;
+    border-radius: 12px !important;
+    padding: 0.75rem 0.85rem !important;
+    font-size: 0.72rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .rubik-cotiza-form-card .menu-shell {
+    transform: scale(0.86) !important;
+    transform-origin: left center !important;
+  }
+
+  .rubik-cotiza-form-card .menu-pill {
+    padding: 0.44rem 0.72rem !important;
+    font-size: 0.66rem !important;
+  }
+
+  .rubik-cotiza-form-card .cotiza-pill {
+    min-width: 94px !important;
+    padding-inline: 0.78rem !important;
+  }
+
+  .rubik-cotiza-service-card {
+    padding: 1rem !important;
+  }
+
+  .rubik-cotiza-service-card > div.relative > p:first-child {
+    margin-bottom: 0.65rem !important;
+    font-size: 0.6rem !important;
+  }
+
+  .rubik-cotiza-service-card [class*="grid"][class*="gap-2.5"] {
+    gap: 0.48rem !important;
+  }
+
+  .rubik-cotiza-service-card button[type="button"] {
+    min-height: 38px !important;
+    border-radius: 12px !important;
+    gap: 0.65rem !important;
+    padding: 0.48rem 0.75rem !important;
+  }
+
+  .rubik-cotiza-service-card button[type="button"] span[class*="h-7"][class*="w-7"] {
+    width: 1.75rem !important;
+    height: 1.75rem !important;
+    min-width: 1.75rem !important;
+    min-height: 1.75rem !important;
+    font-size: 0.68rem !important;
+  }
+
+  .rubik-cotiza-service-card button[type="button"] .omnes-text {
+    font-size: 0.74rem !important;
+    line-height: 1.1 !important;
+  }
+
+  .rubik-cotiza-service-card button[type="button"] span[class*="h-4"][class*="w-4"] {
+    width: 0.85rem !important;
+    height: 0.85rem !important;
+    min-width: 0.85rem !important;
+    min-height: 0.85rem !important;
+  }
+
+  .rubik-cotiza-service-card [class*="mt-4"][class*="overflow-hidden"] {
+    margin-top: 0.75rem !important;
+    border-radius: 12px !important;
+    padding: 0.75rem !important;
+  }
+
+  .rubik-cotiza-service-card [class*="mt-4"][class*="overflow-hidden"] p {
+    font-size: 0.72rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .rubik-cotiza-service-card [class*="mt-3"][class*="rounded"] {
+    margin-top: 0.65rem !important;
+    border-radius: 12px !important;
+    padding: 0.65rem 0.75rem !important;
+  }
+
+  .rubik-cotiza-service-card [class*="mt-3"][class*="rounded"] p {
+    font-size: 0.66rem !important;
+    line-height: 1.32 !important;
+  }
+
+  .rubik-cotiza-scene .omnes-text {
+    line-height: 1.32 !important;
   }
 }

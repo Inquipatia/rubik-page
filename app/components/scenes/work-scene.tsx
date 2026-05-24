@@ -592,7 +592,10 @@ export default function WorkScene({
   return (
     <>
       <section className="relative w-full overflow-visible">
-        <div className="grid h-full w-full max-w-[1320px] grid-cols-1 items-start gap-3 px-3 pb-3 pt-0 min-[1700px]:max-w-[1440px] min-[1700px]:gap-4 min-[1700px]:px-4 2xl:max-w-[1520px] 2xl:gap-5 2xl:px-6">
+        <div
+          className={`rubik-work-frame ${isDetailOpen ? "is-detail" : "is-overview"
+            } grid h-full w-full max-w-[1320px] grid-cols-1 items-start gap-3 px-3 pb-3 pt-0 min-[1700px]:max-w-[1440px] min-[1700px]:gap-4 min-[1700px]:px-4 2xl:max-w-[1520px] 2xl:gap-5 2xl:px-6`}
+        >
           {!isDetailOpen ? (
             <motion.div
               key="work-overview"
@@ -600,7 +603,7 @@ export default function WorkScene({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-              className="grid min-h-0 grid-cols-1 gap-4 lg:grid-cols-[0.84fr_1.16fr] min-[1700px]:gap-5 2xl:gap-6"
+              className="rubik-work-overview grid min-h-0 grid-cols-1 gap-4 lg:grid-cols-[0.84fr_1.16fr] min-[1700px]:gap-5 2xl:gap-6"
             >
               <motion.div
                 variants={servicesIntroVariants}
@@ -640,8 +643,8 @@ export default function WorkScene({
                         onFocus={() => handleHoverChange(index)}
                         onClick={() => openDetail(index)}
                         className={`group relative flex w-full items-center justify-between overflow-hidden rounded-[18px] border px-5 py-3.5 text-left transition-all duration-300 ${isActive
-                            ? "border-white/25 bg-white/10 shadow-[0_14px_34px_rgba(0,0,0,0.28)]"
-                            : "border-white/8 bg-white/[0.03] hover:border-white/14 hover:bg-white/[0.06]"
+                          ? "border-white/25 bg-white/10 shadow-[0_14px_34px_rgba(0,0,0,0.28)]"
+                          : "border-white/8 bg-white/[0.03] hover:border-white/14 hover:bg-white/[0.06]"
                           } min-[1700px]:px-5 min-[1700px]:py-4`}
                       >
                         <motion.div
@@ -839,8 +842,8 @@ export default function WorkScene({
                                       setDetailImageIndex(0);
                                     }}
                                     className={`omnes-text rounded-full border px-3 py-1.5 text-[12px] transition ${isActiveVariant
-                                        ? "border-white/24 bg-white/12 text-white"
-                                        : "border-white/10 bg-white/[0.04] text-white/68 hover:bg-white/[0.08]"
+                                      ? "border-white/24 bg-white/12 text-white"
+                                      : "border-white/10 bg-white/[0.04] text-white/68 hover:bg-white/[0.08]"
                                       }`}
                                   >
                                     {variant.label}
@@ -910,7 +913,7 @@ export default function WorkScene({
             </motion.div>
           ) : (
             <motion.div
-              className="fixed inset-0 z-[60] overflow-y-auto bg-[rgba(7,3,18,0.86)] px-4 pb-6 pt-[120px] backdrop-blur-[10px] sm:px-5 sm:pt-[128px] md:pt-[136px] lg:z-[180] lg:flex lg:items-center lg:justify-center lg:bg-transparent lg:px-4 lg:py-6 lg:backdrop-blur-0"
+              className="rubik-work-detail-overlay fixed inset-0 z-[60] overflow-y-auto bg-[rgba(7,3,18,0.86)] px-4 pb-6 pt-[120px] backdrop-blur-[10px] sm:px-5 sm:pt-[128px] md:pt-[136px] lg:z-[180] lg:flex lg:items-center lg:justify-center lg:bg-transparent lg:px-4 lg:py-6 lg:backdrop-blur-0"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -1156,8 +1159,8 @@ export default function WorkScene({
                                   aria-label={`${resolvedProject.title} ${realIndex + 1
                                     }`}
                                   className={`group relative overflow-hidden rounded-[14px] border transition duration-300 ${isActive
-                                      ? "border-white/28 bg-white/10 shadow-[0_0_0_1px_rgba(255,255,255,0.03)]"
-                                      : "border-white/10 bg-white/[0.03] hover:border-white/18 hover:bg-white/[0.06]"
+                                    ? "border-white/28 bg-white/10 shadow-[0_0_0_1px_rgba(255,255,255,0.03)]"
+                                    : "border-white/10 bg-white/[0.03] hover:border-white/18 hover:bg-white/[0.06]"
                                     }`}
                                 >
                                   <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[14px] bg-black/20">

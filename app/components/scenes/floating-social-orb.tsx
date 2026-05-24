@@ -1247,7 +1247,7 @@ export default function FloatingSocialOrb({
       onMouseLeave={handleOrbLeave}
       onPointerLeave={handleOrbLeave}
       className={[
-        "fixed bottom-2 right-2 z-[9999] hidden md:block",
+        "rubik-orb-wrap fixed bottom-2 right-2 z-[9999] hidden md:block",
         "h-[320px] w-[320px]",
         "overflow-visible",
         "transition-all duration-300 ease-out",
@@ -1266,7 +1266,7 @@ export default function FloatingSocialOrb({
 
         {shouldRenderSpline && (
           <div className="absolute inset-0 flex items-center justify-center overflow-visible">
-            <div className="h-[260px] w-[260px] overflow-visible">
+            <div className="rubik-orb-spline h-[260px] w-[260px] overflow-visible">
               <Spline
                 scene={SPLINE_SCENE_URL}
                 onLoad={handleSplineLoad}
