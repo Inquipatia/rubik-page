@@ -113,6 +113,7 @@ export default function Home() {
   const [isCotizaOpen, setIsCotizaOpen] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState<SelectedBrand | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isCompactDesktop, setIsCompactDesktop] = useState(false);
 
   const [servicesResetKey, setServicesResetKey] = useState(0);
 
@@ -149,15 +150,32 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+    const checkViewportMode = () => {
+      const isFinePointer = window.matchMedia("(pointer: fine)").matches;
+
+      const isHighScaleDesktop =
+        isFinePointer &&
+        window.devicePixelRatio >= 1.25 &&
+        window.outerWidth >= 1100 &&
+        window.innerWidth < 768;
+
+      const isCompactDesktopViewport =
+        isFinePointer &&
+        window.devicePixelRatio >= 1.4 &&
+        window.innerWidth >= 980 &&
+        window.innerWidth <= 1100 &&
+        window.innerHeight >= 520 &&
+        window.innerHeight <= 680;
+
+      setIsMobile(window.innerWidth < 768 && !isHighScaleDesktop);
+      setIsCompactDesktop(isCompactDesktopViewport);
     };
 
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
+    checkViewportMode();
+    window.addEventListener("resize", checkViewportMode);
 
     return () => {
-      window.removeEventListener("resize", checkMobile);
+      window.removeEventListener("resize", checkViewportMode);
     };
   }, []);
 
@@ -342,7 +360,7 @@ export default function Home() {
   return (
     <main
       className={`relative w-full overflow-x-hidden text-white ${isMobile ? "min-h-screen" : "h-[100svh] overflow-hidden"
-        }`}
+        } ${isCompactDesktop ? "is-compact-desktop" : ""}`}
     >
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,#7a4dff_0%,#4e1cbb_18%,#23114a_54%,#090912_100%)]" />

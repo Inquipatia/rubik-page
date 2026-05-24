@@ -57,9 +57,9 @@ export default function IntroScene({
 
   return (
     <section className="relative h-full w-full overflow-visible">
-      <div className="mx-auto flex h-full w-full max-w-[1560px] items-center px-1 sm:px-2 lg:px-2 xl:px-3">
-        <div className="grid w-full items-center gap-6 lg:grid-cols-[0.88fr_1.12fr] xl:grid-cols-[1.02fr_0.98fr] xl:gap-8">
-          <div className="relative z-20 max-w-[760px] md:max-w-[520px] lg:max-w-[640px] lg:-translate-x-8 lg:origin-left lg:scale-[0.84] xl:max-w-[620px] xl:-translate-x-12 xl:scale-100 2xl:max-w-[680px] 2xl:-translate-x-14">
+      <div className="rubik-intro-shell mx-auto flex h-full w-full max-w-[1560px] items-center px-1 sm:px-2 lg:px-2 xl:px-3">
+        <div className="rubik-intro-layout grid w-full items-center gap-6 lg:grid-cols-[0.88fr_1.12fr] xl:grid-cols-[1.02fr_0.98fr] xl:gap-8">
+          <div className="rubik-intro-copy relative z-20 max-w-[760px] md:max-w-[520px] lg:max-w-[640px] lg:-translate-x-8 lg:origin-left lg:scale-[0.84] xl:max-w-[620px] xl:-translate-x-12 xl:scale-100 2xl:max-w-[680px] 2xl:-translate-x-14">
             <motion.div
               initial={{ opacity: 0, y: 18, scale: 0.94 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -151,18 +151,19 @@ export default function IntroScene({
           <div
             onMouseEnter={() => onCubeHoverChange?.(true)}
             onMouseLeave={() => onCubeHoverChange?.(false)}
-            className="relative z-10 flex justify-center lg:justify-end"
+            className="rubik-intro-cube-wrap relative z-10 flex justify-center lg:justify-end"
           >
             <div
               className="
-                relative
-                h-[220px] w-full max-w-[240px]
+  rubik-intro-cube
+  relative
+  h-[220px] w-full max-w-[240px]
                 sm:h-[270px] sm:max-w-[290px]
                 md:h-[320px] md:max-w-[350px]
                 lg:h-[390px] lg:max-w-[430px]
                 xl:h-[500px] xl:max-w-[560px] xl:translate-x-8
                 2xl:h-[500px] 2xl:max-w-[560px] 2xl:translate-x-12
-              "
+              "  
             >
               {canMountCube && (
                 <Spline scene="https://prod.spline.design/wk0u6G-MY2bbyF6i/scene.splinecode" />
