@@ -606,53 +606,60 @@ export default function BrandShowcase({
             <div className="pointer-events-none absolute inset-2 rounded-[18px] border border-white/[0.05]" />
 
             <div className="relative grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-2.5 lg:grid-cols-5 lg:gap-2.5 xl:gap-3 2xl:gap-3.5">
-              {brands.map((brand, index) => (
-                <motion.button
-                  key={brand.brandName}
-                  type="button"
-                  onClick={() => onOpenBrandDetails(brand)}
-                  initial={{
-                    opacity: 0,
-                    y: 24,
-                    scale: 0.94,
-                    filter: "blur(10px)",
-                  }}
-                  animate={{
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    filter: "blur(0px)",
-                  }}
-                  transition={{
-                    duration: 0.55,
-                    delay: 0.65 + index * 0.035,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  /*Acá comienza el contenedor de las marcas*/
-                  className="group relative min-h-[54px] overflow-hidden rounded-[13px] border border-white/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.015))] p-[1px] text-left transition duration-300 hover:-translate-y-[2px] hover:border-white/[0.18] hover:shadow-[0_10px_20px_rgba(0,0,0,0.18)] focus:outline-none focus:ring-2 focus:ring-white/20 sm:min-h-[56px] lg:min-h-[58px] xl:min-h-[62px] 2xl:min-h-[66px]"
-                  aria-label={`Ver detalles de ${brand.brandName}`}
-                >
-                  <div className="relative flex h-full min-h-[52px] items-center justify-center overflow-hidden rounded-[12px] bg-[linear-gradient(180deg,#0c0914_0%,#110d1b_40%,#151024_100%)] px-2 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),inset_0_-8px_20px_rgba(0,0,0,0.45)] transition duration-300 group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-10px_24px_rgba(0,0,0,0.52),0_8px_18px_rgba(0,0,0,0.12)] sm:min-h-[54px] lg:min-h-[56px] xl:min-h-[60px] 2xl:min-h-[64px]">
-                    <div className="pointer-events-none absolute inset-[5px] rounded-[10px] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.04),transparent_48%),linear-gradient(180deg,rgba(255,255,255,0.015),rgba(255,255,255,0.005))]" />
-                    <div className="pointer-events-none absolute inset-[2px] rounded-[12px] bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0.028)_38%,rgba(255,255,255,0.012)_100%)] backdrop-blur-[3px]" />
-                    <div className="pointer-events-none absolute inset-[2px] rounded-[12px] border border-white/[0.12]" />
-                    <div className="pointer-events-none absolute inset-[5px] rounded-[9px] border border-white/[0.07]" />
-                    <div className="pointer-events-none absolute inset-x-3 top-2 h-3 rounded-full bg-[linear-gradient(180deg,rgba(255,255,255,0.22),rgba(255,255,255,0.03))] blur-md opacity-70 transition duration-300 group-hover:opacity-100" />
-                    <div className="pointer-events-none absolute inset-x-5 top-[8px] h-px bg-white/22 opacity-70" />
-                    <div className="pointer-events-none absolute -left-[28%] top-[-12%] h-[140%] w-[34%] rotate-[18deg] bg-[linear-gradient(180deg,rgba(255,255,255,0.24),rgba(255,255,255,0.05)_45%,rgba(255,255,255,0))] opacity-30 blur-md transition duration-300 group-hover:translate-x-2" />
+              {brands.map((brand, index) => {
+                const isOtros = brand.brandName.toLowerCase() === "otros";
 
-                    <div className="relative h-[22px] w-[78%] max-w-[132px] sm:h-[24px] lg:h-[25px] xl:h-[27px] 2xl:h-[29px]">
-                      <Image
-                        src={brand.brandLogo || "/img/works/3.png"}
-                        alt={brand.brandName}
-                        fill
-                        sizes="(max-width: 640px) 38vw, (max-width: 1024px) 22vw, 130px"
-                        className="object-contain opacity-[0.96] drop-shadow-[0_1px_8px_rgba(255,255,255,0.08)] transition duration-300 group-hover:scale-[1.02] group-hover:opacity-100"
-                      />
+                return (
+                  <motion.button
+                    key={brand.brandName}
+                    type="button"
+                    onClick={() => onOpenBrandDetails(brand)}
+                    initial={{
+                      opacity: 0,
+                      y: 24,
+                      scale: 0.94,
+                      filter: "blur(10px)",
+                    }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                      scale: 1,
+                      filter: "blur(0px)",
+                    }}
+                    transition={{
+                      duration: 0.55,
+                      delay: 0.65 + index * 0.035,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    /* Acá comienza el contenedor de las marcas */
+                    className={[
+                      "group relative min-h-[54px] overflow-hidden rounded-[13px] border border-white/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.015))] p-[1px] text-left transition duration-300 hover:-translate-y-[2px] hover:border-white/[0.18] hover:shadow-[0_10px_20px_rgba(0,0,0,0.18)] focus:outline-none focus:ring-2 focus:ring-white/20 sm:min-h-[56px] lg:min-h-[58px] xl:min-h-[62px] 2xl:min-h-[66px]",
+                      isOtros ? "col-span-2 sm:col-span-1" : "",
+                    ].join(" ")}
+                    aria-label={`Ver detalles de ${brand.brandName}`}
+                  >
+                    <div className="relative flex h-full min-h-[52px] items-center justify-center overflow-hidden rounded-[12px] bg-[linear-gradient(180deg,#0c0914_0%,#110d1b_40%,#151024_100%)] px-2 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),inset_0_-8px_20px_rgba(0,0,0,0.45)] transition duration-300 group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-10px_24px_rgba(0,0,0,0.52),0_8px_18px_rgba(0,0,0,0.12)] sm:min-h-[54px] lg:min-h-[56px] xl:min-h-[60px] 2xl:min-h-[64px]">
+                      <div className="pointer-events-none absolute inset-[5px] rounded-[10px] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.04),transparent_48%),linear-gradient(180deg,rgba(255,255,255,0.015),rgba(255,255,255,0.005))]" />
+                      <div className="pointer-events-none absolute inset-[2px] rounded-[12px] bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0.028)_38%,rgba(255,255,255,0.012)_100%)] backdrop-blur-[3px]" />
+                      <div className="pointer-events-none absolute inset-[2px] rounded-[12px] border border-white/[0.12]" />
+                      <div className="pointer-events-none absolute inset-[5px] rounded-[9px] border border-white/[0.07]" />
+                      <div className="pointer-events-none absolute inset-x-3 top-2 h-3 rounded-full bg-[linear-gradient(180deg,rgba(255,255,255,0.22),rgba(255,255,255,0.03))] blur-md opacity-70 transition duration-300 group-hover:opacity-100" />
+                      <div className="pointer-events-none absolute inset-x-5 top-[8px] h-px bg-white/22 opacity-70" />
+                      <div className="pointer-events-none absolute -left-[28%] top-[-12%] h-[140%] w-[34%] rotate-[18deg] bg-[linear-gradient(180deg,rgba(255,255,255,0.24),rgba(255,255,255,0.05)_45%,rgba(255,255,255,0))] opacity-30 blur-md transition duration-300 group-hover:translate-x-2" />
+
+                      <div className="relative h-[22px] w-[78%] max-w-[132px] sm:h-[24px] lg:h-[25px] xl:h-[27px] 2xl:h-[29px]">
+                        <Image
+                          src={brand.brandLogo || "/img/works/3.png"}
+                          alt={brand.brandName}
+                          fill
+                          sizes="(max-width: 640px) 38vw, (max-width: 1024px) 22vw, 130px"
+                          className="object-contain opacity-[0.96] drop-shadow-[0_1px_8px_rgba(255,255,255,0.08)] transition duration-300 group-hover:scale-[1.02] group-hover:opacity-100"
+                        />
+                      </div>
                     </div>
-                  </div>
-                </motion.button>
-              ))}
+                  </motion.button>
+                );
+              })}
             </div>
           </div>
         </motion.div>
