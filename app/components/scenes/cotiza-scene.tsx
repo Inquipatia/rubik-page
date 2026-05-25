@@ -104,16 +104,16 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
 
   const handleChange =
     (field: keyof FormState) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      setForm((prev) => ({
-        ...prev,
-        [field]: e.target.value,
-      }));
+      (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setForm((prev) => ({
+          ...prev,
+          [field]: e.target.value,
+        }));
 
-      if (status.type === "error") {
-        setStatus({ type: null, message: "" });
-      }
-    };
+        if (status.type === "error") {
+          setStatus({ type: null, message: "" });
+        }
+      };
 
   const handleSelectService = (service: string) => {
     setSelectedService(service);
@@ -180,13 +180,13 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
   };
 
   return (
-    <section className="rubik-cotiza-scene relative flex min-h-[calc(100vh-118px)] w-full items-start justify-center overflow-hidden px-4 pt-3 sm:pt-4 lg:px-6 lg:pt-5">
+    <section className="rubik-cotiza-scene relative flex min-h-[calc(100vh-118px)] w-full items-start justify-center overflow-hidden px-4 pt-10 pb-5 sm:pt-11 sm:pb-6 lg:px-6 lg:pt-12 lg:pb-6">
       <motion.div
         initial={{ opacity: 0, y: 28, scale: 0.98, filter: "blur(10px)" }}
         animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
         exit={{ opacity: 0, y: -14, scale: 0.985, filter: "blur(8px)" }}
         transition={shellTransition}
-        className="rubik-cotiza-content relative mx-auto w-full max-w-[980px] transform-gpu will-change-transform lg:max-w-[1060px] xl:max-w-[1120px]"
+        className="rubik-cotiza-content relative mx-auto mt-3 w-full max-w-[980px] transform-gpu will-change-transform lg:mt-4 lg:max-w-[1060px] xl:max-w-[1120px]"
       >
         <div className="pointer-events-none absolute inset-0 -z-10">
           <motion.div
@@ -447,11 +447,10 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                       whileHover={{ y: -2, scale: 1.012 }}
                       whileTap={{ scale: 0.965 }}
                       onClick={() => handleSelectService(item.label)}
-                      className={`relative flex min-h-[50px] items-center gap-3 overflow-hidden rounded-[15px] px-4 text-left transition duration-300 ${
-                        isSelected
+                      className={`relative flex min-h-[50px] items-center gap-3 overflow-hidden rounded-[15px] px-4 text-left transition duration-300 ${isSelected
                           ? "border border-white/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.16),rgba(255,255,255,0.055))] text-white shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_0_24px_rgba(255,255,255,0.07)]"
                           : "border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.03))] text-white/84 hover:border-white/22 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.11),rgba(255,255,255,0.04))]"
-                      }`}
+                        }`}
                     >
                       {isSelected && (
                         <motion.span
@@ -470,18 +469,16 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                       </span>
 
                       <span
-                        className={`relative ml-auto flex h-4 w-4 items-center justify-center rounded-full border transition duration-300 ${
-                          isSelected
+                        className={`relative ml-auto flex h-4 w-4 items-center justify-center rounded-full border transition duration-300 ${isSelected
                             ? "border-white bg-white shadow-[0_0_10px_rgba(255,255,255,0.35)]"
                             : "border-white/30 bg-white/80 shadow-[0_0_8px_rgba(255,255,255,0.18)]"
-                        }`}
+                          }`}
                       >
                         <span
-                          className={`h-1.5 w-1.5 rounded-full bg-[#5d2bbf] transition duration-300 ${
-                            isSelected
+                          className={`h-1.5 w-1.5 rounded-full bg-[#5d2bbf] transition duration-300 ${isSelected
                               ? "scale-100 opacity-100"
                               : "scale-0 opacity-0"
-                          }`}
+                            }`}
                         />
                       </span>
                     </motion.button>
