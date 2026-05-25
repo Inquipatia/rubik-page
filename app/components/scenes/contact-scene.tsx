@@ -263,7 +263,7 @@ function NeonCard({ children, accent, hoverBorder }: NeonCardProps) {
 
 export default function ContactScene() {
   return (
-    <section className="rubik-contact-scene relative flex min-h-[58vh] items-center justify-center py-4 xl:min-h-[68vh] 2xl:min-h-[72vh]">
+    <section className="rubik-contact-scene relative flex min-h-[58vh] items-center justify-center pt-10 pb-4 xl:min-h-[68vh] xl:pt-12 xl:pb-5 2xl:min-h-[72vh]">
       <div className="rubik-contact-content w-full max-w-[1380px] px-4 sm:px-5 xl:px-8">
         <motion.div
           variants={headerContainerVariants}

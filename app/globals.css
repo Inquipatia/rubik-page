@@ -1655,7 +1655,7 @@ h6 {
     max-width: 1120px !important;
     padding-left: 10px !important;
     padding-right: 10px !important;
-    transform: translateY(10px) scale(0.72) !important;
+    transform: translateY(34px) scale(0.72) !important;
     transform-origin: center top !important;
   }
 
@@ -2294,7 +2294,7 @@ h6 {
     max-width: 1040px !important;
     padding-left: 8px !important;
     padding-right: 8px !important;
-    transform: translateY(8px) scale(0.66) !important;
+    transform: translateY(32px) scale(0.66) !important;
     transform-origin: center top !important;
   }
 
