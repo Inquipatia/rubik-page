@@ -1133,7 +1133,7 @@ h6 {
   }
 }
 
-
+/*Desde aquí se puede modificar el navbar en caso de querer agrandar el logo o algun elemento que este ubicado en el navbar*/
 /* =========================================================
    RUBIK RESPONSIVE PATCH — SOLO 1280x585 / DPR 1.5
    Laptop 1920x1080 con Windows 150% / Chrome 100%
@@ -1157,12 +1157,12 @@ h6 {
   header [class*="lg:h-[108px]"],
   header [class*="xl:h-[126px]"],
   header [class*="2xl:h-[136px]"] {
-    height: 68px !important;
-    width: 215px !important;
+    height: 86px !important;
+    width: 270px !important;
   }
 
   header img {
-    transform: scale(0.74) !important;
+    transform: scale(0.92) !important;
     transform-origin: left center !important;
   }
 
@@ -2024,12 +2024,12 @@ h6 {
   header [class*="lg:h-[108px]"],
   header [class*="xl:h-[126px]"],
   header [class*="2xl:h-[136px]"] {
-    height: 62px !important;
-    width: 190px !important;
+    height: 78px !important;
+    width: 245px !important;
   }
 
   header img {
-    transform: scale(0.72) !important;
+    transform: scale(0.9) !important;
     transform-origin: left center !important;
   }
 
