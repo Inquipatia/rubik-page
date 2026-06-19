@@ -2572,3 +2572,97 @@ h6 {
     height: 5px !important;
   }
 }
+
+
+/* =========================================================
+   RUBIK CURSOR SYSTEM
+   Desktop usa cursor normal.
+   Laptop / Windows 150% usa cursorMin y pointerMin.
+========================================================= */
+
+:root {
+  --rubik-cursor-default: url("/img/cursors/cursor.cur") 0 0;
+  --rubik-cursor-pointer: url("/img/cursors/pointer.cur") 0 0;
+}
+
+/* Cursor base — desktop / pantallas grandes */
+html,
+body,
+* {
+  cursor: var(--rubik-cursor-default), auto !important;
+}
+
+a,
+button,
+[role="button"],
+.cursor-pointer,
+input[type="submit"],
+input[type="button"],
+label,
+select,
+summary,
+.clickable,
+[data-clickable="true"] {
+  cursor: var(--rubik-cursor-pointer), pointer !important;
+}
+
+/* =========================================================
+   CURSOR MIN — NOTEBOOKS / LAPTOP / ALTURA BAJA
+   Cubre laptops típicos como 1366x768, 1280x720,
+   1440x810 y casos con zoom/escala.
+========================================================= */
+
+@media screen and (min-width: 900px) and (max-width: 1440px) and (max-height: 820px) and (pointer: fine) {
+  :root {
+    --rubik-cursor-default: url("/img/cursors/cursorMin.cur") 0 0;
+    --rubik-cursor-pointer: url("/img/cursors/pointerMin.cur") 0 0;
+  }
+}
+
+/* =========================================================
+   CURSOR MIN — LAPTOP COMPRIMIDA / WINDOWS 150%
+   Tu rango crítico actual: 760px–1030px.
+========================================================= */
+
+@media screen and (min-width: 760px) and (max-width: 1030px) and (min-height: 500px) and (max-height: 720px) and (pointer: fine) {
+  :root {
+    --rubik-cursor-default: url("/img/cursors/cursorMin.cur") 0 0;
+    --rubik-cursor-pointer: url("/img/cursors/pointerMin.cur") 0 0;
+  }
+}
+
+/* =========================================================
+   CURSOR MIN — DESKTOP CON ALTURA BAJA
+   Tu rango actual: 1180px–1320px con alto menor.
+========================================================= */
+
+@media screen and (min-width: 1180px) and (max-width: 1320px) and (max-height: 520px) and (pointer: fine) {
+  :root {
+    --rubik-cursor-default: url("/img/cursors/cursorMin.cur") 0 0;
+    --rubik-cursor-pointer: url("/img/cursors/pointerMin.cur") 0 0;
+  }
+}
+
+/* =========================================================
+   CURSOR MIN — LAPTOP 150% EXACTO
+   Tu caso exacto: 1280x585 aprox / DPR 1.5.
+========================================================= */
+
+@media screen and (min-width: 1270px) and (max-width: 1290px) and (min-height: 575px) and (max-height: 595px) and (min-resolution: 1.4dppx) and (pointer: fine) {
+  :root {
+    --rubik-cursor-default: url("/img/cursors/cursorMin.cur") 0 0;
+    --rubik-cursor-pointer: url("/img/cursors/pointerMin.cur") 0 0;
+  }
+}
+
+/* =========================================================
+   CURSOR MIN — LAPTOP 150% RANGO INTERMEDIO
+   Tu rango actual: 1022px–1269px x 560–610px / DPR 1.5.
+========================================================= */
+
+@media screen and (min-width: 1022px) and (max-width: 1269px) and (min-height: 560px) and (max-height: 610px) and (min-resolution: 1.4dppx) and (pointer: fine) {
+  :root {
+    --rubik-cursor-default: url("/img/cursors/cursorMin.cur") 0 0;
+    --rubik-cursor-pointer: url("/img/cursors/pointerMin.cur") 0 0;
+  }
+}

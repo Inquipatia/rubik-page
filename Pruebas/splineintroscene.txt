@@ -1,0 +1,25 @@
+"use client";
+
+import dynamic from "next/dynamic";
+
+const Spline = dynamic(() => import("@splinetool/react-spline"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex h-full w-full items-center justify-center text-sm uppercase tracking-[0.3em] text-cyan-300/60">
+      Cargando escena
+    </div>
+  ),
+});
+
+export default function SplineIntroScene() {
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0">
+        <Spline scene="https://prod.spline.design/NTdgt7MITavRr7dR/scene.splinecode" />
+      </div>
+
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,transparent_0%,rgba(5,5,5,0.05)_36%,rgba(5,5,5,0.52)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-black/5" />
+    </div>
+  );
+}

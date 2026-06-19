@@ -506,6 +506,23 @@ export default function ContactScene() {
                       rubik@rubikcreaciones.cl
                     </a>
                   </motion.div>
+                  <motion.div
+                    variants={itemVariants}
+                    className="h-px w-full bg-white/10"
+                  />
+
+                  <motion.div
+                    variants={itemVariants}
+                    className="rounded-[13px] border border-white/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.10),rgba(255,255,255,0.035))] px-3.5 py-3 transition duration-300 hover:border-white/24 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.13),rgba(255,255,255,0.045))] xl:px-4 xl:py-3.5"
+                  >
+                    <p className="omnes-text text-[10px] uppercase tracking-[0.14em] text-white/48 xl:text-[11px]">
+                      Página Web creada y desarrollada por
+                    </p>
+
+                    <p className="omnes-title mt-1 text-[1.05rem] leading-none text-white xl:text-[1.18rem]">
+                      Rubik Studio
+                    </p>
+                  </motion.div>
                 </div>
               </motion.div>
             </NeonCard>
