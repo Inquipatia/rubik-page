@@ -473,7 +473,7 @@ export default function ContactScene() {
                       href="tel:+56991330559"
                       className="omnes-text mt-2.5 block text-[12px] leading-5 text-white/84 transition hover:text-white xl:text-[13px]"
                     >
-                      +56 9 9133 0559
+                      +56 9 2623 7347
                     </a>
                   </motion.div>
 
@@ -500,10 +500,10 @@ export default function ContactScene() {
                     </div>
 
                     <a
-                      href="mailto:rubik@rubikcreaciones.cl"
+                      href="mailto:contacto@rubikcreaciones.cl"
                       className="omnes-text mt-2.5 block break-all text-[12px] leading-5 text-white/84 transition hover:text-white xl:text-[13px]"
                     >
-                      rubik@rubikcreaciones.cl
+                      contacto@rubikcreaciones.cl
                     </a>
                   </motion.div>
                   <motion.div
