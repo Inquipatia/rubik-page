@@ -470,7 +470,7 @@ export default function ContactScene() {
                     </div>
 
                     <a
-                      href="tel:+56991330559"
+                      href="tel:+56926237347"
                       className="omnes-text mt-2.5 block text-[12px] leading-5 text-white/84 transition hover:text-white xl:text-[13px]"
                     >
                       +56 9 2623 7347
