@@ -468,12 +468,24 @@ export default function ContactScene() {
                         Celular
                       </div>
                     </div>
-
+                        
                     <a
                       href="tel:+56926237347"
                       className="omnes-text mt-2.5 block text-[12px] leading-5 text-white/84 transition hover:text-white xl:text-[13px]"
                     >
-                      +56 9 2623 7347
+                      +56 9 2623 7347     ---      (Encargado de Ventas)
+                    </a>
+                    <a
+                      href="tel:+56964376418"
+                      className="omnes-text mt-2.5 block text-[12px] leading-5 text-white/84 transition hover:text-white xl:text-[13px]"
+                    >
+                      +56 9 6437 6418     ---      (Ejecutivo de Ventas)
+                    </a>
+                    <a
+                      href="tel:+56967785057"
+                      className="omnes-text mt-2.5 block text-[12px] leading-5 text-white/84 transition hover:text-white xl:text-[13px]"
+                    >
+                      +56 9 6778 5057       ---     (Encargado de Marketing)
                     </a>
                   </motion.div>
 
