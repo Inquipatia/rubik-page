@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState, type ComponentProps } from "react";
+import { useEffect, useRef, useState, type ComponentProps } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { createPortal } from "react-dom";
 import { projects } from "@/app/data/projects";
+import GalleryImage from "@/app/components/experience/gallery-image";
+import { useDialogFocus } from "@/app/components/experience/use-dialog-focus";
 
 type WorkSceneProps = {
   activeWorkCard: number;
@@ -66,11 +68,8 @@ function ZoomFallbackImage({
   alt,
   ...props
 }: ZoomFallbackImageProps) {
-  const [currentSrc, setCurrentSrc] = useState(src);
-
-  useEffect(() => {
-    setCurrentSrc(src);
-  }, [src]);
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
+  const currentSrc = failedSrc === src ? fallbackSrc : src;
 
   return (
     <Image
@@ -79,7 +78,7 @@ function ZoomFallbackImage({
       alt={alt}
       onError={() => {
         if (currentSrc !== fallbackSrc) {
-          setCurrentSrc(fallbackSrc);
+          setFailedSrc(src);
         }
       }}
     />
@@ -137,10 +136,11 @@ const servicesPreviewVariants: Variants = {
   },
 };
 
-export default function WorkScene({
-  activeWorkCard,
-  servicesResetKey = 0,
-}: WorkSceneProps) {
+export default function WorkScene(props: WorkSceneProps) {
+  return <WorkSceneContent key={`${props.activeWorkCard}:${props.servicesResetKey ?? 0}`} {...props} />;
+}
+
+function WorkSceneContent({ activeWorkCard }: WorkSceneProps) {
   const typedProjects = projects as ProjectItem[];
 
   const safeInitialIndex = Math.min(
@@ -154,47 +154,15 @@ export default function WorkScene({
   const [detailImageIndex, setDetailImageIndex] = useState(0);
   const [otherVariantIndex, setOtherVariantIndex] = useState(0);
   const [isImageZoomOpen, setIsImageZoomOpen] = useState(false);
-  const [isClient, setIsClient] = useState(false);
+  const previewRef = useRef<HTMLDivElement>(null);
+  useDialogFocus(isImageZoomOpen, previewRef, () => setIsImageZoomOpen(false));
 
   const activeProject = typedProjects[hoveredIndex] ?? typedProjects[0];
   const isOtrosProject = activeProject?.slug === "otros";
   const projectVariants = isOtrosProject ? activeProject.variants ?? [] : [];
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    if (!typedProjects.length) return;
-
-    const nextIndex = Math.min(
-      Math.max(activeWorkCard, 0),
-      typedProjects.length - 1
-    );
-
-    setHoveredIndex(nextIndex);
-    setDirection(1);
-    setIsDetailOpen(false);
-    setIsImageZoomOpen(false);
-    setDetailImageIndex(0);
-    setOtherVariantIndex(0);
-  }, [activeWorkCard, servicesResetKey, typedProjects.length]);
-
-  useEffect(() => {
-    setOtherVariantIndex(0);
-    setDetailImageIndex(0);
-    setIsImageZoomOpen(false);
-  }, [hoveredIndex]);
-
-  useEffect(() => {
-    setIsDetailOpen(false);
-    setIsImageZoomOpen(false);
-    setDetailImageIndex(0);
-    setOtherVariantIndex(0);
-  }, [servicesResetKey]);
-
-  useEffect(() => {
-    if (!isClient) return;
+    if (!isImageZoomOpen) return;
 
     const previousOverflow = document.body.style.overflow;
 
@@ -205,7 +173,7 @@ export default function WorkScene({
     return () => {
       document.body.style.overflow = previousOverflow;
     };
-  }, [isClient, isImageZoomOpen]);
+  }, [isImageZoomOpen]);
 
   if (!activeProject) {
     return (
@@ -401,9 +369,7 @@ export default function WorkScene({
     },
   };
 
-  const stackedProjects = useMemo(() => {
-    return typedProjects.slice(hoveredIndex + 1, hoveredIndex + 4);
-  }, [hoveredIndex, typedProjects]);
+  const stackedProjects = typedProjects.slice(hoveredIndex + 1, hoveredIndex + 4);
 
   const detailGallery =
     resolvedProject?.gallery && resolvedProject.gallery.length > 0
@@ -426,10 +392,8 @@ export default function WorkScene({
 
   const detailCurrentPage = Math.floor(detailImageIndex / DETAIL_ITEMS_PER_PAGE);
 
-  const pagedDetailGallery = useMemo(() => {
-    const start = detailCurrentPage * DETAIL_ITEMS_PER_PAGE;
-    return detailGallery.slice(start, start + DETAIL_ITEMS_PER_PAGE);
-  }, [detailGallery, detailCurrentPage]);
+  const detailPageStart = detailCurrentPage * DETAIL_ITEMS_PER_PAGE;
+  const pagedDetailGallery = detailGallery.slice(detailPageStart, detailPageStart + DETAIL_ITEMS_PER_PAGE);
 
   const goToDetailPage = (page: number) => {
     if (!detailGallery.length) return;
@@ -469,11 +433,15 @@ export default function WorkScene({
   };
 
   const previewModal =
-    isClient && isImageZoomOpen
+    isImageZoomOpen
       ? createPortal(
         <AnimatePresence>
           <motion.div
             key="service-preview-overlay"
+            ref={previewRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Vista ampliada"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -481,7 +449,7 @@ export default function WorkScene({
             className="fixed inset-0 z-[220] bg-[rgba(6,3,18,0.9)]"
             onClick={closeZoom}
           >
-            <div className="relative h-screen w-screen overflow-hidden">
+            <div className="relative h-[100dvh] w-full overflow-hidden">
               <div className="absolute inset-0">
                 <ZoomFallbackImage
                   src={activeZoomDetailImage}
@@ -545,32 +513,19 @@ export default function WorkScene({
               )}
 
               <div className="relative z-20 flex h-full w-full items-center justify-center px-4 py-20 sm:px-8 lg:px-12">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeZoomDetailImage}
-                    initial={{ opacity: 0, scale: 1.01 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.99 }}
-                    transition={{
-                      duration: 0.22,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
+                  <div
                     onClick={(e) => e.stopPropagation()}
-                    className="relative flex items-center justify-center"
+                    className="relative h-[min(calc(100dvh-160px),1384px)] w-[min(92vw,1300px)]"
                   >
-                    <ZoomFallbackImage
+                    <GalleryImage
                       src={activeZoomDetailImage}
                       fallbackSrc={activeDetailImage}
                       alt={`${resolvedProject.title} ampliada ${detailImageIndex + 1
                         }`}
-                      width={1300}
-                      height={1384}
-                      className="h-[min(82vh,1384px)] w-auto max-w-[92vw] rounded-[24px] object-contain drop-shadow-[0_18px_48px_rgba(0,0,0,0.38)]"
+                      className="rounded-[24px] object-contain drop-shadow-[0_18px_48px_rgba(0,0,0,0.38)]"
                       sizes="(max-width: 1024px) 92vw, 1300px"
-                      priority
                     />
-                  </motion.div>
-                </AnimatePresence>
+                  </div>
               </div>
 
               <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 bg-gradient-to-t from-black/80 via-black/24 to-transparent p-5 sm:p-6 lg:p-8">
@@ -955,43 +910,15 @@ export default function WorkScene({
                         onClick={() => openZoom()}
                         className="relative block h-full w-full overflow-hidden text-left"
                       >
-                        <AnimatePresence mode="wait">
-                          <motion.div
-                            key={detailGallery[detailImageIndex]}
-                            initial={{
-                              opacity: 0.22,
-                              scale: 1.025,
-                              filter: "blur(8px)",
-                            }}
-                            animate={{
-                              opacity: 1,
-                              scale: 1,
-                              filter: "blur(0px)",
-                            }}
-                            exit={{
-                              opacity: 0.18,
-                              scale: 0.985,
-                              filter: "blur(8px)",
-                            }}
-                            transition={{
-                              duration: 0.34,
-                              ease: [0.22, 1, 0.36, 1],
-                            }}
-                            className="absolute inset-0"
-                          >
-                            <Image
+                            <GalleryImage
                               src={detailGallery[detailImageIndex]}
                               alt={`${resolvedProject.title} ${detailImageIndex + 1
                                 }`}
-                              fill
-                              sizes="(max-width: 1024px) 100vw, 643px"
+                              sizes="(max-width: 1023px) calc(100vw - 64px), 643px"
                               className="object-cover object-center"
-                              priority
                             />
 
                             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.02),rgba(0,0,0,0.32))]" />
-                          </motion.div>
-                        </AnimatePresence>
 
                         <motion.div
                           variants={detailSideItemVariants}

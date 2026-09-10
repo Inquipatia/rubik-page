@@ -230,7 +230,7 @@ h6 {
 
 @media screen and (min-width: 1024px) {
   .rubik-page-split {
-    grid-template-columns: minmax(0, 60%) minmax(0, 40%);
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
   }
 }
 
@@ -2699,4 +2699,54 @@ summary,
 input,
 textarea {
   cursor: text !important;
+}
+
+/* Technical safeguards; retain the established desktop composition. */
+:is(button, a, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid #e9d5ff;
+  outline-offset: 3px;
+}
+
+.rubik-cotiza-grid > *,
+.rubik-work-overview > *,
+.rubik-intro-layout > * {
+  min-width: 0;
+}
+
+@media (max-width: 1023px) {
+  .scene-stage-frame {
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    padding-bottom: 5rem;
+  }
+
+  .scene-stage-frame > div {
+    height: auto;
+    min-height: 100%;
+  }
+
+  .rubik-cotiza-grid input,
+  .rubik-cotiza-grid textarea {
+    min-width: 0;
+    font-size: 1rem;
+  }
+}
+
+@media (pointer: coarse) {
+  button[aria-label^="Imagen"],
+  button[aria-label^="Página"],
+  button[aria-label="Cerrar menú"] {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

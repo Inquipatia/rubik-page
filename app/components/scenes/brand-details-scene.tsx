@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useState, type ComponentProps } from "react";
+import { useEffect, useMemo, useRef, useState, type ComponentProps } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { createPortal } from "react-dom";
+import GalleryImage from "@/app/components/experience/gallery-image";
+import { useDialogFocus } from "@/app/components/experience/use-dialog-focus";
 
 type BrandWorkItem = {
   image: string;
@@ -42,11 +44,8 @@ function ZoomFallbackImage({
   alt,
   ...props
 }: ZoomFallbackImageProps) {
-  const [currentSrc, setCurrentSrc] = useState(src);
-
-  useEffect(() => {
-    setCurrentSrc(src);
-  }, [src]);
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
+  const currentSrc = failedSrc === src ? fallbackSrc : src;
 
   return (
     <Image
@@ -55,14 +54,18 @@ function ZoomFallbackImage({
       alt={alt}
       onError={() => {
         if (currentSrc !== fallbackSrc) {
-          setCurrentSrc(fallbackSrc);
+          setFailedSrc(src);
         }
       }}
     />
   );
 }
 
-export default function BrandDetailsScene({
+export default function BrandDetailsScene(props: BrandDetailsSceneProps) {
+  return <BrandDetailsContent key={props.brandName} {...props} />;
+}
+
+function BrandDetailsContent({
   brandName,
   brandLogo,
   description,
@@ -75,19 +78,11 @@ export default function BrandDetailsScene({
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const [isClient, setIsClient] = useState(false);
+  const previewRef = useRef<HTMLDivElement>(null);
+  useDialogFocus(isPreviewOpen, previewRef, () => setIsPreviewOpen(false));
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    setActiveIndex(0);
-    setIsPreviewOpen(false);
-  }, [brandName]);
-
-  useEffect(() => {
-    if (!isClient) return;
+    if (!isPreviewOpen) return;
 
     const previousOverflow = document.body.style.overflow;
 
@@ -98,7 +93,7 @@ export default function BrandDetailsScene({
     return () => {
       document.body.style.overflow = previousOverflow;
     };
-  }, [isClient, isPreviewOpen]);
+  }, [isPreviewOpen]);
 
   const totalPages = Math.max(1, Math.ceil(safeWorks.length / WORKS_PER_PAGE));
   const currentPage = Math.floor(activeIndex / WORKS_PER_PAGE);
@@ -160,11 +155,15 @@ export default function BrandDetailsScene({
   };
 
   const previewModal =
-    isClient && isPreviewOpen
+    isPreviewOpen
       ? createPortal(
           <AnimatePresence>
             <motion.div
               key="preview-overlay"
+              ref={previewRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Vista ampliada"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -172,7 +171,7 @@ export default function BrandDetailsScene({
               className="fixed inset-0 z-[220] bg-[rgba(6,3,18,0.9)]"
               onClick={() => setIsPreviewOpen(false)}
             >
-               <div className="brand-preview-screen relative h-screen w-screen overflow-hidden">
+               <div className="brand-preview-screen relative h-[100dvh] w-full overflow-hidden">
                 <div className="absolute inset-0">
                   <ZoomFallbackImage
                     src={activeWorkZoomImage}
@@ -235,28 +234,18 @@ export default function BrandDetailsScene({
                 )}
 
                 <div className="relative z-20 flex h-full w-full items-center justify-center px-4 py-20 sm:px-8 lg:px-12">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={activeWorkZoomImage}
-                      initial={{ opacity: 0, scale: 1.01 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.99 }}
-                      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                    <div
                       onClick={(e) => e.stopPropagation()}
-                      className="relative flex items-center justify-center"
+                      className="relative h-[min(calc(100dvh-170px),1246px)] w-[min(calc(100vw-64px),1172px)]"
                     >
-                      <ZoomFallbackImage
+                      <GalleryImage
                         src={activeWorkZoomImage}
                         fallbackSrc={activeWork.image}
                         alt={activeWork.title || brandName}
-                        width={1172}
-                        height={1246}
-                        className="h-[min(calc(100vh-170px),1246px)] w-auto max-w-[calc(100vw-64px)] rounded-[24px] object-contain object-center"
-                        sizes="(max-width: 1024px) calc(100vw - 64px), 1172px"
-                        priority
+                        className="rounded-[24px] object-contain object-center"
+                        sizes="(max-width: 1236px) calc(100vw - 64px), 1172px"
                       />
-                    </motion.div>
-                  </AnimatePresence>
+                    </div>
                 </div>
 
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 bg-gradient-to-t from-black/80 via-black/24 to-transparent p-5 sm:p-6 lg:p-8">
@@ -341,25 +330,12 @@ export default function BrandDetailsScene({
                   onClick={openPreview}
                   className="group relative block h-full w-full overflow-hidden text-left"
                 >
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={activeWork.image}
-                      initial={{ opacity: 0.22, scale: 1.02 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0.18, scale: 0.985 }}
-                      transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
-                      className="absolute inset-0"
-                    >
-                      <Image
+                      <GalleryImage
                         src={activeWork.image}
                         alt={activeWork.title || brandName}
-                        fill
                         className="object-cover object-center"
-                        sizes="(max-width: 1024px) 100vw, 580px"
-                        priority
+                        sizes="(max-width: 1023px) calc(100vw - 64px), 580px"
                       />
-                    </motion.div>
-                  </AnimatePresence>
 
                   <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.04),rgba(0,0,0,0.38))]" />
 
@@ -409,13 +385,13 @@ export default function BrandDetailsScene({
                 )}
               </div>
 
-              <div className="grid h-[390px] gap-4 lg:h-[620px] lg:grid-rows-[280px_minmax(0,1fr)]">
+              <div className="grid min-w-0 gap-4 lg:h-[620px] lg:grid-rows-[280px_minmax(0,1fr)]">
                 <div className="flex flex-col rounded-[22px] border border-white/12 bg-white/[0.055] p-4 lg:p-5">
                   <p className="omnes-text text-[10px] uppercase tracking-[0.16em] text-white/45">
                     Descripción
                   </p>
 
-                  <div className="mt-3 overflow-hidden">
+                  <div className="mt-3 min-h-0 overflow-y-auto [overflow-wrap:anywhere]">
                     <p className="omnes-text text-[13px] leading-7 text-white/84 sm:text-[13.5px] lg:text-[14px]">
                       {description}
                     </p>
@@ -475,6 +451,7 @@ export default function BrandDetailsScene({
                           type="button"
                           onClick={() => handleSelectWork(realIndex)}
                           aria-label={work.title || `Trabajo ${realIndex + 1}`}
+                          aria-pressed={isActive}
                           className={`group relative overflow-hidden rounded-[14px] border transition duration-300 ${
                             isActive
                               ? "border-white/28 bg-white/10 shadow-[0_0_0_1px_rgba(255,255,255,0.03)]"
@@ -487,7 +464,7 @@ export default function BrandDetailsScene({
                               alt={work.title || `${brandName} ${realIndex + 1}`}
                               fill
                               className="scale-[1.02] object-cover object-center transition duration-300 group-hover:scale-[1.05]"
-                              sizes="(max-width: 640px) 100vw, 14vw"
+                              sizes="(max-width: 1023px) calc((100vw - 110px) / 2), 180px"
                             />
                           </div>
 

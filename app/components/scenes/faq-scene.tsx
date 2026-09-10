@@ -3,17 +3,20 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { faqs } from "@/app/data/faqs";
+import Script from "next/script";
+
+type VantaEffect = { destroy: () => void };
 
 declare global {
   interface Window {
-    VANTA?: any;
+    VANTA?: { WAVES: (options: Record<string, unknown>) => VantaEffect };
   }
 }
 
 export default function FaqScene() {
   const [openId, setOpenId] = useState<number>(4);
   const vantaBgRef = useRef<HTMLDivElement | null>(null);
-  const vantaEffect = useRef<any>(null);
+  const vantaEffect = useRef<VantaEffect | null>(null);
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval> | null = null;
@@ -60,6 +63,7 @@ export default function FaqScene() {
 
   return (
     <section className="relative h-[100svh] w-full overflow-hidden">
+      <Script src="/three.r134.min.js" strategy="afterInteractive" />
       {/* fondo Vanta ocupando TODO el viewport, también detrás del navbar */}
       <div
         ref={vantaBgRef}

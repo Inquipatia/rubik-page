@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { HiOutlineBars3, HiOutlineXMark } from "react-icons/hi2";
 
@@ -27,6 +27,7 @@ export default function FixedHeader({
   isMobileSinglePage = false,
 }: FixedHeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
@@ -43,24 +44,44 @@ export default function FixedHeader({
   useEffect(() => {
     if (!isMobileMenuOpen) return;
 
+    const previousOverflow = document.body.style.overflow;
+    const previousFocus = document.activeElement as HTMLElement | null;
+    const desktop = window.matchMedia("(min-width: 768px)");
+    const onViewportChange = () => {
+      if (desktop.matches) closeMobileMenu();
+    };
+    menuRef.current?.querySelector<HTMLButtonElement>("button")?.focus();
+
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         closeMobileMenu();
       }
+      if (event.key === "Tab") {
+        const buttons = menuRef.current?.querySelectorAll<HTMLButtonElement>("button");
+        if (!buttons?.length) return;
+        const first = buttons[0];
+        const last = buttons[buttons.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
     };
 
     document.addEventListener("keydown", onKeyDown);
+    desktop.addEventListener("change", onViewportChange);
     document.body.style.overflow = "hidden";
 
     return () => {
       document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = "";
+      desktop.removeEventListener("change", onViewportChange);
+      document.body.style.overflow = previousOverflow;
+      if (previousFocus?.isConnected) previousFocus.focus({ preventScroll: true });
     };
   }, [isMobileMenuOpen]);
-
-  useEffect(() => {
-    closeMobileMenu();
-  }, [activeScene, isCotizaOpen]);
 
   return (
     <>
@@ -128,6 +149,7 @@ export default function FixedHeader({
                 onClick={() => setIsMobileMenuOpen(true)}
                 aria-label="Abrir menú"
                 aria-expanded={isMobileMenuOpen}
+                aria-controls="mobile-navigation"
                 className="flex h-11 w-11 items-center justify-center rounded-full border border-white/14 bg-white/10 text-white shadow-[0_10px_30px_rgba(0,0,0,0.22)] backdrop-blur-xl transition hover:bg-white/14"
               >
                 <HiOutlineBars3 size={22} />
@@ -138,7 +160,7 @@ export default function FixedHeader({
       </header>
 
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-[240] md:hidden">
+        <div ref={menuRef} id="mobile-navigation" role="dialog" aria-modal="true" aria-label="Navegación" className="fixed inset-0 z-[240] overflow-y-auto overscroll-contain md:hidden">
           <button
             type="button"
             aria-label="Cerrar menú"
@@ -146,7 +168,7 @@ export default function FixedHeader({
             className="absolute inset-0 bg-[rgba(3,2,10,0.74)] backdrop-blur-md"
           />
 
-          <div className="absolute inset-x-0 top-0 px-3 pt-4">
+          <div className="relative px-3 pb-4 pt-4">
             <div className="overflow-hidden rounded-[28px] border border-white/12 bg-[linear-gradient(180deg,rgba(18,12,40,0.96),rgba(8,7,18,0.98))] shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
               <div className="flex items-center justify-between border-b border-white/10 px-4 py-4">
                 <div className="relative h-[42px] w-[126px]">

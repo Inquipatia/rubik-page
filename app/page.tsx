@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { MotionConfig } from "framer-motion";
 import {
   FaInstagram,
   FaFacebookF,
@@ -118,6 +119,10 @@ export default function Home() {
   const [servicesResetKey, setServicesResetKey] = useState(0);
 
   const wheelLockRef = useRef(false);
+  const unlockTimerRef = useRef<number | null>(null);
+  useEffect(() => () => {
+    if (unlockTimerRef.current) clearTimeout(unlockTimerRef.current);
+  }, []);
   const totalMainScenes = 4;
 
   const progress = useMemo(() => {
@@ -144,7 +149,7 @@ export default function Home() {
     if (!element) return;
 
     element.scrollIntoView({
-      behavior: "smooth",
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
       block: "start",
     });
   }, []);
@@ -180,7 +185,8 @@ export default function Home() {
   }, []);
 
   const unlockAfterDelay = useCallback(() => {
-    window.setTimeout(() => {
+    if (unlockTimerRef.current) clearTimeout(unlockTimerRef.current);
+    unlockTimerRef.current = window.setTimeout(() => {
       wheelLockRef.current = false;
       setIsAnimating(false);
     }, 680);
@@ -313,6 +319,10 @@ export default function Home() {
     if (isMobile) return;
 
     const onWheel = (event: WheelEvent) => {
+      if (event.ctrlKey || document.body.style.overflow === "hidden") return;
+      const target = event.target instanceof Element ? event.target : null;
+      const scrollFrame = target?.closest(".scene-stage-frame");
+      if (scrollFrame && scrollFrame.scrollHeight > scrollFrame.clientHeight + 1) return;
       if (isCotizaOpen) return;
       if (selectedBrand) return;
       if (isCubeHovered) return;
@@ -358,6 +368,7 @@ export default function Home() {
   const shouldMountOrb = !isMobile;
 
   return (
+    <MotionConfig reducedMotion="user">
     <main
       className={`relative w-full overflow-x-hidden text-white ${isMobile ? "min-h-screen" : "h-[100svh] overflow-hidden"
         } ${isCompactDesktop ? "is-compact-desktop" : ""}`}
@@ -465,5 +476,6 @@ export default function Home() {
         */}
       </div>
     </main>
+    </MotionConfig>
   );
 }

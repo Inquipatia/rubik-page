@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, type Variants } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion, type Variants } from "framer-motion";
 import IntroScene from "@/app/components/scenes/intro-scene";
 import BrandShowcase from "@/app/components/scenes/brand-showcase";
 import BrandDetailsScene from "@/app/components/scenes/brand-details-scene";
@@ -140,6 +140,7 @@ export default function SceneStage({
   onCloseBrandDetails,
   servicesResetKey,
 }: SceneStageProps) {
+  const reduceMotion = useReducedMotion();
   const currentKey = isCotizaOpen
     ? "cotiza-scene"
     : selectedBrand
@@ -152,7 +153,9 @@ export default function SceneStage({
   const isContactStage = !isCotizaOpen && !selectedBrand && activeScene === 3;
   const isBrandDetailsStage = !isCotizaOpen && !!selectedBrand;
 
-  const currentVariants = isCotizaOpen
+  const currentVariants = reduceMotion
+    ? { initial: { opacity: 0 }, animate: { opacity: 1, transition: { duration: 0.1 } }, exit: { opacity: 0, transition: { duration: 0.1 } } }
+    : isCotizaOpen
     ? cotizaSceneVariants
     : isBrandsStage
       ? introToBrandsVariants

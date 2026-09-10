@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -19,9 +18,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" suppressHydrationWarning>
+      <head>
+        <link rel="preload" href="/fonts/omnes/Omnes%20Light.ttf" as="font" type="font/ttf" crossOrigin="anonymous" />
+      </head>
       <body suppressHydrationWarning>
         {children}
-        <Script src="/three.r134.min.js" strategy="afterInteractive" />
       </body>
     </html>
   );

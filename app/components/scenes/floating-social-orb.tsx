@@ -33,10 +33,10 @@ type SplineObject = {
 };
 
 type SplineApp = {
-  findObjectByName?: (name: string) => any;
+  findObjectByName?: (name: string) => SplineObject | undefined;
   setVariable?: (name: string, value: number | boolean | string) => void;
   setVariables?: (variables: Record<string, number | boolean | string>) => void;
-  getVariable?: (name: string) => any;
+  getVariable?: (name: string) => unknown;
 };
 
 type TransformSnapshot = {
@@ -981,6 +981,7 @@ export default function FloatingSocialOrb({
   };
 
   const startIdleDanceLoop = () => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (!visibleRef.current) return;
     if (isPageHiddenRef.current) return;
     if (!shouldRenderSpline) return;
@@ -1048,7 +1049,7 @@ export default function FloatingSocialOrb({
     };
   }, [visible, shouldRenderSpline]);
 
-  const handleSplineMouseHover = (eventRaw: any) => {
+  const handleSplineMouseHover = (eventRaw: { target?: { name?: string } }) => {
     const targetName = eventRaw?.target?.name;
 
     if (targetName !== VIEW_ACT_OBJECT_NAME) return;
@@ -1108,7 +1109,7 @@ export default function FloatingSocialOrb({
       : "pointer-events-none opacity-0 translate-y-3 scale-95";
   }, [visible]);
 
-  const handleSplineLoad = (splineAppRaw: any) => {
+  const handleSplineLoad = (splineAppRaw: unknown) => {
     const splineApp = splineAppRaw as SplineApp;
 
     splineAppRef.current = splineApp;
@@ -1284,6 +1285,7 @@ export default function FloatingSocialOrb({
         onClick={(event) => {
           event.preventDefault();
           event.stopPropagation();
+          if (event.detail === 0) void toggleSound();
         }}
         className={[
           "absolute bottom-9 right-7 z-[10050]",

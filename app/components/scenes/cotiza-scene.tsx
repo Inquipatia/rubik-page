@@ -251,9 +251,9 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
 
             <div className="h-2 overflow-hidden rounded-full bg-black/22">
               <motion.div
-                className="h-full rounded-full bg-white"
-                initial={{ width: "0%" }}
-                animate={{ width: `${progress}%` }}
+                className="h-full w-full origin-left rounded-full bg-white"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: progress / 100 }}
                 transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
               />
             </div>
@@ -292,6 +292,9 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                   <motion.input
                     key={input.field}
                     type={input.type}
+                    name={input.field}
+                    aria-label={input.placeholder}
+                    autoComplete={{ name: "name", phone: "tel", email: "email", company: "organization" }[input.field]}
                     value={form[input.field as keyof FormState]}
                     onChange={handleChange(input.field as keyof FormState)}
                     placeholder={input.placeholder}
@@ -304,6 +307,8 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                 ))}
 
                 <motion.textarea
+                  name="message"
+                  aria-label="Detalle cotización"
                   value={form.message}
                   onChange={handleChange("message")}
                   placeholder="Detalle cotización"
@@ -317,6 +322,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                 <AnimatePresence>
                   {status.type === "error" && (
                     <motion.div
+                      role="alert"
                       initial={{ opacity: 0, y: 8, filter: "blur(6px)" }}
                       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                       exit={{ opacity: 0, y: -6, filter: "blur(4px)" }}
@@ -385,7 +391,8 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 8 }}
                     transition={{ delay: 0.05, duration: 0.25 }}
-                    className="flex min-w-[280px] max-w-[360px] items-center gap-3 rounded-[20px] border border-emerald-300/20 bg-[linear-gradient(180deg,rgba(9,24,20,0.92),rgba(8,18,16,0.88))] px-5 py-4 shadow-[0_18px_50px_rgba(0,0,0,0.30),0_0_30px_rgba(16,185,129,0.08)]"
+                    role="status"
+                    className="flex w-full min-w-0 max-w-[360px] items-center gap-3 rounded-[20px] border border-emerald-300/20 bg-[linear-gradient(180deg,rgba(9,24,20,0.92),rgba(8,18,16,0.88))] px-5 py-4 shadow-[0_18px_50px_rgba(0,0,0,0.30),0_0_30px_rgba(16,185,129,0.08)]"
                   >
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-emerald-300/20 bg-emerald-400/12">
                       <motion.span
