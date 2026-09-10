@@ -470,23 +470,18 @@ export default function ContactScene() {
                     </div>
                         
                     <a
-                      href="tel:+56926237347"
+                      href="tel:+56966813628"
                       className="omnes-text mt-2.5 block text-[12px] leading-5 text-white/84 transition hover:text-white xl:text-[13px]"
                     >
-                      +56 9 2623 7347     ---      (Encargado de Ventas)
+                      +56 9 668 13 628     ---     (Asesor  Comercial)
                     </a>
                     <a
-                      href="tel:+56964376418"
+                      href="tel:+56976535734"
                       className="omnes-text mt-2.5 block text-[12px] leading-5 text-white/84 transition hover:text-white xl:text-[13px]"
                     >
-                      +56 9 6437 6418     ---      (Ejecutivo de Ventas)
+                      +56 9 765 35 734     ---      (Asesor Comercial)
                     </a>
-                    <a
-                      href="tel:+56967785057"
-                      className="omnes-text mt-2.5 block text-[12px] leading-5 text-white/84 transition hover:text-white xl:text-[13px]"
-                    >
-                      +56 9 6778 5057       ---     (Encargado de Marketing)
-                    </a>
+                    
                   </motion.div>
 
                   <motion.div
