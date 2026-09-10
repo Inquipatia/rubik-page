@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState, type ComponentProps } from "react
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { createPortal } from "react-dom";
-import GalleryImage from "@/app/components/experience/gallery-image";
+import GalleryImage, { keepImageClickInside } from "@/app/components/experience/gallery-image";
 import { useDialogFocus } from "@/app/components/experience/use-dialog-focus";
 
 type BrandWorkItem = {
@@ -155,9 +155,10 @@ function BrandDetailsContent({
   };
 
   const previewModal =
-    isPreviewOpen
+    typeof document !== "undefined"
       ? createPortal(
           <AnimatePresence>
+            {isPreviewOpen && (
             <motion.div
               key="preview-overlay"
               ref={previewRef}
@@ -235,10 +236,11 @@ function BrandDetailsContent({
 
                 <div className="relative z-20 flex h-full w-full items-center justify-center px-4 py-20 sm:px-8 lg:px-12">
                     <div
-                      onClick={(e) => e.stopPropagation()}
                       className="relative h-[min(calc(100dvh-170px),1246px)] w-[min(calc(100vw-64px),1172px)]"
                     >
                       <GalleryImage
+                        onClick={keepImageClickInside}
+                        adjacentSources={safeWorks.length > 1 ? [getBrandZoomImage(safeWorks[(activeIndex + 1) % safeWorks.length]), getBrandZoomImage(safeWorks[(activeIndex - 1 + safeWorks.length) % safeWorks.length])] : []}
                         src={activeWorkZoomImage}
                         fallbackSrc={activeWork.image}
                         alt={activeWork.title || brandName}
@@ -261,6 +263,7 @@ function BrandDetailsContent({
                 </div>
               </div>
             </motion.div>
+            )}
           </AnimatePresence>,
           document.body
         )
@@ -277,7 +280,7 @@ function BrandDetailsContent({
         />
 
         <section
-          className="relative z-10 mx-auto w-full max-w-[1040px] rounded-[28px] border border-white/12 bg-white/[0.045] px-4 pb-4 pt-4 backdrop-blur-xl sm:px-5 sm:pb-5 sm:pt-5 lg:px-5 lg:pb-5 lg:pt-5"
+          className="rubik-brand-detail relative z-10 mx-auto w-full max-w-[1040px] rounded-[28px] border border-white/12 bg-white/[0.045] px-4 pb-4 pt-4 backdrop-blur-xl sm:px-5 sm:pb-5 sm:pt-5 lg:px-5 lg:pb-5 lg:pt-5"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[28px]">

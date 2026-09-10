@@ -5,7 +5,7 @@ import Image from "next/image";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { createPortal } from "react-dom";
 import { projects } from "@/app/data/projects";
-import GalleryImage from "@/app/components/experience/gallery-image";
+import GalleryImage, { keepImageClickInside } from "@/app/components/experience/gallery-image";
 import { useDialogFocus } from "@/app/components/experience/use-dialog-focus";
 
 type WorkSceneProps = {
@@ -162,18 +162,18 @@ function WorkSceneContent({ activeWorkCard }: WorkSceneProps) {
   const projectVariants = isOtrosProject ? activeProject.variants ?? [] : [];
 
   useEffect(() => {
-    if (!isImageZoomOpen) return;
+    if (!isDetailOpen) return;
 
     const previousOverflow = document.body.style.overflow;
 
-    if (isImageZoomOpen) {
+    if (isDetailOpen) {
       document.body.style.overflow = "hidden";
     }
 
     return () => {
       document.body.style.overflow = previousOverflow;
     };
-  }, [isImageZoomOpen]);
+  }, [isDetailOpen]);
 
   if (!activeProject) {
     return (
@@ -326,7 +326,7 @@ function WorkSceneContent({ activeWorkCard }: WorkSceneProps) {
     show: {
       transition: {
         staggerChildren: 0.08,
-        delayChildren: 0.22,
+        delayChildren: 0.06,
       },
     },
   };
@@ -344,7 +344,7 @@ function WorkSceneContent({ activeWorkCard }: WorkSceneProps) {
       scale: 1,
       filter: "blur(0px)",
       transition: {
-        duration: 0.58,
+        duration: 0.28,
         ease: [0.16, 1, 0.3, 1],
       },
     },
@@ -433,9 +433,10 @@ function WorkSceneContent({ activeWorkCard }: WorkSceneProps) {
   };
 
   const previewModal =
-    isImageZoomOpen
+    typeof document !== "undefined"
       ? createPortal(
         <AnimatePresence>
+          {isImageZoomOpen && (
           <motion.div
             key="service-preview-overlay"
             ref={previewRef}
@@ -514,10 +515,11 @@ function WorkSceneContent({ activeWorkCard }: WorkSceneProps) {
 
               <div className="relative z-20 flex h-full w-full items-center justify-center px-4 py-20 sm:px-8 lg:px-12">
                   <div
-                    onClick={(e) => e.stopPropagation()}
                     className="relative h-[min(calc(100dvh-160px),1384px)] w-[min(92vw,1300px)]"
                   >
                     <GalleryImage
+                      onClick={keepImageClickInside}
+                      adjacentSources={zoomDetailGallery.length > 1 ? [zoomDetailGallery[(detailImageIndex + 1) % zoomDetailGallery.length], zoomDetailGallery[(detailImageIndex - 1 + zoomDetailGallery.length) % zoomDetailGallery.length]] : []}
                       src={activeZoomDetailImage}
                       fallbackSrc={activeDetailImage}
                       alt={`${resolvedProject.title} ampliada ${detailImageIndex + 1
@@ -539,6 +541,7 @@ function WorkSceneContent({ activeWorkCard }: WorkSceneProps) {
               </div>
             </div>
           </motion.div>
+          )}
         </AnimatePresence>,
         document.body
       )
@@ -866,7 +869,7 @@ function WorkSceneContent({ activeWorkCard }: WorkSceneProps) {
                 </AnimatePresence>
               </motion.div>
             </motion.div>
-          ) : (
+          ) : typeof document !== "undefined" ? createPortal(
             <motion.div
               className="rubik-work-detail-overlay fixed inset-0 z-[60] overflow-y-auto bg-[rgba(7,3,18,0.86)] px-4 pb-6 pt-[120px] backdrop-blur-[10px] sm:px-5 sm:pt-[128px] md:pt-[136px] lg:z-[180] lg:flex lg:items-center lg:justify-center lg:bg-transparent lg:px-4 lg:py-6 lg:backdrop-blur-0"
               initial={{ opacity: 0 }}
@@ -878,7 +881,7 @@ function WorkSceneContent({ activeWorkCard }: WorkSceneProps) {
                 type="button"
                 aria-label="Volver a servicios"
                 onClick={closeDetail}
-                className="fixed inset-0 z-0 bg-transparent"
+                className="absolute inset-0 z-0 bg-transparent"
               />
 
               <motion.div
@@ -889,21 +892,21 @@ function WorkSceneContent({ activeWorkCard }: WorkSceneProps) {
                 animate="center"
                 exit="exit"
                 transition={{
-                  duration: 0.78,
+                  duration: 0.32,
                   ease: [0.16, 1, 0.3, 1],
                 }}
-                className="relative z-10 mx-auto w-full max-w-[720px] pb-8 lg:max-w-[1160px] lg:pb-0"
+                className="rubik-service-detail-card relative z-10 mx-auto w-full max-w-[720px] pb-8 lg:max-w-[1160px] lg:pb-0"
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="relative overflow-visible rounded-[28px] border border-white/10 bg-white/[0.018] p-3 shadow-[0_18px_46px_rgba(0,0,0,0.18)] backdrop-blur-[2px] sm:p-4 lg:p-4">
                   <div className="pointer-events-none absolute inset-0 rounded-[28px] border border-white/[0.045]" />
 
-                  <div className="relative grid items-stretch gap-4 bg-transparent p-0 shadow-none backdrop-blur-0 lg:grid-cols-[643px_minmax(0,1fr)] lg:justify-between">
+                  <div className="rubik-service-detail-grid relative grid items-stretch gap-4 bg-transparent p-0 shadow-none backdrop-blur-0 lg:grid-cols-[643px_minmax(0,1fr)] lg:justify-between">
                     <motion.div
                       variants={detailPanelVariants}
                       initial="hidden"
                       animate="show"
-                      className="relative h-[390px] overflow-hidden rounded-[22px] border border-white/10 bg-black/20 sm:h-[430px] lg:h-[689px] lg:w-[643px]"
+                      className="rubik-service-detail-image relative h-[390px] overflow-hidden rounded-[22px] border border-white/10 bg-black/20 sm:h-[430px] lg:h-[689px] lg:w-[643px]"
                     >
                       <button
                         type="button"
@@ -974,7 +977,7 @@ function WorkSceneContent({ activeWorkCard }: WorkSceneProps) {
                       variants={detailSideContainerVariants}
                       initial="hidden"
                       animate="show"
-                      className="grid h-auto gap-4 lg:h-[689px] lg:grid-rows-[260px_minmax(0,1fr)]"
+                      className="rubik-service-detail-info grid h-auto gap-4 lg:h-[689px] lg:grid-rows-[260px_minmax(0,1fr)]"
                     >
                       <motion.div
                         variants={detailSideItemVariants}
@@ -1004,7 +1007,7 @@ function WorkSceneContent({ activeWorkCard }: WorkSceneProps) {
                           </button>
                         </div>
 
-                        <div className="min-h-0 overflow-hidden">
+                        <div className="min-h-0 overflow-y-auto">
                           <p className="omnes-text text-[13px] leading-7 text-white/82 sm:text-[13.5px]">
                             {resolvedProject.longDescription ??
                               resolvedProject.description}
@@ -1080,11 +1083,12 @@ function WorkSceneContent({ activeWorkCard }: WorkSceneProps) {
                                   whileHover={{ y: -3, scale: 1.025 }}
                                   whileTap={{ scale: 0.96 }}
                                   transition={{
-                                    delay: 0.42 + localIndex * 0.055,
+                                    delay: 0.08 + localIndex * 0.035,
                                   }}
                                   onClick={() => setDetailImageIndex(realIndex)}
                                   aria-label={`${resolvedProject.title} ${realIndex + 1
                                     }`}
+                                  aria-pressed={isActive}
                                   className={`group relative overflow-hidden rounded-[14px] border transition duration-300 ${isActive
                                     ? "border-white/28 bg-white/10 shadow-[0_0_0_1px_rgba(255,255,255,0.03)]"
                                     : "border-white/10 bg-white/[0.03] hover:border-white/18 hover:bg-white/[0.06]"
@@ -1129,8 +1133,8 @@ function WorkSceneContent({ activeWorkCard }: WorkSceneProps) {
                   </div>
                 </div>
               </motion.div>
-            </motion.div>
-          )}
+            </motion.div>, document.body
+          ) : null}
         </div>
       </section>
 

@@ -189,7 +189,7 @@ export default function Home() {
     unlockTimerRef.current = window.setTimeout(() => {
       wheelLockRef.current = false;
       setIsAnimating(false);
-    }, 680);
+    }, 550);
   }, []);
 
   const goNext = useCallback(() => {

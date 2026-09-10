@@ -2702,6 +2702,63 @@ textarea {
 }
 
 /* Technical safeguards; retain the established desktop composition. */
+.rubik-intro-shell {
+  align-items: safe center;
+}
+
+.scene-stage-frame:has(.rubik-brand-detail) {
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  padding-bottom: 4rem;
+}
+
+.rubik-service-detail-grid > *,
+.rubik-service-detail-info > * {
+  min-width: 0;
+  min-height: 0;
+}
+
+body:has([role="dialog"]) .rubik-orb-wrap {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+  .rubik-work-detail-overlay {
+    /* Brands settles at 1040 × 742.6px; Services targets 700px overall.
+       Only short viewports reduce that height to clear the header and footer. */
+    --service-panel-height: min(666px, calc(100svh - clamp(7.5rem, 14svh, 10rem) - 4.125rem));
+    top: clamp(7.5rem, 14svh, 10rem);
+    padding: 0 1rem 2rem !important;
+    overflow-y: auto !important;
+    align-items: safe center !important;
+    backdrop-filter: none;
+  }
+
+  .rubik-work-detail-overlay > .rubik-service-detail-card {
+    max-width: 1040px;
+    transform: none !important;
+  }
+
+  .rubik-service-detail-grid {
+    grid-template-columns: minmax(0, 1.43fr) minmax(0, 1fr);
+  }
+
+  .rubik-service-detail-image,
+  .rubik-service-detail-info {
+    height: var(--service-panel-height);
+    width: 100%;
+  }
+
+  .rubik-service-detail-info {
+    grid-template-rows: minmax(min-content, auto) minmax(0, 1fr);
+  }
+
+  .rubik-service-detail-info h2 {
+    font-size: clamp(1.7rem, 2.2vw, 2.6rem);
+  }
+}
+
 :is(button, a, input, textarea, select, [tabindex]):focus-visible {
   outline: 2px solid #e9d5ff;
   outline-offset: 3px;

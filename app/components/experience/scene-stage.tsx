@@ -36,7 +36,7 @@ const defaultSceneVariants: Variants = {
     scale: 1,
     filter: "blur(0px)",
     transition: {
-      duration: 0.78,
+      duration: 0.32,
       ease: [0.16, 1, 0.3, 1],
     },
   },
@@ -46,7 +46,7 @@ const defaultSceneVariants: Variants = {
     scale: 0.975,
     filter: "blur(16px)",
     transition: {
-      duration: 0.52,
+      duration: 0.2,
       ease: [0.7, 0, 0.84, 0],
     },
   },
@@ -65,7 +65,7 @@ const introToBrandsVariants: Variants = {
     scale: 1,
     filter: "blur(0px)",
     transition: {
-      duration: 1.05,
+      duration: 0.35,
       ease: [0.16, 1, 0.3, 1],
     },
   },
@@ -75,7 +75,7 @@ const introToBrandsVariants: Variants = {
     scale: 1.025,
     filter: "blur(22px)",
     transition: {
-      duration: 0.7,
+      duration: 0.2,
       ease: [0.7, 0, 0.84, 0],
     },
   },
@@ -92,7 +92,7 @@ const cotizaSceneVariants: Variants = {
     y: 0,
     filter: "blur(0px)",
     transition: {
-      duration: 0.7,
+      duration: 0.32,
       ease: [0.16, 1, 0.3, 1],
     },
   },
@@ -101,7 +101,7 @@ const cotizaSceneVariants: Variants = {
     y: -14,
     filter: "blur(12px)",
     transition: {
-      duration: 0.42,
+      duration: 0.2,
       ease: [0.22, 1, 0.36, 1],
     },
   },

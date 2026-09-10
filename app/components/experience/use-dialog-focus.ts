@@ -19,6 +19,11 @@ export function useDialogFocus(
         event.stopPropagation();
         close();
       }
+      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        event.preventDefault();
+        const label = event.key === "ArrowLeft" ? "Imagen anterior" : "Imagen siguiente";
+        dialog?.querySelector<HTMLButtonElement>(`button[aria-label="${label}"]`)?.click();
+      }
       if (event.key !== "Tab" || !dialog) return;
       const controls = [...dialog.querySelectorAll<HTMLElement>('button:not(:disabled), a[href], input, textarea, [tabindex="0"]')]
         .filter(element => element.getClientRects().length > 0);
