@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { validateQuote, type QuoteErrors } from "../../lib/quote-validation";
 
 type CotizaSceneProps = {
   onClose: () => void;
@@ -64,6 +65,11 @@ const initialForm: FormState = {
 export default function CotizaScene({ onClose }: CotizaSceneProps) {
   const [selectedService, setSelectedService] = useState<string>("");
   const [form, setForm] = useState<FormState>(initialForm);
+  const submittingRef = useRef(false);
+  const [hasSavedRequest, setHasSavedRequest] = useState(false);
+  const successTimer = useRef<number | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<QuoteErrors>({});
+  useEffect(() => () => { if (successTimer.current) clearTimeout(successTimer.current); }, []);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessOverlay, setShowSuccessOverlay] = useState(false);
   const [status, setStatus] = useState<{
@@ -92,19 +98,10 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
 
   const progress = Math.round((completedFields / 5) * 100);
 
-  const isValid = useMemo(() => {
-    return (
-      form.name.trim() &&
-      form.phone.trim() &&
-      form.email.trim() &&
-      form.message.trim() &&
-      selectedService.trim()
-    );
-  }, [form, selectedService]);
-
   const handleChange =
     (field: keyof FormState) =>
       (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setFieldErrors(prev => ({ ...prev, [field]: undefined }));
         setForm((prev) => ({
           ...prev,
           [field]: e.target.value,
@@ -116,6 +113,8 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
       };
 
   const handleSelectService = (service: string) => {
+    if (submittingRef.current || hasSavedRequest) return;
+    setFieldErrors(prev => ({ ...prev, service: undefined }));
     setSelectedService(service);
 
     if (status.type === "error") {
@@ -126,14 +125,16 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!isValid) {
-      setStatus({
-        type: "error",
-        message: "Completa nombre, teléfono, correo, servicio y detalle.",
-      });
+    if (submittingRef.current || hasSavedRequest) return;
+    const validation = validateQuote({ ...form, service: selectedService });
+    setFieldErrors(validation.errors);
+    if (!validation.valid) {
+      setStatus({ type: "error", message: Object.values(validation.errors).join(" ") });
+      const field = Object.keys(validation.errors)[0];
+      e.currentTarget.closest("section")?.querySelector<HTMLElement>(`[name="${field}"]`)?.focus();
       return;
     }
-
+    submittingRef.current = true;
     try {
       setIsSubmitting(true);
       setStatus({ type: null, message: "" });
@@ -156,25 +157,26 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
       const data = await res.json();
 
       if (!res.ok || !data.ok) {
-        throw new Error(data.message || "No se pudo enviar el correo.");
+        throw new Error("No pudimos guardar tu solicitud. Conservamos tus datos para que puedas reintentar.");
+      }
+
+      if (data.saved === true && data.notificationSent === false) {
+        setHasSavedRequest(true);
+        setStatus({ type: "error", message: "Tu solicitud quedó guardada, pero no pudimos enviar el aviso por correo. No necesitas reenviarla. Conservamos tus datos en pantalla." });
+        return;
       }
 
       setForm(initialForm);
       setSelectedService("");
       setShowSuccessOverlay(true);
 
-      window.setTimeout(() => {
+      successTimer.current = window.setTimeout(() => {
         setShowSuccessOverlay(false);
       }, 2200);
-    } catch (error) {
-      setStatus({
-        type: "error",
-        message:
-          error instanceof Error
-            ? error.message
-            : "No se pudo enviar el correo.",
-      });
+    } catch {
+      setStatus({ type: "error", message: "No pudimos confirmar el envío. Conservamos tus datos para que puedas reintentar." });
     } finally {
+      submittingRef.current = false;
       setIsSubmitting(false);
     }
   };
@@ -278,7 +280,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                 Datos de contacto
               </p>
 
-              <form onSubmit={handleSubmit} className="grid gap-3">
+              <form noValidate aria-busy={isSubmitting} onSubmit={handleSubmit} className="grid gap-3">
                 {[
                   { type: "text", field: "name", placeholder: "Nombre" },
                   { type: "tel", field: "phone", placeholder: "Teléfono" },
@@ -293,6 +295,10 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                     key={input.field}
                     type={input.type}
                     name={input.field}
+                    readOnly={isSubmitting || hasSavedRequest}
+                    aria-required={input.field !== "company"}
+                    aria-invalid={Boolean(fieldErrors[input.field as keyof FormState])}
+                    aria-describedby={fieldErrors[input.field as keyof FormState] ? "quote-error" : undefined}
                     aria-label={input.placeholder}
                     autoComplete={{ name: "name", phone: "tel", email: "email", company: "organization" }[input.field]}
                     value={form[input.field as keyof FormState]}
@@ -308,6 +314,10 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
 
                 <motion.textarea
                   name="message"
+                  readOnly={isSubmitting || hasSavedRequest}
+                  aria-required="true"
+                  aria-invalid={Boolean(fieldErrors.message)}
+                  aria-describedby={fieldErrors.message ? "quote-error" : undefined}
                   aria-label="Detalle cotización"
                   value={form.message}
                   onChange={handleChange("message")}
@@ -322,6 +332,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                 <AnimatePresence>
                   {status.type === "error" && (
                     <motion.div
+                      id="quote-error"
                       role="alert"
                       initial={{ opacity: 0, y: 8, filter: "blur(6px)" }}
                       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -337,13 +348,13 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                 <div className="flex flex-wrap items-center gap-2 pt-1">
                   <motion.button
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || hasSavedRequest}
                     whileHover={{ scale: isSubmitting ? 1 : 1.035 }}
                     whileTap={{ scale: isSubmitting ? 1 : 0.96 }}
                     className="menu-shell disabled:pointer-events-none disabled:opacity-70"
                   >
                     <span className="menu-pill is-active cotiza-pill omnes-text text-[14px] font-semibold">
-                      {isSubmitting ? "Enviando..." : "Enviar solicitud"}
+                      {isSubmitting ? "Enviando..." : hasSavedRequest ? "Solicitud guardada" : "Enviar solicitud"}
                     </span>
                   </motion.button>
 
@@ -453,7 +464,12 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                       }}
                       whileHover={{ y: -2, scale: 1.012 }}
                       whileTap={{ scale: 0.965 }}
+                      name="service"
+                      aria-invalid={Boolean(fieldErrors.service)}
                       onClick={() => handleSelectService(item.label)}
+                      disabled={isSubmitting || hasSavedRequest}
+                      aria-pressed={selectedService === item.label}
+                      aria-describedby={fieldErrors.service ? "quote-error" : undefined}
                       className={`relative flex min-h-[50px] items-center gap-3 overflow-hidden rounded-[15px] px-4 text-left transition duration-300 ${isSelected
                           ? "border border-white/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.16),rgba(255,255,255,0.055))] text-white shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_0_24px_rgba(255,255,255,0.07)]"
                           : "border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.03))] text-white/84 hover:border-white/22 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.11),rgba(255,255,255,0.04))]"
