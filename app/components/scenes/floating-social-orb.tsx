@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useOrbInteraction } from "../experience/use-orb-interaction";
 
 const Spline = dynamic(() => import("@splinetool/react-spline"), {
   ssr: false,
@@ -33,6 +34,9 @@ type SplineObject = {
 };
 
 type SplineApp = {
+  setGlobalEvents?: (global: boolean) => void;
+  emitEvent?: (event: "mouseHover", name: string) => void;
+  emitEventReverse?: (event: "mouseHover", name: string) => void;
   findObjectByName?: (name: string) => SplineObject | undefined;
   setVariable?: (name: string, value: number | boolean | string) => void;
   setVariables?: (variables: Record<string, number | boolean | string>) => void;
@@ -221,6 +225,8 @@ export default function FloatingSocialOrb({
   resetKey = null,
 }: FloatingSocialOrbProps) {
   const [shouldRenderSpline, setShouldRenderSpline] = useState(false);
+  const [isSplineReady, setIsSplineReady] = useState(false);
+  const loadIdleTimeoutRef = useRef<number | null>(null);
   const [soundEnabled, setSoundEnabled] = useState(false);
 
   const orbWrapRef = useRef<HTMLDivElement | null>(null);
@@ -1053,6 +1059,7 @@ export default function FloatingSocialOrb({
     const targetName = eventRaw?.target?.name;
 
     if (targetName !== VIEW_ACT_OBJECT_NAME) return;
+    if (!orbInteractionActive.current) return;
     if (isPageHiddenRef.current) return;
 
     isViewActHoveringRef.current = true;
@@ -1079,6 +1086,7 @@ export default function FloatingSocialOrb({
 
   useEffect(() => {
     return () => {
+      if (loadIdleTimeoutRef.current) window.clearTimeout(loadIdleTimeoutRef.current);
       cancelEyesResetAnimation();
       clearEyeBlinkTimers();
       clearIdleDanceTimers();
@@ -1113,6 +1121,7 @@ export default function FloatingSocialOrb({
     const splineApp = splineAppRaw as SplineApp;
 
     splineAppRef.current = splineApp;
+    splineApp.setGlobalEvents?.(false);
 
     const orbRoot = splineApp.findObjectByName?.(ORB_ROOT_OBJECT_NAME);
 
@@ -1175,15 +1184,18 @@ export default function FloatingSocialOrb({
     resetOrbDanceTransforms();
     scheduleEyesPositionReset();
 
-    window.setTimeout(() => {
+    if (loadIdleTimeoutRef.current) window.clearTimeout(loadIdleTimeoutRef.current);
+    loadIdleTimeoutRef.current = window.setTimeout(() => {
+      loadIdleTimeoutRef.current = null;
       if (isPageHiddenRef.current) return;
 
       startIdleDanceLoop();
       startEyeBlinkLoop();
     }, 600);
+    setIsSplineReady(true);
   };
 
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (event: { clientX: number; clientY: number }) => {
     if (isPageHiddenRef.current) return;
 
     const wrap = orbWrapRef.current;
@@ -1217,19 +1229,28 @@ export default function FloatingSocialOrb({
     eyesControl.position.z = center.z;
   };
 
-  const handleOrbPointerEnter = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (event.pointerType !== "mouse") return;
-
-    hasViewActSoundPlayedForCurrentHoverRef.current = false;
-  };
-
-  const handleOrbLeave = () => {
+  const handleOrbLeave = (resumeIdle: boolean) => {
+    splineAppRef.current?.emitEventReverse?.("mouseHover", VIEW_ACT_OBJECT_NAME);
     isViewActHoveringRef.current = false;
     hasViewActSoundPlayedForCurrentHoverRef.current = false;
 
-    scheduleEyesPositionReset();
-    restartIdleDanceLoop();
+    if (resumeIdle) {
+      scheduleEyesPositionReset();
+      restartIdleDanceLoop();
+    }
   };
+
+  const orbInteractionActive = useOrbInteraction({
+    wrapper: orbWrapRef,
+    enabled: visible && isSplineReady,
+    resetKey,
+    onEnter: () => {
+      splineAppRef.current?.emitEvent?.("mouseHover", VIEW_ACT_OBJECT_NAME);
+      handleSplineMouseHover({ target: { name: VIEW_ACT_OBJECT_NAME } });
+    },
+    onLeave: handleOrbLeave,
+    onMove: handleMouseMove,
+  });
 
   useEffect(() => {
     if (!visible) return;
@@ -1243,10 +1264,6 @@ export default function FloatingSocialOrb({
   return (
     <div
       ref={orbWrapRef}
-      onPointerEnter={handleOrbPointerEnter}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleOrbLeave}
-      onPointerLeave={handleOrbLeave}
       className={[
         "rubik-orb-wrap fixed bottom-2 right-2 z-[9999] hidden md:block",
         "h-[320px] w-[320px]",
@@ -1267,7 +1284,7 @@ export default function FloatingSocialOrb({
 
         {shouldRenderSpline && (
           <div className="absolute inset-0 flex items-center justify-center overflow-visible">
-            <div className="rubik-orb-spline h-[260px] w-[260px] overflow-visible">
+            <div className="rubik-orb-spline relative h-[260px] w-[260px] overflow-visible">
               <Spline
                 scene={SPLINE_SCENE_URL}
                 onLoad={handleSplineLoad}
