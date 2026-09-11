@@ -113,6 +113,23 @@ export default function Home() {
   const [isCubeHovered, setIsCubeHovered] = useState(false);
   const [isCotizaOpen, setIsCotizaOpen] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState<SelectedBrand | null>(null);
+  const brandReturnState = useRef<{ scroll: number; frameScroll: number; label: string | null } | null>(null);
+  useEffect(() => {
+    if (selectedBrand || !brandReturnState.current) return;
+    const previous = brandReturnState.current;
+    const restore = () => {
+      const button = [...document.querySelectorAll<HTMLButtonElement>('button[aria-label]')]
+        .find(element => element.getAttribute('aria-label') === previous.label);
+      if (!button) return;
+      document.querySelector(".scene-stage-frame")?.scrollTo({ top: previous.frameScroll, behavior: "instant" });
+      button.focus({ preventScroll: true });
+      window.scrollTo({ top: previous.scroll, behavior: "instant" });
+    };
+    restore();
+    // Desktop waits for the existing scene exit animation before remounting.
+    const timer = window.setTimeout(restore, 650);
+    return () => window.clearTimeout(timer);
+  }, [selectedBrand]);
   const [isMobile, setIsMobile] = useState(false);
   const [isCompactDesktop, setIsCompactDesktop] = useState(false);
 
@@ -270,6 +287,7 @@ export default function Home() {
 
   const handleOpenBrandDetails = useCallback(
     (brand: SelectedBrand) => {
+      brandReturnState.current = { scroll: window.scrollY, frameScroll: document.querySelector(".scene-stage-frame")?.scrollTop ?? 0, label: document.activeElement?.getAttribute("aria-label") ?? null };
       if (isMobile) {
         setIsCotizaOpen(false);
         setSelectedBrand(brand);
@@ -288,7 +306,6 @@ export default function Home() {
   const handleCloseBrandDetails = useCallback(() => {
     if (isMobile) {
       setSelectedBrand(null);
-      scrollToSection("marcas");
       return;
     }
 
@@ -296,7 +313,7 @@ export default function Home() {
     setIsAnimating(true);
     setSelectedBrand(null);
     unlockAfterDelay();
-  }, [isMobile, scrollToSection, unlockAfterDelay]);
+  }, [isMobile, unlockAfterDelay]);
 
   const handleGoToServicios = useCallback(() => {
     setServicesResetKey((prev) => prev + 1);

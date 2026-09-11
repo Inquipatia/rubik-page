@@ -155,6 +155,13 @@ function WorkSceneContent({ activeWorkCard }: WorkSceneProps) {
   const [otherVariantIndex, setOtherVariantIndex] = useState(0);
   const [isImageZoomOpen, setIsImageZoomOpen] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
+  const detailRef = useRef<HTMLDivElement>(null);
+  const closeDetail = () => {
+    setIsDetailOpen(false);
+    setIsImageZoomOpen(false);
+  };
+
+  useDialogFocus(isDetailOpen, detailRef, closeDetail);
   useDialogFocus(isImageZoomOpen, previewRef, () => setIsImageZoomOpen(false));
 
   const activeProject = typedProjects[hoveredIndex] ?? typedProjects[0];
@@ -234,10 +241,6 @@ function WorkSceneContent({ activeWorkCard }: WorkSceneProps) {
     setIsDetailOpen(true);
   };
 
-  const closeDetail = () => {
-    setIsDetailOpen(false);
-    setIsImageZoomOpen(false);
-  };
 
   const openZoom = (index?: number) => {
     if (typeof index === "number") {
@@ -516,9 +519,9 @@ function WorkSceneContent({ activeWorkCard }: WorkSceneProps) {
               <div className="relative z-20 flex h-full w-full items-center justify-center px-4 py-20 sm:px-8 lg:px-12">
                   <div
                     className="relative h-[min(calc(100dvh-160px),1384px)] w-[min(92vw,1300px)]"
+                    onClick={keepImageClickInside}
                   >
                     <GalleryImage
-                      onClick={keepImageClickInside}
                       adjacentSources={zoomDetailGallery.length > 1 ? [zoomDetailGallery[(detailImageIndex + 1) % zoomDetailGallery.length], zoomDetailGallery[(detailImageIndex - 1 + zoomDetailGallery.length) % zoomDetailGallery.length]] : []}
                       src={activeZoomDetailImage}
                       fallbackSrc={activeDetailImage}
@@ -872,6 +875,7 @@ function WorkSceneContent({ activeWorkCard }: WorkSceneProps) {
           ) : typeof document !== "undefined" ? createPortal(
             <motion.div
               className="rubik-work-detail-overlay fixed inset-0 z-[60] overflow-y-auto bg-[rgba(7,3,18,0.86)] px-4 pb-6 pt-[120px] backdrop-blur-[10px] sm:px-5 sm:pt-[128px] md:pt-[136px] lg:z-[180] lg:flex lg:items-center lg:justify-center lg:bg-transparent lg:px-4 lg:py-6 lg:backdrop-blur-0"
+              onClick={closeDetail}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -896,6 +900,7 @@ function WorkSceneContent({ activeWorkCard }: WorkSceneProps) {
                   ease: [0.16, 1, 0.3, 1],
                 }}
                 className="rubik-service-detail-card relative z-10 mx-auto w-full max-w-[720px] pb-8 lg:max-w-[1160px] lg:pb-0"
+                ref={detailRef}
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="relative overflow-visible rounded-[28px] border border-white/10 bg-white/[0.018] p-3 shadow-[0_18px_46px_rgba(0,0,0,0.18)] backdrop-blur-[2px] sm:p-4 lg:p-4">

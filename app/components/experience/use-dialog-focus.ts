@@ -2,9 +2,11 @@
 
 import { useEffect, useEffectEvent, type RefObject } from "react";
 
+const openDialogs: RefObject<HTMLElement | null>[] = [];
+
 export function useDialogFocus(
   open: boolean,
-  ref: RefObject<HTMLDivElement | null>,
+  ref: RefObject<HTMLElement | null>,
   onClose: () => void,
 ) {
   const close = useEffectEvent(onClose);
@@ -12,8 +14,12 @@ export function useDialogFocus(
     if (!open) return;
     const previous = document.activeElement as HTMLElement | null;
     const dialog = ref.current;
+    if (!dialog) return;
+    openDialogs.push(ref);
     dialog?.querySelector<HTMLElement>("button")?.focus({ preventScroll: true });
     const onKeyDown = (event: KeyboardEvent) => {
+      const dialog = ref.current;
+      if (openDialogs.at(-1) !== ref || !dialog) return;
       if (event.key === "Escape") {
         event.preventDefault();
         event.stopPropagation();
@@ -41,7 +47,10 @@ export function useDialogFocus(
     document.addEventListener("keydown", onKeyDown);
     return () => {
       document.removeEventListener("keydown", onKeyDown);
-      if (previous?.isConnected) previous.focus({ preventScroll: true });
+      const wasTopmost = openDialogs.at(-1) === ref;
+      const index = openDialogs.indexOf(ref);
+      if (index !== -1) openDialogs.splice(index, 1);
+      if (wasTopmost && previous?.isConnected) previous.focus({ preventScroll: true });
     };
   }, [open, ref]);
 }

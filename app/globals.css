@@ -2807,3 +2807,12 @@ body:has([role="dialog"]) .rubik-orb-wrap {
     scroll-behavior: auto !important;
   }
 }
+
+/* Retain the brand card dimensions; scroll its content when it exceeds the window. */
+.brand-detail-scroll {
+  max-height: calc(100dvh - 8rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+[data-brand-backdrop] { cursor: pointer !important; }

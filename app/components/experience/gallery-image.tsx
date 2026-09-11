@@ -6,15 +6,24 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 type Props = Omit<ComponentProps<typeof Image>, "src" | "fill"> & { src: string; fallbackSrc?: string; adjacentSources?: string[] };
 
-// With object-contain, letterboxing belongs to the backdrop, not the image.
-export function keepImageClickInside(event: MouseEvent<HTMLImageElement>) {
+// Protect the whole content container, including while the image is loading.
+export function keepImageClickInside(event: MouseEvent<HTMLElement>) {
+  event.stopPropagation();
+}
+
+// An object-contain image has transparent bands that are still backdrop.
+export function keepContainedImageClickInside(event: MouseEvent<HTMLImageElement>) {
   const image = event.currentTarget;
-  const rect = image.getBoundingClientRect();
-  const scale = Math.min(rect.width / image.naturalWidth, rect.height / image.naturalHeight);
-  const width = image.naturalWidth * scale;
-  const height = image.naturalHeight * scale;
-  if (Math.abs(event.clientX - rect.left - rect.width / 2) <= width / 2 &&
-      Math.abs(event.clientY - rect.top - rect.height / 2) <= height / 2) event.stopPropagation();
+  if (!image.naturalWidth || !image.naturalHeight || event.detail === 0) {
+    event.stopPropagation();
+    return;
+  }
+  const box = image.getBoundingClientRect();
+  const scale = Math.min(box.width / image.naturalWidth, box.height / image.naturalHeight);
+  if (Math.abs(event.clientX - box.left - box.width / 2) <= image.naturalWidth * scale / 2 &&
+      Math.abs(event.clientY - box.top - box.height / 2) <= image.naturalHeight * scale / 2) {
+    event.stopPropagation();
+  }
 }
 
 /** Keep the last decoded image visible while its replacement loads. */

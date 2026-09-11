@@ -4,8 +4,9 @@ import { useEffect, useMemo, useRef, useState, type ComponentProps } from "react
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { createPortal } from "react-dom";
-import GalleryImage, { keepImageClickInside } from "@/app/components/experience/gallery-image";
+import GalleryImage, { keepImageClickInside, keepContainedImageClickInside } from "@/app/components/experience/gallery-image";
 import { useDialogFocus } from "@/app/components/experience/use-dialog-focus";
+import { BrandDismissBackdrop } from "@/app/components/experience/brand-dismiss-backdrop";
 
 type BrandWorkItem = {
   image: string;
@@ -79,21 +80,18 @@ function BrandDetailsContent({
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLElement>(null);
+  useDialogFocus(true, cardRef, onBack);
   useDialogFocus(isPreviewOpen, previewRef, () => setIsPreviewOpen(false));
 
   useEffect(() => {
-    if (!isPreviewOpen) return;
-
     const previousOverflow = document.body.style.overflow;
-
-    if (isPreviewOpen) {
-      document.body.style.overflow = "hidden";
-    }
+    document.body.style.overflow = "hidden";
 
     return () => {
       document.body.style.overflow = previousOverflow;
     };
-  }, [isPreviewOpen]);
+  }, []);
 
   const totalPages = Math.max(1, Math.ceil(safeWorks.length / WORKS_PER_PAGE));
   const currentPage = Math.floor(activeIndex / WORKS_PER_PAGE);
@@ -188,9 +186,8 @@ function BrandDetailsContent({
 
                 <div
                   className="absolute inset-x-0 top-0 z-30 flex items-center justify-between p-4 sm:p-5 lg:p-6"
-                  onClick={(e) => e.stopPropagation()}
                 >
-                  <div className="omnes-text rounded-full border border-white/12 bg-black/20 px-4 py-2 text-sm text-white/82 backdrop-blur">
+                  <div onClick={keepImageClickInside} className="omnes-text rounded-full border border-white/12 bg-black/20 px-4 py-2 text-sm text-white/82 backdrop-blur">
                     Vista ampliada
                   </div>
 
@@ -239,7 +236,7 @@ function BrandDetailsContent({
                       className="relative h-[min(calc(100dvh-170px),1246px)] w-[min(calc(100vw-64px),1172px)]"
                     >
                       <GalleryImage
-                        onClick={keepImageClickInside}
+                        onClick={keepContainedImageClickInside}
                         adjacentSources={safeWorks.length > 1 ? [getBrandZoomImage(safeWorks[(activeIndex + 1) % safeWorks.length]), getBrandZoomImage(safeWorks[(activeIndex - 1 + safeWorks.length) % safeWorks.length])] : []}
                         src={activeWorkZoomImage}
                         fallbackSrc={activeWork.image}
@@ -271,15 +268,14 @@ function BrandDetailsContent({
 
   return (
     <>
-      <div className="relative h-full w-full">
-        <button
-          type="button"
-          aria-label="Volver a marcas"
-          onClick={onBack}
-          className="absolute inset-0 z-0 block h-full w-full cursor-default bg-transparent"
-        />
+      <BrandDismissBackdrop contentRef={cardRef} onClose={onBack} />
+      <div className="brand-detail-scroll relative h-full w-full">
 
         <section
+          ref={cardRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Galería de ${brandName}`}
           className="rubik-brand-detail relative z-10 mx-auto w-full max-w-[1040px] rounded-[28px] border border-white/12 bg-white/[0.045] px-4 pb-4 pt-4 backdrop-blur-xl sm:px-5 sm:pb-5 sm:pt-5 lg:px-5 lg:pb-5 lg:pt-5"
           onClick={(e) => e.stopPropagation()}
         >
