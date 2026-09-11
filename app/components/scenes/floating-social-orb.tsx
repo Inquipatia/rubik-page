@@ -57,7 +57,7 @@ type DanceStep = {
 };
 
 const SPLINE_SCENE_URL =
-  "https://prod.spline.design/rWCCsSXcaU52lNsR/scene.splinecode";
+  "prod.spline.design/rWCCsSXcaU52lNsR/scene.splinecode";
 
 const HOVER_SOUND_URL = "/sounds/openningbbpop.mp3";
 const BOUNCE_SOUND_URL = "/sounds/jump2_join.mp3";
