@@ -41,8 +41,8 @@ const containerVariants: Variants = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.16,
-      delayChildren: 0.45,
+      staggerChildren: 0.03,
+      delayChildren: 0,
     },
   },
 };
@@ -62,7 +62,7 @@ const cardVariants: Variants = {
     scale: 1,
     filter: "blur(0px)",
     transition: {
-      duration: 0.85,
+      duration: 0.3,
       ease: [0.16, 1, 0.3, 1],
     },
   },
@@ -73,7 +73,7 @@ const innerVariants: Variants = {
   show: {
     transition: {
       staggerChildren: 0.055,
-      delayChildren: 0.12,
+      delayChildren: 0,
     },
   },
 };
@@ -267,7 +267,7 @@ export default function ContactScene() {
       <div className="rubik-contact-content w-full max-w-[1380px] px-4 sm:px-5 xl:px-8">
         <motion.div
           variants={headerContainerVariants}
-          initial="hidden"
+          initial={false}
           animate="show"
           className="mb-5 text-center xl:mb-6"
         >
@@ -390,8 +390,8 @@ export default function ContactScene() {
 
                     <div className="mt-3 space-y-2.5">
                       {[
-                        ["Lunes — Jueves", "09:00 — 19:00"],
-                        ["Viernes", "09:00 — 18:00"],
+                        ["Lunes — Jueves - Viernes", "09:00 — 18:00"],
+                        ["Martes - Miércoles", "09:00 — 19:00"],
                         ["Sábados — Domingos", "Cerrado"],
                       ].map(([day, hour]) => (
                         <motion.div
@@ -468,7 +468,7 @@ export default function ContactScene() {
                         Celular
                       </div>
                     </div>
-                        
+
                     <a
                       href="tel:+56966813628"
                       className="omnes-text mt-2.5 block text-[12px] leading-5 text-white/84 transition hover:text-white xl:text-[13px]"
@@ -481,7 +481,7 @@ export default function ContactScene() {
                     >
                       +56 9 765 35 734     ---      (Asesor Comercial)
                     </a>
-                    
+
                   </motion.div>
 
                   <motion.div
@@ -507,10 +507,16 @@ export default function ContactScene() {
                     </div>
 
                     <a
-                      href="mailto:contacto@rubikcreaciones.cl"
+                      href="mailto:c.guzman@rubikcreaciones.cl"
                       className="omnes-text mt-2.5 block break-all text-[12px] leading-5 text-white/84 transition hover:text-white xl:text-[13px]"
                     >
-                      contacto@rubikcreaciones.cl
+                      c.guzman@rubikcreaciones.cl
+                    </a>
+                    <a
+                      href="mailto:jrojas@rubikcreaciones.cl"
+                      className="omnes-text mt-2.5 block break-all text-[12px] leading-5 text-white/84 transition hover:text-white xl:text-[13px]"
+                    >
+                      jrojas@rubikcreaciones.cl
                     </a>
                   </motion.div>
                   <motion.div
@@ -528,7 +534,11 @@ export default function ContactScene() {
 
                     <p className="omnes-title mt-1 text-[1.05rem] leading-none text-white xl:text-[1.18rem]">
                       Rubik Studio
+
                     </p>
+                    <span className="omnes-text text-[8px] tracking-[0.08em] text-white/40 xl:text-[9px]">
+                      by Ht
+                    </span>
                   </motion.div>
                 </div>
               </motion.div>

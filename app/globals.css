@@ -2816,3 +2816,31 @@ body:has([role="dialog"]) .rubik-orb-wrap {
   scrollbar-width: thin;
 }
 [data-brand-backdrop] { cursor: pointer !important; }
+
+/* Stable visual bridge while the WebGL scene initializes. */
+.smooth-spline { position: relative; width: 100%; height: 100%; isolation: isolate; }
+.smooth-spline-poster, .smooth-spline-canvas { position: absolute; inset: 0; }
+.smooth-spline-poster { pointer-events: none; display: grid; place-items: center; opacity: 1; transition: opacity 1000ms cubic-bezier(.22,1,.36,1); }
+.smooth-spline-silhouette { width: 64%; aspect-ratio: 1; border-radius: 8%; transform: rotate(-18deg) skewY(8deg); background: repeating-linear-gradient(0deg, transparent 0 32%, #e0bcff25 32% 33.3%), repeating-linear-gradient(90deg, transparent 0 32%, #e0bcff25 32% 33.3%), linear-gradient(135deg, #8b65aa55, #24152e80 45%, #31225166); border: 1px solid #dfccff30; box-shadow: inset 12px 10px 40px #ffffff12, 0 0 65px #ab65ec20; }
+.smooth-spline--orb .smooth-spline-silhouette { position: absolute; left: 58.85%; top: 53.46%; width: 38.5%; border-radius: 50%; transform: translate(-50%, -50%); background: radial-gradient(circle at 35% 28%, #edb4f780, #9049cc50 48%, #39285650 75%); }
+.smooth-spline-canvas { opacity: 0; transform: scale(.985); filter: blur(4px); pointer-events: none; transition: opacity 1000ms cubic-bezier(.22,1,.36,1), transform 1000ms cubic-bezier(.22,1,.36,1), filter 1000ms ease-out; }
+.smooth-spline[data-ready="true"][data-active="true"] > .smooth-spline-canvas { opacity: 1; transform: none; filter: none; pointer-events: auto; }
+.smooth-spline[data-ready="true"] > .smooth-spline-poster { opacity: 0; }
+@media (max-width: 767px) { .smooth-spline-canvas { filter: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .smooth-spline-canvas { transform: none; filter: none; transition: opacity 180ms ease-out !important; }
+  .smooth-spline-poster { transition-duration: 180ms !important; }
+}
+
+/* Keep tablet navigation reachable beside the logo and above service details. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .rubik-header-logo { width: 180px; }
+  .rubik-header-logo img { transform: none; }
+  .rubik-work-detail-overlay { top: 108px; padding-top: 28px; }
+}
+
+/* Reentry only fades the live scene; its loading transform stays settled. */
+.smooth-spline[data-ready="true"][data-active="false"] > .smooth-spline-canvas {
+  transform: none;
+  filter: none;
+}

@@ -95,14 +95,14 @@ export default function FixedHeader({
                 aria-label="Ir al inicio"
                 className="flex shrink-0 items-center"
               >
-                <div className="relative h-[62px] w-[182px] overflow-visible sm:h-[70px] sm:w-[205px] md:h-[82px] md:w-[240px] lg:h-[108px] lg:w-[324px] xl:h-[126px] xl:w-[380px] 2xl:h-[136px] 2xl:w-[410px]">
+                <div className="rubik-header-logo relative h-[62px] w-[182px] overflow-visible sm:h-[70px] sm:w-[205px] md:h-[82px] md:w-[240px] lg:h-[108px] lg:w-[324px] xl:h-[126px] xl:w-[380px] 2xl:h-[136px] 2xl:w-[410px]">
                   <Image
                     src="/img/logo.png"
                     alt="Rubik"
                     fill
-                    priority
+                    preload
                     className="origin-left scale-[1.1] object-contain object-left"
-                    sizes="(max-width: 640px) 182px, (max-width: 768px) 205px, (max-width: 1024px) 240px, (max-width: 1280px) 324px, (max-width: 1536px) 380px, 410px"
+                    sizes="(max-width: 640px) 182px, (max-width: 768px) 205px, (max-width: 1023px) 180px, (max-width: 1280px) 324px, (max-width: 1536px) 380px, 410px"
                   />
                 </div>
               </button>
@@ -176,7 +176,7 @@ export default function FixedHeader({
                     src="/img/logo.png"
                     alt="Rubik"
                     fill
-                    priority
+                    loading="eager"
                     className="object-contain object-left"
                     sizes="126px"
                   />

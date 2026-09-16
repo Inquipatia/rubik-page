@@ -1,15 +1,10 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-
-const Spline = dynamic(() => import("@splinetool/react-spline"), {
-  ssr: false,
-  loading: () => null,
-});
+import SmoothSpline from "../experience/smooth-spline";
 
 type IntroSceneProps = {
+  active?: boolean;
   titleTop: string;
   titleBottom: string;
   description: string;
@@ -34,6 +29,7 @@ const revealLine = {
 };
 
 export default function IntroScene({
+  active = true,
   titleTop,
   titleBottom,
   description,
@@ -43,25 +39,13 @@ export default function IntroScene({
   onOpenCotiza,
   onGoToServicios,
 }: IntroSceneProps) {
-  const [canMountCube, setCanMountCube] = useState(false);
-
-  useEffect(() => {
-    const timer = window.setTimeout(() => {
-      setCanMountCube(true);
-    }, 1800);
-
-    return () => {
-      window.clearTimeout(timer);
-    };
-  }, []);
-
   return (
     <section className="relative h-full w-full overflow-visible">
       <div className="rubik-intro-shell mx-auto flex h-full w-full max-w-[1560px] items-center px-1 sm:px-2 lg:px-2 xl:px-3">
         <div className="rubik-intro-layout grid w-full items-center gap-6 lg:grid-cols-[0.88fr_1.12fr] xl:grid-cols-[1.02fr_0.98fr] xl:gap-8">
           <div className="rubik-intro-copy relative z-20 max-w-[760px] md:max-w-[520px] lg:max-w-[640px] lg:-translate-x-8 lg:origin-left lg:scale-[0.84] xl:max-w-[620px] xl:-translate-x-12 xl:scale-100 2xl:max-w-[680px] 2xl:-translate-x-14">
             <motion.div
-              initial={{ opacity: 0, y: 18, scale: 0.94 }}
+              initial={false}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{
                 duration: 0.75,
@@ -78,7 +62,7 @@ export default function IntroScene({
                 <motion.span
                   className="block"
                   variants={revealLine}
-                  initial="hidden"
+                  initial={false}
                   animate="visible"
                   transition={{
                     duration: 1.15,
@@ -94,7 +78,7 @@ export default function IntroScene({
                 <motion.span
                   className="block bg-gradient-to-r from-white via-white to-white/70 bg-clip-text text-transparent"
                   variants={revealLine}
-                  initial="hidden"
+                  initial={false}
                   animate="visible"
                   transition={{
                     duration: 1.25,
@@ -108,7 +92,7 @@ export default function IntroScene({
             </h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 22, filter: "blur(10px)" }}
+              initial={false}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{
                 duration: 0.85,
@@ -121,7 +105,7 @@ export default function IntroScene({
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.98 }}
+              initial={false}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{
                 duration: 0.75,
@@ -165,9 +149,7 @@ export default function IntroScene({
                 2xl:h-[500px] 2xl:max-w-[560px] 2xl:translate-x-12
               "  
             >
-              {canMountCube && (
-                <Spline scene="https://prod.spline.design/wk0u6G-MY2bbyF6i/scene.splinecode" />
-              )}
+              <SmoothSpline priority active={active} pauseWhenHidden={false} scene="https://prod.spline.design/wk0u6G-MY2bbyF6i/scene.splinecode" />
             </div>
           </div>
         </div>

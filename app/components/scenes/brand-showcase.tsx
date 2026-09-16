@@ -526,7 +526,7 @@ export default function BrandShowcase({
     >
       <div className="w-full -translate-y-2 sm:-translate-y-1 lg:-translate-y-3 xl:-translate-y-4">
         <motion.div
-          initial="hidden"
+          initial={false}
           animate="visible"
           className="mx-auto max-w-[760px] text-center xl:max-w-[800px] 2xl:max-w-[840px]"
         >
@@ -538,7 +538,7 @@ export default function BrandShowcase({
                 y: 0,
                 scale: 1,
                 transition: {
-                  duration: 0.55,
+                  duration: 0.3,
                   ease: [0.16, 1, 0.3, 1],
                 },
               },
@@ -551,7 +551,7 @@ export default function BrandShowcase({
           <h2 className="omnes-title mt-3 overflow-hidden text-[clamp(2rem,3.4vw,3.8rem)] leading-[1.03] tracking-[-0.05em] text-white">
             <motion.span
               className="inline-block"
-              initial={{ y: "115%", opacity: 0, filter: "blur(12px)" }}
+              initial={false}
               animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
               transition={{
                 duration: 0.95,
@@ -564,7 +564,7 @@ export default function BrandShowcase({
           </h2>
 
           <motion.p
-            initial={{ opacity: 0, y: 18, filter: "blur(10px)" }}
+            initial={false}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{
               duration: 0.75,
@@ -584,7 +584,7 @@ export default function BrandShowcase({
           animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
           transition={{
             duration: 0.75,
-            delay: 0.5,
+            delay: 0,
             ease: [0.16, 1, 0.3, 1],
           }}
           className="relative mx-auto mt-4 max-w-[1380px] rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-[1px] shadow-[0_14px_34px_rgba(0,0,0,0.2)] xl:max-w-[1420px] 2xl:max-w-[1480px]"
@@ -627,8 +627,8 @@ export default function BrandShowcase({
                       filter: "blur(0px)",
                     }}
                     transition={{
-                      duration: 0.55,
-                      delay: 0.65 + index * 0.035,
+                      duration: 0.3,
+                      delay: Math.min(index * 0.015, 0.12),
                       ease: [0.16, 1, 0.3, 1],
                     }}
                     /* Acá comienza el contenedor de las marcas */

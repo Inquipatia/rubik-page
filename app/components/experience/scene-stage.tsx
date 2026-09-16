@@ -24,88 +24,12 @@ type SceneStageProps = {
 };
 
 const defaultSceneVariants: Variants = {
-  initial: {
-    opacity: 0,
-    y: 28,
-    scale: 0.985,
-    filter: "blur(14px)",
-  },
-  animate: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    filter: "blur(0px)",
-    transition: {
-      duration: 0.32,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  },
-  exit: {
-    opacity: 0,
-    y: -34,
-    scale: 0.975,
-    filter: "blur(16px)",
-    transition: {
-      duration: 0.2,
-      ease: [0.7, 0, 0.84, 0],
-    },
-  },
+  initial: { opacity: 0.7, y: 6 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.22, ease: [0.16, 1, 0.3, 1] } },
+  exit: { opacity: 0, transition: { duration: 0.15 } },
 };
-
-const introToBrandsVariants: Variants = {
-  initial: {
-    opacity: 0,
-    y: 46,
-    scale: 0.965,
-    filter: "blur(18px)",
-  },
-  animate: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    filter: "blur(0px)",
-    transition: {
-      duration: 0.35,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  },
-  exit: {
-    opacity: 0,
-    y: -52,
-    scale: 1.025,
-    filter: "blur(22px)",
-    transition: {
-      duration: 0.2,
-      ease: [0.7, 0, 0.84, 0],
-    },
-  },
-};
-
-const cotizaSceneVariants: Variants = {
-  initial: {
-    opacity: 0,
-    y: 18,
-    filter: "blur(12px)",
-  },
-  animate: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: {
-      duration: 0.32,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  },
-  exit: {
-    opacity: 0,
-    y: -14,
-    filter: "blur(12px)",
-    transition: {
-      duration: 0.2,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
+const introToBrandsVariants = defaultSceneVariants;
+const cotizaSceneVariants = defaultSceneVariants;
 
 function StageFrame({
   children,
@@ -117,7 +41,7 @@ function StageFrame({
   return (
     <div className="scene-stage-frame mx-auto box-border flex h-full w-full max-w-[1220px] flex-col px-3 pb-3 pt-[96px] sm:px-4 sm:pb-4 sm:pt-[102px] md:px-5 md:pt-[108px] lg:px-6 lg:pt-[114px] xl:px-8 xl:pt-[120px]">
       <div
-        className={`relative h-full w-full ${
+        className={`relative grid h-full w-full ${
           allowOverflow ? "overflow-visible" : "overflow-hidden"
         }`}
       >
@@ -202,14 +126,27 @@ export default function SceneStage({
       }`}
     >
       <StageFrame allowOverflow={allowWideInteraction}>
-        <AnimatePresence mode="wait">
-          <motion.div
+        <div aria-hidden={!isIntroStage} inert={!isIntroStage} style={{ opacity: isIntroStage ? 1 : 0, pointerEvents: isIntroStage ? "auto" : "none", transition: "opacity 200ms ease-out" }} className="relative col-start-1 row-start-1 h-full min-w-0">
+          <IntroScene
+                      active={isIntroStage}
+                      titleTop="EL EQUIPO QUE"
+                      titleBottom="CONCRETA TUS IDEAS"
+                      description="CON MÁS DE 100 TRABAJOS REALIZADOS, RUBIK CREACIONES CRECE CONTIGO, ¿QUÉ ESPERAS PARA TRABAJAR JUNTOS?"
+                      primary="Cotiza con nosotros"
+                      secondary="Ver nuestros trabajos"
+                      onCubeHoverChange={onCubeHoverChange}
+                      onOpenCotiza={onOpenCotiza}
+                      onGoToServicios={onGoToServicios}
+                    />
+        </div>
+        <AnimatePresence mode="sync">
+          {!isIntroStage && <motion.div
             key={currentKey}
             variants={currentVariants}
             initial={isIntroStage ? false : "initial"}
             animate="animate"
             exit="exit"
-            className={`relative h-full w-full [transform:translateZ(0)] [transform-style:preserve-3d] will-change-transform ${
+            className={`relative col-start-1 row-start-1 h-full w-full min-w-0 [transform:translateZ(0)] [transform-style:preserve-3d] will-change-transform ${
               allowWideInteraction ? "overflow-visible" : "overflow-hidden"
             }`}
           >
@@ -257,19 +194,6 @@ export default function SceneStage({
                 />
               ) : (
                 <>
-                  {activeScene === 0 && (
-                    <IntroScene
-                      titleTop="EL EQUIPO QUE"
-                      titleBottom="CONCRETA TUS IDEAS"
-                      description="CON MÁS DE 100 TRABAJOS REALIZADOS, RUBIK CREACIONES CRECE CONTIGO, ¿QUÉ ESPERAS PARA TRABAJAR JUNTOS?"
-                      primary="Cotiza con nosotros"
-                      secondary="Ver nuestros trabajos"
-                      onCubeHoverChange={onCubeHoverChange}
-                      onOpenCotiza={onOpenCotiza}
-                      onGoToServicios={onGoToServicios}
-                    />
-                  )}
-
                   {activeScene === 1 && (
                     <BrandShowcase onOpenBrandDetails={onOpenBrandDetails} />
                   )}
@@ -285,7 +209,7 @@ export default function SceneStage({
                 </>
               )}
             </motion.div>
-          </motion.div>
+          </motion.div>}
         </AnimatePresence>
       </StageFrame>
     </section>

@@ -1,13 +1,8 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import SmoothSpline from "../experience/smooth-spline";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useOrbInteraction } from "../experience/use-orb-interaction";
-
-const Spline = dynamic(() => import("@splinetool/react-spline"), {
-  ssr: false,
-  loading: () => null,
-});
 
 type FloatingSocialOrbProps = {
   visible?: boolean;
@@ -224,7 +219,7 @@ export default function FloatingSocialOrb({
   className = "",
   resetKey = null,
 }: FloatingSocialOrbProps) {
-  const [shouldRenderSpline, setShouldRenderSpline] = useState(false);
+  const shouldRenderSpline = true;
   const [isSplineReady, setIsSplineReady] = useState(false);
   const loadIdleTimeoutRef = useRef<number | null>(null);
   const [soundEnabled, setSoundEnabled] = useState(false);
@@ -1075,16 +1070,6 @@ export default function FloatingSocialOrb({
   };
 
   useEffect(() => {
-    if (!visible || shouldRenderSpline) return;
-
-    const timeout = window.setTimeout(() => {
-      setShouldRenderSpline(true);
-    }, 100);
-
-    return () => window.clearTimeout(timeout);
-  }, [visible, shouldRenderSpline]);
-
-  useEffect(() => {
     return () => {
       if (loadIdleTimeoutRef.current) window.clearTimeout(loadIdleTimeoutRef.current);
       cancelEyesResetAnimation();
@@ -1275,17 +1260,13 @@ export default function FloatingSocialOrb({
       aria-hidden={!visible}
     >
       <div className="relative h-full w-full overflow-visible">
-        {!shouldRenderSpline && visible && (
-          <>
-            <div className="pointer-events-none absolute inset-[34px] rounded-full border border-white/10 bg-white/5 backdrop-blur-sm" />
-            <div className="pointer-events-none absolute left-1/2 top-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-fuchsia-500/15 blur-3xl" />
-          </>
-        )}
-
         {shouldRenderSpline && (
           <div className="absolute inset-0 flex items-center justify-center overflow-visible">
             <div className="rubik-orb-spline relative h-[260px] w-[260px] overflow-visible">
-              <Spline
+              <SmoothSpline
+                idle
+                appearance="orb"
+                active={visible}
                 scene={SPLINE_SCENE_URL}
                 onLoad={handleSplineLoad}
                 onSplineMouseHover={handleSplineMouseHover}

@@ -184,33 +184,27 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
   return (
     <section className="rubik-cotiza-scene relative flex min-h-[calc(100vh-118px)] w-full items-start justify-center overflow-hidden px-4 pt-10 pb-5 sm:pt-11 sm:pb-6 lg:px-6 lg:pt-12 lg:pb-6">
       <motion.div
-        initial={{ opacity: 0, y: 28, scale: 0.98, filter: "blur(10px)" }}
+        initial={false}
         animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
         exit={{ opacity: 0, y: -14, scale: 0.985, filter: "blur(8px)" }}
         transition={shellTransition}
         className="rubik-cotiza-content relative mx-auto mt-3 w-full max-w-[980px] transform-gpu will-change-transform lg:mt-4 lg:max-w-[1060px] xl:max-w-[1120px]"
       >
         <div className="pointer-events-none absolute inset-0 -z-10">
-          <motion.div
-            animate={{ y: [0, -16, 0], x: [0, 10, 0], scale: [1, 1.12, 1] }}
-            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+          <div
             className="absolute left-[10%] top-[8%] h-24 w-24 rounded-full bg-fuchsia-500/16 blur-3xl"
           />
-          <motion.div
-            animate={{ y: [0, 18, 0], x: [0, -12, 0], scale: [1, 1.16, 1] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          <div
             className="absolute bottom-[10%] right-[8%] h-28 w-28 rounded-full bg-violet-500/16 blur-3xl"
           />
-          <motion.div
-            animate={{ opacity: [0.35, 0.8, 0.35], scale: [1, 1.25, 1] }}
-            transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
+          <div
             className="absolute left-1/2 top-[18%] h-20 w-20 -translate-x-1/2 rounded-full bg-white/8 blur-2xl"
           />
         </div>
 
         <div className="rubik-cotiza-header mb-5 flex items-start justify-between gap-4 lg:mb-6">
           <motion.div
-            initial={{ opacity: 0, x: -16 }}
+            initial={false}
             animate={{ opacity: 1, x: 0 }}
             transition={{
               delay: 0.04,
@@ -264,7 +258,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
 
         <div className="rubik-cotiza-grid grid gap-3 lg:grid-cols-[1.04fr_0.96fr] lg:gap-4">
           <motion.div
-            initial={{ opacity: 0, x: -20, y: 8, scale: 0.992 }}
+            initial={false}
             animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
             exit={{ opacity: 0, x: -10, y: -4, scale: 0.995 }}
             transition={{ delay: 0.08, ...cardTransition }}
@@ -306,7 +300,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                     placeholder={input.placeholder}
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.16 + index * 0.045, duration: 0.24 }}
+                    transition={{ delay: index * 0.015, duration: 0.24 }}
                     whileFocus={{ scale: 1.012 }}
                     className="h-[44px] rounded-[15px] border border-white/10 bg-black/20 px-4 text-[15px] text-white outline-none transition duration-300 placeholder:text-white/42 focus:border-white/24 focus:bg-white/[0.07] focus:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_0_16px_rgba(143,92,255,0.12)]"
                   />
@@ -324,7 +318,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                   placeholder="Detalle cotización"
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.36, duration: 0.24 }}
+                  transition={{ delay: 0.05, duration: 0.24 }}
                   whileFocus={{ scale: 1.008 }}
                   className="min-h-[132px] rounded-[15px] border border-white/10 bg-black/20 px-4 py-3 text-[15px] text-white outline-none transition duration-300 placeholder:text-white/42 focus:border-white/24 focus:bg-white/[0.07] focus:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_0_16px_rgba(143,92,255,0.12)]"
                 />
@@ -431,7 +425,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 20, y: 8, scale: 0.992 }}
+            initial={false}
             animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
             exit={{ opacity: 0, x: 10, y: -4, scale: 0.995 }}
             transition={{ delay: 0.12, ...cardTransition }}
@@ -458,7 +452,7 @@ export default function CotizaScene({ onClose }: CotizaSceneProps) {
                       initial={{ opacity: 0, y: 8, scale: 0.98 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       transition={{
-                        delay: 0.18 + index * 0.045,
+                        delay: index * 0.015,
                         duration: 0.24,
                         ease: [0.22, 1, 0.36, 1],
                       }}

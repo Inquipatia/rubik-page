@@ -206,7 +206,7 @@ export default function Home() {
     unlockTimerRef.current = window.setTimeout(() => {
       wheelLockRef.current = false;
       setIsAnimating(false);
-    }, 550);
+    }, 320);
   }, []);
 
   const goNext = useCallback(() => {
@@ -239,8 +239,6 @@ export default function Home() {
         if (targetId) scrollToSection(targetId);
         return;
       }
-
-      if (wheelLockRef.current) return;
 
       wheelLockRef.current = true;
       setIsAnimating(true);
@@ -379,8 +377,7 @@ export default function Home() {
   const shouldShowOverlayUi = !isMobile && !isCotizaOpen && !selectedBrand;
 
   /**
-   * Ahora el orbe se monta desde el inicio en desktop.
-   * El cubo será el que se retrase desde intro-scene.tsx.
+   * El orbe conserva su instancia en desktop; el hero comienza sin demora.
    */
   const shouldMountOrb = !isMobile;
 

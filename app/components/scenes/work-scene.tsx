@@ -826,7 +826,7 @@ function WorkSceneContent({ activeWorkCard }: WorkSceneProps) {
                                 fill
                                 sizes="(max-width: 1024px) 100vw, (max-width: 1699px) 565px, (max-width: 1919px) 615px, 665px"
                                 className="object-cover object-center"
-                                priority
+                                loading="lazy"
                               />
 
                               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.04),rgba(0,0,0,0.34))]" />
