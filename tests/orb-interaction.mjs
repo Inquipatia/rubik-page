@@ -89,7 +89,7 @@ try {
     await state('IDLE');
     await enter();
     await page.evaluate(() => document.dispatchEvent(new Event('scroll')));
-    await state('IDLE');
+    await state('ACTIVE');
     await enter();
     await page.setViewportSize({ width: width - 10, height: height - 10 });
     await page.waitForTimeout(500);

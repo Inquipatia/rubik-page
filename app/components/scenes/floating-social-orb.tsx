@@ -2,7 +2,7 @@
 
 import SmoothSpline from "../experience/smooth-spline";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useOrbInteraction } from "../experience/use-orb-interaction";
+import { useOrbFrames, useOrbInteraction } from "../experience/use-orb-interaction";
 
 type FloatingSocialOrbProps = {
   visible?: boolean;
@@ -53,6 +53,13 @@ type DanceStep = {
 
 const SPLINE_SCENE_URL =
   "https://prod.spline.design/rWCCsSXcaU52lNsR/scene.splinecode";
+const reportedMissingObjects = new Set<string>();
+
+function reportMissingObject(name: string) {
+  if (process.env.NODE_ENV !== "development" || reportedMissingObjects.has(name)) return;
+  reportedMissingObjects.add(name);
+  console.warn(`[Rubik/Spline] No se encontró ${name} en ${SPLINE_SCENE_URL}`);
+}
 
 const HOVER_SOUND_URL = "/sounds/openningbbpop.mp3";
 const BOUNCE_SOUND_URL = "/sounds/jump2_join.mp3";
@@ -219,9 +226,9 @@ export default function FloatingSocialOrb({
   className = "",
   resetKey = null,
 }: FloatingSocialOrbProps) {
+  const { requestFrame, cancelFrame } = useOrbFrames();
   const shouldRenderSpline = true;
   const [isSplineReady, setIsSplineReady] = useState(false);
-  const loadIdleTimeoutRef = useRef<number | null>(null);
   const [soundEnabled, setSoundEnabled] = useState(false);
 
   const orbWrapRef = useRef<HTMLDivElement | null>(null);
@@ -480,7 +487,7 @@ export default function FloatingSocialOrb({
 
   const cancelIdleDanceAnimation = () => {
     if (idleDanceAnimationFrameRef.current) {
-      window.cancelAnimationFrame(idleDanceAnimationFrameRef.current);
+      cancelFrame(idleDanceAnimationFrameRef.current);
       idleDanceAnimationFrameRef.current = null;
     }
 
@@ -519,7 +526,7 @@ export default function FloatingSocialOrb({
       applyTransformSnapshot(orbRootRef.current, frame);
 
       if (elapsed < totalDuration) {
-        idleDanceAnimationFrameRef.current = window.requestAnimationFrame(
+        idleDanceAnimationFrameRef.current = requestFrame(
           animate
         );
         return;
@@ -530,12 +537,12 @@ export default function FloatingSocialOrb({
       resetOrbDanceTransforms();
     };
 
-    idleDanceAnimationFrameRef.current = window.requestAnimationFrame(animate);
+    idleDanceAnimationFrameRef.current = requestFrame(animate);
   };
 
   const cancelEyesResetAnimation = () => {
     if (resetAnimationFrameRef.current) {
-      window.cancelAnimationFrame(resetAnimationFrameRef.current);
+      cancelFrame(resetAnimationFrameRef.current);
       resetAnimationFrameRef.current = null;
     }
   };
@@ -591,14 +598,14 @@ export default function FloatingSocialOrb({
         startZ + (center.z - startZ) * easedProgress;
 
       if (rawProgress < 1) {
-        resetAnimationFrameRef.current = window.requestAnimationFrame(animate);
+        resetAnimationFrameRef.current = requestFrame(animate);
       } else {
         resetAnimationFrameRef.current = null;
         resetEyesPosition();
       }
     };
 
-    resetAnimationFrameRef.current = window.requestAnimationFrame(animate);
+    resetAnimationFrameRef.current = requestFrame(animate);
   };
 
   const scheduleEyesPositionReset = () => {
@@ -607,7 +614,7 @@ export default function FloatingSocialOrb({
 
   const cancelBlinkAnimation = () => {
     if (blinkAnimationFrameRef.current) {
-      window.cancelAnimationFrame(blinkAnimationFrameRef.current);
+      cancelFrame(blinkAnimationFrameRef.current);
       blinkAnimationFrameRef.current = null;
     }
   };
@@ -715,7 +722,7 @@ export default function FloatingSocialOrb({
       });
 
       if (elapsed <= totalDuration) {
-        blinkAnimationFrameRef.current = window.requestAnimationFrame(animate);
+        blinkAnimationFrameRef.current = requestFrame(animate);
       } else {
         blinkAnimationFrameRef.current = null;
         resetBlinkScale();
@@ -723,7 +730,7 @@ export default function FloatingSocialOrb({
       }
     };
 
-    blinkAnimationFrameRef.current = window.requestAnimationFrame(animate);
+    blinkAnimationFrameRef.current = requestFrame(animate);
   };
 
   const startEyeBlinkLoop = () => {
@@ -918,13 +925,7 @@ export default function FloatingSocialOrb({
     scheduleEyesPositionReset();
     startEyeBlinkLoop();
 
-    window.setTimeout(() => {
-      if (!visibleRef.current) return;
-      if (isPageHiddenRef.current) return;
-      if (isViewActHoveringRef.current) return;
-
-      startIdleDanceLoop();
-    }, 180);
+    startIdleDanceLoop();
   };
 
   useEffect(() => {
@@ -1071,7 +1072,6 @@ export default function FloatingSocialOrb({
 
   useEffect(() => {
     return () => {
-      if (loadIdleTimeoutRef.current) window.clearTimeout(loadIdleTimeoutRef.current);
       cancelEyesResetAnimation();
       clearEyeBlinkTimers();
       clearIdleDanceTimers();
@@ -1111,7 +1111,7 @@ export default function FloatingSocialOrb({
     const orbRoot = splineApp.findObjectByName?.(ORB_ROOT_OBJECT_NAME);
 
     if (!orbRoot) {
-      console.warn(`No encontré ${ORB_ROOT_OBJECT_NAME} en Spline`);
+      reportMissingObject(ORB_ROOT_OBJECT_NAME);
     } else {
       orbRootRef.current = orbRoot;
       applyTransformSnapshot(orbRootRef.current, ORB_ROOT_DANCE_STATES.base);
@@ -1122,7 +1122,7 @@ export default function FloatingSocialOrb({
     );
 
     if (!eyesControl) {
-      console.warn(`No encontré ${EYES_CONTROL_OBJECT_NAME} en Spline`);
+      reportMissingObject(EYES_CONTROL_OBJECT_NAME);
     }
 
     if (eyesControl) {
@@ -1148,9 +1148,8 @@ export default function FloatingSocialOrb({
     ) as SplineObject[];
 
     if (blinkObjects.length !== 2) {
-      console.warn(
-        "No encontré ambos objetos de parpadeo. Revisa que se llamen eyeLeftBlink y eyeRightBlink."
-      );
+      if (!eyeLeftBlink) reportMissingObject(EYE_LEFT_BLINK_OBJECT_NAME);
+      if (!eyeRightBlink) reportMissingObject(EYE_RIGHT_BLINK_OBJECT_NAME);
     } else {
       blinkObjectsRef.current = blinkObjects;
 
@@ -1169,14 +1168,8 @@ export default function FloatingSocialOrb({
     resetOrbDanceTransforms();
     scheduleEyesPositionReset();
 
-    if (loadIdleTimeoutRef.current) window.clearTimeout(loadIdleTimeoutRef.current);
-    loadIdleTimeoutRef.current = window.setTimeout(() => {
-      loadIdleTimeoutRef.current = null;
-      if (isPageHiddenRef.current) return;
-
-      startIdleDanceLoop();
-      startEyeBlinkLoop();
-    }, 600);
+    startIdleDanceLoop();
+    startEyeBlinkLoop();
     setIsSplineReady(true);
   };
 
@@ -1199,8 +1192,8 @@ export default function FloatingSocialOrb({
     const normalizedY =
       ((event.clientY - rect.top) / rect.height - 0.5) * 2;
 
-    const safeX = Math.abs(normalizedX) < EYES_DEAD_ZONE ? 0 : normalizedX;
-    const safeY = Math.abs(normalizedY) < EYES_DEAD_ZONE ? 0 : normalizedY;
+    const safeX = Math.abs(normalizedX) < EYES_DEAD_ZONE ? 0 : Math.max(-1, Math.min(1, normalizedX));
+    const safeY = Math.abs(normalizedY) < EYES_DEAD_ZONE ? 0 : Math.max(-1, Math.min(1, normalizedY));
 
     const targetX = center.x + safeX * EYES_MAX_X;
     const targetY = center.y - safeY * EYES_MAX_Y;
@@ -1235,6 +1228,8 @@ export default function FloatingSocialOrb({
     },
     onLeave: handleOrbLeave,
     onMove: handleMouseMove,
+    requestFrame,
+    cancelFrame,
   });
 
   useEffect(() => {
@@ -1266,6 +1261,7 @@ export default function FloatingSocialOrb({
               <SmoothSpline
                 idle
                 appearance="orb"
+                pauseWhenHidden={false}
                 active={visible}
                 scene={SPLINE_SCENE_URL}
                 onLoad={handleSplineLoad}

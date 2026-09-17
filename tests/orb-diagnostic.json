@@ -1,0 +1,441 @@
+[
+  {
+    "orb": false,
+    "disposed": false,
+    "stopped": false,
+    "objects": [
+      {
+        "name": "Orbit_Helper",
+        "id": "94d76d2e-54e2-427c-8157-5bf335aa0694",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "name": "Cube_Master",
+        "id": "3d3f8f7b-2d39-42a4-8f3d-0418c3d6bddd",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "name": "Top",
+        "id": "d5d6657b-0011-4f28-a9a5-846f2364764c",
+        "position": {
+          "x": 0,
+          "y": 105,
+          "z": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "name": "Bottom",
+        "id": "f298b9bf-1615-4ddd-8357-bea00f9e7a7a",
+        "position": {
+          "x": 0,
+          "y": -105,
+          "z": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "name": "Center",
+        "id": "ab17ac01-1e46-42d4-8af3-e730f225bf1d",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      }
+    ],
+    "controls": [
+      "eventContext",
+      "isEnabled",
+      "gameControl",
+      "joysticks",
+      "joystickToGameControls",
+      "sharedGameControlGlobals",
+      "sensorToTriggerEvent",
+      "eventManager",
+      "needsCollisionDetection",
+      "initializationCounter",
+      "fixedBodiesToWatch",
+      "rigidBodyToMesh",
+      "nActiveRigidBodies",
+      "collisionEvents",
+      "isExport",
+      "skipRender",
+      "_staticBVHAttrIds",
+      "_staticBVHNextAttrId",
+      "processRigidBody",
+      "accumulator",
+      "handleCollisionEvents",
+      "sharedAssets",
+      "renderer",
+      "requestRender",
+      "domElement",
+      "pixelsPerMeter",
+      "gravity",
+      "usePhysics",
+      "orbitControls"
+    ]
+  },
+  {
+    "orb": true,
+    "disposed": false,
+    "stopped": false,
+    "objects": [
+      {
+        "name": "Deleted Components",
+        "id": "830a2708-8ed9-49cf-a68e-085299892222",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "name": "眼睛",
+        "id": "392ceaf6-a07f-4a05-9221-663a04135abd",
+        "position": {
+          "x": -50,
+          "y": 30,
+          "z": 311.4473108708496
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "name": "Rectangle",
+        "id": "6e332d38-cd21-4d7c-b87f-a3f8886ddc40",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "name": "exc",
+        "id": "7a7ec321-a570-47af-b392-20136c6ca38d",
+        "position": {
+          "x": 4.83798583419896,
+          "y": -149.45227352384518,
+          "z": -114.76933758379523
+        },
+        "scale": {
+          "x": 0.11499585406520514,
+          "y": 0.09396497087358777,
+          "z": 0.07910307380499029
+        }
+      },
+      {
+        "name": "int.png",
+        "id": "58f834a7-4fad-40b1-be9f-1eeaf79c91c4",
+        "position": {
+          "x": 123.08592858877908,
+          "y": 91.23388967384868,
+          "z": -215.775937766789
+        },
+        "scale": {
+          "x": 1.2485686140527132,
+          "y": 1.334787953932483,
+          "z": 1.013418780926055
+        }
+      },
+      {
+        "name": "ViewAct",
+        "id": "37c194a5-8937-43bc-b6b5-7efbdc10123f",
+        "position": {
+          "x": -174.91269960595415,
+          "y": 8.710665217461246,
+          "z": 161.16618840575487
+        },
+        "scale": {
+          "x": 1.0000000000000002,
+          "y": 1.0000000000000002,
+          "z": 1
+        }
+      },
+      {
+        "name": "orbRoot",
+        "id": "45984a26-6fd7-4d94-8aa0-43907af60b1f",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "name": "body",
+        "id": "a4e10bfd-8942-4f0c-b8a0-18ad63e0f393",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scale": {
+          "x": 1.084952511191368,
+          "y": 0.5437951636314393,
+          "z": 0.7934534412622452
+        }
+      },
+      {
+        "name": "Sphere",
+        "id": "632e981b-1725-433e-993b-33e87c0fe368",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "name": "eyes",
+        "id": "029c4225-603b-438a-8bb0-10e9a6f07230",
+        "position": {
+          "x": 5.916612985596656,
+          "y": 28.428169332818456,
+          "z": 0
+        },
+        "scale": {
+          "x": 0.9759268603198513,
+          "y": 0.9999999999999998,
+          "z": 0.9003173025968085
+        }
+      },
+      {
+        "name": "eyesControl",
+        "id": "0066aa0f-8ae8-4ec6-8e1e-1eded82e0feb",
+        "position": {
+          "x": 5.787200674457539,
+          "y": 4.7637778209196755,
+          "z": 311.45
+        },
+        "scale": {
+          "x": 1,
+          "y": 0.38349162936210635,
+          "z": 1
+        }
+      },
+      {
+        "name": "eye left",
+        "id": "1f8cf9bd-0639-4a27-b6d4-21a35c5e9ccc",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "name": "eyeLeftBlink",
+        "id": "0ebfe46e-e542-4f2c-8c7d-9a3767113a9e",
+        "position": {
+          "x": -99.16198985843585,
+          "y": -1.0263627025315287,
+          "z": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "name": "eye right",
+        "id": "4123947f-37c1-43d5-ba68-6297c1f6db22",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "name": "eyeRightBlink",
+        "id": "2829b529-84fa-48aa-b496-633586e61a4c",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "name": "Social Media",
+        "id": "77052e71-989f-435f-bc1f-93f59d7af5e5",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scale": {
+          "x": 0.1,
+          "y": 0.1,
+          "z": 0.1
+        }
+      },
+      {
+        "name": "instragram_orb",
+        "id": "084e3ae7-db31-477b-bc17-3cd6be235cb6",
+        "position": {
+          "x": -1285.9652748340523,
+          "y": 1642.143287585993,
+          "z": -1617.5699423638332
+        },
+        "scale": {
+          "x": 8.902369514107704,
+          "y": 8.902369514107704,
+          "z": 8.902369514107704
+        }
+      },
+      {
+        "name": "linkedin_orb",
+        "id": "930810fc-cf2c-4df2-909f-8190a71389e9",
+        "position": {
+          "x": -2745.1620349715927,
+          "y": 905.5312715049484,
+          "z": -669.8743261895207
+        },
+        "scale": {
+          "x": 8.902369514107704,
+          "y": 8.902369514107704,
+          "z": 8.902369514107704
+        }
+      },
+      {
+        "name": "facebook_orb",
+        "id": "53a9ee38-3409-4431-a1c3-0ec6ca9e4e33",
+        "position": {
+          "x": 1071.3330207376262,
+          "y": 1695.6780965061,
+          "z": -1451.6703558154193
+        },
+        "scale": {
+          "x": 8.902369514107704,
+          "y": 8.902369514107704,
+          "z": 8.902369514107704
+        }
+      },
+      {
+        "name": "whatsapp_orb",
+        "id": "dddd87d1-5245-49a5-9394-62d55df8bb3e",
+        "position": {
+          "x": -2657.2447449379238,
+          "y": -802.6668383993293,
+          "z": 646.542951011048
+        },
+        "scale": {
+          "x": 8.902369514107704,
+          "y": 8.902369514107704,
+          "z": 8.936619979143142
+        }
+      },
+      {
+        "name": "Camera 2",
+        "id": "b2693890-fa6b-427d-98e9-d561b57f68c7",
+        "position": {
+          "x": -167.531399480667,
+          "y": 112.06453805305597,
+          "z": 597.9039541753571
+        },
+        "scale": {
+          "x": 0.9999999999999996,
+          "y": 0.9999999999999994,
+          "z": 1.0000000000000002
+        }
+      }
+    ],
+    "controls": [
+      "eventContext",
+      "isEnabled",
+      "gameControl",
+      "joysticks",
+      "joystickToGameControls",
+      "sharedGameControlGlobals",
+      "sensorToTriggerEvent",
+      "eventManager",
+      "needsCollisionDetection",
+      "initializationCounter",
+      "fixedBodiesToWatch",
+      "rigidBodyToMesh",
+      "nActiveRigidBodies",
+      "collisionEvents",
+      "isExport",
+      "skipRender",
+      "_staticBVHAttrIds",
+      "_staticBVHNextAttrId",
+      "processRigidBody",
+      "accumulator",
+      "handleCollisionEvents",
+      "sharedAssets",
+      "renderer",
+      "requestRender",
+      "domElement",
+      "pixelsPerMeter",
+      "gravity",
+      "usePhysics"
+    ]
+  }
+]

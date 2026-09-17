@@ -1,13 +1,17 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion, type Variants } from "framer-motion";
+import dynamic from "next/dynamic";
 import IntroScene from "@/app/components/scenes/intro-scene";
 import BrandShowcase from "@/app/components/scenes/brand-showcase";
-import BrandDetailsScene from "@/app/components/scenes/brand-details-scene";
 import WorkScene from "@/app/components/scenes/work-scene";
 import ContactScene from "@/app/components/scenes/contact-scene";
 import CotizaScene from "@/app/components/scenes/cotiza-scene";
 import type { SelectedBrand } from "@/app/page";
+
+const BrandDetailsScene = dynamic(() => import("@/app/components/scenes/brand-details-scene"), {
+  loading: () => <div className="min-h-[58vh]" role="status" aria-label="Cargando trabajos" />,
+});
 
 type SceneStageProps = {
   activeScene: number;
@@ -21,6 +25,7 @@ type SceneStageProps = {
   onOpenBrandDetails: (brand: SelectedBrand) => void;
   onCloseBrandDetails: () => void;
   servicesResetKey: number;
+  overlay?: React.ReactNode;
 };
 
 const defaultSceneVariants: Variants = {
@@ -34,9 +39,11 @@ const cotizaSceneVariants = defaultSceneVariants;
 function StageFrame({
   children,
   allowOverflow = false,
+  overlay,
 }: {
   children: React.ReactNode;
   allowOverflow?: boolean;
+  overlay?: React.ReactNode;
 }) {
   return (
     <div className="scene-stage-frame mx-auto box-border flex h-full w-full max-w-[1220px] flex-col px-3 pb-3 pt-[96px] sm:px-4 sm:pb-4 sm:pt-[102px] md:px-5 md:pt-[108px] lg:px-6 lg:pt-[114px] xl:px-8 xl:pt-[120px]">
@@ -47,6 +54,7 @@ function StageFrame({
       >
         {children}
       </div>
+      <aside className="contents" aria-label="Redes sociales">{overlay}</aside>
     </div>
   );
 }
@@ -63,6 +71,7 @@ export default function SceneStage({
   onOpenBrandDetails,
   onCloseBrandDetails,
   servicesResetKey,
+  overlay,
 }: SceneStageProps) {
   const reduceMotion = useReducedMotion();
   const currentKey = isCotizaOpen
@@ -125,7 +134,7 @@ export default function SceneStage({
         allowWideInteraction ? "overflow-visible" : "overflow-hidden"
       }`}
     >
-      <StageFrame allowOverflow={allowWideInteraction}>
+      <StageFrame allowOverflow={allowWideInteraction} overlay={overlay}>
         <div aria-hidden={!isIntroStage} inert={!isIntroStage} style={{ opacity: isIntroStage ? 1 : 0, pointerEvents: isIntroStage ? "auto" : "none", transition: "opacity 200ms ease-out" }} className="relative col-start-1 row-start-1 h-full min-w-0">
           <IntroScene
                       active={isIntroStage}

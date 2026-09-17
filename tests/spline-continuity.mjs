@@ -11,6 +11,7 @@ const browser = await chromium.launch({ channel: 'chrome', headless: true });
 const results = [];
 try {
   for (const [width, height, reducedMotion] of [[1366, 768, 'no-preference'], [1920, 1080, 'no-preference'], [768, 1024, 'no-preference'], [1366, 768, 'reduce']]) {
+    if (process.env.UX_WIDTHS && !process.env.UX_WIDTHS.split(',').includes(String(width))) continue;
     const page = await browser.newPage({ viewport: { width, height }, reducedMotion });
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
@@ -22,6 +23,8 @@ try {
       if (body.includes('get isStopped(){return this._isPaused}')) {
         body = body.replace(/this\.canvas=(\w+),this\.renderMode=/,
           'this.canvas=$1,(window.__splineApps??=[]).push(this),this.renderMode=');
+        body = body.replace(/this\.canvas\s*=\s*(\w+),\s*this\._htmlContentMode\s*=/,
+          'this.canvas=$1,(window.__splineApps??=[]).push(this),this._htmlContentMode=');
       }
       await route.fulfill({ response, body });
     });

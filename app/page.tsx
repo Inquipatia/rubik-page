@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { MotionConfig } from "framer-motion";
+import dynamic from "next/dynamic";
 import {
   FaInstagram,
   FaFacebookF,
@@ -14,11 +15,14 @@ import SceneStage from "@/app/components/experience/scene-stage";
 import ScrollProgress from "@/app/components/experience/scroll-progress";
 import IntroScene from "@/app/components/scenes/intro-scene";
 import BrandShowcase from "@/app/components/scenes/brand-showcase";
-import BrandDetailsScene from "@/app/components/scenes/brand-details-scene";
 import WorkScene from "@/app/components/scenes/work-scene";
 import ContactScene from "@/app/components/scenes/contact-scene";
 import CotizaScene from "@/app/components/scenes/cotiza-scene";
 import FloatingSocialOrb from "@/app/components/scenes/floating-social-orb";
+
+const BrandDetailsScene = dynamic(() => import("@/app/components/scenes/brand-details-scene"), {
+  loading: () => <div className="min-h-[58vh]" role="status" aria-label="Cargando trabajos" />,
+});
 
 export type BrandWorkItem = {
   image: string;
@@ -336,14 +340,21 @@ export default function Home() {
     const onWheel = (event: WheelEvent) => {
       if (event.ctrlKey || document.body.style.overflow === "hidden") return;
       const target = event.target instanceof Element ? event.target : null;
-      const scrollFrame = target?.closest(".scene-stage-frame");
-      if (scrollFrame && scrollFrame.scrollHeight > scrollFrame.clientHeight + 1) return;
+      // Height alone is not enough: the persistent, hidden hero can overflow
+      // the grid while overflow-y is visible. Yield only to a real scroller
+      // that can consume this direction; allow scene navigation at its ends.
+      for (let element = target; element && element !== document.body; element = element.parentElement) {
+        if (!/^(auto|scroll)$/.test(getComputedStyle(element).overflowY)) continue;
+        const remaining = element.scrollHeight - element.clientHeight - element.scrollTop;
+        if (element.scrollHeight > element.clientHeight + 1 &&
+          (event.deltaY > 0 ? remaining > 1 : element.scrollTop > 1)) return;
+      }
       if (isCotizaOpen) return;
       if (selectedBrand) return;
-      if (isCubeHovered) return;
+      if (activeScene === 0 && isCubeHovered) return;
       if (wheelLockRef.current || isAnimating) return;
 
-      const threshold = 52;
+      const threshold = activeScene === 2 ? 1 : 52;
       if (Math.abs(event.deltaY) < threshold) return;
 
       wheelLockRef.current = true;
@@ -372,6 +383,7 @@ export default function Home() {
     isCotizaOpen,
     selectedBrand,
     isMobile,
+    activeScene,
   ]);
 
   const shouldShowOverlayUi = !isMobile && !isCotizaOpen && !selectedBrand;
@@ -379,7 +391,6 @@ export default function Home() {
   /**
    * El orbe conserva su instancia en desktop; el hero comienza sin demora.
    */
-  const shouldMountOrb = !isMobile;
 
   return (
     <MotionConfig reducedMotion="user">
@@ -468,6 +479,7 @@ export default function Home() {
             onOpenBrandDetails={handleOpenBrandDetails}
             onCloseBrandDetails={handleCloseBrandDetails}
             servicesResetKey={servicesResetKey}
+            overlay={<FloatingSocialOrb resetKey={orbResetKey} />}
           />
         )}
 
@@ -479,7 +491,6 @@ export default function Home() {
           </div>
         )}
 
-        {shouldMountOrb && <FloatingSocialOrb resetKey={orbResetKey} />}
 
         {/*
           Deja esto comentado mientras pruebas el orbe para que no aparezcan ambos.

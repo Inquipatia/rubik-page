@@ -1,0 +1,332 @@
+[
+  {
+    "width": 1366,
+    "zones": [
+      {
+        "zone": 1,
+        "before": {
+          "target": "IMG",
+          "classes": "origin-left scale-[1.1] object-contain object-left",
+          "scroll": 0,
+          "height": 768,
+          "total": 938,
+          "overflow": "visible"
+        },
+        "after": {
+          "services": false,
+          "scroll": 0
+        }
+      },
+      {
+        "zone": 2,
+        "before": {
+          "target": "DIV",
+          "classes": "grid grid-cols-[1fr_auto] items-center md:grid-cols-[1fr_auto_1fr] md:gap-4",
+          "scroll": 0,
+          "height": 768,
+          "total": 938,
+          "overflow": "visible"
+        },
+        "after": {
+          "services": false,
+          "scroll": 0
+        }
+      },
+      {
+        "zone": 3,
+        "before": {
+          "target": "DIV",
+          "classes": "grid grid-cols-[1fr_auto] items-center md:grid-cols-[1fr_auto_1fr] md:gap-4",
+          "scroll": 0,
+          "height": 768,
+          "total": 938,
+          "overflow": "visible"
+        },
+        "after": {
+          "services": false,
+          "scroll": 0
+        }
+      },
+      {
+        "zone": 4,
+        "before": {
+          "target": "DIV",
+          "classes": "omnes-text mt-1.5 text-[14px] transition text-white/78 min-[1700px]:text-[14.5px]",
+          "scroll": 0,
+          "height": 768,
+          "total": 1019,
+          "overflow": "visible"
+        },
+        "after": {
+          "services": false,
+          "scroll": 0
+        }
+      },
+      {
+        "zone": 5,
+        "before": {
+          "target": "DIV",
+          "classes": "absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.04),rgba(0,0,0,0.34))]",
+          "scroll": 0,
+          "height": 768,
+          "total": 938,
+          "overflow": "visible"
+        },
+        "after": {
+          "services": false,
+          "scroll": 0
+        }
+      },
+      {
+        "zone": 6,
+        "before": {
+          "target": "DIV",
+          "classes": "absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.04),rgba(0,0,0,0.34))]",
+          "scroll": 0,
+          "height": 768,
+          "total": 938,
+          "overflow": "visible"
+        },
+        "after": {
+          "services": false,
+          "scroll": 0
+        }
+      },
+      {
+        "zone": 7,
+        "before": {
+          "target": "DIV",
+          "classes": "omnes-text mt-1.5 text-[14px] transition text-white/78 min-[1700px]:text-[14.5px]",
+          "scroll": 0,
+          "height": 768,
+          "total": 945,
+          "overflow": "visible"
+        },
+        "after": {
+          "services": false,
+          "scroll": 0
+        }
+      },
+      {
+        "zone": 8,
+        "before": {
+          "target": "DIV",
+          "classes": "rounded-[20px] bg-[#2c1760] p-2.5 min-[1700px]:rounded-[22px] min-[1700px]:p-3 2xl:rounded-[24px] 2xl:p-3.5",
+          "scroll": 0,
+          "height": 768,
+          "total": 846,
+          "overflow": "visible"
+        },
+        "after": {
+          "services": false,
+          "scroll": 0
+        }
+      },
+      {
+        "zone": 9,
+        "before": {
+          "target": "CANVAS",
+          "classes": "",
+          "scroll": 0,
+          "height": 768,
+          "total": 938,
+          "overflow": "visible"
+        },
+        "after": {
+          "services": false,
+          "scroll": 0
+        }
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "zones": [
+      {
+        "zone": 1,
+        "before": {
+          "target": "DIV",
+          "classes": "omnes-text mb-3 inline-flex rounded-full border border-white/10 bg-white/[0.08] px-4 py-2 text-[13px] text-white/84",
+          "scroll": 0,
+          "height": 768,
+          "total": 1506,
+          "overflow": "auto"
+        },
+        "after": {
+          "services": true,
+          "scroll": 180
+        }
+      },
+      {
+        "zone": 2,
+        "before": {
+          "target": "DIV",
+          "classes": "max-w-[500px] justify-self-start min-[1700px]:max-w-[530px] 2xl:max-w-[560px]",
+          "scroll": 0,
+          "height": 768,
+          "total": 1506,
+          "overflow": "auto"
+        },
+        "after": {
+          "services": true,
+          "scroll": 180
+        }
+      },
+      {
+        "zone": 3,
+        "before": {
+          "target": "DIV",
+          "classes": "rubik-work-overview grid min-h-0 grid-cols-1 gap-4 lg:grid-cols-[0.84fr_1.16fr] min-[1700px]:gap-5 2xl:gap-6",
+          "scroll": 0,
+          "height": 768,
+          "total": 1506,
+          "overflow": "auto"
+        },
+        "after": {
+          "services": true,
+          "scroll": 180
+        }
+      },
+      {
+        "zone": 4,
+        "before": {
+          "target": "DIV",
+          "classes": "omnes-text mt-1.5 text-[14px] transition text-white/78 min-[1700px]:text-[14.5px]",
+          "scroll": 0,
+          "height": 768,
+          "total": 1589,
+          "overflow": "auto"
+        },
+        "after": {
+          "services": true,
+          "scroll": 180
+        }
+      },
+      {
+        "zone": 5,
+        "before": {
+          "target": "BUTTON",
+          "classes": "group relative flex w-full items-center justify-between overflow-hidden rounded-[18px] border px-5 py-3.5 text-left transition-all duration-300 border-white/25 bg-white/10 shadow-[0_14px_34px_rgba(0,0,0,0.28)] min-[1700px]:px-5 min-[1700px]:py-4",
+          "scroll": 0,
+          "height": 768,
+          "total": 1589,
+          "overflow": "auto"
+        },
+        "after": {
+          "services": true,
+          "scroll": 180
+        }
+      },
+      {
+        "zone": 6,
+        "before": {
+          "target": "DIV",
+          "classes": "rubik-work-overview grid min-h-0 grid-cols-1 gap-4 lg:grid-cols-[0.84fr_1.16fr] min-[1700px]:gap-5 2xl:gap-6",
+          "scroll": 0,
+          "height": 768,
+          "total": 1589,
+          "overflow": "auto"
+        },
+        "after": {
+          "services": true,
+          "scroll": 180
+        }
+      },
+      {
+        "zone": 7,
+        "before": {
+          "target": "DIV",
+          "classes": "omnes-text mt-1.5 text-[14px] transition text-white/78 min-[1700px]:text-[14.5px]",
+          "scroll": 0,
+          "height": 768,
+          "total": 1509,
+          "overflow": "auto"
+        },
+        "after": {
+          "services": true,
+          "scroll": 180
+        }
+      },
+      {
+        "zone": 8,
+        "before": {
+          "target": "BUTTON",
+          "classes": "group relative flex w-full items-center justify-between overflow-hidden rounded-[18px] border px-5 py-3.5 text-left transition-all duration-300 border-white/25 bg-white/10 shadow-[0_14px_34px_rgba(0,0,0,0.28)] min-[1700px]:px-5 min-[1700px]:py-4",
+          "scroll": 0,
+          "height": 768,
+          "total": 1509,
+          "overflow": "auto"
+        },
+        "after": {
+          "services": true,
+          "scroll": 180
+        }
+      },
+      {
+        "zone": 9,
+        "before": {
+          "target": "CANVAS",
+          "classes": "",
+          "scroll": 0,
+          "height": 768,
+          "total": 1509,
+          "overflow": "auto"
+        },
+        "after": {
+          "services": true,
+          "scroll": 180
+        }
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "touches": [
+      {
+        "zone": 1,
+        "before": 1578,
+        "after": 1659
+      },
+      {
+        "zone": 2,
+        "before": 1578,
+        "after": 1659
+      },
+      {
+        "zone": 3,
+        "before": 1578,
+        "after": 1659
+      },
+      {
+        "zone": 4,
+        "before": 1578,
+        "after": 1659
+      },
+      {
+        "zone": 5,
+        "before": 1578,
+        "after": 1683
+      },
+      {
+        "zone": 6,
+        "before": 1578,
+        "after": 1659
+      },
+      {
+        "zone": 7,
+        "before": 1578,
+        "after": 1659
+      },
+      {
+        "zone": 8,
+        "before": 1578,
+        "after": 1659
+      },
+      {
+        "zone": 9,
+        "before": 1578,
+        "after": 1659
+      }
+    ]
+  }
+]

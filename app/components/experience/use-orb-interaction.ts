@@ -1,6 +1,38 @@
 "use client";
 
-import { useEffect, useEffectEvent, useRef, type RefObject } from "react";
+import { useCallback, useEffect, useEffectEvent, useRef, type RefObject } from "react";
+
+/** Eyes, reset, blink and dance share a single browser RAF. */
+export function useOrbFrames() {
+  const callbacks = useRef(new Map<number, FrameRequestCallback>());
+  const frame = useRef(0);
+  const sequence = useRef(0);
+  const requestFrame = useCallback((callback: FrameRequestCallback) => {
+    const id = ++sequence.current;
+    callbacks.current.set(id, callback);
+    if (!frame.current) frame.current = requestAnimationFrame(time => {
+      frame.current = 0;
+      const pending = [...callbacks.current.entries()];
+      for (const [key, run] of pending) {
+        if (!callbacks.current.delete(key)) continue;
+        run(time);
+      }
+    });
+    return id;
+  }, []);
+  const cancelFrame = useCallback((id: number) => {
+    callbacks.current.delete(id);
+    if (!callbacks.current.size) {
+      cancelAnimationFrame(frame.current);
+      frame.current = 0;
+    }
+  }, []);
+  useEffect(() => {
+    const pending = callbacks.current;
+    return () => { cancelAnimationFrame(frame.current); frame.current = 0; pending.clear(); };
+  }, []);
+  return { requestFrame, cancelFrame };
+}
 
 // Enable only while calibrating locally. Production never renders this overlay.
 const DEBUG_ORB_INTERACTION = false;
@@ -22,9 +54,11 @@ type Options = {
   onEnter: () => void;
   onLeave: (resumeIdle: boolean) => void;
   onMove: (point: { clientX: number; clientY: number }) => void;
+  requestFrame: (callback: FrameRequestCallback) => number;
+  cancelFrame: (id: number) => void;
 };
 
-export function useOrbInteraction({ wrapper, enabled, resetKey, onEnter, onLeave, onMove }: Options) {
+export function useOrbInteraction({ wrapper, enabled, resetKey, onEnter, onLeave, onMove, requestFrame, cancelFrame }: Options) {
   const active = useRef(false);
   const enter = useEffectEvent(onEnter);
   const leave = useEffectEvent(onLeave);
@@ -69,7 +103,7 @@ export function useOrbInteraction({ wrapper, enabled, resetKey, onEnter, onLeave
       if (label) label.textContent = `${value} · ${lastTransition} · ${transitions}`;
     };
     const reset = () => {
-      if (frame) cancelAnimationFrame(frame);
+      if (frame) cancelFrame(frame);
       frame = 0;
       if (!active.current) return;
       active.current = false;
@@ -79,6 +113,9 @@ export function useOrbInteraction({ wrapper, enabled, resetKey, onEnter, onLeave
       state("IDLE");
     };
     const invalidate = () => { rect = null; reset(); };
+    // The orb is fixed. Scrolling does not move it away from the pointer and
+    // must not repeatedly close its hover animation or restart eye centering.
+    const onScroll = () => { rect = null; };
     const inZone = (x: number, y: number) => {
       const distance = Math.hypot(x - CENTER.x, y - CENTER.y);
       if (distance <= RADIUS + (active.current ? HYSTERESIS : 0)) return true;
@@ -91,6 +128,12 @@ export function useOrbInteraction({ wrapper, enabled, resetKey, onEnter, onLeave
         const t = Math.max(0, Math.min(1, ((x - CENTER.x) * dx + (y - CENTER.y) * dy) / (dx * dx + dy * dy)));
         return Math.hypot(x - CENTER.x - t * dx, y - CENTER.y - t * dy) <= 12 / 260;
       });
+    };
+    const follow = () => {
+      frame = 0;
+      if (!active.current) return;
+      move(point);
+      frame = requestFrame(follow);
     };
     const onPointer = (event: PointerEvent) => {
       const inSurface = event.target instanceof Node && surface.contains(event.target);
@@ -116,7 +159,7 @@ export function useOrbInteraction({ wrapper, enabled, resetKey, onEnter, onLeave
         state("ACTIVE");
       }
       point = { clientX: event.clientX, clientY: event.clientY };
-      if (!frame) frame = requestAnimationFrame(() => { frame = 0; if (active.current) move(point); });
+      if (!frame) frame = requestFrame(follow);
     };
     const guardMouse = (event: MouseEvent) => {
       if (event instanceof PointerEvent && event.pointerType === "touch") reset();
@@ -135,7 +178,7 @@ export function useOrbInteraction({ wrapper, enabled, resetKey, onEnter, onLeave
     document.documentElement.addEventListener("pointerleave", reset);
     window.addEventListener("blur", invalidate);
     window.addEventListener("resize", invalidate);
-    document.addEventListener("scroll", invalidate, true);
+    document.addEventListener("scroll", onScroll, true);
     document.addEventListener("visibilitychange", onVisibility);
     root.addEventListener("transitionend", invalidate);
     return () => {
@@ -153,10 +196,10 @@ export function useOrbInteraction({ wrapper, enabled, resetKey, onEnter, onLeave
       document.documentElement.removeEventListener("pointerleave", reset);
       window.removeEventListener("blur", invalidate);
       window.removeEventListener("resize", invalidate);
-      document.removeEventListener("scroll", invalidate, true);
+      document.removeEventListener("scroll", onScroll, true);
       document.removeEventListener("visibilitychange", onVisibility);
       root.removeEventListener("transitionend", invalidate);
     };
-  }, [wrapper, enabled, resetKey]);
+  }, [wrapper, enabled, resetKey, requestFrame, cancelFrame]);
   return active;
 }

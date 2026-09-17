@@ -2,10 +2,10 @@
 
 import dynamic from "next/dynamic";
 import { Component, useEffect, useRef, useState, type ComponentProps, type ReactNode } from "react";
-import type SplineComponent from "@splinetool/react-spline";
+import type SplineComponent from "./spline-canvas";
 import type { Application } from "@splinetool/runtime";
 
-const Spline = dynamic(() => import("@splinetool/react-spline"), { ssr: false, loading: () => null });
+const Spline = dynamic(() => import("./spline-canvas"), { ssr: false, loading: () => null });
 
 class SceneBoundary extends Component<{ children: ReactNode; onFailure: () => void }, { failed: boolean }> {
   state = { failed: false };
