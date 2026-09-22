@@ -2,11 +2,8 @@
 
 import { AnimatePresence, motion, useReducedMotion, type Variants } from "framer-motion";
 import dynamic from "next/dynamic";
+import { BrandShowcase, WorkScene, ContactScene, CotizaScene } from "@/app/components/experience/deferred-scenes";
 import IntroScene from "@/app/components/scenes/intro-scene";
-import BrandShowcase from "@/app/components/scenes/brand-showcase";
-import WorkScene from "@/app/components/scenes/work-scene";
-import ContactScene from "@/app/components/scenes/contact-scene";
-import CotizaScene from "@/app/components/scenes/cotiza-scene";
 import type { SelectedBrand } from "@/app/page";
 
 const BrandDetailsScene = dynamic(() => import("@/app/components/scenes/brand-details-scene"), {

@@ -1,43 +1,43 @@
-# Interacción del orbe Spline
+# Interacción del orbe: auditoría y calibración (2026-09-21)
 
-## Auditoría y alcance
+Diagnóstico posterior del glitch residual de ojos/Instagram: [orb-visual-glitches.md](orb-visual-glitches.md). La comparación A/B identificó residuos del antialiasing temporal de WebGPU, además de los conflictos de interacción documentados aquí.
 
-El componente mantiene su escena, modelo, materiales, escala, posición, sonidos, parpadeos y baile de reposo. No se cambiaron CSS globales, breakpoints ni dependencias.
+## Mapa de responsabilidades
 
-Antes del cambio, el seguimiento de ojos tomaba todo el wrapper de 320 × 320; el canvas normal mide 260 × 260. Había salidas React tanto por `mouseleave` como por `pointerleave`. La salida limpiaba referencias y ojos, pero no revertía explícitamente `ViewAct` en Spline. No había un reset por `window.blur` o `pointercancel`. Estas diferencias entre el estado local y el de Spline explican el riesgo de desincronización y la reacción en zonas transparentes.
+| Comportamiento | Responsable |
+| --- | --- |
+| Geometría, materiales, enlaces, despliegue de redes, squash de `body` | Spline |
+| Estado `closed` de `eyesControl` (posición y escala) | Spline |
+| Seguimiento y retorno al centro | React, ahora sobre el padre existente `eyes` |
+| Parpadeo periódico de `eyeLeftBlink` / `eyeRightBlink` | React; sus eventos Start de Spline están deshabilitados |
+| Baile periódico de `orbRoot`, sonidos | React, sin cambios |
+| Región lógica, apertura y cierre | `useOrbInteraction`, mediante eventos públicos de Spline |
 
-Se revisaron el diff previo (limpio al comenzar esta implementación), los listeners, la API instalada de Spline y la guía local de componentes cliente de Next.js. Se capturó el canvas real en Chrome antes de calibrar. El botón de sonido queda fuera de la zona y conserva sus handlers.
+## Evidencia y causa probable del artefacto
 
-## Implementación
+Se inspeccionó la escena publicada con runtime 2.0.53, sus objetos, jerarquía y eventos, además del código local y la guía instalada de Next.js. La escena tiene dos instancias activas (`eye left`, `eye right`). El componente fuente `眼睛` está oculto dentro de `Deleted Components`, también oculto. No se comprobó un tercer ojo visible y no se eliminó ni ocultó ningún objeto.
 
-- `app/components/experience/use-orb-interaction.ts`: controlador con refs, callbacks actualizados mediante `useEffectEvent` y estados IDLE → ENTER → ACTIVE → LEAVE → IDLE. Los cambios de estado son inmediatos; únicamente el seguimiento de ojos se agrupa mediante un RAF pendiente.
-- Centro normalizado del canvas `(153/260, 139/260)`, radio `50/260` e histéresis `3/260`. Las fracciones proceden de la captura calibrada, no de dimensiones absolutas aplicadas al DOM; siguen el tamaño CSS efectivo, incluidas sus transformaciones y DPR.
-- La activación inicial solo ocurre en el círculo. Una vez abierto, se admiten cuatro círculos sobre los botones sociales y corredores estrechos que permiten alcanzarlos. Las esquinas y el resto del canvas transparente quedan excluidos. Los botones no activan el orbe cerrado.
-- Captura de Pointer Events antes de Spline, eventos de Spline locales al canvas y llamadas públicas `emitEvent`/`emitEventReverse` para sincronizar `ViewAct`. No se cambia la escena ni se accede a estructuras privadas de Spline.
-- Reset por salida, cancelación, blur, documento oculto, scroll, resize y cambio de escena/visibilidad. Se invalidan las medidas con ResizeObserver y al terminar la transición del wrapper. No se añade `preventDefault` a gestos táctiles; el canvas conserva `touch-action: auto`.
-- La interacción espera a que Spline termine de cargar. Se cancela también el temporizador inicial de reposo al desmontar. El cleanup no vuelve a iniciar temporizadores de reposo.
-- `floating-social-orb.tsx` integra el controlador y elimina los handlers redundantes del wrapper. No hay `setState` por movimiento del cursor.
+El estado `closed` de `eyesControl` incluye posición `[0, 0, 311.45]` y escala `[1, 0.1, 1]`. Antes, el seguimiento y el recentrado de JS escribían posición sobre ese mismo objeto mientras Spline ejecutaba su transición. Además, el runtime procesa el hover por raycast de forma independiente a `emitEvent`: el raycast podía volver a entrar/salir de ViewAct y reiniciar o invertir las transiciones manuales. Ambas concurrencias están comprobadas; su relación con la pequeña forma blanca es una causa probable, no una prueba de un ojo duplicado.
 
-## Calibración y reproducción
+Se conserva la transición publicada. El seguimiento usa la posición del padre `eyes`, cuya ausencia de estados/eventos de posición se verificó; compensa su escala para conservar el recorrido. Si falta un objeto, se omite el seguimiento y se mantiene el aviso de desarrollo. No se inventan objetos ni IDs. JS no escribe posición, escala o visibilidad de `eyesControl`.
 
-`DEBUG_ORB_INTERACTION` se activó durante la calibración visual: círculo y centro verdes, zonas sociales cian, cursor rojo, estado y última transición. Queda **false**. Además, el overlay está condicionado a `NODE_ENV === development`, por lo que no aparece en producción aunque se active la constante accidentalmente.
+Se retira únicamente el callback nativo pointermove del handler MouseHover del orbe, comprobando antes que su único objeto sea ViewAct. Es un adaptador específico de runtime 2.0.53, a través de `eventManager`; depende de la estructura del handler y debe revisarse si se actualiza el runtime o la escena. Se conservan los otros listeners de tracking, clicks y scroll, y todas las acciones de Spline. La disposición de Application hace el cleanup. No se accede a estas estructuras en otras escenas.
 
-Prueba: `node tests/orb-interaction.mjs`. Variables opcionales: `PLAYWRIGHT_MODULE` para el Playwright ya disponible externamente, `UX_BASE_URL`, `UX_WIDTHS`, `UX_EXPECT_NO_DEBUG=1`. No se instaló infraestructura adicional. Capturas en `%TEMP%/rubik-orb`.
+## Región y temporizadores
 
-La prueba cubre esquinas, áreas transparentes, ocho bordes/diagonales, 20 ciclos por resolución de escritorio/tablet, caminos hacia botones, blur y visibilidad simulados, pointercancel, salida del viewport, scroll simulado, resize, desmontaje/remontaje al cruzar 768 px y tres segundos de movimientos rápidos por resolución. Comprueba que el número de listeners de pointermove no crece y recoge errores JavaScript. Los enlaces sociales se comprobaron interceptando `window.open`: Facebook, Instagram, LinkedIn y WhatsApp conservan sus destinos.
+La apertura sigue siendo inmediata dentro del círculo calibrado. Una vez abierto se admite la unión del orbe, los iconos y el polígono que conecta sus centros, incluyendo 24 px de padding externo sobre el radio de los botones. Se normaliza con las medidas del canvas. La región es matemática: no añade layout ni una capa que capture clics de controles vecinos.
 
-Se inspeccionaron capturas con debug a 1920, 1440, 1280 (DPR 1,5) y 768 px; el círculo sigue el contorno y las zonas auxiliares coinciden con los botones. El test inicial de resize a 768 px se corrigió para esperar el desmontaje legítimo al pasar a 758 px, en lugar de exigir un orbe visible en móvil.
+Salir inicia un único timeout de 350 ms y detiene el seguimiento. Volver cancela el timeout sin reenviar la apertura. `pointerInside` distingue presencia física de menú abierto. Blur, cancelación, ocultación, resize y desmontaje cancelan el cierre pendiente inmediatamente. Scroll solo invalida medidas porque el orbe es fijo. Se reutilizan el listener pointermove existente y el RAF compartido de ojos/parpadeo/baile. No se añadieron listeners globales ni loops paralelos.
 
-## Límites de las pruebas
+El guard de mousemove existente es compatibilidad del runtime, no un segundo controlador de hover. No hay handlers mouseenter/mouseleave de React. El debug sigue deshabilitado. No se modificaron escena publicada, nombres, IDs, dimensiones, colores, navegación ni responsive.
 
-Chrome automatizado y emulación táctil no equivalen a Safari/iOS físico. Un intento con Chrome visible y `bringToFront` no generó `document.hidden`; por eso el cambio físico de pestaña/aplicación queda sin verificar. Los eventos de blur/visibilidad se verifican de forma simulada. La salida del viewport se automatiza con coordenadas externas; no equivale a mover un ratón físico fuera de la ventana del sistema. El stress test comprueba estabilidad funcional, no sustituye un perfil GPU/FPS en hardware móvil.
+## Verificación
 
-## Compilación
+- `npm run lint`: cero errores, ocho advertencias preexistentes.
+- `npx tsc --noEmit`: correcto.
+- `npm run build`: correcto (Next.js 16.3.4).
+- `tests/orb-interaction.mjs`: 1366×768, 768×1024 y 390×844; entradas lentas/rápidas, 20 ciclos por escritorio, grace/reentrada, caminos sociales, blur, cancelación, scroll, resize y stress. Listeners estables y sin errores JS. Móvil conserva el orbe desmontado.
+- `tests/orb-social-calibration.mjs`: comprueba expansión y cierre reales de objetos Spline, cuatro enlaces interceptando window.open, huecos entre iconos y padding, 12 reentradas sin reiniciar eventos, propiedad de eyesControl estable y capturas durante movimiento/transiciones. Capturas en `%TEMP%/rubik-orb-calibration`.
+- `tests/orb-regression.mjs`: diez ciclos aprobados de seguimiento, parpadeo, navegación y scroll; 11 parpadeos observados, objetos y listeners estables, sin errores JS. Seguimiento actualizado al padre `eyes`.
 
-`npm run build`: correcto con Next.js 16.2.1/Turbopack. `npx tsc --noEmit`: correcto. `npm run lint`: 0 errores y las mismas 8 advertencias previas; no se alteraron efectos ajenos a esta interacción para silenciarlas. El primer build detectó un tipo NodeJS.Timeout en el temporizador nuevo del navegador: se corrigió a number antes del build satisfactorio.
-
-## Resultado final en producción local
-
-Pruebas satisfactorias contra `next start`, después del build: 1920×1080, 1440×900, 1366×768, 1280×585 (DPR 1,5), 1024×768, 768×1024 y 390×844. En las seis resoluciones con orbe se completaron 120 ciclos obligatorios en total, además de bordes, reinicios, resize y stress; sin estados atascados ni errores JavaScript observados. Se comprobó la ausencia de overlay de depuración. En 768 px pasó el desmontaje al reducir a 758 px y el posterior remontaje.
-
-En móvil se conserva la decisión original de no montar el orbe. La primera aserción móvil suponía erróneamente que toda la página carecía de listeners pointermove: otras escenas tienen los suyos. Se corrigió el test para comprobar la ausencia del orbe/controlador, sin modificar esas escenas, y se repitió satisfactoriamente en 390×844. No se hizo commit, push ni despliegue.
+Las capturas muestreadas sirven para revisión visual, no demuestran ausencia del artefacto en cada frame o GPU. No se probaron Safari ni dispositivos físicos. No se publicó la escena ni el sitio.

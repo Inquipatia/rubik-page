@@ -39,6 +39,8 @@ const DEBUG_ORB_INTERACTION = false;
 const CENTER = { x: 153 / 260, y: 139 / 260 };
 const RADIUS = 50 / 260;
 const HYSTERESIS = 3 / 260;
+const CLOSE_GRACE_MS = 350;
+const INTERACTION_PADDING = 24 / 260;
 // Revealed social buttons remain reachable, but cannot activate the closed orb.
 const SOCIAL = [
   { x: 153 / 260, y: 52 / 260 },
@@ -71,6 +73,8 @@ export function useOrbInteraction({ wrapper, enabled, resetKey, onEnter, onLeave
     if (!surface) return;
     let rect: DOMRect | null = null;
     let frame = 0;
+    let closeTimer: number | undefined;
+    let pointerInside = false;
     let point = { clientX: 0, clientY: 0 };
     let transitions = 0;
     let lastTransition = "—";
@@ -102,7 +106,13 @@ export function useOrbInteraction({ wrapper, enabled, resetKey, onEnter, onLeave
       if (value === "ENTER" || value === "LEAVE") lastTransition = value;
       if (label) label.textContent = `${value} · ${lastTransition} · ${transitions}`;
     };
+    const cancelClose = () => {
+      window.clearTimeout(closeTimer);
+      closeTimer = undefined;
+    };
     const reset = () => {
+      cancelClose();
+      pointerInside = false;
       if (frame) cancelFrame(frame);
       frame = 0;
       if (!active.current) return;
@@ -112,6 +122,14 @@ export function useOrbInteraction({ wrapper, enabled, resetKey, onEnter, onLeave
       leave(!disposing);
       state("IDLE");
     };
+    const scheduleClose = () => {
+      pointerInside = false;
+      if (frame) cancelFrame(frame);
+      frame = 0;
+      if (active.current && closeTimer === undefined) {
+        closeTimer = window.setTimeout(reset, CLOSE_GRACE_MS);
+      }
+    };
     const invalidate = () => { rect = null; reset(); };
     // The orb is fixed. Scrolling does not move it away from the pointer and
     // must not repeatedly close its hover animation or restart eye centering.
@@ -120,24 +138,30 @@ export function useOrbInteraction({ wrapper, enabled, resetKey, onEnter, onLeave
       const distance = Math.hypot(x - CENTER.x, y - CENTER.y);
       if (distance <= RADIUS + (active.current ? HYSTERESIS : 0)) return true;
       if (!active.current) return false;
-      return SOCIAL.some((icon) => {
-        if (Math.hypot(x - icon.x, y - icon.y) <= 29 / 260) return true;
-        // Narrow bridges let the pointer reach each existing button without
-        // keeping the entire transparent canvas interactive.
-        const dx = icon.x - CENTER.x, dy = icon.y - CENTER.y;
-        const t = Math.max(0, Math.min(1, ((x - CENTER.x) * dx + (y - CENTER.y) * dy) / (dx * dx + dy * dy)));
-        return Math.hypot(x - CENTER.x - t * dx, y - CENTER.y - t * dy) <= 12 / 260;
-      });
+      if (distance <= RADIUS + INTERACTION_PADDING) return true;
+      // Fill the gaps BETWEEN icons as well as their paths from the orb.
+      // This is geometry only: no overlay intercepts neighbouring controls.
+      const polygon = [CENTER, ...SOCIAL];
+      let inside = false;
+      for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+        const a = polygon[j], b = polygon[i];
+        if ((a.y > y) !== (b.y > y) && x < (b.x - a.x) * (y - a.y) / (b.y - a.y) + a.x) inside = !inside;
+        const dx = b.x - a.x, dy = b.y - a.y;
+        const t = Math.max(0, Math.min(1, ((x - a.x) * dx + (y - a.y) * dy) / (dx * dx + dy * dy)));
+        // The existing icon radius is about 15 px, plus external padding.
+        if (Math.hypot(x - a.x - t * dx, y - a.y - t * dy) <= 15 / 260 + INTERACTION_PADDING) return true;
+      }
+      return inside;
     };
     const follow = () => {
       frame = 0;
-      if (!active.current) return;
+      if (!active.current || !pointerInside) return;
       move(point);
       frame = requestFrame(follow);
     };
     const onPointer = (event: PointerEvent) => {
       const inSurface = event.target instanceof Node && surface.contains(event.target);
-      if (!inSurface || event.pointerType === "touch" || document.hidden) {
+      if (event.pointerType === "touch" || document.hidden) {
         reset();
         if (inSurface) event.stopPropagation();
         return;
@@ -147,10 +171,15 @@ export function useOrbInteraction({ wrapper, enabled, resetKey, onEnter, onLeave
       const y = (event.clientY - rect.top) / rect.height;
       if (marker) { marker.style.left = `${x * 100}%`; marker.style.top = `${y * 100}%`; }
       if (!inZone(x, y)) {
-        reset();
-        event.stopPropagation();
+        scheduleClose();
+        if (inSurface) event.stopPropagation();
         return;
       }
+      // A closed orb must actually be targeted; open-menu padding is logical
+      // and may extend beyond the canvas without swallowing other targets.
+      if (!active.current && !inSurface) return;
+      pointerInside = true;
+      cancelClose();
       if (!active.current) {
         active.current = true;
         transitions++;
@@ -173,9 +202,9 @@ export function useOrbInteraction({ wrapper, enabled, resetKey, onEnter, onLeave
     surface.addEventListener("mousemove", guardMouse, true);
     surface.addEventListener("pointerdown", guardMouse, true);
     surface.addEventListener("click", guardMouse, true);
-    root.addEventListener("pointerleave", reset);
+    root.addEventListener("pointerleave", scheduleClose);
     root.addEventListener("pointercancel", reset);
-    document.documentElement.addEventListener("pointerleave", reset);
+    document.documentElement.addEventListener("pointerleave", scheduleClose);
     window.addEventListener("blur", invalidate);
     window.addEventListener("resize", invalidate);
     document.addEventListener("scroll", onScroll, true);
@@ -191,9 +220,9 @@ export function useOrbInteraction({ wrapper, enabled, resetKey, onEnter, onLeave
       surface.removeEventListener("mousemove", guardMouse, true);
       surface.removeEventListener("pointerdown", guardMouse, true);
       surface.removeEventListener("click", guardMouse, true);
-      root.removeEventListener("pointerleave", reset);
+      root.removeEventListener("pointerleave", scheduleClose);
       root.removeEventListener("pointercancel", reset);
-      document.documentElement.removeEventListener("pointerleave", reset);
+      document.documentElement.removeEventListener("pointerleave", scheduleClose);
       window.removeEventListener("blur", invalidate);
       window.removeEventListener("resize", invalidate);
       document.removeEventListener("scroll", onScroll, true);

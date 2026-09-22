@@ -149,7 +149,7 @@ export default function IntroScene({
                 2xl:h-[500px] 2xl:max-w-[560px] 2xl:translate-x-12
               "  
             >
-              <SmoothSpline priority active={active} pauseWhenHidden={false} scene="https://prod.spline.design/wk0u6G-MY2bbyF6i/scene.splinecode" />
+              <SmoothSpline priority active={active} pauseWhenHidden={false} suspendWhenInactive scene="https://prod.spline.design/wk0u6G-MY2bbyF6i/scene.splinecode" />
             </div>
           </div>
         </div>

@@ -20,7 +20,7 @@ try {
  await page.evaluate(()=>{
    window.orb=window.__splineApps.find(a=>a.canvas.closest('.rubik-orb-spline'));
    window.hero=window.__splineApps.find(a=>a.canvas.closest('.rubik-intro-cube'));
-   window.eye=orb.findObjectByName('eyesControl');
+   window.eye=orb.findObjectByName('eyes');
    window.left=orb.findObjectByName('eyeLeftBlink');
    window.right=orb.findObjectByName('eyeRightBlink');
    window.center={...eye.position};
@@ -53,7 +53,7 @@ try {
    assert.equal(await page.locator('header .is-active').first().innerText(),'Contacto','wheel over orb must navigate');
    await nav('Inicio').evaluate(b=>b.click());
    await page.waitForTimeout(650);
-   const stable=await page.evaluate(()=>({apps:window.__splineApps.length,eye:orb.findObjectByName('eyesControl')===eye,left:orb.findObjectByName('eyeLeftBlink')===left,right:orb.findObjectByName('eyeRightBlink')===right,stopped:orb.isStopped,heroStopped:hero.isStopped,connected:orb.canvas.isConnected}));
+   const stable=await page.evaluate(()=>({apps:window.__splineApps.length,eye:orb.findObjectByName('eyes')===eye,left:orb.findObjectByName('eyeLeftBlink')===left,right:orb.findObjectByName('eyeRightBlink')===right,stopped:orb.isStopped,heroStopped:hero.isStopped,connected:orb.canvas.isConnected}));
    assert.deepEqual(stable,{apps:2,eye:true,left:true,right:true,stopped:false,heroStopped:false,connected:true});
    const blinks=await page.evaluate(()=>blinkCount);
    await at(.98,.02);

@@ -13,11 +13,8 @@ import {
 import FixedHeader from "@/app/components/layout/fixed-header";
 import SceneStage from "@/app/components/experience/scene-stage";
 import ScrollProgress from "@/app/components/experience/scroll-progress";
+import { BrandShowcase, WorkScene, ContactScene, CotizaScene } from "@/app/components/experience/deferred-scenes";
 import IntroScene from "@/app/components/scenes/intro-scene";
-import BrandShowcase from "@/app/components/scenes/brand-showcase";
-import WorkScene from "@/app/components/scenes/work-scene";
-import ContactScene from "@/app/components/scenes/contact-scene";
-import CotizaScene from "@/app/components/scenes/cotiza-scene";
 import FloatingSocialOrb from "@/app/components/scenes/floating-social-orb";
 
 const BrandDetailsScene = dynamic(() => import("@/app/components/scenes/brand-details-scene"), {
@@ -140,6 +137,7 @@ export default function Home() {
   const [servicesResetKey, setServicesResetKey] = useState(0);
 
   const wheelLockRef = useRef(false);
+  const wheelGestureRef = useRef({ lastAt: 0, consumed: false });
   const unlockTimerRef = useRef<number | null>(null);
   useEffect(() => () => {
     if (unlockTimerRef.current) clearTimeout(unlockTimerRef.current);
@@ -339,6 +337,13 @@ export default function Home() {
 
     const onWheel = (event: WheelEvent) => {
       if (event.ctrlKey || document.body.style.overflow === "hidden") return;
+      const now = performance.now();
+      const gesture = wheelGestureRef.current;
+      // Trackpad momentum can outlive the scene transition. A new gesture
+      // starts after a quiet interval; never accumulate tiny wheel deltas.
+      if (now - gesture.lastAt > 180) gesture.consumed = false;
+      gesture.lastAt = now;
+      const delta = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerHeight : 1);
       const target = event.target instanceof Element ? event.target : null;
       // Height alone is not enough: the persistent, hidden hero can overflow
       // the grid while overflow-y is visible. Yield only to a real scroller
@@ -347,20 +352,26 @@ export default function Home() {
         if (!/^(auto|scroll)$/.test(getComputedStyle(element).overflowY)) continue;
         const remaining = element.scrollHeight - element.clientHeight - element.scrollTop;
         if (element.scrollHeight > element.clientHeight + 1 &&
-          (event.deltaY > 0 ? remaining > 1 : element.scrollTop > 1)) return;
+          (delta > 0 ? remaining > 1 : element.scrollTop > 1)) {
+          // Reaching the end of Services in this gesture must not immediately
+          // spend the same gesture again on navigation to Contact.
+          gesture.consumed = true;
+          return;
+        }
       }
       if (isCotizaOpen) return;
       if (selectedBrand) return;
       if (activeScene === 0 && isCubeHovered) return;
-      if (wheelLockRef.current || isAnimating) return;
+      if (wheelLockRef.current || isAnimating) { gesture.consumed = true; return; }
+      if (gesture.consumed) return;
 
-      const threshold = activeScene === 2 ? 1 : 52;
-      if (Math.abs(event.deltaY) < threshold) return;
+      if (Math.abs(delta) < 52) return;
+      gesture.consumed = true;
 
       wheelLockRef.current = true;
       setIsAnimating(true);
 
-      if (event.deltaY > 0) {
+      if (delta > 0) {
         goNext();
       } else {
         goPrev();

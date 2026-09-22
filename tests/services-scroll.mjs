@@ -51,8 +51,19 @@ try {
    await page.mouse.move(width/2,384);
    await page.mouse.wheel(0,delta);
    await page.waitForTimeout(700);
-   assert.equal(await page.locator('header .is-active').first().innerText(),delta>0?'Contacto':'Marcas',`small and large deltas at ${width}`);
+   assert.equal(await page.locator('header .is-active').first().innerText(),Math.abs(delta)<52?'Servicios':delta>0?'Contacto':'Marcas',`small input stays; deliberate wheel navigates at ${width}`);
  }
+ // One long trackpad gesture must not cross two sections after the 320 ms lock.
+ await nav('Marcas').evaluate(b=>b.click());
+ await page.waitForTimeout(700);
+ await page.mouse.move(15,384);
+ await page.evaluate(async()=>{
+   for(let i=0;i<12;i++) {
+     window.dispatchEvent(new WheelEvent('wheel',{deltaY:80}));
+     await new Promise(resolve=>setTimeout(resolve,60));
+   }
+ });
+ assert.equal(await page.locator('header .is-active').first().innerText(),'Servicios','momentum must not skip Services');
  await page.close();
  }
  const mobile=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});

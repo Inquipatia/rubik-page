@@ -29,6 +29,13 @@ type SplineObject = {
 };
 
 type SplineApp = {
+  canvas?: HTMLCanvasElement;
+  controls?: {
+    renderer?: { isWebGPUSplineRenderer?: boolean; temporalAAEnabled?: boolean };
+  };
+  eventManager?: {
+    handlers?: { MouseHover?: { objects?: { name: string }[]; onMouseMove?: EventListener } };
+  };
   setGlobalEvents?: (global: boolean) => void;
   emitEvent?: (event: "mouseHover", name: string) => void;
   emitEventReverse?: (event: "mouseHover", name: string) => void;
@@ -69,6 +76,9 @@ const BOUNCE_SOUND_DELAY_MS = 120;
 
 const VIEW_ACT_OBJECT_NAME = "ViewAct";
 const EYES_CONTROL_OBJECT_NAME = "eyesControl";
+// Audited parent: no Spline states/events target its position. eyesControl
+// itself owns the published closed/open transition, including position.
+const EYES_FOLLOW_OBJECT_NAME = "eyes";
 const ORB_ROOT_OBJECT_NAME = "orbRoot";
 
 const IDLE_DANCE_EVERY_MS = 60_000;
@@ -241,7 +251,7 @@ export default function FloatingSocialOrb({
   const idleDanceLoopStartedRef = useRef(false);
   const isIdleDanceAnimatingRef = useRef(false);
 
-  const eyesControlRef = useRef<SplineObject | null>(null);
+  const eyesFollowRef = useRef<SplineObject | null>(null);
   const centerPositionRef = useRef<{ x: number; y: number; z: number } | null>(
     null
   );
@@ -284,14 +294,12 @@ export default function FloatingSocialOrb({
   useEffect(() => {
     const hoverAudio = new Audio(HOVER_SOUND_URL);
     hoverAudio.volume = 0.35;
-    hoverAudio.preload = "auto";
-    hoverAudio.load();
+    hoverAudio.preload = "none";
     hoverAudioRef.current = hoverAudio;
 
     const bounceAudio = new Audio(BOUNCE_SOUND_URL);
     bounceAudio.volume = 0.55;
-    bounceAudio.preload = "auto";
-    bounceAudio.load();
+    bounceAudio.preload = "none";
     bounceAudioRef.current = bounceAudio;
 
     return () => {
@@ -548,7 +556,7 @@ export default function FloatingSocialOrb({
   };
 
   const resetEyesPosition = () => {
-    const eyesControl = eyesControlRef.current;
+    const eyesControl = eyesFollowRef.current;
     const center = centerPositionRef.current;
 
     if (!eyesControl || !center) return;
@@ -559,7 +567,7 @@ export default function FloatingSocialOrb({
   };
 
   const animateEyesToCenter = () => {
-    const eyesControl = eyesControlRef.current;
+    const eyesControl = eyesFollowRef.current;
     const center = centerPositionRef.current;
 
     if (!eyesControl || !center) return;
@@ -1108,6 +1116,24 @@ export default function FloatingSocialOrb({
     splineAppRef.current = splineApp;
     splineApp.setGlobalEvents?.(false);
 
+    // Runtime 2.0.53's WebGPU temporal resolve leaves previous eye/icon
+    // silhouettes around moving edges (verified against taa=off / WebGL).
+    // Scope the workaround to this renderer; retain the scene's transforms,
+    // materials and animations, and the other Spline scene's AA settings.
+    const renderer = splineApp.controls?.renderer;
+    if (renderer?.isWebGPUSplineRenderer) renderer.temporalAAEnabled = false;
+
+    // Runtime 2.0.53: native raycast hover and emitEvent are independent.
+    // This scene has ONLY ViewAct hover; detach that native move callback so
+    // it cannot reverse the logical menu. Keep tracking, clicks and all
+    // Spline transition actions intact. Application.dispose owns teardown.
+    const nativeHover = splineApp.eventManager?.handlers?.MouseHover;
+    if (nativeHover?.objects?.length === 1 &&
+        nativeHover.objects[0].name === VIEW_ACT_OBJECT_NAME &&
+        nativeHover.onMouseMove) {
+      splineApp.canvas?.removeEventListener("pointermove", nativeHover.onMouseMove);
+    }
+
     const orbRoot = splineApp.findObjectByName?.(ORB_ROOT_OBJECT_NAME);
 
     if (!orbRoot) {
@@ -1117,23 +1143,14 @@ export default function FloatingSocialOrb({
       applyTransformSnapshot(orbRootRef.current, ORB_ROOT_DANCE_STATES.base);
     }
 
-    const eyesControl = splineApp.findObjectByName?.(
-      EYES_CONTROL_OBJECT_NAME
-    );
-
-    if (!eyesControl) {
+    // Keep the published eyesControl transition entirely owned by Spline.
+    if (!splineApp.findObjectByName?.(EYES_CONTROL_OBJECT_NAME)) {
       reportMissingObject(EYES_CONTROL_OBJECT_NAME);
     }
-
-    if (eyesControl) {
-      eyesControlRef.current = eyesControl;
-
-      centerPositionRef.current = {
-        x: eyesControl.position.x,
-        y: eyesControl.position.y,
-        z: eyesControl.position.z,
-      };
-    }
+    const eyesFollow = splineApp.findObjectByName?.(EYES_FOLLOW_OBJECT_NAME);
+    eyesFollowRef.current = eyesFollow ?? null;
+    centerPositionRef.current = eyesFollow ? { ...eyesFollow.position } : null;
+    if (!eyesFollow) reportMissingObject(EYES_FOLLOW_OBJECT_NAME);
 
     const eyeLeftBlink = splineApp.findObjectByName?.(
       EYE_LEFT_BLINK_OBJECT_NAME
@@ -1177,7 +1194,7 @@ export default function FloatingSocialOrb({
     if (isPageHiddenRef.current) return;
 
     const wrap = orbWrapRef.current;
-    const eyesControl = eyesControlRef.current;
+    const eyesControl = eyesFollowRef.current;
     const center = centerPositionRef.current;
 
     if (!wrap || !eyesControl || !center) return;
@@ -1195,8 +1212,8 @@ export default function FloatingSocialOrb({
     const safeX = Math.abs(normalizedX) < EYES_DEAD_ZONE ? 0 : Math.max(-1, Math.min(1, normalizedX));
     const safeY = Math.abs(normalizedY) < EYES_DEAD_ZONE ? 0 : Math.max(-1, Math.min(1, normalizedY));
 
-    const targetX = center.x + safeX * EYES_MAX_X;
-    const targetY = center.y - safeY * EYES_MAX_Y;
+    const targetX = center.x + safeX * EYES_MAX_X * (eyesControl.scale?.x ?? 1);
+    const targetY = center.y - safeY * EYES_MAX_Y * (eyesControl.scale?.y ?? 1);
 
     eyesControl.position.x +=
       (targetX - eyesControl.position.x) * EYES_FOLLOW_SMOOTHNESS;
@@ -1223,8 +1240,8 @@ export default function FloatingSocialOrb({
     enabled: visible && isSplineReady,
     resetKey,
     onEnter: () => {
+      cancelEyesResetAnimation();
       splineAppRef.current?.emitEvent?.("mouseHover", VIEW_ACT_OBJECT_NAME);
-      handleSplineMouseHover({ target: { name: VIEW_ACT_OBJECT_NAME } });
     },
     onLeave: handleOrbLeave,
     onMove: handleMouseMove,

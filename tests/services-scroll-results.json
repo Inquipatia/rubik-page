@@ -95,8 +95,8 @@
       {
         "zone": 7,
         "before": {
-          "target": "DIV",
-          "classes": "omnes-text mt-1.5 text-[14px] transition text-white/78 min-[1700px]:text-[14.5px]",
+          "target": "BUTTON",
+          "classes": "group relative flex w-full items-center justify-between overflow-hidden rounded-[18px] border px-5 py-3.5 text-left transition-all duration-300 border-white/25 bg-white/10 shadow-[0_14px_34px_rgba(0,0,0,0.28)] min-[1700px]:px-5 min-[1700px]:py-4",
           "scroll": 0,
           "height": 768,
           "total": 945,
@@ -190,8 +190,8 @@
       {
         "zone": 4,
         "before": {
-          "target": "DIV",
-          "classes": "omnes-text mt-1.5 text-[14px] transition text-white/78 min-[1700px]:text-[14.5px]",
+          "target": "BUTTON",
+          "classes": "group relative flex w-full items-center justify-between overflow-hidden rounded-[18px] border px-5 py-3.5 text-left transition-all duration-300 border-white/25 bg-white/10 shadow-[0_14px_34px_rgba(0,0,0,0.28)] min-[1700px]:px-5 min-[1700px]:py-4",
           "scroll": 0,
           "height": 768,
           "total": 1589,
@@ -295,7 +295,7 @@
       {
         "zone": 3,
         "before": 1578,
-        "after": 1659
+        "after": 1678
       },
       {
         "zone": 4,
@@ -305,7 +305,7 @@
       {
         "zone": 5,
         "before": 1578,
-        "after": 1683
+        "after": 1679
       },
       {
         "zone": 6,

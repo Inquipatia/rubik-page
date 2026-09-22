@@ -22,27 +22,29 @@ type Props = ComponentProps<typeof SplineComponent> & {
   idle?: boolean;
   /** Some scenes restart Start/hover handlers on Application.play(). */
   pauseWhenHidden?: boolean;
+  /** Suspend rendering without stop/play, which can restart authored events. */
+  suspendWhenInactive?: boolean;
 };
 
 // The parent owns the final dimensions. Neither loading nor failure changes them.
-export default function SmoothSpline({ priority = false, active = true, preloadMargin = "400px 0px", appearance = "cube", idle = false, pauseWhenHidden = true, onLoad, ...props }: Props) {
+export default function SmoothSpline({ priority = false, active = true, preloadMargin = "400px 0px", appearance = "cube", idle = false, pauseWhenHidden = true, suspendWhenInactive = false, onLoad, ...props }: Props) {
   const host = useRef<HTMLDivElement>(null);
   const app = useRef<Application | null>(null);
   const callback = useRef(onLoad);
   useEffect(() => { callback.current = onLoad; }, [onLoad]);
   const frames = useRef<number[]>([]);
-  const [mount, setMount] = useState(priority);
+  const [mount, setMount] = useState(false);
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
-    if (priority || !host.current) return;
+    if (mount || !active || !host.current) return;
     let idleId: number | undefined;
     let frameId: number | undefined;
     const observer = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return;
       observer.disconnect();
-      if (idle && "requestIdleCallback" in window) {
+      if (!priority && idle && "requestIdleCallback" in window) {
         idleId = window.requestIdleCallback(() => setMount(true), { timeout: 1500 });
       } else {
         frameId = requestAnimationFrame(() => setMount(true));
@@ -54,15 +56,24 @@ export default function SmoothSpline({ priority = false, active = true, preloadM
       if (idleId !== undefined) window.cancelIdleCallback(idleId);
       if (frameId !== undefined) cancelAnimationFrame(frameId);
     };
-  }, [priority, preloadMargin, idle]);
+  }, [priority, preloadMargin, idle, active, mount]);
 
   useEffect(() => {
     // Keep the hero's clock and event handlers alive. stop()/play() in runtime
     // 1.12.98 rebuilds handlers and leaves a large first-frame time delta.
-    if (!pauseWhenHidden || !ready || !host.current) return;
+    if ((!pauseWhenHidden && !suspendWhenInactive) || !ready || !host.current) return;
     let inView = false;
     const sync = () => {
-      if (active && inView && !document.hidden) app.current?.play();
+      const visible = active && inView && !document.hidden;
+      if (suspendWhenInactive) {
+        // Public manual mode keeps Application, objects and event handlers.
+        // Runtime 2.0.53 updates its clock even on skipped frames, avoiding a
+        // large delta or a replay of Start events when the hero comes back.
+        const application = app.current as (Application & { renderMode: "auto" | "manual" }) | null;
+        if (!application) return;
+        application.renderMode = visible ? "auto" : "manual";
+        if (visible) application.requestRender();
+      } else if (visible) app.current?.play();
       else app.current?.stop();
     };
     const observer = new IntersectionObserver(([entry]) => { inView = entry.isIntersecting; sync(); });
@@ -70,7 +81,7 @@ export default function SmoothSpline({ priority = false, active = true, preloadM
     document.addEventListener("visibilitychange", sync);
     sync();
     return () => { observer.disconnect(); document.removeEventListener("visibilitychange", sync); };
-  }, [active, ready, pauseWhenHidden]);
+  }, [active, ready, pauseWhenHidden, suspendWhenInactive]);
 
   useEffect(() => () => { frames.current.forEach(cancelAnimationFrame); app.current = null; }, []);
 

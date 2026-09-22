@@ -41,7 +41,7 @@ try {
     const at = async (x, y, steps = 1) => page.mouse.move(box.x + box.width * x, box.y + box.height * y, { steps });
     const state = async expected => assert.equal(await root.getAttribute('data-orb-interaction'), expected);
     const enter = async () => { await at(153/260,139/260); await state('ACTIVE'); };
-    const exit = async () => { await at(.98,.02); await state('IDLE'); };
+    const exit = async () => { await at(.98,.02); await page.waitForTimeout(420); await state('IDLE'); };
     await state('IDLE');
     const listeners = await page.evaluate(() => window.orbListenerCount());
     for (const [x,y] of [[.01,.01],[.99,.01],[.01,.99],[.99,.99],[.15,.4],[.85,.15]]) { await at(x,y); await state('IDLE'); }
@@ -56,6 +56,23 @@ try {
     }
     for (let cycle = 0; cycle < 20; cycle++) { await enter(); await exit(); }
     await enter();
+    // Keep the short grace assertions on the browser's clock: CDP round trips
+    // under GPU load can outlast 350 ms despite a 160 ms Node-side wait.
+    const grace = await page.evaluate(async () => {
+      const canvas = document.querySelector('.rubik-orb-spline canvas');
+      const b = canvas.getBoundingClientRect();
+      const move = (x,y) => canvas.dispatchEvent(new PointerEvent('pointermove', {
+        bubbles:true, pointerType:'mouse', clientX:b.x+b.width*x, clientY:b.y+b.height*y,
+      }));
+      const state = () => document.querySelector('.rubik-orb-wrap').dataset.orbInteraction;
+      move(.98,.02);
+      await new Promise(resolve => setTimeout(resolve,160));
+      const duringGrace = state();
+      move(153/260,139/260);
+      await new Promise(resolve => setTimeout(resolve,420));
+      return [duringGrace,state()];
+    });
+    assert.deepEqual(grace,['ACTIVE','ACTIVE']);
     await page.waitForTimeout(700);
     await root.screenshot({ path: path.join(output, `${width}-active.png`) });
     // The existing social controls remain reachable along their short paths.
@@ -86,6 +103,7 @@ try {
     await state('IDLE');
     await enter();
     await page.mouse.move(-10,-10);
+    await page.waitForTimeout(420);
     await state('IDLE');
     await enter();
     await page.evaluate(() => document.dispatchEvent(new Event('scroll')));

@@ -100,7 +100,7 @@ a {
 
 @font-face {
   font-family: "Omnes";
-  src: url("/fonts/omnes/Omnes Hairline.ttf") format("truetype");
+  src: url("/fonts/omnes/Omnes Hairline.woff2") format("woff2");
   font-weight: 100;
   font-style: normal;
   font-display: swap;
@@ -108,7 +108,7 @@ a {
 
 @font-face {
   font-family: "Omnes";
-  src: url("/fonts/omnes/Omnes Thin.ttf") format("truetype");
+  src: url("/fonts/omnes/Omnes Thin.woff2") format("woff2");
   font-weight: 200;
   font-style: normal;
   font-display: swap;
@@ -116,7 +116,7 @@ a {
 
 @font-face {
   font-family: "Omnes";
-  src: url("/fonts/omnes/Omnes Light.ttf") format("truetype");
+  src: url("/fonts/omnes/Omnes Light.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -124,7 +124,7 @@ a {
 
 @font-face {
   font-family: "Omnes";
-  src: url("/fonts/omnes/Omnes Regular.ttf") format("truetype");
+  src: url("/fonts/omnes/Omnes Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -132,7 +132,7 @@ a {
 
 @font-face {
   font-family: "Omnes";
-  src: url("/fonts/omnes/Omnes Medium.ttf") format("truetype");
+  src: url("/fonts/omnes/Omnes Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -140,7 +140,7 @@ a {
 
 @font-face {
   font-family: "Omnes";
-  src: url("/fonts/omnes/Omnes SemiBold.ttf") format("truetype");
+  src: url("/fonts/omnes/Omnes SemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -148,7 +148,7 @@ a {
 
 @font-face {
   font-family: "Omnes";
-  src: url("/fonts/omnes/Omnes Bold.ttf") format("truetype");
+  src: url("/fonts/omnes/Omnes Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -156,7 +156,7 @@ a {
 
 @font-face {
   font-family: "Omnes";
-  src: url("/fonts/omnes/Omnes Black.ttf") format("truetype");
+  src: url("/fonts/omnes/Omnes Black.woff2") format("woff2");
   font-weight: 900;
   font-style: normal;
   font-display: swap;

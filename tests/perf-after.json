@@ -1,0 +1,3277 @@
+[
+  {
+    "width": 1366,
+    "run": 0,
+    "initial": {
+      "metrics": {
+        "lcp": 1944,
+        "cls": 0,
+        "longTasks": [
+          {
+            "start": 263,
+            "duration": 57
+          },
+          {
+            "start": 375,
+            "duration": 100
+          },
+          {
+            "start": 2065.199999988079,
+            "duration": 1548
+          },
+          {
+            "start": 3626.800000011921,
+            "duration": 550
+          },
+          {
+            "start": 4195.199999988079,
+            "duration": 53
+          },
+          {
+            "start": 4341.599999964237,
+            "duration": 58
+          },
+          {
+            "start": 4734.800000011921,
+            "duration": 54
+          },
+          {
+            "start": 4879.199999988079,
+            "duration": 59
+          },
+          {
+            "start": 4943.399999976158,
+            "duration": 54
+          },
+          {
+            "start": 5006.899999976158,
+            "duration": 185
+          },
+          {
+            "start": 5201.899999976158,
+            "duration": 133
+          },
+          {
+            "start": 5384.300000011921,
+            "duration": 83
+          },
+          {
+            "start": 5876.5,
+            "duration": 1813
+          },
+          {
+            "start": 8410.399999976158,
+            "duration": 346
+          },
+          {
+            "start": 8801.399999976158,
+            "duration": 485
+          },
+          {
+            "start": 9289.699999988079,
+            "duration": 684
+          },
+          {
+            "start": 10191,
+            "duration": 258
+          },
+          {
+            "start": 10455.699999988079,
+            "duration": 150
+          },
+          {
+            "start": 10810.099999964237,
+            "duration": 139
+          },
+          {
+            "start": 10977.699999988079,
+            "duration": 70
+          },
+          {
+            "start": 11063.699999988079,
+            "duration": 191
+          },
+          {
+            "start": 11264.899999976158,
+            "duration": 178
+          },
+          {
+            "start": 11869.199999988079,
+            "duration": 2186
+          },
+          {
+            "start": 14167.899999976158,
+            "duration": 152
+          },
+          {
+            "start": 14364.399999976158,
+            "duration": 2323
+          },
+          {
+            "start": 16701.19999998808,
+            "duration": 70
+          },
+          {
+            "start": 16799.5,
+            "duration": 1044
+          },
+          {
+            "start": 17845,
+            "duration": 3207
+          },
+          {
+            "start": 21108.599999964237,
+            "duration": 574
+          }
+        ],
+        "interactions": [],
+        "splineReady": [
+          {
+            "className": "smooth-spline smooth-spline--cube",
+            "ms": 21718.899999976158
+          },
+          {
+            "className": "smooth-spline smooth-spline--orb",
+            "ms": 22694.5
+          }
+        ]
+      },
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 1944
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 1944
+        }
+      ],
+      "initialScripts": [
+        "http://127.0.0.1:3200/_next/static/chunks/2de6cglnrypw6.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js",
+        "http://127.0.0.1:3200/_next/static/chunks/turbopack-44ns1ikdx1edk.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0h2qsuyze9ds1.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0h5n7vpzojj4c.js",
+        "http://127.0.0.1:3200/_next/static/chunks/436mv0f7-6epu.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0g8o_wf43qaxb.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0cz1d0mv5g_q7.js",
+        "http://127.0.0.1:3200/_next/static/chunks/27u20hm73r23s.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0w8qxtw8x5199.js",
+        "http://127.0.0.1:3200/_next/static/chunks/3evssdk50vfqp.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2otzk8c7xz0he.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2ipx4mfeq4j5l.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1svmzf0r2sjs-.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0mgex0m1ebtnv.js",
+        "http://127.0.0.1:3200/_next/static/chunks/41d_d1di9l77e.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1koon5j2im0cn.js",
+        "http://127.0.0.1:3200/_next/static/chunks/29islodmi_674.js",
+        "http://127.0.0.1:3200/_next/static/chunks/01d61o2njabtb.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1q0ar502ryvzb.js",
+        "http://127.0.0.1:3200/_next/static/chunks/31fp1ttg_yoxy.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0-w-o881la5qp.js",
+        "http://127.0.0.1:3200/_next/static/chunks/185nlm9m056e-.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2guj_2zo_xmkq.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2hcigksz1n-_e.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2rxrn76h146to.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2jy3og5n7q35u.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0932rwbo3m7iv.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1mks28_9nof6t.js",
+        "http://127.0.0.1:3200/_next/static/chunks/33yrbvef8c84s.js",
+        "http://127.0.0.1:3200/_next/static/chunks/42lx07o5psz71.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2zynomd7rkcis.js"
+      ],
+      "fonts": [
+        {
+          "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Light.woff2",
+          "bytes": 44168
+        },
+        {
+          "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Hairline.woff2",
+          "bytes": 39988
+        }
+      ],
+      "heading": true,
+      "canvases": 2
+    },
+    "labWorstInteractionMs": 688,
+    "jsBytes": 912771,
+    "totalBytes": 1675061,
+    "network": [
+      {
+        "url": "http://127.0.0.1:3200/",
+        "type": "Document",
+        "start": 432941.24156,
+        "bytes": 5575,
+        "durationMs": 54.63000002782792
+      },
+      {
+        "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Light.woff2",
+        "type": "Font",
+        "start": 432941.352705,
+        "bytes": 44150,
+        "durationMs": 195.64999995054677
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Flogo.png&w=384&q=75",
+        "type": "Image",
+        "start": 432941.357097,
+        "bytes": 33128,
+        "durationMs": 176.02999997325242
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2whng6lv32wlz.css",
+        "type": "Stylesheet",
+        "start": 432941.357885,
+        "bytes": 23939,
+        "durationMs": 136.23699999880046
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2zynomd7rkcis.js",
+        "type": "Script",
+        "start": 432941.358381,
+        "bytes": 7888,
+        "durationMs": 114.23900001682341
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2de6cglnrypw6.js",
+        "type": "Script",
+        "start": 432941.35864,
+        "bytes": 47379,
+        "durationMs": 217.96500001801178
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js",
+        "type": "Script",
+        "start": 432941.358829,
+        "bytes": 72016,
+        "durationMs": 288.61200000392273
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/turbopack-44ns1ikdx1edk.js",
+        "type": "Script",
+        "start": 432941.358979,
+        "bytes": 4229,
+        "durationMs": 176.21499998494983
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0h2qsuyze9ds1.js",
+        "type": "Script",
+        "start": 432941.359269,
+        "bytes": 4058,
+        "durationMs": 191.02099997689947
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0h5n7vpzojj4c.js",
+        "type": "Script",
+        "start": 432941.359569,
+        "bytes": 8979,
+        "durationMs": 240.01499998848885
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/436mv0f7-6epu.js",
+        "type": "Script",
+        "start": 432941.359742,
+        "bytes": 13797,
+        "durationMs": 255.83199999528006
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0g8o_wf43qaxb.js",
+        "type": "Script",
+        "start": 432941.360049,
+        "bytes": 45264,
+        "durationMs": 306.1180000077002
+      },
+      {
+        "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Hairline.woff2",
+        "type": "Font",
+        "start": 432941.713032,
+        "bytes": 39970,
+        "durationMs": 103.41400001198053
+      },
+      {
+        "url": "http://127.0.0.1:3200/favicon.ico?favicon.3kdtg0jysms1q.ico",
+        "type": "Other",
+        "start": 432945.567111,
+        "bytes": 1835,
+        "durationMs": 63.32999997539446
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/27u20hm73r23s.js",
+        "type": "Script",
+        "start": 432946.641103,
+        "bytes": 1337,
+        "durationMs": 79.87700001103804
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0w8qxtw8x5199.js",
+        "type": "Script",
+        "start": 432946.796588,
+        "bytes": 13584,
+        "durationMs": 69.34399995952845
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/3evssdk50vfqp.js",
+        "type": "Script",
+        "start": 432946.803267,
+        "bytes": 13320,
+        "durationMs": 106.99299996485934
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2otzk8c7xz0he.js",
+        "type": "Script",
+        "start": 432946.806003,
+        "bytes": 20197,
+        "durationMs": 136.08500000555068
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2ipx4mfeq4j5l.js",
+        "type": "Script",
+        "start": 432946.808148,
+        "bytes": 13955,
+        "durationMs": 103.94800000358373
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1svmzf0r2sjs-.js",
+        "type": "Script",
+        "start": 432946.810149,
+        "bytes": 75097,
+        "durationMs": 277.0989999989979
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0mgex0m1ebtnv.js",
+        "type": "Script",
+        "start": 432946.812214,
+        "bytes": 38101,
+        "durationMs": 193.05400003213435
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/41d_d1di9l77e.js",
+        "type": "Script",
+        "start": 432946.814202,
+        "bytes": 36114,
+        "durationMs": 223.92200003378093
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1koon5j2im0cn.js",
+        "type": "Script",
+        "start": 432946.816871,
+        "bytes": 53628,
+        "durationMs": 271.6150000342168
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/29islodmi_674.js",
+        "type": "Script",
+        "start": 432946.822393,
+        "bytes": 18260,
+        "durationMs": 205.42899996507913
+      },
+      {
+        "url": "https://prod.spline.design/rWCCsSXcaU52lNsR/scene.splinecode",
+        "type": "Fetch",
+        "start": 432948.877593,
+        "bytes": 486902,
+        "durationMs": 1089.6589999902062
+      },
+      {
+        "url": "https://prod.spline.design/wk0u6G-MY2bbyF6i/scene.splinecode",
+        "type": "Fetch",
+        "start": 432948.914929,
+        "bytes": 14997,
+        "durationMs": 653.647999977693
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/01d61o2njabtb.js",
+        "type": "Script",
+        "start": 432949.959017,
+        "bytes": 582,
+        "durationMs": 104.44500000448897
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1q0ar502ryvzb.js",
+        "type": "Script",
+        "start": 432950.812646,
+        "bytes": 10224,
+        "durationMs": 70.60099998489022
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/31fp1ttg_yoxy.js",
+        "type": "Script",
+        "start": 432950.826648,
+        "bytes": 18087,
+        "durationMs": 78.90399999450892
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0-w-o881la5qp.js",
+        "type": "Script",
+        "start": 432950.870176,
+        "bytes": 1958,
+        "durationMs": 79.16399999521673
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/185nlm9m056e-.js",
+        "type": "Script",
+        "start": 432950.89639,
+        "bytes": 3505,
+        "durationMs": 84.32799996808171
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2guj_2zo_xmkq.js",
+        "type": "Script",
+        "start": 432950.938753,
+        "bytes": 11114,
+        "durationMs": 97.40600001532584
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2hcigksz1n-_e.js",
+        "type": "Script",
+        "start": 432950.989705,
+        "bytes": 2169,
+        "durationMs": 65.98499999381602
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2rxrn76h146to.js",
+        "type": "Script",
+        "start": 432951.027591,
+        "bytes": 12323,
+        "durationMs": 90.96299996599555
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2jy3og5n7q35u.js",
+        "type": "Script",
+        "start": 432951.087067,
+        "bytes": 17022,
+        "durationMs": 86.26499999081716
+      },
+      {
+        "url": "https://cdn.spline.design/@splinetool/runtime@2.0.53/build/process.wasm",
+        "type": "Fetch",
+        "start": 432951.114466,
+        "bytes": 111794,
+        "durationMs": 383.81999998819083
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0932rwbo3m7iv.js",
+        "type": "Script",
+        "start": 432951.682125,
+        "bytes": 8933,
+        "durationMs": 65.22400001995265
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1mks28_9nof6t.js",
+        "type": "Script",
+        "start": 432952.436541,
+        "bytes": 8134,
+        "durationMs": 61.95300002582371
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/33yrbvef8c84s.js",
+        "type": "Script",
+        "start": 432952.446442,
+        "bytes": 21711,
+        "durationMs": 70.16200001817197
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/42lx07o5psz71.js",
+        "type": "Script",
+        "start": 432952.461832,
+        "bytes": 126864,
+        "durationMs": 267.4070000066422
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js",
+        "type": "Script",
+        "start": 432952.480245,
+        "bytes": 182942,
+        "durationMs": 315.30700001167133
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 1366,
+    "run": 1,
+    "initial": {
+      "metrics": {
+        "lcp": 1112,
+        "cls": 0,
+        "longTasks": [
+          {
+            "start": 1217.199999988079,
+            "duration": 984
+          },
+          {
+            "start": 2214.800000011921,
+            "duration": 282
+          },
+          {
+            "start": 2902.300000011921,
+            "duration": 82
+          },
+          {
+            "start": 3126.5,
+            "duration": 88
+          },
+          {
+            "start": 3219.800000011921,
+            "duration": 119
+          },
+          {
+            "start": 3376.100000023842,
+            "duration": 70
+          },
+          {
+            "start": 3858.600000023842,
+            "duration": 180
+          },
+          {
+            "start": 4248.899999976158,
+            "duration": 1169
+          },
+          {
+            "start": 5966.699999988079,
+            "duration": 121
+          },
+          {
+            "start": 6143.600000023842,
+            "duration": 206
+          },
+          {
+            "start": 6369.800000011921,
+            "duration": 149
+          },
+          {
+            "start": 6529.600000023842,
+            "duration": 140
+          },
+          {
+            "start": 6701.800000011921,
+            "duration": 77
+          },
+          {
+            "start": 6938.199999988079,
+            "duration": 77
+          },
+          {
+            "start": 7191,
+            "duration": 1574
+          },
+          {
+            "start": 8869.800000011921,
+            "duration": 79
+          },
+          {
+            "start": 8972.300000011921,
+            "duration": 2625
+          },
+          {
+            "start": 11608.5,
+            "duration": 71
+          },
+          {
+            "start": 11709.800000011921,
+            "duration": 1385
+          },
+          {
+            "start": 13095.300000011921,
+            "duration": 3476
+          },
+          {
+            "start": 16590.30000001192,
+            "duration": 552
+          },
+          {
+            "start": 17153.80000001192,
+            "duration": 54
+          },
+          {
+            "start": 17255.100000023842,
+            "duration": 909
+          },
+          {
+            "start": 18185.19999998808,
+            "duration": 6114
+          },
+          {
+            "start": 24391.600000023842,
+            "duration": 989
+          }
+        ],
+        "interactions": [],
+        "splineReady": [
+          {
+            "className": "smooth-spline smooth-spline--cube",
+            "ms": 17149.80000001192
+          },
+          {
+            "className": "smooth-spline smooth-spline--orb",
+            "ms": 18178.30000001192
+          }
+        ]
+      },
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 1112
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 1112
+        }
+      ],
+      "initialScripts": [
+        "http://127.0.0.1:3200/_next/static/chunks/2de6cglnrypw6.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js",
+        "http://127.0.0.1:3200/_next/static/chunks/turbopack-44ns1ikdx1edk.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0h2qsuyze9ds1.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0h5n7vpzojj4c.js",
+        "http://127.0.0.1:3200/_next/static/chunks/436mv0f7-6epu.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0g8o_wf43qaxb.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0cz1d0mv5g_q7.js",
+        "http://127.0.0.1:3200/_next/static/chunks/27u20hm73r23s.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0w8qxtw8x5199.js",
+        "http://127.0.0.1:3200/_next/static/chunks/3evssdk50vfqp.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2otzk8c7xz0he.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2ipx4mfeq4j5l.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1svmzf0r2sjs-.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0mgex0m1ebtnv.js",
+        "http://127.0.0.1:3200/_next/static/chunks/41d_d1di9l77e.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1koon5j2im0cn.js",
+        "http://127.0.0.1:3200/_next/static/chunks/29islodmi_674.js",
+        "http://127.0.0.1:3200/_next/static/chunks/01d61o2njabtb.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1q0ar502ryvzb.js",
+        "http://127.0.0.1:3200/_next/static/chunks/31fp1ttg_yoxy.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2rxrn76h146to.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0932rwbo3m7iv.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0-w-o881la5qp.js",
+        "http://127.0.0.1:3200/_next/static/chunks/185nlm9m056e-.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2guj_2zo_xmkq.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2hcigksz1n-_e.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2jy3og5n7q35u.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1mks28_9nof6t.js",
+        "http://127.0.0.1:3200/_next/static/chunks/33yrbvef8c84s.js",
+        "http://127.0.0.1:3200/_next/static/chunks/42lx07o5psz71.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2zynomd7rkcis.js"
+      ],
+      "fonts": [
+        {
+          "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Light.woff2",
+          "bytes": 44168
+        },
+        {
+          "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Hairline.woff2",
+          "bytes": 39988
+        }
+      ],
+      "heading": true,
+      "canvases": 2
+    },
+    "labWorstInteractionMs": 848,
+    "jsBytes": 912771,
+    "totalBytes": 1674988,
+    "network": [
+      {
+        "url": "http://127.0.0.1:3200/",
+        "type": "Document",
+        "start": 432994.506302,
+        "bytes": 5575,
+        "durationMs": 65.39099995279685
+      },
+      {
+        "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Light.woff2",
+        "type": "Font",
+        "start": 432994.643174,
+        "bytes": 44150,
+        "durationMs": 145.3899999614805
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Flogo.png&w=384&q=75",
+        "type": "Image",
+        "start": 432994.647601,
+        "bytes": 33128,
+        "durationMs": 131.94200000725687
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2whng6lv32wlz.css",
+        "type": "Stylesheet",
+        "start": 432994.656053,
+        "bytes": 23939,
+        "durationMs": 102.89300000295043
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2zynomd7rkcis.js",
+        "type": "Script",
+        "start": 432994.656615,
+        "bytes": 7888,
+        "durationMs": 164.17900001397356
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2de6cglnrypw6.js",
+        "type": "Script",
+        "start": 432994.656889,
+        "bytes": 47379,
+        "durationMs": 305.67400000290945
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js",
+        "type": "Script",
+        "start": 432994.657071,
+        "bytes": 72016,
+        "durationMs": 358.7640000041574
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/turbopack-44ns1ikdx1edk.js",
+        "type": "Script",
+        "start": 432994.65725,
+        "bytes": 4229,
+        "durationMs": 179.06300001777709
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0h2qsuyze9ds1.js",
+        "type": "Script",
+        "start": 432994.657416,
+        "bytes": 4058,
+        "durationMs": 179.39600005047396
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0h5n7vpzojj4c.js",
+        "type": "Script",
+        "start": 432994.657571,
+        "bytes": 8979,
+        "durationMs": 196.50499999988824
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/436mv0f7-6epu.js",
+        "type": "Script",
+        "start": 432994.657723,
+        "bytes": 13797,
+        "durationMs": 249.87600004533306
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0g8o_wf43qaxb.js",
+        "type": "Script",
+        "start": 432994.6579,
+        "bytes": 45264,
+        "durationMs": 357.49199998099357
+      },
+      {
+        "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Hairline.woff2",
+        "type": "Font",
+        "start": 432994.840657,
+        "bytes": 39970,
+        "durationMs": 164.5709999720566
+      },
+      {
+        "url": "http://127.0.0.1:3200/favicon.ico?favicon.3kdtg0jysms1q.ico",
+        "type": "Other",
+        "start": 432997.112716,
+        "bytes": 1835,
+        "durationMs": 56.95399997057393
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/27u20hm73r23s.js",
+        "type": "Script",
+        "start": 432997.887417,
+        "bytes": 1337,
+        "durationMs": 101.08699998818338
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0w8qxtw8x5199.js",
+        "type": "Script",
+        "start": 432998.375845,
+        "bytes": 13584,
+        "durationMs": 96.70300001744181
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/3evssdk50vfqp.js",
+        "type": "Script",
+        "start": 432998.413765,
+        "bytes": 13320,
+        "durationMs": 75.86699997773394
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2otzk8c7xz0he.js",
+        "type": "Script",
+        "start": 432998.431743,
+        "bytes": 20197,
+        "durationMs": 75.64599998295307
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2ipx4mfeq4j5l.js",
+        "type": "Script",
+        "start": 432998.447308,
+        "bytes": 13955,
+        "durationMs": 77.91900000302121
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1svmzf0r2sjs-.js",
+        "type": "Script",
+        "start": 432998.463778,
+        "bytes": 75097,
+        "durationMs": 239.5070000202395
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0mgex0m1ebtnv.js",
+        "type": "Script",
+        "start": 432998.488516,
+        "bytes": 38101,
+        "durationMs": 187.1640000026673
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/41d_d1di9l77e.js",
+        "type": "Script",
+        "start": 432998.508065,
+        "bytes": 36114,
+        "durationMs": 189.9930000072345
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1koon5j2im0cn.js",
+        "type": "Script",
+        "start": 432998.518181,
+        "bytes": 53628,
+        "durationMs": 196.7329999897629
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/29islodmi_674.js",
+        "type": "Script",
+        "start": 432998.526222,
+        "bytes": 18260,
+        "durationMs": 134.03199997264892
+      },
+      {
+        "url": "https://prod.spline.design/wk0u6G-MY2bbyF6i/scene.splinecode",
+        "type": "Fetch",
+        "start": 432999.904635,
+        "bytes": 14996,
+        "durationMs": 553.6210000282153
+      },
+      {
+        "url": "https://prod.spline.design/rWCCsSXcaU52lNsR/scene.splinecode",
+        "type": "Fetch",
+        "start": 432999.9167,
+        "bytes": 486830,
+        "durationMs": 902.5389999733306
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/01d61o2njabtb.js",
+        "type": "Script",
+        "start": 433000.573711,
+        "bytes": 582,
+        "durationMs": 65.52100001135841
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1q0ar502ryvzb.js",
+        "type": "Script",
+        "start": 433000.78786,
+        "bytes": 10224,
+        "durationMs": 60.587999993003905
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/31fp1ttg_yoxy.js",
+        "type": "Script",
+        "start": 433000.802359,
+        "bytes": 18087,
+        "durationMs": 82.14999997289851
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2rxrn76h146to.js",
+        "type": "Script",
+        "start": 433000.814711,
+        "bytes": 12323,
+        "durationMs": 71.63299998501316
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0932rwbo3m7iv.js",
+        "type": "Script",
+        "start": 433000.829281,
+        "bytes": 8933,
+        "durationMs": 69.18499997118488
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0-w-o881la5qp.js",
+        "type": "Script",
+        "start": 433001.123596,
+        "bytes": 1958,
+        "durationMs": 51.02199997054413
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/185nlm9m056e-.js",
+        "type": "Script",
+        "start": 433001.131438,
+        "bytes": 3505,
+        "durationMs": 61.11299997428432
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2guj_2zo_xmkq.js",
+        "type": "Script",
+        "start": 433001.138902,
+        "bytes": 11114,
+        "durationMs": 67.68500001635402
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2hcigksz1n-_e.js",
+        "type": "Script",
+        "start": 433001.147632,
+        "bytes": 2169,
+        "durationMs": 53.155000030528754
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2jy3og5n7q35u.js",
+        "type": "Script",
+        "start": 433001.160142,
+        "bytes": 17022,
+        "durationMs": 66.63399998797104
+      },
+      {
+        "url": "https://cdn.spline.design/@splinetool/runtime@2.0.53/build/process.wasm",
+        "type": "Fetch",
+        "start": 433001.16839,
+        "bytes": 111794,
+        "durationMs": 189.73099999129772
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1mks28_9nof6t.js",
+        "type": "Script",
+        "start": 433001.321225,
+        "bytes": 8134,
+        "durationMs": 68.81799997063354
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/33yrbvef8c84s.js",
+        "type": "Script",
+        "start": 433001.326997,
+        "bytes": 21711,
+        "durationMs": 103.68599998764694
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/42lx07o5psz71.js",
+        "type": "Script",
+        "start": 433001.333473,
+        "bytes": 126864,
+        "durationMs": 280.3220000350848
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js",
+        "type": "Script",
+        "start": 433001.334362,
+        "bytes": 182942,
+        "durationMs": 332.5590000022203
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 1366,
+    "run": 2,
+    "initial": {
+      "metrics": {
+        "lcp": 2356,
+        "cls": 0,
+        "longTasks": [
+          {
+            "start": 2228.400000035763,
+            "duration": 86
+          },
+          {
+            "start": 2460.600000023842,
+            "duration": 518
+          },
+          {
+            "start": 2992.400000035763,
+            "duration": 254
+          },
+          {
+            "start": 3258.2000000476837,
+            "duration": 420
+          },
+          {
+            "start": 3763,
+            "duration": 114
+          },
+          {
+            "start": 4438.700000047684,
+            "duration": 78
+          },
+          {
+            "start": 4561.100000023842,
+            "duration": 231
+          },
+          {
+            "start": 4801.200000047684,
+            "duration": 78
+          },
+          {
+            "start": 4906.900000035763,
+            "duration": 77
+          },
+          {
+            "start": 5410.100000023842,
+            "duration": 202
+          },
+          {
+            "start": 6052.200000047684,
+            "duration": 77
+          },
+          {
+            "start": 6129.200000047684,
+            "duration": 112
+          },
+          {
+            "start": 6515.100000023842,
+            "duration": 1363
+          },
+          {
+            "start": 8509,
+            "duration": 72
+          },
+          {
+            "start": 8646.300000011921,
+            "duration": 115
+          },
+          {
+            "start": 8848.900000035763,
+            "duration": 449
+          },
+          {
+            "start": 9476.700000047684,
+            "duration": 263
+          },
+          {
+            "start": 9760.100000023842,
+            "duration": 243
+          },
+          {
+            "start": 10058.400000035763,
+            "duration": 58
+          },
+          {
+            "start": 11175.100000023842,
+            "duration": 1118
+          },
+          {
+            "start": 12404.800000011921,
+            "duration": 173
+          },
+          {
+            "start": 12614.600000023842,
+            "duration": 1709
+          },
+          {
+            "start": 14332,
+            "duration": 76
+          },
+          {
+            "start": 14419.400000035763,
+            "duration": 1368
+          },
+          {
+            "start": 15788,
+            "duration": 2768
+          },
+          {
+            "start": 18565.400000035763,
+            "duration": 558
+          },
+          {
+            "start": 19140.100000023842,
+            "duration": 111
+          },
+          {
+            "start": 19251.900000035763,
+            "duration": 486
+          },
+          {
+            "start": 19805.400000035763,
+            "duration": 3445
+          },
+          {
+            "start": 23262.30000001192,
+            "duration": 440
+          },
+          {
+            "start": 23713.200000047684,
+            "duration": 427
+          },
+          {
+            "start": 24166.400000035763,
+            "duration": 1043
+          }
+        ],
+        "interactions": [],
+        "splineReady": [
+          {
+            "className": "smooth-spline smooth-spline--cube",
+            "ms": 19139.600000023842
+          },
+          {
+            "className": "smooth-spline smooth-spline--orb",
+            "ms": 19803.80000001192
+          }
+        ]
+      },
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 2356
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 2356
+        }
+      ],
+      "initialScripts": [
+        "http://127.0.0.1:3200/_next/static/chunks/2de6cglnrypw6.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js",
+        "http://127.0.0.1:3200/_next/static/chunks/turbopack-44ns1ikdx1edk.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0h2qsuyze9ds1.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0h5n7vpzojj4c.js",
+        "http://127.0.0.1:3200/_next/static/chunks/436mv0f7-6epu.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0g8o_wf43qaxb.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0cz1d0mv5g_q7.js",
+        "http://127.0.0.1:3200/_next/static/chunks/27u20hm73r23s.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0w8qxtw8x5199.js",
+        "http://127.0.0.1:3200/_next/static/chunks/3evssdk50vfqp.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2otzk8c7xz0he.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2ipx4mfeq4j5l.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1svmzf0r2sjs-.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0mgex0m1ebtnv.js",
+        "http://127.0.0.1:3200/_next/static/chunks/41d_d1di9l77e.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1koon5j2im0cn.js",
+        "http://127.0.0.1:3200/_next/static/chunks/29islodmi_674.js",
+        "http://127.0.0.1:3200/_next/static/chunks/01d61o2njabtb.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1q0ar502ryvzb.js",
+        "http://127.0.0.1:3200/_next/static/chunks/31fp1ttg_yoxy.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2rxrn76h146to.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0932rwbo3m7iv.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0-w-o881la5qp.js",
+        "http://127.0.0.1:3200/_next/static/chunks/185nlm9m056e-.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2guj_2zo_xmkq.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2hcigksz1n-_e.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2jy3og5n7q35u.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1mks28_9nof6t.js",
+        "http://127.0.0.1:3200/_next/static/chunks/33yrbvef8c84s.js",
+        "http://127.0.0.1:3200/_next/static/chunks/42lx07o5psz71.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2zynomd7rkcis.js"
+      ],
+      "fonts": [
+        {
+          "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Light.woff2",
+          "bytes": 44168
+        },
+        {
+          "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Hairline.woff2",
+          "bytes": 39988
+        }
+      ],
+      "heading": true,
+      "canvases": 2
+    },
+    "labWorstInteractionMs": 464,
+    "jsBytes": 912771,
+    "totalBytes": 1674989,
+    "network": [
+      {
+        "url": "http://127.0.0.1:3200/",
+        "type": "Document",
+        "start": 433051.960295,
+        "bytes": 5575,
+        "durationMs": 235.53000000538304
+      },
+      {
+        "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Light.woff2",
+        "type": "Font",
+        "start": 433052.230345,
+        "bytes": 44150,
+        "durationMs": 98.06200000457466
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Flogo.png&w=384&q=75",
+        "type": "Image",
+        "start": 433052.23137,
+        "bytes": 33128,
+        "durationMs": 332.18299999134615
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2whng6lv32wlz.css",
+        "type": "Stylesheet",
+        "start": 433052.231673,
+        "bytes": 23939,
+        "durationMs": 347.85600000759587
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2zynomd7rkcis.js",
+        "type": "Script",
+        "start": 433052.231941,
+        "bytes": 7888,
+        "durationMs": 268.62500002607703
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2de6cglnrypw6.js",
+        "type": "Script",
+        "start": 433052.232148,
+        "bytes": 47379,
+        "durationMs": 349.33100000489503
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js",
+        "type": "Script",
+        "start": 433052.232338,
+        "bytes": 72016,
+        "durationMs": 473.11400005128235
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/turbopack-44ns1ikdx1edk.js",
+        "type": "Script",
+        "start": 433052.232605,
+        "bytes": 4229,
+        "durationMs": 258.9309999602847
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0h2qsuyze9ds1.js",
+        "type": "Script",
+        "start": 433052.232796,
+        "bytes": 4058,
+        "durationMs": 587.5409999862313
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0h5n7vpzojj4c.js",
+        "type": "Script",
+        "start": 433052.232958,
+        "bytes": 8979,
+        "durationMs": 595.1520000235178
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/436mv0f7-6epu.js",
+        "type": "Script",
+        "start": 433052.233112,
+        "bytes": 13797,
+        "durationMs": 606.7390000098385
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0g8o_wf43qaxb.js",
+        "type": "Script",
+        "start": 433052.233339,
+        "bytes": 45264,
+        "durationMs": 649.1609999793582
+      },
+      {
+        "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Hairline.woff2",
+        "type": "Font",
+        "start": 433053.25269,
+        "bytes": 39970,
+        "durationMs": 116.51500000152737
+      },
+      {
+        "url": "http://127.0.0.1:3200/favicon.ico?favicon.3kdtg0jysms1q.ico",
+        "type": "Other",
+        "start": 433055.850262,
+        "bytes": 1835,
+        "durationMs": 59.295999992173165
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/27u20hm73r23s.js",
+        "type": "Script",
+        "start": 433056.872213,
+        "bytes": 1337,
+        "durationMs": 108.183000003919
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0w8qxtw8x5199.js",
+        "type": "Script",
+        "start": 433057.405324,
+        "bytes": 13584,
+        "durationMs": 558.1060000113212
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/3evssdk50vfqp.js",
+        "type": "Script",
+        "start": 433057.41939,
+        "bytes": 13320,
+        "durationMs": 607.9790000221692
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2otzk8c7xz0he.js",
+        "type": "Script",
+        "start": 433057.423343,
+        "bytes": 20197,
+        "durationMs": 860.5329999700189
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2ipx4mfeq4j5l.js",
+        "type": "Script",
+        "start": 433057.425922,
+        "bytes": 13955,
+        "durationMs": 856.1139999656007
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1svmzf0r2sjs-.js",
+        "type": "Script",
+        "start": 433057.428151,
+        "bytes": 75097,
+        "durationMs": 1010.058999992907
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0mgex0m1ebtnv.js",
+        "type": "Script",
+        "start": 433057.431131,
+        "bytes": 38101,
+        "durationMs": 900.4180000047199
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/41d_d1di9l77e.js",
+        "type": "Script",
+        "start": 433057.433256,
+        "bytes": 36114,
+        "durationMs": 994.0860000206158
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1koon5j2im0cn.js",
+        "type": "Script",
+        "start": 433057.435538,
+        "bytes": 53628,
+        "durationMs": 1015.0029999786057
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/29islodmi_674.js",
+        "type": "Script",
+        "start": 433057.494556,
+        "bytes": 18260,
+        "durationMs": 916.49299999699
+      },
+      {
+        "url": "https://prod.spline.design/wk0u6G-MY2bbyF6i/scene.splinecode",
+        "type": "Fetch",
+        "start": 433059.783335,
+        "bytes": 14997,
+        "durationMs": 771.0059999953955
+      },
+      {
+        "url": "https://prod.spline.design/rWCCsSXcaU52lNsR/scene.splinecode",
+        "type": "Fetch",
+        "start": 433059.821787,
+        "bytes": 486831,
+        "durationMs": 1070.4240000341088
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/01d61o2njabtb.js",
+        "type": "Script",
+        "start": 433060.714937,
+        "bytes": 582,
+        "durationMs": 56.37399997795001
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1q0ar502ryvzb.js",
+        "type": "Script",
+        "start": 433061.076786,
+        "bytes": 10224,
+        "durationMs": 66.50200003059581
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/31fp1ttg_yoxy.js",
+        "type": "Script",
+        "start": 433061.088228,
+        "bytes": 18087,
+        "durationMs": 365.808000031393
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2rxrn76h146to.js",
+        "type": "Script",
+        "start": 433061.185649,
+        "bytes": 12323,
+        "durationMs": 339.1989999799989
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0932rwbo3m7iv.js",
+        "type": "Script",
+        "start": 433061.201077,
+        "bytes": 8933,
+        "durationMs": 303.9909999934025
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0-w-o881la5qp.js",
+        "type": "Script",
+        "start": 433061.947474,
+        "bytes": 1958,
+        "durationMs": 260.13499998953193
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/185nlm9m056e-.js",
+        "type": "Script",
+        "start": 433061.94856,
+        "bytes": 3505,
+        "durationMs": 382.3059999849647
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2guj_2zo_xmkq.js",
+        "type": "Script",
+        "start": 433061.94962,
+        "bytes": 11114,
+        "durationMs": 437.7629999653436
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2hcigksz1n-_e.js",
+        "type": "Script",
+        "start": 433061.954077,
+        "bytes": 2169,
+        "durationMs": 462.50000002328306
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2jy3og5n7q35u.js",
+        "type": "Script",
+        "start": 433061.955397,
+        "bytes": 17022,
+        "durationMs": 595.1660000137053
+      },
+      {
+        "url": "https://cdn.spline.design/@splinetool/runtime@2.0.53/build/process.wasm",
+        "type": "Fetch",
+        "start": 433061.958717,
+        "bytes": 111793,
+        "durationMs": 533.1850000075065
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1mks28_9nof6t.js",
+        "type": "Script",
+        "start": 433062.069265,
+        "bytes": 8134,
+        "durationMs": 429.29699999513105
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/33yrbvef8c84s.js",
+        "type": "Script",
+        "start": 433062.072025,
+        "bytes": 21711,
+        "durationMs": 519.5010000024922
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/42lx07o5psz71.js",
+        "type": "Script",
+        "start": 433062.072674,
+        "bytes": 126864,
+        "durationMs": 864.8180000018328
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js",
+        "type": "Script",
+        "start": 433062.07331,
+        "bytes": 182942,
+        "durationMs": 1024.241000006441
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 390,
+    "run": 0,
+    "initial": {
+      "metrics": {
+        "lcp": 688,
+        "cls": 0,
+        "longTasks": [
+          {
+            "start": 345.5,
+            "duration": 55
+          },
+          {
+            "start": 698,
+            "duration": 1045
+          },
+          {
+            "start": 1761.300000011921,
+            "duration": 397
+          },
+          {
+            "start": 2767.900000035763,
+            "duration": 54
+          },
+          {
+            "start": 2931.100000023842,
+            "duration": 98
+          },
+          {
+            "start": 3033.400000035763,
+            "duration": 61
+          },
+          {
+            "start": 3102.800000011921,
+            "duration": 105
+          },
+          {
+            "start": 3324.300000011921,
+            "duration": 289
+          },
+          {
+            "start": 3666,
+            "duration": 563
+          },
+          {
+            "start": 4314.400000035763,
+            "duration": 852
+          },
+          {
+            "start": 8203.800000011921,
+            "duration": 136
+          },
+          {
+            "start": 8455.700000047684,
+            "duration": 477
+          },
+          {
+            "start": 9027.100000023842,
+            "duration": 427
+          },
+          {
+            "start": 9465.600000023842,
+            "duration": 208
+          },
+          {
+            "start": 9724.700000047684,
+            "duration": 127
+          },
+          {
+            "start": 9854.900000035763,
+            "duration": 100
+          },
+          {
+            "start": 10041.800000011921,
+            "duration": 167
+          },
+          {
+            "start": 10438,
+            "duration": 1538
+          },
+          {
+            "start": 12478.300000011921,
+            "duration": 131
+          },
+          {
+            "start": 12685.400000035763,
+            "duration": 186
+          },
+          {
+            "start": 12955.600000023842,
+            "duration": 115
+          },
+          {
+            "start": 13109.900000035763,
+            "duration": 61
+          },
+          {
+            "start": 13515.600000023842,
+            "duration": 1324
+          },
+          {
+            "start": 14938.600000023842,
+            "duration": 84
+          },
+          {
+            "start": 15047.800000011921,
+            "duration": 1839
+          },
+          {
+            "start": 16899.200000047684,
+            "duration": 64
+          },
+          {
+            "start": 16975.900000035763,
+            "duration": 1089
+          },
+          {
+            "start": 18078.700000047684,
+            "duration": 291
+          },
+          {
+            "start": 18370.100000023842,
+            "duration": 720
+          },
+          {
+            "start": 19135.900000035763,
+            "duration": 812
+          },
+          {
+            "start": 19948.5,
+            "duration": 385
+          },
+          {
+            "start": 20344.600000023842,
+            "duration": 136
+          },
+          {
+            "start": 20509.200000047684,
+            "duration": 73
+          }
+        ],
+        "interactions": [],
+        "splineReady": [
+          {
+            "className": "smooth-spline smooth-spline--cube",
+            "ms": 18075.400000035763
+          }
+        ]
+      },
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 688
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 688
+        }
+      ],
+      "initialScripts": [
+        "http://127.0.0.1:3200/_next/static/chunks/2de6cglnrypw6.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js",
+        "http://127.0.0.1:3200/_next/static/chunks/turbopack-44ns1ikdx1edk.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0h2qsuyze9ds1.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0h5n7vpzojj4c.js",
+        "http://127.0.0.1:3200/_next/static/chunks/436mv0f7-6epu.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0g8o_wf43qaxb.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0cz1d0mv5g_q7.js",
+        "http://127.0.0.1:3200/_next/static/chunks/047ojrgfuy7m5.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0-ellorksa72n.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0hsw3kfrsv4io.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1ft5hv8egzd3j.js",
+        "http://127.0.0.1:3200/_next/static/chunks/27u20hm73r23s.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0w8qxtw8x5199.js",
+        "http://127.0.0.1:3200/_next/static/chunks/3evssdk50vfqp.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2otzk8c7xz0he.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2ipx4mfeq4j5l.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1svmzf0r2sjs-.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0mgex0m1ebtnv.js",
+        "http://127.0.0.1:3200/_next/static/chunks/41d_d1di9l77e.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1koon5j2im0cn.js",
+        "http://127.0.0.1:3200/_next/static/chunks/29islodmi_674.js",
+        "http://127.0.0.1:3200/_next/static/chunks/01d61o2njabtb.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1q0ar502ryvzb.js",
+        "http://127.0.0.1:3200/_next/static/chunks/31fp1ttg_yoxy.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2rxrn76h146to.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0932rwbo3m7iv.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1mks28_9nof6t.js",
+        "http://127.0.0.1:3200/_next/static/chunks/33yrbvef8c84s.js",
+        "http://127.0.0.1:3200/_next/static/chunks/42lx07o5psz71.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2zynomd7rkcis.js"
+      ],
+      "fonts": [
+        {
+          "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Light.woff2",
+          "bytes": 44168
+        },
+        {
+          "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Hairline.woff2",
+          "bytes": 39988
+        }
+      ],
+      "heading": true,
+      "canvases": 1
+    },
+    "labWorstInteractionMs": 0,
+    "jsBytes": 902469,
+    "totalBytes": 1121778,
+    "network": [
+      {
+        "url": "http://127.0.0.1:3200/",
+        "type": "Document",
+        "start": 433098.863442,
+        "bytes": 5575,
+        "durationMs": 61.504999990575016
+      },
+      {
+        "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Light.woff2",
+        "type": "Font",
+        "start": 433098.993415,
+        "bytes": 44150,
+        "durationMs": 186.18100002640858
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Flogo.png&w=256&q=75",
+        "type": "Image",
+        "start": 433098.998799,
+        "bytes": 16274,
+        "durationMs": 94.92000000318512
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2whng6lv32wlz.css",
+        "type": "Stylesheet",
+        "start": 433098.999145,
+        "bytes": 23939,
+        "durationMs": 131.14000001223758
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2zynomd7rkcis.js",
+        "type": "Script",
+        "start": 433098.999421,
+        "bytes": 7888,
+        "durationMs": 129.2869999888353
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2de6cglnrypw6.js",
+        "type": "Script",
+        "start": 433098.999636,
+        "bytes": 47379,
+        "durationMs": 249.56099997507408
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js",
+        "type": "Script",
+        "start": 433098.999802,
+        "bytes": 72016,
+        "durationMs": 283.0170000088401
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/turbopack-44ns1ikdx1edk.js",
+        "type": "Script",
+        "start": 433098.99998,
+        "bytes": 4229,
+        "durationMs": 153.4819999942556
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0h2qsuyze9ds1.js",
+        "type": "Script",
+        "start": 433099.000166,
+        "bytes": 4058,
+        "durationMs": 184.9999999976717
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0h5n7vpzojj4c.js",
+        "type": "Script",
+        "start": 433099.000329,
+        "bytes": 8979,
+        "durationMs": 204.03500000247732
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/436mv0f7-6epu.js",
+        "type": "Script",
+        "start": 433099.000517,
+        "bytes": 13797,
+        "durationMs": 234.62000000290573
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0g8o_wf43qaxb.js",
+        "type": "Script",
+        "start": 433099.000904,
+        "bytes": 45264,
+        "durationMs": 302.4849999928847
+      },
+      {
+        "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Hairline.woff2",
+        "type": "Font",
+        "start": 433099.257729,
+        "bytes": 39970,
+        "durationMs": 85.73900000192225
+      },
+      {
+        "url": "http://127.0.0.1:3200/favicon.ico?favicon.3kdtg0jysms1q.ico",
+        "type": "Other",
+        "start": 433101.136656,
+        "bytes": 1835,
+        "durationMs": 64.85000002430752
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/047ojrgfuy7m5.js",
+        "type": "Script",
+        "start": 433102.022221,
+        "bytes": 4801,
+        "durationMs": 105.63599999295548
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0-ellorksa72n.js",
+        "type": "Script",
+        "start": 433102.131151,
+        "bytes": 8710,
+        "durationMs": 75.13100001960993
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0hsw3kfrsv4io.js",
+        "type": "Script",
+        "start": 433102.155929,
+        "bytes": 6646,
+        "durationMs": 58.17799997748807
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1ft5hv8egzd3j.js",
+        "type": "Script",
+        "start": 433103.078364,
+        "bytes": 5309,
+        "durationMs": 73.9229999599047
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fcopec.png&w=256&q=75",
+        "type": "Image",
+        "start": 433107.041726,
+        "bytes": 4454,
+        "durationMs": 73.21199995931238
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fkauf.png&w=256&q=75",
+        "type": "Image",
+        "start": 433107.044732,
+        "bytes": 6319,
+        "durationMs": 75.02600003499538
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2FLatam.png&w=256&q=75",
+        "type": "Image",
+        "start": 433107.046889,
+        "bytes": 6322,
+        "durationMs": 74.98500001383945
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fmistral.png&w=256&q=75",
+        "type": "Image",
+        "start": 433107.047693,
+        "bytes": 5490,
+        "durationMs": 77.7399999788031
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fsanta.png&w=256&q=75",
+        "type": "Image",
+        "start": 433107.048722,
+        "bytes": 4240,
+        "durationMs": 74.47200000751764
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fchevrolet.png&w=256&q=75",
+        "type": "Image",
+        "start": 433107.049799,
+        "bytes": 3762,
+        "durationMs": 74.12699999986216
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fnovovet.png&w=256&q=75",
+        "type": "Image",
+        "start": 433107.052844,
+        "bytes": 5588,
+        "durationMs": 121.36600003577769
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fbox.png&w=256&q=75",
+        "type": "Image",
+        "start": 433107.055172,
+        "bytes": 3992,
+        "durationMs": 134.52399999368936
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fasi.png&w=256&q=75",
+        "type": "Image",
+        "start": 433107.057279,
+        "bytes": 4572,
+        "durationMs": 140.78700001118705
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fcanada%20dry.png&w=256&q=75",
+        "type": "Image",
+        "start": 433107.059553,
+        "bytes": 5303,
+        "durationMs": 129.70699998550117
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fford.png&w=256&q=75",
+        "type": "Image",
+        "start": 433107.059827,
+        "bytes": 6457,
+        "durationMs": 138.93299998017028
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fkersting.png&w=256&q=75",
+        "type": "Image",
+        "start": 433107.061662,
+        "bytes": 3109,
+        "durationMs": 129.90999995963648
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Futem.png&w=256&q=75",
+        "type": "Image",
+        "start": 433107.062563,
+        "bytes": 3037,
+        "durationMs": 177.84700001357123
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fglam%20y%20co.png&w=256&q=75",
+        "type": "Image",
+        "start": 433107.062789,
+        "bytes": 6200,
+        "durationMs": 193.44100001035258
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fotras.png&w=256&q=75",
+        "type": "Image",
+        "start": 433107.063231,
+        "bytes": 3722,
+        "durationMs": 182.52500001108274
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/27u20hm73r23s.js",
+        "type": "Script",
+        "start": 433108.552642,
+        "bytes": 1337,
+        "durationMs": 57.08800000138581
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0w8qxtw8x5199.js",
+        "type": "Script",
+        "start": 433108.914655,
+        "bytes": 13584,
+        "durationMs": 86.99200005503371
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/3evssdk50vfqp.js",
+        "type": "Script",
+        "start": 433108.949189,
+        "bytes": 13320,
+        "durationMs": 84.09899997059256
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2otzk8c7xz0he.js",
+        "type": "Script",
+        "start": 433108.968393,
+        "bytes": 20197,
+        "durationMs": 90.11099999770522
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2ipx4mfeq4j5l.js",
+        "type": "Script",
+        "start": 433108.979018,
+        "bytes": 13955,
+        "durationMs": 85.83499997621402
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1svmzf0r2sjs-.js",
+        "type": "Script",
+        "start": 433108.997306,
+        "bytes": 75097,
+        "durationMs": 251.1250000097789
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0mgex0m1ebtnv.js",
+        "type": "Script",
+        "start": 433109.017516,
+        "bytes": 38101,
+        "durationMs": 207.17599999625236
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/41d_d1di9l77e.js",
+        "type": "Script",
+        "start": 433109.034048,
+        "bytes": 36114,
+        "durationMs": 190.0819999864325
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1koon5j2im0cn.js",
+        "type": "Script",
+        "start": 433109.041591,
+        "bytes": 53628,
+        "durationMs": 213.28000002540648
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/29islodmi_674.js",
+        "type": "Script",
+        "start": 433109.059393,
+        "bytes": 18260,
+        "durationMs": 132.28900003014132
+      },
+      {
+        "url": "https://prod.spline.design/wk0u6G-MY2bbyF6i/scene.splinecode",
+        "type": "Fetch",
+        "start": 433110.830288,
+        "bytes": 14999,
+        "durationMs": 496.27800000598654
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/01d61o2njabtb.js",
+        "type": "Script",
+        "start": 433111.457352,
+        "bytes": 582,
+        "durationMs": 81.99899998726323
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1q0ar502ryvzb.js",
+        "type": "Script",
+        "start": 433111.688825,
+        "bytes": 10224,
+        "durationMs": 75.5490000010468
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/31fp1ttg_yoxy.js",
+        "type": "Script",
+        "start": 433111.698131,
+        "bytes": 18087,
+        "durationMs": 96.66099998867139
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2rxrn76h146to.js",
+        "type": "Script",
+        "start": 433111.707559,
+        "bytes": 12323,
+        "durationMs": 88.28700002050027
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0932rwbo3m7iv.js",
+        "type": "Script",
+        "start": 433111.716937,
+        "bytes": 8933,
+        "durationMs": 78.34400003775954
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1mks28_9nof6t.js",
+        "type": "Script",
+        "start": 433112.001254,
+        "bytes": 8134,
+        "durationMs": 64.33199997991323
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/33yrbvef8c84s.js",
+        "type": "Script",
+        "start": 433112.009089,
+        "bytes": 21711,
+        "durationMs": 104.79599999962375
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/42lx07o5psz71.js",
+        "type": "Script",
+        "start": 433112.017096,
+        "bytes": 126864,
+        "durationMs": 279.29299999959767
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js",
+        "type": "Script",
+        "start": 433112.026855,
+        "bytes": 182942,
+        "durationMs": 333.43599998624995
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 390,
+    "run": 1,
+    "initial": {
+      "metrics": {
+        "lcp": 1060,
+        "cls": 0,
+        "longTasks": [
+          {
+            "start": 341.2000000476837,
+            "duration": 127
+          },
+          {
+            "start": 1146.300000011921,
+            "duration": 956
+          },
+          {
+            "start": 2104.600000023842,
+            "duration": 560
+          },
+          {
+            "start": 3052.300000011921,
+            "duration": 71
+          },
+          {
+            "start": 3239.5,
+            "duration": 98
+          },
+          {
+            "start": 3343.100000023842,
+            "duration": 64
+          },
+          {
+            "start": 3424.800000011921,
+            "duration": 139
+          },
+          {
+            "start": 3697.400000035763,
+            "duration": 226
+          },
+          {
+            "start": 3988,
+            "duration": 525
+          },
+          {
+            "start": 4600.700000047684,
+            "duration": 779
+          },
+          {
+            "start": 8366.800000011921,
+            "duration": 265
+          },
+          {
+            "start": 8766.600000023842,
+            "duration": 604
+          },
+          {
+            "start": 9471.5,
+            "duration": 588
+          },
+          {
+            "start": 10077.700000047684,
+            "duration": 152
+          },
+          {
+            "start": 10233,
+            "duration": 53
+          },
+          {
+            "start": 10286.600000023842,
+            "duration": 217
+          },
+          {
+            "start": 10536.800000011921,
+            "duration": 196
+          },
+          {
+            "start": 10827.300000011921,
+            "duration": 209
+          },
+          {
+            "start": 11306.800000011921,
+            "duration": 1286
+          },
+          {
+            "start": 12881.700000047684,
+            "duration": 133
+          },
+          {
+            "start": 13090.400000035763,
+            "duration": 223
+          },
+          {
+            "start": 13353,
+            "duration": 111
+          },
+          {
+            "start": 13501.200000047684,
+            "duration": 76
+          },
+          {
+            "start": 13921.600000023842,
+            "duration": 1857
+          },
+          {
+            "start": 15873.700000047684,
+            "duration": 105
+          },
+          {
+            "start": 16005.700000047684,
+            "duration": 1570
+          },
+          {
+            "start": 17584.5,
+            "duration": 743
+          },
+          {
+            "start": 18329.900000035763,
+            "duration": 931
+          },
+          {
+            "start": 19327.400000035763,
+            "duration": 457
+          },
+          {
+            "start": 19785.30000001192,
+            "duration": 332
+          },
+          {
+            "start": 20302.700000047684,
+            "duration": 61
+          },
+          {
+            "start": 20602.400000035763,
+            "duration": 263
+          },
+          {
+            "start": 20867.5,
+            "duration": 78
+          },
+          {
+            "start": 20950.100000023842,
+            "duration": 59
+          },
+          {
+            "start": 21011.200000047684,
+            "duration": 54
+          },
+          {
+            "start": 21069.5,
+            "duration": 70
+          },
+          {
+            "start": 21143,
+            "duration": 57
+          },
+          {
+            "start": 21202.80000001192,
+            "duration": 59
+          },
+          {
+            "start": 21263.700000047684,
+            "duration": 68
+          },
+          {
+            "start": 21336.600000023842,
+            "duration": 74
+          },
+          {
+            "start": 21412,
+            "duration": 74
+          },
+          {
+            "start": 21489.700000047684,
+            "duration": 66
+          },
+          {
+            "start": 21609.400000035763,
+            "duration": 50
+          },
+          {
+            "start": 21661,
+            "duration": 63
+          },
+          {
+            "start": 21729,
+            "duration": 62
+          },
+          {
+            "start": 21793.80000001192,
+            "duration": 73
+          },
+          {
+            "start": 21870.900000035763,
+            "duration": 64
+          },
+          {
+            "start": 21940.100000023842,
+            "duration": 75
+          },
+          {
+            "start": 22017.600000023842,
+            "duration": 57
+          },
+          {
+            "start": 22130.100000023842,
+            "duration": 52
+          },
+          {
+            "start": 22441.400000035763,
+            "duration": 52
+          }
+        ],
+        "interactions": [],
+        "splineReady": [
+          {
+            "className": "smooth-spline smooth-spline--cube",
+            "ms": 18329.900000035763
+          }
+        ]
+      },
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 544
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 644
+        }
+      ],
+      "initialScripts": [
+        "http://127.0.0.1:3200/_next/static/chunks/2de6cglnrypw6.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js",
+        "http://127.0.0.1:3200/_next/static/chunks/turbopack-44ns1ikdx1edk.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0h2qsuyze9ds1.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0h5n7vpzojj4c.js",
+        "http://127.0.0.1:3200/_next/static/chunks/436mv0f7-6epu.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0g8o_wf43qaxb.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0cz1d0mv5g_q7.js",
+        "http://127.0.0.1:3200/_next/static/chunks/047ojrgfuy7m5.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0-ellorksa72n.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0hsw3kfrsv4io.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1ft5hv8egzd3j.js",
+        "http://127.0.0.1:3200/_next/static/chunks/27u20hm73r23s.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0w8qxtw8x5199.js",
+        "http://127.0.0.1:3200/_next/static/chunks/3evssdk50vfqp.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2otzk8c7xz0he.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2ipx4mfeq4j5l.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1svmzf0r2sjs-.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0mgex0m1ebtnv.js",
+        "http://127.0.0.1:3200/_next/static/chunks/41d_d1di9l77e.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1koon5j2im0cn.js",
+        "http://127.0.0.1:3200/_next/static/chunks/29islodmi_674.js",
+        "http://127.0.0.1:3200/_next/static/chunks/01d61o2njabtb.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1q0ar502ryvzb.js",
+        "http://127.0.0.1:3200/_next/static/chunks/31fp1ttg_yoxy.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2rxrn76h146to.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0932rwbo3m7iv.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1mks28_9nof6t.js",
+        "http://127.0.0.1:3200/_next/static/chunks/33yrbvef8c84s.js",
+        "http://127.0.0.1:3200/_next/static/chunks/42lx07o5psz71.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2zynomd7rkcis.js"
+      ],
+      "fonts": [
+        {
+          "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Light.woff2",
+          "bytes": 44168
+        },
+        {
+          "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Hairline.woff2",
+          "bytes": 39988
+        }
+      ],
+      "heading": true,
+      "canvases": 1
+    },
+    "labWorstInteractionMs": 0,
+    "jsBytes": 902469,
+    "totalBytes": 1121780,
+    "network": [
+      {
+        "url": "http://127.0.0.1:3200/",
+        "type": "Document",
+        "start": 433122.664684,
+        "bytes": 5575,
+        "durationMs": 66.86500000068918
+      },
+      {
+        "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Light.woff2",
+        "type": "Font",
+        "start": 433122.772777,
+        "bytes": 44150,
+        "durationMs": 128.3520000288263
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Flogo.png&w=256&q=75",
+        "type": "Image",
+        "start": 433122.778638,
+        "bytes": 16274,
+        "durationMs": 90.73100000387058
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2whng6lv32wlz.css",
+        "type": "Stylesheet",
+        "start": 433122.780487,
+        "bytes": 23939,
+        "durationMs": 104.7709999838844
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2zynomd7rkcis.js",
+        "type": "Script",
+        "start": 433122.782306,
+        "bytes": 7888,
+        "durationMs": 193.26199998613447
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2de6cglnrypw6.js",
+        "type": "Script",
+        "start": 433122.784969,
+        "bytes": 47379,
+        "durationMs": 272.3370000021532
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js",
+        "type": "Script",
+        "start": 433122.785876,
+        "bytes": 72016,
+        "durationMs": 524.1379999788478
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/turbopack-44ns1ikdx1edk.js",
+        "type": "Script",
+        "start": 433122.786135,
+        "bytes": 4229,
+        "durationMs": 410.6039999751374
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0h2qsuyze9ds1.js",
+        "type": "Script",
+        "start": 433122.786345,
+        "bytes": 4058,
+        "durationMs": 412.465000001248
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0h5n7vpzojj4c.js",
+        "type": "Script",
+        "start": 433122.787246,
+        "bytes": 8979,
+        "durationMs": 428.50999999791384
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/436mv0f7-6epu.js",
+        "type": "Script",
+        "start": 433122.790883,
+        "bytes": 13797,
+        "durationMs": 441.2109999684617
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0g8o_wf43qaxb.js",
+        "type": "Script",
+        "start": 433122.795943,
+        "bytes": 45264,
+        "durationMs": 502.67899996833876
+      },
+      {
+        "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Hairline.woff2",
+        "type": "Font",
+        "start": 433123.320089,
+        "bytes": 39970,
+        "durationMs": 79.65400000102818
+      },
+      {
+        "url": "http://127.0.0.1:3200/favicon.ico?favicon.3kdtg0jysms1q.ico",
+        "type": "Other",
+        "start": 433125.468543,
+        "bytes": 1835,
+        "durationMs": 63.513999979477376
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/047ojrgfuy7m5.js",
+        "type": "Script",
+        "start": 433126.185082,
+        "bytes": 4801,
+        "durationMs": 91.97100001620129
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0-ellorksa72n.js",
+        "type": "Script",
+        "start": 433126.288304,
+        "bytes": 8710,
+        "durationMs": 85.90400003595278
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0hsw3kfrsv4io.js",
+        "type": "Script",
+        "start": 433126.316492,
+        "bytes": 6646,
+        "durationMs": 74.31900000665337
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1ft5hv8egzd3j.js",
+        "type": "Script",
+        "start": 433127.166606,
+        "bytes": 5309,
+        "durationMs": 68.80599999567494
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fcopec.png&w=256&q=75",
+        "type": "Image",
+        "start": 433130.91984,
+        "bytes": 4454,
+        "durationMs": 52.45499999728054
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fkauf.png&w=256&q=75",
+        "type": "Image",
+        "start": 433130.922814,
+        "bytes": 6319,
+        "durationMs": 57.207000034395605
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2FLatam.png&w=256&q=75",
+        "type": "Image",
+        "start": 433130.926518,
+        "bytes": 6322,
+        "durationMs": 70.6789999967441
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fmistral.png&w=256&q=75",
+        "type": "Image",
+        "start": 433130.93062,
+        "bytes": 5490,
+        "durationMs": 67.05200002761558
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fsanta.png&w=256&q=75",
+        "type": "Image",
+        "start": 433130.934711,
+        "bytes": 4240,
+        "durationMs": 64.91000001551583
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fchevrolet.png&w=256&q=75",
+        "type": "Image",
+        "start": 433130.938675,
+        "bytes": 3762,
+        "durationMs": 60.54000003496185
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fnovovet.png&w=256&q=75",
+        "type": "Image",
+        "start": 433130.940592,
+        "bytes": 5588,
+        "durationMs": 106.61799996159971
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fbox.png&w=256&q=75",
+        "type": "Image",
+        "start": 433130.941632,
+        "bytes": 3992,
+        "durationMs": 104.46600004797801
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fasi.png&w=256&q=75",
+        "type": "Image",
+        "start": 433130.94462,
+        "bytes": 4572,
+        "durationMs": 116.30699998931959
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fcanada%20dry.png&w=256&q=75",
+        "type": "Image",
+        "start": 433130.948083,
+        "bytes": 5303,
+        "durationMs": 113.50599996512756
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fford.png&w=256&q=75",
+        "type": "Image",
+        "start": 433130.951019,
+        "bytes": 6457,
+        "durationMs": 115.84600002970546
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fkersting.png&w=256&q=75",
+        "type": "Image",
+        "start": 433130.953575,
+        "bytes": 3109,
+        "durationMs": 106.9429999915883
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Futem.png&w=256&q=75",
+        "type": "Image",
+        "start": 433130.956331,
+        "bytes": 3037,
+        "durationMs": 152.52499998314306
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fglam%20y%20co.png&w=256&q=75",
+        "type": "Image",
+        "start": 433130.964743,
+        "bytes": 6200,
+        "durationMs": 145.018000039272
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fotras.png&w=256&q=75",
+        "type": "Image",
+        "start": 433130.968173,
+        "bytes": 3722,
+        "durationMs": 155.4990000440739
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/27u20hm73r23s.js",
+        "type": "Script",
+        "start": 433132.919973,
+        "bytes": 1337,
+        "durationMs": 72.6639999775216
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0w8qxtw8x5199.js",
+        "type": "Script",
+        "start": 433133.502493,
+        "bytes": 13584,
+        "durationMs": 86.41400001943111
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/3evssdk50vfqp.js",
+        "type": "Script",
+        "start": 433133.53344,
+        "bytes": 13320,
+        "durationMs": 73.68799997493625
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2otzk8c7xz0he.js",
+        "type": "Script",
+        "start": 433133.552308,
+        "bytes": 20197,
+        "durationMs": 80.66400000825524
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2ipx4mfeq4j5l.js",
+        "type": "Script",
+        "start": 433133.573166,
+        "bytes": 13955,
+        "durationMs": 74.58299997961149
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1svmzf0r2sjs-.js",
+        "type": "Script",
+        "start": 433133.591555,
+        "bytes": 75097,
+        "durationMs": 225.667999999132
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0mgex0m1ebtnv.js",
+        "type": "Script",
+        "start": 433133.609703,
+        "bytes": 38101,
+        "durationMs": 171.84700001962483
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/41d_d1di9l77e.js",
+        "type": "Script",
+        "start": 433133.629362,
+        "bytes": 36114,
+        "durationMs": 168.00000000512227
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1koon5j2im0cn.js",
+        "type": "Script",
+        "start": 433133.64312,
+        "bytes": 53628,
+        "durationMs": 202.4039999814704
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/29islodmi_674.js",
+        "type": "Script",
+        "start": 433133.679582,
+        "bytes": 18260,
+        "durationMs": 138.13999999547377
+      },
+      {
+        "url": "https://prod.spline.design/wk0u6G-MY2bbyF6i/scene.splinecode",
+        "type": "Fetch",
+        "start": 433135.247715,
+        "bytes": 15001,
+        "durationMs": 269.254999991972
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/01d61o2njabtb.js",
+        "type": "Script",
+        "start": 433135.662875,
+        "bytes": 582,
+        "durationMs": 82.0090000052005
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1q0ar502ryvzb.js",
+        "type": "Script",
+        "start": 433135.914925,
+        "bytes": 10224,
+        "durationMs": 64.69199998537078
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/31fp1ttg_yoxy.js",
+        "type": "Script",
+        "start": 433135.92844,
+        "bytes": 18087,
+        "durationMs": 67.60599999688566
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2rxrn76h146to.js",
+        "type": "Script",
+        "start": 433135.943089,
+        "bytes": 12323,
+        "durationMs": 69.17600001906976
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0932rwbo3m7iv.js",
+        "type": "Script",
+        "start": 433135.955405,
+        "bytes": 8933,
+        "durationMs": 71.14600000204518
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1mks28_9nof6t.js",
+        "type": "Script",
+        "start": 433136.2,
+        "bytes": 8134,
+        "durationMs": 65.13000000268221
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/33yrbvef8c84s.js",
+        "type": "Script",
+        "start": 433136.211035,
+        "bytes": 21711,
+        "durationMs": 101.07800003606826
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/42lx07o5psz71.js",
+        "type": "Script",
+        "start": 433136.218557,
+        "bytes": 126864,
+        "durationMs": 275.48200002638623
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js",
+        "type": "Script",
+        "start": 433136.232273,
+        "bytes": 182942,
+        "durationMs": 313.0469999741763
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 390,
+    "run": 2,
+    "initial": {
+      "metrics": {
+        "lcp": 1080,
+        "cls": 0,
+        "longTasks": [
+          {
+            "start": 1020.1999999880791,
+            "duration": 53
+          },
+          {
+            "start": 1352.5999999642372,
+            "duration": 795
+          },
+          {
+            "start": 2210.800000011921,
+            "duration": 317
+          },
+          {
+            "start": 2959.699999988079,
+            "duration": 111
+          },
+          {
+            "start": 3194,
+            "duration": 150
+          },
+          {
+            "start": 3363.699999988079,
+            "duration": 460
+          },
+          {
+            "start": 3885.800000011921,
+            "duration": 585
+          },
+          {
+            "start": 5466.300000011921,
+            "duration": 53
+          },
+          {
+            "start": 5525.099999964237,
+            "duration": 81
+          },
+          {
+            "start": 5715.199999988079,
+            "duration": 157
+          },
+          {
+            "start": 6024.099999964237,
+            "duration": 642
+          },
+          {
+            "start": 6697.899999976158,
+            "duration": 907
+          },
+          {
+            "start": 7696.300000011921,
+            "duration": 233
+          },
+          {
+            "start": 7991.599999964237,
+            "duration": 74
+          },
+          {
+            "start": 8272,
+            "duration": 149
+          },
+          {
+            "start": 9075.399999976158,
+            "duration": 3036
+          },
+          {
+            "start": 12743.599999964237,
+            "duration": 102
+          },
+          {
+            "start": 12950.899999976158,
+            "duration": 1001
+          },
+          {
+            "start": 14055.800000011921,
+            "duration": 217
+          },
+          {
+            "start": 14286.599999964237,
+            "duration": 67
+          },
+          {
+            "start": 14355.5,
+            "duration": 120
+          },
+          {
+            "start": 15104.599999964237,
+            "duration": 184
+          },
+          {
+            "start": 15319.5,
+            "duration": 1165
+          },
+          {
+            "start": 16574.899999976158,
+            "duration": 73
+          },
+          {
+            "start": 16684.399999976158,
+            "duration": 3008
+          },
+          {
+            "start": 19704.80000001192,
+            "duration": 114
+          },
+          {
+            "start": 19834.899999976158,
+            "duration": 1335
+          },
+          {
+            "start": 21197.80000001192,
+            "duration": 942
+          },
+          {
+            "start": 22147.30000001192,
+            "duration": 111
+          },
+          {
+            "start": 22259.899999976158,
+            "duration": 928
+          }
+        ],
+        "interactions": [],
+        "splineReady": [
+          {
+            "className": "smooth-spline smooth-spline--cube",
+            "ms": 21197.19999998808
+          }
+        ]
+      },
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 1080
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 1080
+        }
+      ],
+      "initialScripts": [
+        "http://127.0.0.1:3200/_next/static/chunks/2de6cglnrypw6.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js",
+        "http://127.0.0.1:3200/_next/static/chunks/turbopack-44ns1ikdx1edk.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0h2qsuyze9ds1.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0h5n7vpzojj4c.js",
+        "http://127.0.0.1:3200/_next/static/chunks/436mv0f7-6epu.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0g8o_wf43qaxb.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0cz1d0mv5g_q7.js",
+        "http://127.0.0.1:3200/_next/static/chunks/047ojrgfuy7m5.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0-ellorksa72n.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0hsw3kfrsv4io.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1ft5hv8egzd3j.js",
+        "http://127.0.0.1:3200/_next/static/chunks/27u20hm73r23s.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0w8qxtw8x5199.js",
+        "http://127.0.0.1:3200/_next/static/chunks/3evssdk50vfqp.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2otzk8c7xz0he.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2ipx4mfeq4j5l.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1svmzf0r2sjs-.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0mgex0m1ebtnv.js",
+        "http://127.0.0.1:3200/_next/static/chunks/41d_d1di9l77e.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1koon5j2im0cn.js",
+        "http://127.0.0.1:3200/_next/static/chunks/29islodmi_674.js",
+        "http://127.0.0.1:3200/_next/static/chunks/01d61o2njabtb.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1q0ar502ryvzb.js",
+        "http://127.0.0.1:3200/_next/static/chunks/31fp1ttg_yoxy.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2rxrn76h146to.js",
+        "http://127.0.0.1:3200/_next/static/chunks/0932rwbo3m7iv.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1mks28_9nof6t.js",
+        "http://127.0.0.1:3200/_next/static/chunks/33yrbvef8c84s.js",
+        "http://127.0.0.1:3200/_next/static/chunks/42lx07o5psz71.js",
+        "http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js",
+        "http://127.0.0.1:3200/_next/static/chunks/2zynomd7rkcis.js"
+      ],
+      "fonts": [
+        {
+          "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Light.woff2",
+          "bytes": 44168
+        },
+        {
+          "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Hairline.woff2",
+          "bytes": 39988
+        }
+      ],
+      "heading": true,
+      "canvases": 1
+    },
+    "labWorstInteractionMs": 0,
+    "jsBytes": 902469,
+    "totalBytes": 1121778,
+    "network": [
+      {
+        "url": "http://127.0.0.1:3200/",
+        "type": "Document",
+        "start": 433147.722012,
+        "bytes": 5575,
+        "durationMs": 61.523000011220574
+      },
+      {
+        "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Light.woff2",
+        "type": "Font",
+        "start": 433147.863852,
+        "bytes": 44150,
+        "durationMs": 89.63100000983104
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Flogo.png&w=256&q=75",
+        "type": "Image",
+        "start": 433147.864673,
+        "bytes": 16274,
+        "durationMs": 414.97199999867007
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2whng6lv32wlz.css",
+        "type": "Stylesheet",
+        "start": 433147.865643,
+        "bytes": 23939,
+        "durationMs": 415.4720000224188
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2zynomd7rkcis.js",
+        "type": "Script",
+        "start": 433147.865905,
+        "bytes": 7888,
+        "durationMs": 387.6649999874644
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2de6cglnrypw6.js",
+        "type": "Script",
+        "start": 433147.866145,
+        "bytes": 47379,
+        "durationMs": 478.47100003855303
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js",
+        "type": "Script",
+        "start": 433147.866352,
+        "bytes": 72016,
+        "durationMs": 532.3830000124872
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/turbopack-44ns1ikdx1edk.js",
+        "type": "Script",
+        "start": 433147.866541,
+        "bytes": 4229,
+        "durationMs": 365.9789999946952
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0h2qsuyze9ds1.js",
+        "type": "Script",
+        "start": 433147.866732,
+        "bytes": 4058,
+        "durationMs": 420.99299997789785
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0h5n7vpzojj4c.js",
+        "type": "Script",
+        "start": 433147.867612,
+        "bytes": 8979,
+        "durationMs": 458.1900000339374
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/436mv0f7-6epu.js",
+        "type": "Script",
+        "start": 433147.867876,
+        "bytes": 13797,
+        "durationMs": 509.4839999801479
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0g8o_wf43qaxb.js",
+        "type": "Script",
+        "start": 433147.868066,
+        "bytes": 45264,
+        "durationMs": 550.2640000195242
+      },
+      {
+        "url": "http://127.0.0.1:3200/fonts/omnes/Omnes%20Hairline.woff2",
+        "type": "Font",
+        "start": 433148.490306,
+        "bytes": 39970,
+        "durationMs": 82.1350000333041
+      },
+      {
+        "url": "http://127.0.0.1:3200/favicon.ico?favicon.3kdtg0jysms1q.ico",
+        "type": "Other",
+        "start": 433150.351631,
+        "bytes": 1835,
+        "durationMs": 60.876999981701374
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/047ojrgfuy7m5.js",
+        "type": "Script",
+        "start": 433150.738083,
+        "bytes": 4801,
+        "durationMs": 100.97299999324605
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0-ellorksa72n.js",
+        "type": "Script",
+        "start": 433150.829649,
+        "bytes": 8710,
+        "durationMs": 84.27599997958168
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0hsw3kfrsv4io.js",
+        "type": "Script",
+        "start": 433150.894618,
+        "bytes": 6646,
+        "durationMs": 77.04299996839836
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1ft5hv8egzd3j.js",
+        "type": "Script",
+        "start": 433151.541203,
+        "bytes": 5309,
+        "durationMs": 59.03900001430884
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fcopec.png&w=256&q=75",
+        "type": "Image",
+        "start": 433153.177481,
+        "bytes": 4454,
+        "durationMs": 92.76499995030463
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fkauf.png&w=256&q=75",
+        "type": "Image",
+        "start": 433153.177774,
+        "bytes": 6319,
+        "durationMs": 93.96600001491606
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2FLatam.png&w=256&q=75",
+        "type": "Image",
+        "start": 433153.178055,
+        "bytes": 6322,
+        "durationMs": 121.5249999659136
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fmistral.png&w=256&q=75",
+        "type": "Image",
+        "start": 433153.178239,
+        "bytes": 5490,
+        "durationMs": 158.30400004051626
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fsanta.png&w=256&q=75",
+        "type": "Image",
+        "start": 433153.178443,
+        "bytes": 4240,
+        "durationMs": 185.2719999733381
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fchevrolet.png&w=256&q=75",
+        "type": "Image",
+        "start": 433153.178627,
+        "bytes": 3762,
+        "durationMs": 199.88899998134002
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fnovovet.png&w=256&q=75",
+        "type": "Image",
+        "start": 433153.178775,
+        "bytes": 5588,
+        "durationMs": 275.6890000309795
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fbox.png&w=256&q=75",
+        "type": "Image",
+        "start": 433153.178953,
+        "bytes": 3992,
+        "durationMs": 273.7220000126399
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fasi.png&w=256&q=75",
+        "type": "Image",
+        "start": 433153.179367,
+        "bytes": 4572,
+        "durationMs": 299.67199999373406
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fcanada%20dry.png&w=256&q=75",
+        "type": "Image",
+        "start": 433153.180274,
+        "bytes": 5303,
+        "durationMs": 302.63700004434213
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fford.png&w=256&q=75",
+        "type": "Image",
+        "start": 433153.180492,
+        "bytes": 6457,
+        "durationMs": 318.4349999646656
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fkersting.png&w=256&q=75",
+        "type": "Image",
+        "start": 433153.180681,
+        "bytes": 3109,
+        "durationMs": 311.4449999993667
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Futem.png&w=256&q=75",
+        "type": "Image",
+        "start": 433153.180873,
+        "bytes": 3037,
+        "durationMs": 342.6529999705963
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fglam%20y%20co.png&w=256&q=75",
+        "type": "Image",
+        "start": 433153.181046,
+        "bytes": 6200,
+        "durationMs": 349.2050000349991
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/image?url=%2Fimg%2Fworks%2Fotras.png&w=256&q=75",
+        "type": "Image",
+        "start": 433153.181249,
+        "bytes": 3722,
+        "durationMs": 364.24699996132404
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/27u20hm73r23s.js",
+        "type": "Script",
+        "start": 433153.425937,
+        "bytes": 1337,
+        "durationMs": 116.25899997306988
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0w8qxtw8x5199.js",
+        "type": "Script",
+        "start": 433156.073582,
+        "bytes": 13584,
+        "durationMs": 92.70700003253296
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/3evssdk50vfqp.js",
+        "type": "Script",
+        "start": 433156.109465,
+        "bytes": 13320,
+        "durationMs": 79.07000003615394
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2otzk8c7xz0he.js",
+        "type": "Script",
+        "start": 433156.115143,
+        "bytes": 20197,
+        "durationMs": 124.90900000557303
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2ipx4mfeq4j5l.js",
+        "type": "Script",
+        "start": 433156.120246,
+        "bytes": 13955,
+        "durationMs": 142.5489999819547
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1svmzf0r2sjs-.js",
+        "type": "Script",
+        "start": 433156.123232,
+        "bytes": 75097,
+        "durationMs": 654.1859999997541
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0mgex0m1ebtnv.js",
+        "type": "Script",
+        "start": 433156.132708,
+        "bytes": 38101,
+        "durationMs": 275.1939999870956
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/41d_d1di9l77e.js",
+        "type": "Script",
+        "start": 433156.135114,
+        "bytes": 36114,
+        "durationMs": 228.10499998740852
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1koon5j2im0cn.js",
+        "type": "Script",
+        "start": 433156.137165,
+        "bytes": 53628,
+        "durationMs": 446.83799997437745
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/29islodmi_674.js",
+        "type": "Script",
+        "start": 433156.139327,
+        "bytes": 18260,
+        "durationMs": 343.87499996228144
+      },
+      {
+        "url": "https://prod.spline.design/wk0u6G-MY2bbyF6i/scene.splinecode",
+        "type": "Fetch",
+        "start": 433159.827318,
+        "bytes": 14999,
+        "durationMs": 612.552999984473
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/01d61o2njabtb.js",
+        "type": "Script",
+        "start": 433160.563228,
+        "bytes": 582,
+        "durationMs": 98.14999997615814
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1q0ar502ryvzb.js",
+        "type": "Script",
+        "start": 433161.593537,
+        "bytes": 10224,
+        "durationMs": 77.13599997805431
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/31fp1ttg_yoxy.js",
+        "type": "Script",
+        "start": 433161.619825,
+        "bytes": 18087,
+        "durationMs": 138.1880000117235
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/2rxrn76h146to.js",
+        "type": "Script",
+        "start": 433161.652439,
+        "bytes": 12323,
+        "durationMs": 154.18599999975413
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/0932rwbo3m7iv.js",
+        "type": "Script",
+        "start": 433161.670305,
+        "bytes": 8933,
+        "durationMs": 118.31099999835715
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1mks28_9nof6t.js",
+        "type": "Script",
+        "start": 433162.199962,
+        "bytes": 8134,
+        "durationMs": 106.28700000233948
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/33yrbvef8c84s.js",
+        "type": "Script",
+        "start": 433162.201387,
+        "bytes": 21711,
+        "durationMs": 228.60100003890693
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/42lx07o5psz71.js",
+        "type": "Script",
+        "start": 433162.202436,
+        "bytes": 126864,
+        "durationMs": 397.3540000151843
+      },
+      {
+        "url": "http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js",
+        "type": "Script",
+        "start": 433162.203273,
+        "bytes": 182942,
+        "durationMs": 440.58599998243153
+      }
+    ],
+    "errors": []
+  }
+]
