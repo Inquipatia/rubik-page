@@ -1,0 +1,28 @@
+{
+  "all": {
+    "info": 0,
+    "low": 0,
+    "moderate": 8,
+    "high": 0,
+    "critical": 0,
+    "total": 8
+  },
+  "production": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "packages": [
+    "@typescript-eslint/eslint-plugin",
+    "@typescript-eslint/parser",
+    "@typescript-eslint/type-utils",
+    "@typescript-eslint/typescript-estree",
+    "@typescript-eslint/utils",
+    "eslint-config-next",
+    "minimatch",
+    "typescript-eslint"
+  ]
+}

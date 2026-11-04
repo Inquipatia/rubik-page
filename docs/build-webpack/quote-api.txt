@@ -1,0 +1,3 @@
+PASS: validation, Chilean phone formats, exact INSERT payload without defaults/SELECT, mail after save, DB failure, mail failure, optional company, malformed JSON. All external services simulated.
+PASS: exact environment names, singleton, secret key rejection, missing configuration.
+PASS: header/address injection, cross-site rejection, declared and streamed body limits, escaped valid bodies, budget exhaustion/reset and 429 without DB/SMTP.

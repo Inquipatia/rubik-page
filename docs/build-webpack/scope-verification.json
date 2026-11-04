@@ -1,0 +1,7 @@
+{
+  "base": "8f011071005398644da2789f1daeeba51c399dd0",
+  "onlyPackageChange": "scripts.build",
+  "applicationAndTestsUnchanged": true,
+  "lockfileUnchanged": true,
+  "configurationUnchanged": true
+}

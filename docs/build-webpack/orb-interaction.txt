@@ -1,0 +1,2 @@
+PASS 1440x900 DPR 1: edges/corners, 20 cycles, social paths, blur/cancel/scroll reset, window exit, resize, 163 stress moves, stable listeners, no JS errors
+PASS 390x844: mobile keeps orb/controller unmounted (other scenes may own pointer listeners)

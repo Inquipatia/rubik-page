@@ -1,0 +1,18 @@
+rubik-page@0.1.0 C:\Users\hp\Documents\GitHub\rubik-page
+├─┬ eslint-config-next@16.4.5
+│ ├─┬ eslint-plugin-import@2.32.0
+│ │ └── minimatch@3.1.5 deduped
+│ ├─┬ eslint-plugin-jsx-a11y@6.10.2
+│ │ └── minimatch@3.1.5 deduped
+│ ├─┬ eslint-plugin-react@7.37.5
+│ │ └── minimatch@3.1.5 deduped
+│ └─┬ typescript-eslint@8.57.2
+│   └─┬ @typescript-eslint/typescript-estree@8.57.2
+│     └── minimatch@10.2.4
+└─┬ eslint@9.39.4
+  ├─┬ @eslint/config-array@0.21.2
+  │ └── minimatch@3.1.5 deduped
+  ├─┬ @eslint/eslintrc@3.3.5
+  │ └── minimatch@3.1.5 deduped
+  └── minimatch@3.1.5
+

@@ -1,0 +1,9 @@
+{
+  "node": "v22.23.4",
+  "platform": "win32",
+  "arch": "x64",
+  "next": "16.4.5",
+  "build": "next build --webpack",
+  "baseline": "8f01107",
+  "branch": "resolution-laptop"
+}

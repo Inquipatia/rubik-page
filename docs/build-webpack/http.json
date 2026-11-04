@@ -1,0 +1,30 @@
+[
+  {
+    "path": "/",
+    "status": 200
+  },
+  {
+    "path": "/admin",
+    "status": 404
+  },
+  {
+    "path": "/.env",
+    "status": 404
+  },
+  {
+    "path": "/api/send-quote",
+    "status": 405
+  },
+  {
+    "path": "/api/send-quote",
+    "status": 400
+  },
+  {
+    "path": "/api/send-quote",
+    "status": 403
+  },
+  {
+    "path": "/_next/image?url=%2Fimg%2Flogo.png&w=64&q=75",
+    "status": 200
+  }
+]

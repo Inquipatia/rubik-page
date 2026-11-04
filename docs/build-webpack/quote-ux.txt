@@ -1,0 +1,2 @@
+PASS 390: required fields, invalid email/phone, missing service, sending state, duplicate submit guard, error preserves fields, retry, success clears fields, no horizontal overflow
+PASS 1440: required fields, invalid email/phone, missing service, sending state, duplicate submit guard, error preserves fields, retry, success clears fields, no horizontal overflow
