@@ -1,0 +1,708 @@
+{
+  "data": [
+    {
+      "kind": "orb",
+      "backend": "webgpu",
+      "imageData": [
+        {
+          "id": "d878e19b-8d08-4df5-a0cf-19de82edbaea",
+          "width": 1920,
+          "height": 1920,
+          "name": "Matcap6"
+        },
+        {
+          "id": "matcap_reflection_5",
+          "width": 1024,
+          "height": 1024,
+          "name": "Matcap Reflection 5"
+        },
+        {
+          "id": "matcap_roughness_1",
+          "width": 1024,
+          "height": 1024,
+          "name": "Matcap Roughness 1"
+        }
+      ],
+      "settings": {
+        "orbitControls": {
+          "enablePan": false,
+          "enableZoom": false,
+          "enableRotate": false,
+          "enableDamping": true,
+          "rotationLimitsMode": 0,
+          "rotationVerticalOffset": {
+            "min": 0,
+            "max": 0
+          },
+          "rotationHorizontalOffset": {
+            "min": 0,
+            "max": 0
+          },
+          "rotationSoftLimit": 1,
+          "panLimitsMode": 0,
+          "panVerticalOffset": {
+            "min": 250,
+            "max": 250
+          },
+          "panHorizontalOffset": {
+            "min": 250,
+            "max": 250
+          },
+          "panSoftLimit": 2,
+          "zoomLimitsEnabled": false,
+          "zoomLimits": {
+            "min": 0.1,
+            "max": 2
+          },
+          "autoRotate": false,
+          "autoRotateSpeed": 2,
+          "autoRotateClockwise": true,
+          "hoverRotatePanMode": 0,
+          "hoverRotatePanStrength": 15,
+          "hoverRotateDamping": 0.089,
+          "isTouchZoom": false,
+          "orbitTouches": 2,
+          "panTouches": 3,
+          "resetHoverEffectOnPointerLeave": true,
+          "rotationSpeed": 1
+        },
+        "playPage": "a218fcc3-276b-49b9-b485-49037fd14f5f",
+        "withBackground": false,
+        "preventScroll": true,
+        "preventTouchScroll": true,
+        "hideCursor": false,
+        "mouseEventTarget": "canvas",
+        "joystickSizeAndXYOffset": [
+          [
+            120,
+            [
+              30,
+              -30
+            ],
+            "show"
+          ],
+          [
+            120,
+            [
+              0,
+              -30
+            ],
+            "show"
+          ],
+          [
+            120,
+            [
+              0,
+              -30
+            ],
+            "show"
+          ],
+          [
+            120,
+            [
+              0,
+              -30
+            ],
+            "show"
+          ],
+          [
+            120,
+            [
+              -30,
+              -30
+            ],
+            "show"
+          ],
+          [
+            120,
+            [
+              30,
+              30
+            ],
+            "show"
+          ],
+          [
+            120,
+            [
+              0,
+              30
+            ],
+            "show"
+          ],
+          [
+            120,
+            [
+              0,
+              30
+            ],
+            "show"
+          ],
+          [
+            120,
+            [
+              0,
+              30
+            ],
+            "show"
+          ],
+          [
+            120,
+            [
+              -30,
+              30
+            ],
+            "show"
+          ],
+          [
+            120,
+            [
+              30,
+              0
+            ],
+            "show"
+          ],
+          [
+            120,
+            [
+              -30,
+              0
+            ],
+            "show"
+          ]
+        ],
+        "settings": {
+          "image": {
+            "format": "png",
+            "ratio": 1,
+            "colorSpace": "display-p3"
+          },
+          "web": {
+            "logo": false,
+            "compress": true,
+            "preset": 1,
+            "preload": true,
+            "hint": false,
+            "imageQuality": 70,
+            "pixelRatioMobile": 0,
+            "pixelRatioDesktop": 0
+          },
+          "videoStatic": {
+            "fps": 60,
+            "mbps": 150,
+            "ratio": 1,
+            "duration": 1000,
+            "format": "mp4",
+            "imageFormat": "jpg",
+            "activeTimeline": null,
+            "colorSpace": "display-p3"
+          }
+        },
+        "stopRaycast": false,
+        "hdTransmission": false
+      },
+      "lights": [
+        {
+          "name": "Default Ambient Light",
+          "type": "HemisphereLight",
+          "castShadow": false
+        }
+      ],
+      "materials": [
+        {
+          "type": "NodeMaterial",
+          "name": "Rectangle Material"
+        },
+        {
+          "type": "NodeMaterial",
+          "name": "int.png Material"
+        },
+        {
+          "type": "NodeMaterial",
+          "name": "ViewAct Material"
+        },
+        {
+          "type": "NodeMaterial",
+          "name": "Glass12"
+        },
+        {
+          "type": "NodeMaterial",
+          "name": "Untitled Material"
+        },
+        {
+          "type": "NodeMaterial",
+          "name": "Untitled Material"
+        },
+        {
+          "type": "NodeMaterial",
+          "name": "insta"
+        },
+        {
+          "type": "NodeMaterial",
+          "name": "link"
+        },
+        {
+          "type": "NodeMaterial",
+          "name": "face"
+        },
+        {
+          "type": "NodeMaterial",
+          "name": "wsp"
+        }
+      ],
+      "geometryCount": 8,
+      "vertices": 20526,
+      "largestMeshes": [
+        {
+          "name": "linkedin_orb",
+          "type": "Mesh",
+          "visible": true,
+          "vertices": 4225
+        },
+        {
+          "name": "whatsapp_orb",
+          "type": "Mesh",
+          "visible": true,
+          "vertices": 4225
+        },
+        {
+          "name": "Sphere",
+          "type": "Mesh",
+          "visible": true,
+          "vertices": 3968
+        },
+        {
+          "name": "instragram_orb",
+          "type": "Mesh",
+          "visible": true,
+          "vertices": 3968
+        },
+        {
+          "name": "facebook_orb",
+          "type": "Mesh",
+          "visible": true,
+          "vertices": 3968
+        },
+        {
+          "name": "Rectangle",
+          "type": "Mesh",
+          "visible": true,
+          "vertices": 164
+        },
+        {
+          "name": "eyeLeftBlink",
+          "type": "Mesh",
+          "visible": true,
+          "vertices": 164
+        },
+        {
+          "name": "eyeRightBlink",
+          "type": "Mesh",
+          "visible": true,
+          "vertices": 164
+        },
+        {
+          "name": "int.png",
+          "type": "Mesh",
+          "visible": true,
+          "vertices": 4
+        },
+        {
+          "name": "ViewAct",
+          "type": "Mesh",
+          "visible": true,
+          "vertices": 4
+        }
+      ],
+      "textures": []
+    },
+    {
+      "kind": "cube",
+      "backend": "webgpu",
+      "imageData": [
+        {
+          "id": "matcap_roughness_2",
+          "width": 1024,
+          "height": 1024,
+          "name": "Matcap Roughness 2"
+        }
+      ],
+      "settings": {
+        "orbitControls": {
+          "enablePan": false,
+          "enableZoom": true,
+          "enableRotate": true,
+          "enableDamping": true,
+          "rotationLimitsMode": 0,
+          "rotationVerticalOffset": {
+            "min": 0.3490658503988659,
+            "max": 0.3490658503988659
+          },
+          "rotationHorizontalOffset": {
+            "min": 0.3490658503988659,
+            "max": 0.3490658503988659
+          },
+          "rotationSoftLimit": 0,
+          "panLimitsMode": 0,
+          "panVerticalOffset": {
+            "min": 20,
+            "max": 20
+          },
+          "panHorizontalOffset": {
+            "min": 20,
+            "max": 20
+          },
+          "panSoftLimit": 2,
+          "zoomLimitsEnabled": true,
+          "zoomLimits": {
+            "min": 1.37,
+            "max": 1.4000000000000001
+          },
+          "autoRotate": false,
+          "autoRotateSpeed": 2,
+          "autoRotateClockwise": true,
+          "hoverRotatePanMode": 0,
+          "hoverRotatePanStrength": 1,
+          "hoverRotateDamping": 0.125,
+          "isTouchZoom": true,
+          "orbitTouches": 1,
+          "panTouches": 3,
+          "resetHoverEffectOnPointerLeave": true,
+          "rotationSpeed": 0.2
+        },
+        "playPage": "a218fcc3-276b-49b9-b485-49037fd14f5f",
+        "withBackground": false,
+        "preventScroll": false,
+        "preventTouchScroll": false,
+        "hideCursor": false,
+        "mouseEventTarget": "canvas",
+        "joystickSizeAndXYOffset": [
+          [
+            120,
+            [
+              30,
+              -30
+            ],
+            "show"
+          ],
+          [
+            120,
+            [
+              0,
+              -30
+            ],
+            "show"
+          ],
+          [
+            120,
+            [
+              0,
+              -30
+            ],
+            "show"
+          ],
+          [
+            120,
+            [
+              0,
+              -30
+            ],
+            "show"
+          ],
+          [
+            120,
+            [
+              -30,
+              -30
+            ],
+            "show"
+          ],
+          [
+            120,
+            [
+              30,
+              30
+            ],
+            "show"
+          ],
+          [
+            120,
+            [
+              0,
+              30
+            ],
+            "show"
+          ],
+          [
+            120,
+            [
+              0,
+              30
+            ],
+            "show"
+          ],
+          [
+            120,
+            [
+              0,
+              30
+            ],
+            "show"
+          ],
+          [
+            120,
+            [
+              -30,
+              30
+            ],
+            "show"
+          ],
+          [
+            120,
+            [
+              30,
+              0
+            ],
+            "show"
+          ],
+          [
+            120,
+            [
+              -30,
+              0
+            ],
+            "show"
+          ]
+        ],
+        "settings": {
+          "image": {
+            "format": "jpg",
+            "ratio": 1,
+            "colorSpace": "display-p3"
+          },
+          "videoStatic": {
+            "fps": 60,
+            "mbps": 150,
+            "ratio": 1,
+            "duration": 10000,
+            "activeTimeline": "19665275-9015-4927-8532-20305dea7139",
+            "format": "mp4",
+            "imageFormat": "jpg",
+            "colorSpace": "display-p3"
+          },
+          "web": {
+            "logo": false,
+            "compress": true,
+            "preset": 0,
+            "preload": true,
+            "hint": false,
+            "imageQuality": 60,
+            "pixelRatioMobile": 0,
+            "pixelRatioDesktop": 0
+          }
+        },
+        "stopRaycast": false,
+        "hdTransmission": false
+      },
+      "lights": [
+        {
+          "name": "Default Ambient Light",
+          "type": "HemisphereLight",
+          "castShadow": false
+        }
+      ],
+      "materials": [
+        {
+          "type": "NodeMaterial",
+          "name": "Metal"
+        }
+      ],
+      "geometryCount": 3,
+      "vertices": 1800,
+      "largestMeshes": [
+        {
+          "name": "Top",
+          "type": "Mesh",
+          "visible": true,
+          "vertices": 600
+        },
+        {
+          "name": "Bottom",
+          "type": "Mesh",
+          "visible": true,
+          "vertices": 600
+        },
+        {
+          "name": "Center",
+          "type": "Mesh",
+          "visible": true,
+          "vertices": 600
+        },
+        {
+          "name": "",
+          "type": "Object3D",
+          "visible": true,
+          "vertices": 600
+        },
+        {
+          "name": "",
+          "type": "Object3D",
+          "visible": true,
+          "vertices": 600
+        },
+        {
+          "name": "",
+          "type": "Object3D",
+          "visible": true,
+          "vertices": 600
+        },
+        {
+          "name": "",
+          "type": "Object3D",
+          "visible": true,
+          "vertices": 600
+        },
+        {
+          "name": "",
+          "type": "Object3D",
+          "visible": true,
+          "vertices": 600
+        },
+        {
+          "name": "",
+          "type": "Object3D",
+          "visible": true,
+          "vertices": 600
+        },
+        {
+          "name": "",
+          "type": "Object3D",
+          "visible": true,
+          "vertices": 600
+        },
+        {
+          "name": "",
+          "type": "Object3D",
+          "visible": true,
+          "vertices": 600
+        },
+        {
+          "name": "",
+          "type": "Object3D",
+          "visible": true,
+          "vertices": 600
+        }
+      ],
+      "textures": []
+    }
+  ],
+  "runtime": {
+    "heap": 28844253,
+    "elapsed": 5031.800000011921,
+    "scenes": [
+      {
+        "backend": "webgpu",
+        "frames": 236,
+        "info": {
+          "autoReset": true,
+          "frame": 280,
+          "calls": 3069,
+          "render": {
+            "calls": 3069,
+            "frameCalls": 11,
+            "drawCalls": 9,
+            "triangles": 9,
+            "points": 0,
+            "lines": 0,
+            "timestamp": 0
+          },
+          "asyncCompilation": {
+            "queued": 0,
+            "pipelines": 0,
+            "promotions": 17,
+            "failed": 0,
+            "mainThreadTime": 1229.7999997735023
+          },
+          "compute": {
+            "calls": 0,
+            "frameCalls": 0,
+            "timestamp": 0
+          },
+          "memory": {
+            "attributes": 18,
+            "attributesSize": 490748,
+            "geometries": 9,
+            "indexAttributes": 8,
+            "indexAttributesSize": 266952,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 17,
+            "programsSize": 137901,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 12,
+            "storageAttributes": 0,
+            "storageAttributesSize": 0,
+            "textures": 24,
+            "texturesSize": 32536225,
+            "uniformBuffers": 30,
+            "uniformBuffersSize": 13600,
+            "total": 33445426
+          },
+          "memoryMap": {}
+        }
+      },
+      {
+        "backend": "webgpu",
+        "frames": 234,
+        "info": {
+          "autoReset": true,
+          "frame": 240,
+          "calls": 709,
+          "render": {
+            "calls": 709,
+            "frameCalls": 3,
+            "drawCalls": 2,
+            "triangles": 2,
+            "points": 0,
+            "lines": 0,
+            "timestamp": 0
+          },
+          "asyncCompilation": {
+            "queued": 0,
+            "pipelines": 0,
+            "promotions": 30,
+            "failed": 0,
+            "mainThreadTime": 61.79999989271164
+          },
+          "compute": {
+            "calls": 0,
+            "frameCalls": 0,
+            "timestamp": 0
+          },
+          "memory": {
+            "attributes": 8,
+            "attributesSize": 43260,
+            "geometries": 4,
+            "indexAttributes": 3,
+            "indexAttributesSize": 25776,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 6,
+            "programsSize": 36257,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 3,
+            "storageAttributes": 0,
+            "storageAttributesSize": 0,
+            "textures": 7,
+            "texturesSize": 12059012,
+            "uniformBuffers": 36,
+            "uniformBuffersSize": 20480,
+            "total": 12184785
+          },
+          "memoryMap": {}
+        }
+      }
+    ]
+  }
+}

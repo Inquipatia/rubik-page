@@ -1,0 +1,574 @@
+[
+  {
+    "mode": "all",
+    "metrics": {
+      "longTasks": [
+        {
+          "start": 394.0999999642372,
+          "duration": 58
+        },
+        {
+          "start": 1262.5,
+          "duration": 852
+        },
+        {
+          "start": 2211.5,
+          "duration": 215
+        },
+        {
+          "start": 2588.099999964237,
+          "duration": 91
+        },
+        {
+          "start": 3031.7999999523163,
+          "duration": 71
+        },
+        {
+          "start": 3209.399999976158,
+          "duration": 119
+        },
+        {
+          "start": 3339.5,
+          "duration": 77
+        },
+        {
+          "start": 3954.899999976158,
+          "duration": 169
+        },
+        {
+          "start": 4507.899999976158,
+          "duration": 1076
+        },
+        {
+          "start": 6511.899999976158,
+          "duration": 138
+        },
+        {
+          "start": 6702.299999952316,
+          "duration": 167
+        },
+        {
+          "start": 6885.799999952316,
+          "duration": 189
+        },
+        {
+          "start": 7079.699999988079,
+          "duration": 174
+        },
+        {
+          "start": 7290.399999976158,
+          "duration": 100
+        },
+        {
+          "start": 7403.899999976158,
+          "duration": 75
+        },
+        {
+          "start": 7846.899999976158,
+          "duration": 72
+        },
+        {
+          "start": 8177.5,
+          "duration": 1607
+        },
+        {
+          "start": 9988.5,
+          "duration": 105
+        },
+        {
+          "start": 10132.799999952316,
+          "duration": 1844
+        },
+        {
+          "start": 12001.699999988079,
+          "duration": 849
+        },
+        {
+          "start": 12855.599999964237,
+          "duration": 3392
+        },
+        {
+          "start": 16267.299999952316,
+          "duration": 462
+        },
+        {
+          "start": 16770.599999964237,
+          "duration": 84
+        },
+        {
+          "start": 16854.799999952316,
+          "duration": 485
+        },
+        {
+          "start": 17418.599999964237,
+          "duration": 2907
+        },
+        {
+          "start": 20357,
+          "duration": 250
+        },
+        {
+          "start": 20706.299999952316,
+          "duration": 333
+        },
+        {
+          "start": 21041.099999964237,
+          "duration": 346
+        },
+        {
+          "start": 21387.299999952316,
+          "duration": 277
+        },
+        {
+          "start": 21778.69999998808,
+          "duration": 1041
+        },
+        {
+          "start": 22820.399999976158,
+          "duration": 264
+        },
+        {
+          "start": 23121.5,
+          "duration": 233
+        },
+        {
+          "start": 23356,
+          "duration": 191
+        },
+        {
+          "start": 24176.299999952316,
+          "duration": 286
+        },
+        {
+          "start": 24474,
+          "duration": 189
+        },
+        {
+          "start": 24674.299999952316,
+          "duration": 206
+        },
+        {
+          "start": 24887.799999952316,
+          "duration": 139
+        },
+        {
+          "start": 25041.399999976158,
+          "duration": 183
+        },
+        {
+          "start": 25235.899999976158,
+          "duration": 183
+        },
+        {
+          "start": 25433.099999964237,
+          "duration": 273
+        },
+        {
+          "start": 25717.5,
+          "duration": 163
+        },
+        {
+          "start": 25890.5,
+          "duration": 134
+        },
+        {
+          "start": 26032.19999998808,
+          "duration": 188
+        },
+        {
+          "start": 26229.899999976158,
+          "duration": 167
+        },
+        {
+          "start": 26411.69999998808,
+          "duration": 205
+        },
+        {
+          "start": 26631.299999952316,
+          "duration": 152
+        },
+        {
+          "start": 26797.099999964237,
+          "duration": 173
+        },
+        {
+          "start": 26982.799999952316,
+          "duration": 119
+        },
+        {
+          "start": 27103.299999952316,
+          "duration": 138
+        },
+        {
+          "start": 27252,
+          "duration": 144
+        },
+        {
+          "start": 27409.299999952316,
+          "duration": 129
+        },
+        {
+          "start": 30015.799999952316,
+          "duration": 130
+        },
+        {
+          "start": 30155.299999952316,
+          "duration": 126
+        }
+      ],
+      "lcp": 2176,
+      "cls": 0,
+      "ready": [
+        {
+          "scene": "smooth-spline smooth-spline--cube",
+          "time": 16766.899999976158
+        },
+        {
+          "scene": "smooth-spline smooth-spline--orb",
+          "time": 17418.299999952316
+        }
+      ],
+      "fcp": 2176
+    },
+    "blockingMs": 19090,
+    "top": [
+      {
+        "frame": "_copyImageToTexture @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:106:97506",
+        "ms": 2959
+      },
+      {
+        "frame": "N @ http://127.0.0.1:3200/_next/static/chunks/turbopack-44ns1ikdx1edk.js:1:5890",
+        "ms": 2811
+      },
+      {
+        "frame": "(idle) @ (native):0:0",
+        "ms": 2724
+      },
+      {
+        "frame": "(program) @ (native):0:0",
+        "ms": 2487
+      },
+      {
+        "frame": "build @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:2:6228",
+        "ms": 740
+      },
+      {
+        "frame": "(garbage collector) @ (native):0:0",
+        "ms": 399
+      },
+      {
+        "frame": "_getChildren @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:2:3580",
+        "ms": 263
+      },
+      {
+        "frame": "build @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:5:2561",
+        "ms": 258
+      },
+      {
+        "frame": "build @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:2:9933",
+        "ms": 233
+      },
+      {
+        "frame": "getDataFromNode @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:8:83898",
+        "ms": 212
+      },
+      {
+        "frame": "_renderScene @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:13:3422",
+        "ms": 204
+      },
+      {
+        "frame": "beginRender @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:216:13593",
+        "ms": 191
+      },
+      {
+        "frame": "appendChild @ (native):0:0",
+        "ms": 171
+      },
+      {
+        "frame": "xO @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:106:78936",
+        "ms": 165
+      },
+      {
+        "frame": "(anonymous) @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:1:119",
+        "ms": 155
+      },
+      {
+        "frame": "analyze @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:2:5597",
+        "ms": 153
+      },
+      {
+        "frame": "updateForRender @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:10:14428",
+        "ms": 152
+      },
+      {
+        "frame": "getChildren @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:2:3400",
+        "ms": 136
+      },
+      {
+        "frame": "copyTextureToTexture @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:216:32485",
+        "ms": 131
+      },
+      {
+        "frame": "getNodeType @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:2:4765",
+        "ms": 121
+      },
+      {
+        "frame": "updateNode @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:10:1339",
+        "ms": 112
+      },
+      {
+        "frame": "getCacheKey @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:2:4092",
+        "ms": 102
+      },
+      {
+        "frame": "setHashNode @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:8:77284",
+        "ms": 98
+      },
+      {
+        "frame": "updateBinding @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:214:5888",
+        "ms": 97
+      },
+      {
+        "frame": "createAttribute @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:214:567",
+        "ms": 94
+      },
+      {
+        "frame": "getHash @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:2:4489",
+        "ms": 93
+      },
+      {
+        "frame": "render @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:13:1320",
+        "ms": 90
+      },
+      {
+        "frame": "build @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:2:19789",
+        "ms": 90
+      },
+      {
+        "frame": "updateMatrix4 @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:13:29558",
+        "ms": 86
+      },
+      {
+        "frame": "aS @ http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js:1:79189",
+        "ms": 83
+      },
+      {
+        "frame": "F @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:2:2531",
+        "ms": 83
+      },
+      {
+        "frame": "renderSplineScene @ http://127.0.0.1:3200/_next/static/chunks/42lx07o5psz71.js:1:89927",
+        "ms": 81
+      },
+      {
+        "frame": "_draw @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:216:21828",
+        "ms": 79
+      },
+      {
+        "frame": "id @ http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js:1:109014",
+        "ms": 78
+      },
+      {
+        "frame": "generate @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:2:32427",
+        "ms": 77
+      }
+    ],
+    "resources": [
+      "https://prod.spline.design/rWCCsSXcaU52lNsR/scene.splinecode",
+      "https://prod.spline.design/wk0u6G-MY2bbyF6i/scene.splinecode"
+    ],
+    "profilePath": "C:\\Users\\hp\\AppData\\Local\\Temp\\rubik-before-all.cpuprofile"
+  },
+  {
+    "mode": "no-spline",
+    "metrics": {
+      "longTasks": [
+        {
+          "start": 325.89999997615814,
+          "duration": 72
+        },
+        {
+          "start": 1294,
+          "duration": 732
+        },
+        {
+          "start": 2421.699999988079,
+          "duration": 76
+        },
+        {
+          "start": 2733.199999988079,
+          "duration": 187
+        },
+        {
+          "start": 2925.800000011921,
+          "duration": 121
+        },
+        {
+          "start": 3130.300000011921,
+          "duration": 100
+        },
+        {
+          "start": 3631.300000011921,
+          "duration": 90
+        },
+        {
+          "start": 4055.899999976158,
+          "duration": 1111
+        },
+        {
+          "start": 5205.800000011921,
+          "duration": 892
+        }
+      ],
+      "lcp": 1252,
+      "cls": 0,
+      "ready": [],
+      "fcp": 1252
+    },
+    "blockingMs": 2931,
+    "top": [
+      {
+        "frame": "(idle) @ (native):0:0",
+        "ms": 20590
+      },
+      {
+        "frame": "(program) @ (native):0:0",
+        "ms": 1552
+      },
+      {
+        "frame": "N @ http://127.0.0.1:3200/_next/static/chunks/turbopack-44ns1ikdx1edk.js:1:5890",
+        "ms": 1233
+      },
+      {
+        "frame": "DetermineComponentFrameRoot @ http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js:1:29796",
+        "ms": 195
+      },
+      {
+        "frame": "aS @ http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js:1:79189",
+        "ms": 79
+      },
+      {
+        "frame": "id @ http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js:1:109014",
+        "ms": 71
+      },
+      {
+        "frame": "ef @ http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js:1:29657",
+        "ms": 71
+      },
+      {
+        "frame": "appendChild @ (native):0:0",
+        "ms": 66
+      },
+      {
+        "frame": "Y @ http://127.0.0.1:3200/_next/static/chunks/436mv0f7-6epu.js:1:18703",
+        "ms": 61
+      },
+      {
+        "frame": "iw @ http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js:1:118451",
+        "ms": 47
+      },
+      {
+        "frame": "(garbage collector) @ (native):0:0",
+        "ms": 46
+      },
+      {
+        "frame": "d @ http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js:1:24812",
+        "ms": 43
+      },
+      {
+        "frame": "L @ http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js:1:15137",
+        "ms": 41
+      },
+      {
+        "frame": "C @ http://127.0.0.1:3200/_next/static/chunks/436mv0f7-6epu.js:1:7618",
+        "ms": 35
+      },
+      {
+        "frame": "(anonymous) @ http://127.0.0.1:3200/_next/static/chunks/0mgex0m1ebtnv.js:1:119",
+        "ms": 34
+      },
+      {
+        "frame": "(anonymous) @ http://127.0.0.1:3200/_next/static/chunks/1svmzf0r2sjs-.js:1:119",
+        "ms": 31
+      },
+      {
+        "frame": "T @ http://127.0.0.1:3200/_next/static/chunks/0h2qsuyze9ds1.js:1:8919",
+        "ms": 29
+      },
+      {
+        "frame": "y @ http://127.0.0.1:3200/_next/static/chunks/2de6cglnrypw6.js:1:10188",
+        "ms": 28
+      },
+      {
+        "frame": "A @ http://127.0.0.1:3200/_next/static/chunks/436mv0f7-6epu.js:1:14127",
+        "ms": 28
+      },
+      {
+        "frame": "uu @ http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js:1:134333",
+        "ms": 27
+      },
+      {
+        "frame": "(anonymous) @ http://127.0.0.1:3200/_next/static/chunks/0h5n7vpzojj4c.js:10:3460",
+        "ms": 27
+      },
+      {
+        "frame": "(anonymous) @ http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js:1:157127",
+        "ms": 27
+      },
+      {
+        "frame": "q @ http://127.0.0.1:3200/_next/static/chunks/turbopack-44ns1ikdx1edk.js:1:7734",
+        "ms": 26
+      },
+      {
+        "frame": "s @ http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js:1:20881",
+        "ms": 24
+      },
+      {
+        "frame": "c @ http://127.0.0.1:3200/_next/static/chunks/turbopack-44ns1ikdx1edk.js:1:747",
+        "ms": 24
+      },
+      {
+        "frame": "(anonymous) @ http://127.0.0.1:3200/_next/static/chunks/27u20hm73r23s.js:1:191",
+        "ms": 21
+      },
+      {
+        "frame": "(anonymous) @ http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js:1:109132",
+        "ms": 18
+      },
+      {
+        "frame": "sh @ http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js:1:154677",
+        "ms": 18
+      },
+      {
+        "frame": "(anonymous) @ http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js:1:31492",
+        "ms": 17
+      },
+      {
+        "frame": "n @ http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js:1:29823",
+        "ms": 17
+      },
+      {
+        "frame": "o @ http://127.0.0.1:3200/_next/static/chunks/2otzk8c7xz0he.js:1:63141",
+        "ms": 17
+      },
+      {
+        "frame": "i8 @ http://127.0.0.1:3200/_next/static/chunks/1j_9b-l0n6u-t.js:1:128625",
+        "ms": 16
+      },
+      {
+        "frame": "h @ http://127.0.0.1:3200/_next/static/chunks/2de6cglnrypw6.js:1:21930",
+        "ms": 16
+      },
+      {
+        "frame": "set webkitSpeechRecognitionEvent @ (native):0:0",
+        "ms": 16
+      },
+      {
+        "frame": "i @ http://127.0.0.1:3200/_next/static/chunks/0h2qsuyze9ds1.js:1:3617",
+        "ms": 16
+      }
+    ],
+    "resources": [],
+    "profilePath": "C:\\Users\\hp\\AppData\\Local\\Temp\\rubik-before-no-spline.cpuprofile"
+  }
+]

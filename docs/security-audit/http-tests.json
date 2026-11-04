@@ -1,0 +1,52 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "cacheControl": "s-maxage=31536000"
+  },
+  {
+    "path": "/.env",
+    "status": 404,
+    "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+  },
+  {
+    "path": "/admin",
+    "status": 404,
+    "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+  },
+  {
+    "path": "/api/admin",
+    "status": 404,
+    "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+  },
+  {
+    "path": "/api/send-quote",
+    "status": 405,
+    "cacheControl": "private, no-store, max-age=0"
+  },
+  {
+    "path": "/api/send-quote",
+    "status": 400,
+    "cacheControl": "private, no-store, max-age=0"
+  },
+  {
+    "path": "/api/send-quote",
+    "status": 400,
+    "cacheControl": "private, no-store, max-age=0"
+  },
+  {
+    "path": "/api/send-quote",
+    "status": 403,
+    "cacheControl": "private, no-store, max-age=0"
+  },
+  {
+    "path": "/api/send-quote",
+    "status": 413,
+    "cacheControl": "private, no-store, max-age=0"
+  },
+  {
+    "path": "/_next/image?url=%2Fimg%2Flogo.png&w=64&q=75",
+    "status": 200,
+    "cacheControl": "public, max-age=14400, must-revalidate"
+  }
+]

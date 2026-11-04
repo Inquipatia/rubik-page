@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { getSupabase } from "../../lib/supabase";
 import { validateQuote } from "../../lib/quote-validation";
+import { consumeQuoteBudget, readQuoteJson, QuoteBodyTooLarge } from "../../lib/quote-request";
 
 export const runtime = "nodejs";
 
@@ -15,9 +16,29 @@ function escapeHtml(str: string) {
 }
 
 export async function POST(req: Request) {
+  if (!consumeQuoteBudget()) {
+    console.warn("quote_rate_limited", { at: new Date().toISOString() });
+    return NextResponse.json({ ok: false, message: "Demasiadas solicitudes. Reintenta en un minuto." },
+      { status: 429, headers: { "Retry-After": "60" } });
+  }
+  // Browser cross-site requests are not valid form submissions. Requests without
+  // Origin remain supported; this is not authentication or bot prevention.
+  const origin = req.headers.get("origin");
+  // Next may construct req.url with its listening hostname rather than Host.
+  // Host is the authority the browser actually addressed; do not trust a
+  // caller-supplied X-Forwarded-Host as an alternate allowed origin.
+  const requestUrl = new URL(req.url);
+  const authority = req.headers.get("host") || requestUrl.host;
+  const expectedOrigin = `${requestUrl.protocol}//${authority}`;
+  if (req.headers.get("sec-fetch-site") === "cross-site" || (origin && origin !== expectedOrigin)) {
+    return NextResponse.json({ ok: false, message: "Origen no permitido." }, { status: 403 });
+  }
   try {
     let body: unknown;
-    try { body = await req.json(); } catch {
+    try { body = await readQuoteJson(req); } catch (error) {
+      if (error instanceof QuoteBodyTooLarge) {
+        return NextResponse.json({ ok: false, message: "Solicitud demasiado grande." }, { status: 413 });
+      }
       return NextResponse.json({ ok: false, message: "Solicitud inválida." }, { status: 400 });
     }
     const { quote, errors, valid } = validateQuote(body);
@@ -42,6 +63,8 @@ export async function POST(req: Request) {
       }
 
       const transporter = nodemailer.createTransport({
+        disableFileAccess: true,
+        disableUrlAccess: true,
         connectionTimeout: 10000,
         greetingTimeout: 10000,
         socketTimeout: 15000,

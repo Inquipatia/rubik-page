@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {splitSplineRender} from '../app/components/experience/spline-render-tasks.ts';
+const tasks=[],frames=[];
+globalThis.scheduler={postTask:async (run,options)=>{assert.equal(options.priority,'background');tasks.push(run);}};
+const app={render:time=>frames.push(time)};
+const original=app.render,abort=new AbortController();
+splitSplineRender(app,abort.signal);
+app.render(1);app.render(2);
+assert.equal(tasks.length,1,'coalesce pending frames without a backlog');
+assert.equal(frames.length,0,'yield the current main-thread task');
+const before=performance.now();tasks.shift()();
+assert.ok(frames[0]>=before,'use actual elapsed time, not a stale RAF timestamp');
+app.render(3);assert.equal(tasks.length,1,'do not impose an FPS delay');
+abort.abort();tasks.shift()();
+assert.equal(frames.length,1,'queued work must not render a disposed application');
+assert.equal(app.render,original);
+console.log('PASS: separate tasks, no frame backlog/FPS cap, current clock, abort cleanup.');

@@ -1,0 +1,103 @@
+
+C:\Users\hp\Documents\GitHub\rubik-page\app\components\experience\use-orb-interaction.ts
+   69:13  error  Error: Cannot modify local variables after render completes
+
+This argument is a function which may reassign or mutate `wrapper` after render, which can cause inconsistent behavior on subsequent renders. Consider using state instead.
+
+C:\Users\hp\Documents\GitHub\rubik-page\app\components\experience\use-orb-interaction.ts:69:13
+   67 |   const move = useEffectEvent(onMove);
+   68 |
+>  69 |   useEffect(() => {
+      |             ^^^^^^^
+>  70 |     const root = wrapper.current;
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  71 |     if (!root || !enabled) return;
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 231 |     };
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 232 |   }, [wrapper, enabled, resetKey, requestFrame, cancelFrame]);
+      | ^^^^ This function may (indirectly) reassign or modify `wrapper` after render
+  233 |   return active;
+  234 | }
+  235 |
+
+C:\Users\hp\Documents\GitHub\rubik-page\app\components\experience\use-orb-interaction.ts:105:7
+  103 |     }
+  104 |     const state = (value: "IDLE" | "ENTER" | "ACTIVE" | "LEAVE") => {
+> 105 |       root.dataset.orbInteraction = value;
+      |       ^^^^ This modifies `wrapper`
+  106 |       if (value === "ENTER" || value === "LEAVE") lastTransition = value;
+  107 |       if (label) label.textContent = `${value} · ${lastTransition} · ${transitions}`;
+  108 |     };  react-hooks/immutability
+  105:7   error  Error: This value cannot be modified
+
+Modifying component props or hook arguments is not allowed. Consider using a local variable instead.
+
+C:\Users\hp\Documents\GitHub\rubik-page\app\components\experience\use-orb-interaction.ts:105:7
+  103 |     }
+  104 |     const state = (value: "IDLE" | "ENTER" | "ACTIVE" | "LEAVE") => {
+> 105 |       root.dataset.orbInteraction = value;
+      |       ^^^^ `wrapper` cannot be modified
+  106 |       if (value === "ENTER" || value === "LEAVE") lastTransition = value;
+  107 |       if (label) label.textContent = `${value} · ${lastTransition} · ${transitions}`;
+  108 |     };                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            react-hooks/immutability
+
+C:\Users\hp\Documents\GitHub\rubik-page\app\components\scenes\floating-social-orb.tsx
+   689:23  error    Error: Cannot call impure function during render
+
+`performance.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\hp\Documents\GitHub\rubik-page\app\components\scenes\floating-social-orb.tsx:689:23
+  687 |     cancelBlinkAnimation();
+  688 |
+> 689 |     const startTime = performance.now();
+      |                       ^^^^^^^^^^^^^^^^^ Cannot call impure function
+  690 |     const totalDuration = BLINK_CLOSE_MS + BLINK_HOLD_MS + BLINK_OPEN_MS;
+  691 |
+  692 |     const animate = (time: number) => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        react-hooks/purity
+   806:7   error    Error: Cannot access variable before it is declared
+
+`startIdleDanceLoop` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+C:\Users\hp\Documents\GitHub\rubik-page\app\components\scenes\floating-social-orb.tsx:806:7
+  804 |       if (isPageHiddenRef.current) return;
+  805 |
+> 806 |       startIdleDanceLoop();
+      |       ^^^^^^^^^^^^^^^^^^ `startIdleDanceLoop` accessed before it is declared
+  807 |       startEyeBlinkLoop();
+  808 |
+  809 |       softResetTimeoutRef.current = null;
+
+C:\Users\hp\Documents\GitHub\rubik-page\app\components\scenes\floating-social-orb.tsx:993:3
+   991 |   };
+   992 |
+>  993 |   const startIdleDanceLoop = () => {
+       |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  994 |     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+       | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  995 |     if (!visibleRef.current) return;
+       …
+       | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 1032 |     }, IDLE_DANCE_EVERY_MS);
+       | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 1033 |   };
+       | ^^^^^ `startIdleDanceLoop` is declared here
+  1034 |
+  1035 |   const restartIdleDanceLoop = () => {
+  1036 |     clearIdleDanceTimers();  react-hooks/immutability
+   813:9   warning  'softSceneChangeReset' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+   946:6   warning  React Hook useEffect has a missing dependency: 'keepOrbAliveOnSceneChange'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 react-hooks/exhaustive-deps
+   980:6   warning  React Hook useEffect has missing dependencies: 'pauseOrbForHiddenTab' and 'restoreOrbAfterTabReturn'. Either include them or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     react-hooks/exhaustive-deps
+  1060:6   warning  React Hook useEffect has missing dependencies: 'clearEyeBlinkTimers', 'clearIdleDanceTimers', 'startEyeBlinkLoop', and 'startIdleDanceLoop'. Either include them or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              react-hooks/exhaustive-deps
+  1105:6   warning  React Hook useEffect has missing dependencies: 'cancelEyesResetAnimation', 'cancelIdleDanceAnimation', 'clearEyeBlinkTimers', and 'clearIdleDanceTimers'. Either include them or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 react-hooks/exhaustive-deps
+  1259:6   warning  React Hook useEffect has missing dependencies: 'scheduleEyesPositionReset' and 'startEyeBlinkLoop'. Either include them or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       react-hooks/exhaustive-deps
+
+C:\Users\hp\Documents\GitHub\rubik-page\app\components\transitions\contact-faq-cloud-transition.tsx
+  493:9  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\hp\Documents\GitHub\rubik-page\app\page.tsx
+  37:10  warning  'CornerSocialPanel' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 12 problems (4 errors, 8 warnings)
+

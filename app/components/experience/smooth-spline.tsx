@@ -27,7 +27,7 @@ type Props = ComponentProps<typeof SplineComponent> & {
 };
 
 // The parent owns the final dimensions. Neither loading nor failure changes them.
-export default function SmoothSpline({ priority = false, active = true, preloadMargin = "400px 0px", appearance = "cube", idle = false, pauseWhenHidden = true, suspendWhenInactive = false, onLoad, ...props }: Props) {
+export default function SmoothSpline({ priority = false, active = true, preloadMargin = "0px", appearance = "cube", idle = false, pauseWhenHidden = true, suspendWhenInactive = false, onLoad, ...props }: Props) {
   const host = useRef<HTMLDivElement>(null);
   const app = useRef<Application | null>(null);
   const callback = useRef(onLoad);
@@ -90,7 +90,7 @@ export default function SmoothSpline({ priority = false, active = true, preloadM
       <div className="smooth-spline-poster" aria-hidden="true"><div className="smooth-spline-silhouette" /></div>
       <div className="smooth-spline-canvas">
         {mount && <SceneBoundary onFailure={() => setFailed(true)}>
-          <Spline {...props} onLoad={(application) => {
+          <Spline {...props} active={active} onLoad={(application) => {
             app.current = application;
             callback.current?.(application);
             // onLoad follows Application.load(). Let React expose the canvas and

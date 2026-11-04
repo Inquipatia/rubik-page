@@ -1,0 +1,1 @@
+PASS: Nodemailer 10.3.1, real loopback SMTP AUTH/envelope/MIME, escaped HTML, notification after simulated DB insert. No external delivery; hosting TLS not tested.

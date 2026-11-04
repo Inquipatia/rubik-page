@@ -1,0 +1,510 @@
+[
+  {
+    "mode": "all",
+    "metrics": {
+      "longTasks": [
+        {
+          "start": 1356.3999999761581,
+          "duration": 210
+        },
+        {
+          "start": 1567.699999988079,
+          "duration": 115
+        },
+        {
+          "start": 2406,
+          "duration": 89
+        },
+        {
+          "start": 2499.5,
+          "duration": 55
+        },
+        {
+          "start": 3370.399999976158,
+          "duration": 617
+        },
+        {
+          "start": 4919,
+          "duration": 169
+        },
+        {
+          "start": 5539.399999976158,
+          "duration": 873
+        },
+        {
+          "start": 6587.699999988079,
+          "duration": 58
+        },
+        {
+          "start": 6670.399999976158,
+          "duration": 1014
+        },
+        {
+          "start": 7691.899999976158,
+          "duration": 742
+        },
+        {
+          "start": 8438.600000023842,
+          "duration": 637
+        },
+        {
+          "start": 9088.5,
+          "duration": 53
+        },
+        {
+          "start": 9169.800000011921,
+          "duration": 532
+        },
+        {
+          "start": 9702.5,
+          "duration": 77
+        },
+        {
+          "start": 10040.100000023842,
+          "duration": 51
+        },
+        {
+          "start": 10259.800000011921,
+          "duration": 206
+        },
+        {
+          "start": 10609,
+          "duration": 50
+        },
+        {
+          "start": 12186.199999988079,
+          "duration": 90
+        },
+        {
+          "start": 12288.199999988079,
+          "duration": 141
+        },
+        {
+          "start": 13011.600000023842,
+          "duration": 78
+        },
+        {
+          "start": 13377.899999976158,
+          "duration": 1495
+        },
+        {
+          "start": 14909.800000011921,
+          "duration": 248
+        },
+        {
+          "start": 15169.100000023842,
+          "duration": 1785
+        },
+        {
+          "start": 16955.80000001192,
+          "duration": 58
+        },
+        {
+          "start": 17017.19999998808,
+          "duration": 207
+        },
+        {
+          "start": 17232.80000001192,
+          "duration": 366
+        },
+        {
+          "start": 17598.899999976158,
+          "duration": 52
+        },
+        {
+          "start": 17655.100000023842,
+          "duration": 366
+        },
+        {
+          "start": 18024.5,
+          "duration": 905
+        },
+        {
+          "start": 18956.69999998808,
+          "duration": 553
+        },
+        {
+          "start": 19533.100000023842,
+          "duration": 319
+        },
+        {
+          "start": 19865.399999976158,
+          "duration": 69
+        },
+        {
+          "start": 19995.19999998808,
+          "duration": 76
+        },
+        {
+          "start": 20076.80000001192,
+          "duration": 54
+        },
+        {
+          "start": 20133.19999998808,
+          "duration": 130
+        },
+        {
+          "start": 20269.19999998808,
+          "duration": 92
+        },
+        {
+          "start": 20400.899999976158,
+          "duration": 130
+        },
+        {
+          "start": 20539.80000001192,
+          "duration": 180
+        },
+        {
+          "start": 20723.80000001192,
+          "duration": 210
+        },
+        {
+          "start": 20951.100000023842,
+          "duration": 327
+        },
+        {
+          "start": 21284,
+          "duration": 145
+        },
+        {
+          "start": 21432.100000023842,
+          "duration": 153
+        },
+        {
+          "start": 21590.69999998808,
+          "duration": 159
+        },
+        {
+          "start": 21803.100000023842,
+          "duration": 100
+        },
+        {
+          "start": 21907.69999998808,
+          "duration": 117
+        },
+        {
+          "start": 22033.5,
+          "duration": 117
+        },
+        {
+          "start": 22151.899999976158,
+          "duration": 103
+        },
+        {
+          "start": 22264.600000023842,
+          "duration": 143
+        },
+        {
+          "start": 22417.600000023842,
+          "duration": 146
+        },
+        {
+          "start": 22567.69999998808,
+          "duration": 106
+        },
+        {
+          "start": 22778.600000023842,
+          "duration": 108
+        },
+        {
+          "start": 22900.100000023842,
+          "duration": 118
+        },
+        {
+          "start": 23076.69999998808,
+          "duration": 62
+        },
+        {
+          "start": 23150.899999976158,
+          "duration": 59
+        },
+        {
+          "start": 23212.100000023842,
+          "duration": 78
+        },
+        {
+          "start": 23297.80000001192,
+          "duration": 87
+        },
+        {
+          "start": 23769.899999976158,
+          "duration": 93
+        },
+        {
+          "start": 23870.899999976158,
+          "duration": 94
+        },
+        {
+          "start": 24001.600000023842,
+          "duration": 84
+        },
+        {
+          "start": 24097.69999998808,
+          "duration": 52
+        },
+        {
+          "start": 24156.19999998808,
+          "duration": 73
+        },
+        {
+          "start": 24436.899999976158,
+          "duration": 80
+        },
+        {
+          "start": 24524,
+          "duration": 99
+        },
+        {
+          "start": 24765.30000001192,
+          "duration": 57
+        },
+        {
+          "start": 24837.19999998808,
+          "duration": 94
+        },
+        {
+          "start": 24932.69999998808,
+          "duration": 97
+        },
+        {
+          "start": 25033.399999976158,
+          "duration": 68
+        },
+        {
+          "start": 25161.399999976158,
+          "duration": 53
+        },
+        {
+          "start": 25215.69999998808,
+          "duration": 52
+        },
+        {
+          "start": 25315.69999998808,
+          "duration": 103
+        },
+        {
+          "start": 25425.5,
+          "duration": 71
+        },
+        {
+          "start": 25504.600000023842,
+          "duration": 81
+        },
+        {
+          "start": 25594.30000001192,
+          "duration": 76
+        },
+        {
+          "start": 25671,
+          "duration": 119
+        },
+        {
+          "start": 25799.30000001192,
+          "duration": 105
+        },
+        {
+          "start": 25913.5,
+          "duration": 102
+        },
+        {
+          "start": 26020.69999998808,
+          "duration": 101
+        },
+        {
+          "start": 26130.69999998808,
+          "duration": 95
+        },
+        {
+          "start": 26233.5,
+          "duration": 83
+        },
+        {
+          "start": 26321.399999976158,
+          "duration": 116
+        },
+        {
+          "start": 28746.100000023842,
+          "duration": 239
+        },
+        {
+          "start": 29015.899999976158,
+          "duration": 105
+        },
+        {
+          "start": 29122.100000023842,
+          "duration": 97
+        },
+        {
+          "start": 29229.600000023842,
+          "duration": 140
+        },
+        {
+          "start": 29396.69999998808,
+          "duration": 103
+        }
+      ],
+      "lcp": 2016,
+      "cls": 0,
+      "ready": [
+        {
+          "scene": "smooth-spline smooth-spline--cube",
+          "time": 8437.899999976158
+        },
+        {
+          "scene": "smooth-spline smooth-spline--orb",
+          "time": 17016.69999998808
+        }
+      ],
+      "fcp": 2016
+    },
+    "blockingMs": 13762,
+    "top": [
+      {
+        "frame": "(idle) @ (native):0:0",
+        "ms": 2690
+      },
+      {
+        "frame": "(program) @ (native):0:0",
+        "ms": 2587
+      },
+      {
+        "frame": "_copyImageToTexture @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:106:97506",
+        "ms": 1752
+      },
+      {
+        "frame": "N @ http://127.0.0.1:3200/_next/static/chunks/turbopack-44ns1ikdx1edk.js:1:5890",
+        "ms": 1354
+      },
+      {
+        "frame": "build @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:2:6228",
+        "ms": 714
+      },
+      {
+        "frame": "beginRender @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:216:13593",
+        "ms": 614
+      },
+      {
+        "frame": "_renderScene @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:13:3422",
+        "ms": 582
+      },
+      {
+        "frame": "xO @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:106:78936",
+        "ms": 502
+      },
+      {
+        "frame": "_renderBundle @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:13:319",
+        "ms": 308
+      },
+      {
+        "frame": "updateNode @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:10:1339",
+        "ms": 288
+      },
+      {
+        "frame": "updateBinding @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:214:5888",
+        "ms": 276
+      },
+      {
+        "frame": "render @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:13:1320",
+        "ms": 275
+      },
+      {
+        "frame": "_getChildren @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:2:3580",
+        "ms": 233
+      },
+      {
+        "frame": "renderSplineScene @ http://127.0.0.1:3200/_next/static/chunks/42lx07o5psz71.js:1:89927",
+        "ms": 214
+      },
+      {
+        "frame": "getDataFromNode @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:8:83898",
+        "ms": 213
+      },
+      {
+        "frame": "(garbage collector) @ (native):0:0",
+        "ms": 194
+      },
+      {
+        "frame": "finishRender @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:216:17442",
+        "ms": 182
+      },
+      {
+        "frame": "_getDefaultRenderPassDescriptor @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:216:10219",
+        "ms": 177
+      },
+      {
+        "frame": "updateMatrix4 @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:13:29558",
+        "ms": 172
+      },
+      {
+        "frame": "build @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:5:2561",
+        "ms": 171
+      },
+      {
+        "frame": "get value @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:8:70438",
+        "ms": 170
+      },
+      {
+        "frame": "update @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:13:27440",
+        "ms": 155
+      },
+      {
+        "frame": "copyTextureToTexture @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:216:32485",
+        "ms": 150
+      },
+      {
+        "frame": "build @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:2:9933",
+        "ms": 149
+      },
+      {
+        "frame": "_draw @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:216:21828",
+        "ms": 145
+      },
+      {
+        "frame": "getChildren @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:2:3400",
+        "ms": 136
+      },
+      {
+        "frame": "_update @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:7:158724",
+        "ms": 120
+      },
+      {
+        "frame": "updateAttributes @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:7:146788",
+        "ms": 117
+      },
+      {
+        "frame": "getNodeType @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:2:4765",
+        "ms": 109
+      },
+      {
+        "frame": "update @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:2:26406",
+        "ms": 103
+      },
+      {
+        "frame": "_getRenderPassDescriptor @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:216:11533",
+        "ms": 102
+      },
+      {
+        "frame": "copy @ http://127.0.0.1:3200/_next/static/chunks/1svmzf0r2sjs-.js:1:41413",
+        "ms": 99
+      },
+      {
+        "frame": "analyze @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:2:5597",
+        "ms": 96
+      },
+      {
+        "frame": "multiplyMatrices @ http://127.0.0.1:3200/_next/static/chunks/1svmzf0r2sjs-.js:1:44129",
+        "ms": 95
+      },
+      {
+        "frame": "build @ http://127.0.0.1:3200/_next/static/chunks/1k6r4xjkab890.js:7:172665",
+        "ms": 91
+      }
+    ],
+    "resources": [
+      "https://prod.spline.design/wk0u6G-MY2bbyF6i/scene.splinecode",
+      "https://prod.spline.design/rWCCsSXcaU52lNsR/scene.splinecode"
+    ],
+    "profilePath": "C:\\Users\\hp\\AppData\\Local\\Temp\\rubik-serialized-all.cpuprofile"
+  }
+]
