@@ -1,0 +1,8 @@
+[
+  {
+    "@typescript-eslint/utils": "8.72.1",
+    "@typescript-eslint/parser": "8.72.1",
+    "@typescript-eslint/eslint-plugin": "8.72.1",
+    "@typescript-eslint/typescript-estree": "8.72.1"
+  }
+]

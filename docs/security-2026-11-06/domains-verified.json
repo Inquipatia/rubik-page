@@ -1,0 +1,417 @@
+{
+  "checkedAt": "2026-11-06T13:50:19.158Z",
+  "dnsSource": "Google Public DNS over validated HTTPS (local UDP resolver unavailable)",
+  "dns": {
+    "rubikcreaciones.cl": {
+      "AAAA": {
+        "status": 0,
+        "answers": [
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 28,
+            "TTL": 300,
+            "data": "2a02:4780:13:1624:0:18c7:a84e:2"
+          }
+        ],
+        "values": [
+          "2a02:4780:13:1624:0:18c7:a84e:2"
+        ]
+      },
+      "A": {
+        "status": 0,
+        "answers": [
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 1,
+            "TTL": 300,
+            "data": "195.200.3.45"
+          }
+        ],
+        "values": [
+          "195.200.3.45"
+        ]
+      },
+      "NS": {
+        "status": 0,
+        "answers": [
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 2,
+            "TTL": 21600,
+            "data": "eoin.ns.cloudflare.com."
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 2,
+            "TTL": 21600,
+            "data": "nataly.ns.cloudflare.com."
+          }
+        ],
+        "values": [
+          "eoin.ns.cloudflare.com.",
+          "nataly.ns.cloudflare.com."
+        ]
+      },
+      "CAA": {
+        "status": 0,
+        "answers": [
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issue \"digicert.com; cansignhttpexchanges=yes\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issuewild \"letsencrypt.org\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issue \"letsencrypt.org\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issue \"ssl.com\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issuewild \"digicert.com; cansignhttpexchanges=yes\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issue \"comodoca.com\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issue \"sectigo.com\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issuewild \"ssl.com\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issuewild \"pki.goog; cansignhttpexchanges=yes\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issuewild \"sectigo.com\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issue \"pki.goog; cansignhttpexchanges=yes\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issuewild \"comodoca.com\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issuewild \"globalsign.com\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issue \"globalsign.com\""
+          }
+        ],
+        "values": [
+          "0 issue \"digicert.com; cansignhttpexchanges=yes\"",
+          "0 issuewild \"letsencrypt.org\"",
+          "0 issue \"letsencrypt.org\"",
+          "0 issue \"ssl.com\"",
+          "0 issuewild \"digicert.com; cansignhttpexchanges=yes\"",
+          "0 issue \"comodoca.com\"",
+          "0 issue \"sectigo.com\"",
+          "0 issuewild \"ssl.com\"",
+          "0 issuewild \"pki.goog; cansignhttpexchanges=yes\"",
+          "0 issuewild \"sectigo.com\"",
+          "0 issue \"pki.goog; cansignhttpexchanges=yes\"",
+          "0 issuewild \"comodoca.com\"",
+          "0 issuewild \"globalsign.com\"",
+          "0 issue \"globalsign.com\""
+        ]
+      },
+      "CNAME": {
+        "status": 0,
+        "answers": [],
+        "values": []
+      }
+    },
+    "www.rubikcreaciones.cl": {
+      "AAAA": {
+        "status": 0,
+        "answers": [
+          {
+            "name": "www.rubikcreaciones.cl.",
+            "type": 5,
+            "TTL": 300,
+            "data": "rubikcreaciones.cl."
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 28,
+            "TTL": 300,
+            "data": "2a02:4780:13:1624:0:18c7:a84e:2"
+          }
+        ],
+        "values": [
+          "2a02:4780:13:1624:0:18c7:a84e:2"
+        ]
+      },
+      "CNAME": {
+        "status": 0,
+        "answers": [
+          {
+            "name": "www.rubikcreaciones.cl.",
+            "type": 5,
+            "TTL": 300,
+            "data": "rubikcreaciones.cl."
+          }
+        ],
+        "values": [
+          "rubikcreaciones.cl."
+        ]
+      },
+      "A": {
+        "status": 0,
+        "answers": [
+          {
+            "name": "www.rubikcreaciones.cl.",
+            "type": 5,
+            "TTL": 300,
+            "data": "rubikcreaciones.cl."
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 1,
+            "TTL": 300,
+            "data": "195.200.3.45"
+          }
+        ],
+        "values": [
+          "195.200.3.45"
+        ]
+      },
+      "NS": {
+        "status": 0,
+        "answers": [
+          {
+            "name": "www.rubikcreaciones.cl.",
+            "type": 5,
+            "TTL": 300,
+            "data": "rubikcreaciones.cl."
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 2,
+            "TTL": 21600,
+            "data": "eoin.ns.cloudflare.com."
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 2,
+            "TTL": 21600,
+            "data": "nataly.ns.cloudflare.com."
+          }
+        ],
+        "values": [
+          "eoin.ns.cloudflare.com.",
+          "nataly.ns.cloudflare.com."
+        ]
+      },
+      "CAA": {
+        "status": 0,
+        "answers": [
+          {
+            "name": "www.rubikcreaciones.cl.",
+            "type": 5,
+            "TTL": 300,
+            "data": "rubikcreaciones.cl."
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issue \"pki.goog; cansignhttpexchanges=yes\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issuewild \"pki.goog; cansignhttpexchanges=yes\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issuewild \"digicert.com; cansignhttpexchanges=yes\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issuewild \"ssl.com\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issuewild \"globalsign.com\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issue \"digicert.com; cansignhttpexchanges=yes\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issue \"ssl.com\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issue \"sectigo.com\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issuewild \"letsencrypt.org\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issuewild \"comodoca.com\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issuewild \"sectigo.com\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issue \"globalsign.com\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issue \"comodoca.com\""
+          },
+          {
+            "name": "rubikcreaciones.cl.",
+            "type": 257,
+            "TTL": 3600,
+            "data": "0 issue \"letsencrypt.org\""
+          }
+        ],
+        "values": [
+          "0 issue \"pki.goog; cansignhttpexchanges=yes\"",
+          "0 issuewild \"pki.goog; cansignhttpexchanges=yes\"",
+          "0 issuewild \"digicert.com; cansignhttpexchanges=yes\"",
+          "0 issuewild \"ssl.com\"",
+          "0 issuewild \"globalsign.com\"",
+          "0 issue \"digicert.com; cansignhttpexchanges=yes\"",
+          "0 issue \"ssl.com\"",
+          "0 issue \"sectigo.com\"",
+          "0 issuewild \"letsencrypt.org\"",
+          "0 issuewild \"comodoca.com\"",
+          "0 issuewild \"sectigo.com\"",
+          "0 issue \"globalsign.com\"",
+          "0 issue \"comodoca.com\"",
+          "0 issue \"letsencrypt.org\""
+        ]
+      }
+    }
+  },
+  "tls": [
+    {
+      "domain": "rubikcreaciones.cl",
+      "ip": "2a02:4780:13:1624:0:18c7:a84e:2",
+      "authorized": false,
+      "code": "ENETUNREACH",
+      "error": "connect ENETUNREACH 2a02:4780:13:1624:0:18c7:a84e:2:443"
+    },
+    {
+      "domain": "rubikcreaciones.cl",
+      "ip": "195.200.3.45",
+      "authorized": false,
+      "code": "CERT_HAS_EXPIRED",
+      "error": "certificate has expired"
+    },
+    {
+      "domain": "www.rubikcreaciones.cl",
+      "ip": "2a02:4780:13:1624:0:18c7:a84e:2",
+      "authorized": false,
+      "code": "ENETUNREACH",
+      "error": "connect ENETUNREACH 2a02:4780:13:1624:0:18c7:a84e:2:443"
+    },
+    {
+      "domain": "www.rubikcreaciones.cl",
+      "ip": "195.200.3.45",
+      "authorized": false,
+      "code": "CERT_HAS_EXPIRED",
+      "error": "certificate has expired"
+    }
+  ],
+  "http": [
+    {
+      "url": "http://rubikcreaciones.cl/",
+      "status": 301,
+      "location": "https://rubikcreaciones.cl/",
+      "server": "LiteSpeed",
+      "date": "Fri, 06 Nov 2026 13:50:20 GMT"
+    },
+    {
+      "url": "https://www.rubikcreaciones.cl/",
+      "code": "CERT_HAS_EXPIRED",
+      "error": "certificate has expired"
+    },
+    {
+      "url": "https://rubikcreaciones.cl/",
+      "code": "CERT_HAS_EXPIRED",
+      "error": "certificate has expired"
+    },
+    {
+      "url": "http://www.rubikcreaciones.cl/",
+      "status": 301,
+      "location": "https://www.rubikcreaciones.cl/",
+      "server": "LiteSpeed",
+      "date": "Fri, 06 Nov 2026 13:50:20 GMT"
+    }
+  ]
+}

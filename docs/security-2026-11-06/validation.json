@@ -1,0 +1,7 @@
+{
+  "node": "22.23.4",
+  "build": 0,
+  "typescript": 0,
+  "quoteApi": 0,
+  "lint": 1
+}

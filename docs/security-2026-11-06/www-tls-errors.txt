@@ -1,0 +1,9 @@
+Connecting to 195.200.3.45
+depth=2 C=US, O=Internet Security Research Group, CN=ISRG Root X1
+verify return:1
+depth=1 C=US, O=Let's Encrypt, CN=R11
+verify return:1
+depth=0 CN=rubikcreaciones.cl
+verify error:num=10:certificate has expired
+notAfter=Sep 16 19:21:27 2024 GMT
+100000000A000000:error:0A000086:SSL routines:tls_post_process_server_certificate:certificate verify failed:ssl/statem/statem_clnt.c:2124:

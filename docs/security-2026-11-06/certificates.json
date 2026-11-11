@@ -1,0 +1,18 @@
+{
+  "www": {
+    "subject": "CN=rubikcreaciones.cl",
+    "issuer": "C=US\nO=Let's Encrypt\nCN=R11",
+    "validFrom": "Jun 18 19:21:28 2024 GMT",
+    "validTo": "Sep 16 19:21:27 2024 GMT",
+    "subjectAltName": "DNS:rubikcreaciones.cl, DNS:www.rubikcreaciones.cl",
+    "fingerprint256": "20:87:A7:89:7A:9C:47:CD:78:EB:90:2A:A3:AB:E8:15:91:40:29:E5:4D:0E:6C:9A:79:5E:A0:5D:B1:2B:8E:A6"
+  },
+  "apex": {
+    "subject": "CN=rubikcreaciones.cl",
+    "issuer": "C=US\nO=Let's Encrypt\nCN=R11",
+    "validFrom": "Jun 18 19:21:28 2024 GMT",
+    "validTo": "Sep 16 19:21:27 2024 GMT",
+    "subjectAltName": "DNS:rubikcreaciones.cl, DNS:www.rubikcreaciones.cl",
+    "fingerprint256": "20:87:A7:89:7A:9C:47:CD:78:EB:90:2A:A3:AB:E8:15:91:40:29:E5:4D:0E:6C:9A:79:5E:A0:5D:B1:2B:8E:A6"
+  }
+}

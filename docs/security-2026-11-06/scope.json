@@ -1,0 +1,6 @@
+{
+  "onlyExistingFileChanged": "package-lock.json",
+  "changedPackagesDevOnly": true,
+  "webpackPreserved": true,
+  "sourceAssetsConfigurationTestsUnchanged": true
+}
